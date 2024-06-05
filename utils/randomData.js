@@ -1,0 +1,28 @@
+const { faker } = require('@faker-js/faker/locale/en_US')
+
+/**
+ * @returns {{firstName: string, lastName: string}}
+ */
+function firstAndLastName () {
+    return {
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName()
+    }
+  }
+  /**
+ * @returns {{firstName: string, lastName: string, preferredContactMethod: string, phone: string, email: string}}
+ */
+function fullContactData (contactData = {}, nameSuffix) {
+    if (typeof contactData === 'string') {
+      nameSuffix = contactData
+      contactData = {}
+    }
+    const firstName = contactData.firstName || faker.name.firstName()
+    const lastName = `${contactData.lastName || faker.name.lastName()}${nameSuffix || ''}`
+    return {
+      firstName,
+      lastName,
+      email: faker.internet.email(firstName, lastName),
+      phone: faker.phone.number('!##!######'),
+    }
+  }
