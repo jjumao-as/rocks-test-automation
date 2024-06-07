@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-// import LoginPage from './pages/loginPage';
 const { HomePage, LoginPage } = require('./pages/index.js');
 
 var env = "https://preprod.fullscale.rocks/";
@@ -18,7 +17,6 @@ test.describe('Creating Weekly Floor Report', () => {
     test('Creating Weekly Report with Green Status', async ({ page }) => {
 
         // Opening the Weekly Floor Report Form    
-        //await page.pause();
         await page.getByRole('link', { name: ' Create Weekly Floor Report' }).click();
         await page.getByRole('heading', { name: 'Create Weekly Floor Report' }).isVisible();
         await expect(page.locator('#modalTitle')).toHaveText('Create Weekly Floor Report');
@@ -49,7 +47,6 @@ test.describe('Creating Weekly Floor Report', () => {
     test('Creating Weekly Floor Report with Orange Status', async ({ page }) => {
 
         // Opening the Weekly Floor Report Form
-        //await page.pause();
         await page.getByRole('link', { name: ' Create Weekly Floor Report' }).click();
         await page.getByRole('heading', { name: 'Create Weekly Floor Report' }).isVisible();
         await expect(page.locator('#modalTitle')).toHaveText('Create Weekly Floor Report');
@@ -86,7 +83,6 @@ test.describe('Creating Weekly Floor Report', () => {
     test('Creating Weekly Floor Report with Red Status', async ({ page }) => {
 
         // Opening the Weekly Floor Report Form
-        //await page.pause();
         await page.getByRole('link', { name: ' Create Weekly Floor Report' }).click();
         await page.getByRole('heading', { name: 'Create Weekly Floor Report' }).isVisible();
         await expect(page.locator('#modalTitle')).toHaveText('Create Weekly Floor Report');
