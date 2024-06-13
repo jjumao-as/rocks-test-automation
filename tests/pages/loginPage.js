@@ -152,7 +152,7 @@ exports.LoginPage = class LoginPage {
   }
   
   async openRocks(rocksENV) {
-    await this.page.goto(`https://${rocksENV}fullscale.rocks/login`);
+    await this.page.goto(`https://${rocksENV}fullscale.rocks/login`, { timeout: 190000 });
   }
   // login function
   async login(username, password) {
