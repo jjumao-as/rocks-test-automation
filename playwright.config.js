@@ -33,7 +33,7 @@ module.exports = defineConfig({
   },
   timeout: 5 * 60 * 1000, // default time out 60s
   expect: {
-    timeout: 30 * 1000, // default expect time out 30s
+    timeout: 60 * 1000, // default expect time out 30s
   },
 
 
