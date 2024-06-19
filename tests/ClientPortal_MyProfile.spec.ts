@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 const { HomePage, LoginPage } = require('./pages/index.js');
 const constants = require('./config/constants.js');
-const fakedata =require('./../utils/randomData.js')
+const { fullContactData, firstAndLastName, getRandomTimezone} = require('../utils/randomData.js')
 //GLOBAL VARIABLE
 let homePage
 let page
@@ -15,7 +15,7 @@ test.beforeAll('Login to portal', async ({ browser }) => {
     await expect(page.getByText('Dashboard')).toBeVisible();
 });
 test.afterEach(async ({ page }) => {
-   // await page.close();
+    await page.close();
   })
 test('Confirm Client Dashboard', async () => {
     //Check on sections
@@ -46,23 +46,33 @@ test('Update profile check UI', async () => {
    await expect(page.getByRole('checkbox', {name: 'QA Testing'})).toBeVisible()
    await expect(page.getByRole('checkbox', {name: 'Mobile Development'})).toBeVisible()
 });
-test.skip('Update profile', async () => {
+test('Update profile', async () => {
     await homePage.navigateMyProfile();
    // await expect(homePage.MyProfileButton).toHaveClass(/active-menu-tile/)
    await expect(homePage.MyProfileTitle).toBeVisible()
    //Input form
    const testData = {
-    needHelp: [
-        "Web Development",
-        "QA Testing",
-        "Mobile Development"
-    ]
-
+    needHelp: ['Web Development'],
+    techUsed: 'NodeJS',
+    otherTech: 'React',
+    currentlyOnTeam: ['Lead Developer', 'Product Manager']
    };
    await homePage.udpateProfile(testData);
-   await expect(page.getByRole('checkbox', {name: 'Web Development'})).toBeVisible()
+   await homePage.saveUpdates();
+   await homePage.navigateHOme();
+   await homePage.navigateMyProfile();
+   //Assert
+   await testData.needHelp.forEach(element => {
+    expect(page.getByLabel(element)).toBeChecked()
+   });
+   await testData.currentlyOnTeam.forEach(element => {
+    expect(page.getByLabel(element)).toBeChecked()
+   });
+   //TO DO assert field
+   //await expect(homePage.techUseField).toContainText(testData.techUsed)
+   //await expect(homePage.otherTechUseField).toContainText(testData.otherTech)
 });
-test.skip('My Contacts check UI', async () => {
+test('My Contacts check UI', async () => {
     await homePage.navigateMyContacts();
     await expect(page.getByText('My Contacts')).toBeVisible();
    //Confirm column headers
@@ -76,25 +86,48 @@ test.skip('My Contacts check UI', async () => {
    await expect(homePage.addContactButton).toBeVisible()
 
 });
-test.skip('My Contacts Add - Cancel', async () => {
+test('My Contacts Add - Cancel', async () => {
+    const testData = {
+        name: `${firstAndLastName().firstName} ${firstAndLastName().lastName}`,
+        email: fullContactData().email,
+        countryCode: '',
+        phoneNumber: fullContactData().phone,
+        agreements: true
+    }
     await homePage.navigateMyContacts();
     await expect(page.getByText('My Contacts')).toBeVisible();
+    await homePage.openAddContact();
+    await homePage.fillUpContactForm(testData);
+    await homePage.cancelContact();
+    await expect(page.getByRole('gridcell', {name: testData.name})).not.toBeVisible();
+    await expect(page.getByRole('gridcell', {name: testData.email})).not.toBeVisible();
 
 });
-test.skip('My Contacts Add - Save', async () => {
+test('My Contacts Add - Save', async () => {
+    const testData = {
+        name: `${firstAndLastName().firstName} ${firstAndLastName().lastName}`,
+        email: fullContactData().email,
+        countryCode: '',
+        phoneNumber: fullContactData().phone,
+        agreements: true
+    }
     await homePage.navigateMyContacts();
     await expect(page.getByText('My Contacts')).toBeVisible();
-   //Assert for labels on Edit profile
-   await expect(page.getByText('What do you need help with?')).toBeVisible();
-   await expect(page.getByText('What tech does or will your project use?')).toBeVisible();
-   await expect(page.getByText('Other technologies you use')).toBeVisible();
-   await expect(page.getByText('Which of the following are currently on your team?')).toBeVisible();
-   //Assert What do you need help with? options
-   await expect(page.getByRole('checkbox', {name: 'Web Development'})).toBeVisible();
-   await expect(page.getByRole('checkbox', {name: 'QA Testing'})).toBeVisible();
-   await expect(page.getByRole('checkbox', {name: 'Mobile Development'})).toBeVisible();
+    await homePage.openAddContact();
+    await homePage.fillUpContactForm(testData);
+    await homePage.saveUpdates();
+    await expect(page.getByRole('gridcell', {name: testData.name})).toBeVisible();
+    await expect(page.getByRole('gridcell', {name: testData.email})).toBeVisible();
 
 });
+test('Update time zone', async () => {
+  await homePage.openChangeTimeZone();
+  await homePage.updateTimeZone('(GMT-04:00) America, Kentucky, Monticello');
+  await homePage.setTimeZone();
+  await homePage.closeTimeZoneModal();
+  await homePage.openChangeTimeZone();
+  await expect(page.locator('#modalDescription span.selection')).toContainText('(GMT-04:00) America, Kentucky, Monticello');
+})
 test('Find Talent Check UI', async () => {
     await homePage.navigateFindTalent();
     await expect(page.getByRole('heading', {name: 'Find Talent'})).toBeVisible();
