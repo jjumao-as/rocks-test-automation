@@ -19,6 +19,12 @@ exports.HomePage = class HomePage {
     this.changeTimeZoneButton = page.locator('span', {hasText: 'Change Timezone'})   
     //My Profile Elements
     this.MyProfileTitle = page.locator('span', { hasText: 'Technical Profile' })
+    this.searchBar = page.getByPlaceholder('Search Rocks');
+    this.searchName = page.getByText('Macasaet, Luis Francisco Trinidad Employee');
+    this.skillEditButton = page.locator('.fs-field > .card > .card-header > .btn');
+    this.skillNightWatch = page.locator('.col-lg-12 > div:nth-child(6)').first();
+    this.showInProfile = page.locator('//*[@id="skill"]/div[2]/div[6]/div[5]/div');
+    this.saveShowInProfile = page.getByRole('button', { name: 'Save' });
     //----What do you need help checkboxes
     this.checkboxWebDevelopment = page.locator('#__BVID__60')
     this.checkboxQATesting = page.locator('#__BVID__61')
@@ -44,8 +50,24 @@ exports.HomePage = class HomePage {
     //Find Talent Elements
     this.searchField = page.getByPlaceholder('Enter a skill, language, or framework')
     this.talentDrawerButton = page.getByTitle('Click to open')
-    this.searchButton = page.getByTitle('Search')
     this.addToTeamButton = page.getByTitle('Add to Team')
+    this.findTalentUrl = page.getByRole('button', { name: ' Find Talent' });
+    this.firstTalent = page.locator('.card-footer > .btn').first();
+    this.aboutMe = page.getByRole('heading', { name: 'About Me' });
+    this.skills = page.getByRole('heading', { name: 'Skills' });
+    this.clientSpotlight = page.getByRole('heading', { name: 'Client Spotlight' });
+    this.competencies = page.getByRole('heading', { name: 'Competencies', exact: true });
+    this.workExperience = page.getByRole('heading', { name: 'Work Experience' });
+    this.education = page.getByRole('heading', { name: 'Education' });
+    this.yearsOfExperience = page.getByRole('heading', { name: 'Years of Experience' });
+    this.availability = page.getByRole('heading', { name: 'Availability' });
+    this.otherTalent = page.getByText('Other Talent:');
+    this.otherTalentfirst = page.locator('#modalDescription').getByRole('link', { name: 'VIEW PROFILE' }).first();
+    this.bookACallButton = page.getByRole('link', { name: 'Book a Call' });
+    this.closeButtonProfile = page.getByRole('link', { name: '' });
+    this.searchSkill = page.getByPlaceholder('Enter a skill, language, or');
+    this.searchButton = page.getByTitle('Search');
+    this.clickDropdown = page.getByText('Nightwatch');
   }
   // Dynamic elements
   selectTalent (talentName) {
@@ -53,13 +75,13 @@ exports.HomePage = class HomePage {
   }
   // CLIENT PORTAL FUNCTIONS =========================================================================================
   //==================================================================================================================
-  async navigateMyProfile () {
+  async navigateMyProfile() {
     return await this.MyProfileButton.click()
   }
-  async navigateMyContacts () {
+  async navigateMyContacts() {
     return await this.MyContactsButton.click()
   }
-  async navigateFindTalent () {
+  async navigateFindTalent() {
     return await this.FindTalentButton.click()
   }
   async navigateHOme () {
@@ -85,7 +107,7 @@ exports.HomePage = class HomePage {
 
   // MY PROFILE FUNCTIONS ===========================================================================================
   //==================================================================================================================
-  async udpateProfile (testData) {
+  async udpateProfile(testData) {
     //What do you need help with? section
     await this.checkboxWebDevelopment.uncheck( { force: true } )
     await this.checkboxQATesting.uncheck( { force: true } )
@@ -130,20 +152,20 @@ exports.HomePage = class HomePage {
 
   // MY CONTACTS FUNCTIONS ===========================================================================================
   //==================================================================================================================
-  async openAddContact () {
+  async openAddContact() {
     await this.addContactButton.click()
     await expect(this.page.getByRole('heading', { name: 'Add Contact' })).toBeVisible();
   }
-  async fillUpContactForm (testData) {
+  async fillUpContactForm(testData) {
     await this.addContactNameField.fill(testData.name)
     await this.addContactEmailField.fill(testData.email)
     //await this.addContactCountryCode.selectOption(testData.countryCode)
     await this.addContactPhoneNumber.fill(testData.phoneNumber)
   }
-  async saveContact () {
+  async saveContact() {
     await this.addContactSaveButton.click()
   }
-  async cancelContact () {
+  async cancelContact() {
     await this.addContactCancelButton.click()
   }
   /* TO DO EDIT HAVING TROUBLE CLICKING SPECIFIC EDIT BUTTON ON THE SELECTED CONTACT
@@ -154,7 +176,7 @@ exports.HomePage = class HomePage {
   // MY CONTACTS END OF FUNCTIONS ====================================================================================
   //==================================================================================================================
 
-    // FIND TALENT FUNCTIONS ===========================================================================================
+  // FIND TALENT FUNCTIONS ===========================================================================================
   //==================================================================================================================
   async searchTalent (talentData) {
     await this.searchField.fill(talentData);
@@ -176,4 +198,45 @@ exports.HomePage = class HomePage {
   }
   // FIND TALENT END OF FUNCTIONS ====================================================================================
   //==================================================================================================================
+  // FIND TALENT FUNCTIONS============================================================================================
+  //==================================================================================================================
+  async navigateFindTalent() {
+    return await this.findTalentUrl.click();
+  }
+  async selectFirstTalent() {
+    await this.firstTalent.click();
+  }
+  async checkStaticSections() {
+    await this.yearsOfExperience.textContent('Years of Experience');
+    await this.availability.textContent('Availability');
+    await this.otherTalent.textContent('Other Talent:')
+  }
+  async selectOtherTalent() {
+    await this.otherTalentfirst.click();
+  }
+  async closePopupProfilePage() {
+    await this.closeButtonProfile.click();
+  }
+  async openBookACallModal() {
+    await this.bookACallButton.click();
+  }
+  async enterSkillToSearch() {
+    await this.searchSkill.click();
+    await this.searchSkill.fill('Nightwatch');
+    await this.searchSkill.press('Enter');
+  }
+  // FIND TALENT END OF FUNCTIONS ====================================================================================
+  //==================================================================================================================
+
+  // TEST ARTIFACTS============================================================================================
+  //==================================================================================================================
+  async clickShowInProfile() {
+    await this.searchBar.click();
+    await this.searchBar.fill('Luis Macasaet');
+    await this.searchName.click();
+    await this.skillEditButton.click();
+    await this.skillNightWatch.isVisible();
+    await this.showInProfile.click();
+    await this.saveShowInProfile.click();
+  }
 }

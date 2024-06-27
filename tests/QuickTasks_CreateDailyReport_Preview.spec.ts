@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import loginPage from "./pages/login.page.ts";
+const { LoginPage } = require('./pages/index.js');
 
     // 3 servers URLs. Uncomment the server to used
  //var env ="https://dev.fullscale.rocks/";
@@ -8,7 +8,7 @@ import loginPage from "./pages/login.page.ts";
 
 
 test.beforeEach('Login to portal', async ({ page }) => {
-    const lp = new loginPage(page);
+    const lp = new LoginPage(page);
 
     // 3 login URLs. Uncomment the login url to used
   //await lp.gotoDev();
