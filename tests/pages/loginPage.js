@@ -6,9 +6,9 @@ exports.LoginPage = class LoginPage {
   constructor (page) {
     this.page = page
     //Locators
-    this.email = page.getByPlaceholder('Email/User Name');
-    this.password = page.getByPlaceholder('Password');
-    this.signIn = page.getByRole('button', { name: 'SIGN IN' });
+    this.email = page.locator('input[name="email"]');
+    this.password = page.locator('input[name="password"]');
+    this.signIn = page.locator('button[type="submit"]');
     this.superAdminWelcomeText = page.getByText('Hi darrell, what would you');
     this.dailyReport = page.getByRole('link', { name: ' Create Daily Report' });
     this.dailyReportTitle = page.getByRole('heading', { name: 'Daily Reports' });
