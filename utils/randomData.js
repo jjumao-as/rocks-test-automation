@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker/locale/en_US')
-
+const tz = require('../tests/config/timezones.js')
 /**
  * @returns {{firstName: string, lastName: string}}
  */
@@ -25,4 +25,12 @@ function fullContactData (contactData = {}, nameSuffix) {
       email: faker.internet.email(firstName, lastName),
       phone: faker.phone.number('!##!######'),
     }
+  }
+  function getRandomTimezone () {
+    return faker.helpers.arrayElement(tz.TIMEZONE)
+  }
+  module.exports = {
+    firstAndLastName,
+    fullContactData,
+    getRandomTimezone
   }

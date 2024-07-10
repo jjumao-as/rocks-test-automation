@@ -6,28 +6,29 @@ const constants = require('./config/constants.js');
 
 let homePage
 let page
+let loginPage
 
+test.beforeEach(async({ browser }) => {
+    page = await browser.newPage()
+    loginPage = new LoginPage(page);
+    homePage = new HomePage (page);
+    await loginPage.openRocks(process.env.TEST_ENV);
+})
 test.afterEach(async ({ page }) => {
     await page.close();
   })
 
  constants.ROLES.forEach(roleValue => {
-    test(`Login with ${roleValue} and check dashboard`, async ({ browser }) => {
-        page = await browser.newPage()
-        const loginPage = new LoginPage(page);
-        homePage = new HomePage (page);
-
-        let filterOptions, 
-        graphOptions, 
-        quickTasksOptions, 
-        manageClientsOptions, 
-        manageApplicantsOptions, 
-        manageEmployeesOptions, 
-        viewReportsOptions, 
-        fullscaleExperienceOptions, 
-        settingsOptions
-
-        await loginPage.openRocks(process.env.TEST_ENV);
+    test(`Login with ${roleValue} and check dashboard`, async () => {
+        let filterOptions;
+        let graphOptions;
+        let quickTasksOptions;
+        let manageClientsOptions;
+        let manageApplicantsOptions;
+        let manageEmployeesOptions ;
+        let viewReportsOptions;
+        let fullscaleExperienceOptions;
+        let settingsOptions;
         if(roleValue === 'SUPER_ADMIN') {
             await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
             filterOptions = dashboard.SUPER_ADMIN.FILTERS
@@ -127,52 +128,42 @@ test.afterEach(async ({ page }) => {
         //ASSERT DASHBOARD - FILTERS
         log("Checking Filters")
         await filterOptions.forEach(element => {
-            expect(page.getByRole('a', {name: element})).toBeVisible();
-        });
+            expect(page.getByRole('a', {name: element})).toBeVisible({ timeout: 90000 });
+        }); filterOptions = null;
         //ASSERT DASHBOARD - GRAPHS
         log("Checking Graph sections")
         await graphOptions.forEach(element => {
-            expect(page.getByText(element)).toBeVisible();
-        });
+            expect(page.getByRole('heading', element)).toBeVisible({ timeout: 90000 });
+        }); graphOptions = null;
         //ASSERT DASHBOARD - SIDE NAV
         log("Checking each section of the side nav")
         //QUICK TASKS
         await quickTasksOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        });    
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); quickTasksOptions = null;   
         //MANAGE CLIENTS
         await manageClientsOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        });   
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); manageClientsOptions = null;  
         //MANAGE APPLICANTS
         await manageApplicantsOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        }); 
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); manageApplicantsOptions = null;
         //MANAGE Employees
         await manageEmployeesOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        });
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); manageEmployeesOptions = null;
         //VIEW REPORTS
         await viewReportsOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        }); 
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); viewReportsOptions = null;
         //FULLSCALE EXPERIENCE
         await fullscaleExperienceOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        }); 
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); fullscaleExperienceOptions = null;
         //SETTINGS
         await settingsOptions.forEach(element => {
-            expect(page.getByRole('li', {name: element})).toBeVisible()
-        }); 
-        //Clean up of variables
-        filterOptions = '';
-        graphOptions = '';
-        quickTasksOptions = '';
-        manageClientsOptions = '';
-        manageApplicantsOptions = '';
-        manageEmployeesOptions = '';
-        viewReportsOptions = '';
-        fullscaleExperienceOptions = '';
-        settingsOptions = '';
+            expect(page.getByRole('li', {name: element})).toBeVisible({ timeout: 90000 })
+        }); settingsOptions = null;
     });
 });

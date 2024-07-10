@@ -1,0 +1,32 @@
+const TIMEZONE =    
+["(GMT-04:00) America, Indiana, Petersburg",
+"(GMT-04:00) America, Indiana, Vevay",
+"(GMT-04:00) America, Indiana, Vincennes",
+"(GMT-04:00) America, Indiana, Winamac",
+"(GMT-04:00) America, Iqaluit",
+"(GMT-04:00) America, Kentucky, Louisville",
+"(GMT-04:00) America, Kentucky, Monticello",
+"(GMT-04:00) America, New York",
+"(GMT-04:00) America, Toronto",
+"(GMT-05:00) America, Atikokan",
+"(GMT-05:00) America, Chicago",
+"(GMT-05:00) America, Indiana, Knox",
+"(GMT-05:00) America, Indiana, Tell City",
+"(GMT-05:00) America, Menominee",
+"(GMT-05:00) America, North Dakota, Beulah",
+"(GMT-05:00) America, North Dakota, Center",
+"(GMT-05:00) America, North Dakota, New Salem",
+"(GMT-05:00) America, Rankin Inlet",
+"(GMT-05:00) America, Resolute",
+"(GMT-05:00) America, Winnipeg",
+"(GMT-06:00) America, Boise",
+"(GMT-06:00) America, Cambridge Bay",
+"(GMT-06:00) America, Denver",
+"(GMT-06:00) America, Edmonton",
+"(GMT-06:00) America, Inuvik",
+"(GMT-06:00) America, Regina",
+"(GMT-06:00) America, Swift Current"
+]
+Object.freeze(TIMEZONE)
+
+module.exports = TIMEZONE
