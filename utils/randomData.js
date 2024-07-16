@@ -17,8 +17,8 @@ function fullContactData (contactData = {}, nameSuffix) {
       nameSuffix = contactData
       contactData = {}
     }
-    const firstName = contactData.firstName || faker.name.firstName()
-    const lastName = `${contactData.lastName || faker.name.lastName()}${nameSuffix || ''}`
+    const firstName = contactData.firstName || faker.person.firstName()
+    const lastName = `${contactData.lastName || faker.person.lastName()}${nameSuffix || ''}`
     return {
       firstName,
       lastName,

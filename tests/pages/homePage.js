@@ -52,6 +52,7 @@ exports.HomePage = class HomePage {
     this.talentDrawerButton = page.getByTitle('Click to open')
     this.addToTeamButton = page.getByTitle('Add to Team')
     this.findTalentUrl = page.getByRole('button', { name: ' Find Talent' });
+    this.ClientfindTalentUrl = page.getByRole('link', { name: ' Find Talent' })
     this.firstTalent = page.locator('.card-footer > .btn').first();
     this.aboutMe = page.getByRole('heading', { name: 'About Me' });
     this.skills = page.getByRole('heading', { name: 'Skills' });
@@ -202,6 +203,9 @@ exports.HomePage = class HomePage {
   //==================================================================================================================
   async navigateFindTalent() {
     return await this.findTalentUrl.click();
+  }
+  async navigateClientFindTalent() {
+    return await this.ClientfindTalentUrl.click();
   }
   async selectFirstTalent() {
     await this.firstTalent.click();
