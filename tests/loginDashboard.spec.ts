@@ -12,7 +12,7 @@ test.beforeEach(async({ browser }) => {
     page = await browser.newPage()
     loginPage = new LoginPage(page);
     homePage = new HomePage (page);
-    await loginPage.openRocks(process.env.TEST_ENV);
+    await loginPage.openRocks();
 })
 test.afterEach(async ({ page }) => {
     await page.close();

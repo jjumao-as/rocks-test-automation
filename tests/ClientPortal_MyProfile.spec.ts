@@ -10,7 +10,6 @@ test.beforeAll('Login to portal', async ({ browser }) => {
           page = await browser.newPage()
     const loginPage = new LoginPage(page);
           homePage = new HomePage (page);
-    await loginPage.openRocks(process.env.TEST_ENV);
     await loginPage.login(process.env.CLIENT, process.env.PASSWORD);
     await expect(page.getByText('Dashboard')).toBeVisible();
 });

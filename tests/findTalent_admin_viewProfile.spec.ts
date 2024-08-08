@@ -12,7 +12,6 @@ test('Find Talent View Profile', async ({ browser }) => {
   const loginPage = new LoginPage(page);
   const homePage = new HomePage(page);
   // Login to Rocks with Admin role
-  await loginPage.openRocks(process.env.TEST_ENV);
   await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
   // Navigating to Find Talent
   await homePage.navigateFindTalent();
