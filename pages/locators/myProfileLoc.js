@@ -1,0 +1,20 @@
+module.exports = {
+    technicalProfile : "//span[text()='Technical Profile']",
+    helpWith : "//span[contains(text(),'What do you need help with')]",
+    techUse : "//span[contains(text(),'What tech does')]",
+    otherTech : "//span[contains(text(),'Other technologies')]",
+    currentlyOnTeam : "//span[contains(text(),'currently on your team')]",
+    checkboxWebDevelopment : "//span[text()='Web Development']/parent::label/preceding-sibling::input",
+    checkboxQATesting : "//span[text()='QA Testing']/parent::label/preceding-sibling::input",
+    checkboxMobileDevelopment : "//span[text()='Mobile Development']/parent::label/preceding-sibling::input",
+    myProfileCheckboxes: "//input[@type='checkbox']/following-sibling::label",
+    prefix: "//span[contains(text(),'",
+    suffix: "')]",
+    parentLabel: "/parent::label",
+    techUsedField: "//div[@class='multiselect__select']",
+    techUsedOptions: "//li[@class='multiselect__element']/span/span",
+    otherTechField: "//span[contains(text(),'Other tech')]/parent::label/following-sibling::div/input",
+    currentlyOnTeamCheckboxes: "//span[contains(text(),'currently on your team')]/parent::label/following-sibling::div//label",
+    profileSaveButton : "//button[text()='SAVE']",
+    homePageButton : "//a[@title='Go to homepage']"
+}

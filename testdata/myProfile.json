@@ -1,0 +1,29 @@
+{
+  "updateProfile": {
+    "needHelp": [
+      "Web Development"
+    ],
+    "techUsed": "NodeJS",
+    "otherTech": "React",
+    "currentlyOnTeamUntick": [
+      "None"
+    ],
+    "currentlyOnTeam": [
+      "Lead Developer",
+      "Product Manager"
+    ]
+  },
+  "timeZone": "(GMT-04:00) America, Kentucky, Monticello",
+  "talent": {
+    "skill": "QA Lead",
+    "nameProfile": "Enrico Jerome B"
+  },
+  "contacts": [
+    {
+      "firstName": "Mercedes",
+      "lastName": "McLaughlin",
+      "email": "Mercedes_McLaughlin9@gmail.com",
+      "phoneNumber": "K55r347691"
+    }
+  ]
+}
