@@ -1,0 +1,18 @@
+module.exports = {
+    findTalentLabel : "//h4[text()='Find Talent']",
+    enterSkillField : "//input[contains(@placeholder,'Enter a skill')]",
+    talentDrawerButton : "//div[@id='drawer-popover-addToTeam']/parent::a",
+    searchingLabel : "//p[contains(text(),'Searching')]",
+    searchButton : "//div[contains(@class,'btn-search')]",
+    weFoundCount : "//p[contains(text(),'We found')]/strong[1]",
+    searchResult : "//div[contains(@class,'resource-grid-item')]",
+    searchItems : "//li[contains(@class,'tags-input-typeahead-item')]",
+    firstTalent : "(//span[text()='VIEW PROFILE'])[1]",
+    profileName : "//h2[contains(@class,'profile-name')]",
+    profileFirstName : "//h2[contains(@class,'profile-name')]/span[@class='first-name']",
+    profileLastName : "//h2[contains(@class,'profile-name')]/span[@class='last-name']",
+    addToTeam : "//span[text()='Add to team']/parent::a",
+    pendingLists : "//a[contains(@class,'photo-card-user-names')]",
+    removeTalent : "i.fs-x-btn",
+    sidePanel : "#fsSideDrawer",
+}

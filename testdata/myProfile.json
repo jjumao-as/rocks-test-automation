@@ -18,12 +18,10 @@
     "skill": "QA Lead",
     "nameProfile": "Enrico Jerome B"
   },
-  "contacts": [
-    {
-      "firstName": "Mercedes",
-      "lastName": "McLaughlin",
-      "email": "Mercedes_McLaughlin9@gmail.com",
-      "phoneNumber": "K55r347691"
-    }
-  ]
+  "contacts": {
+    "firstName": "Myrtice",
+    "lastName": "Veum",
+    "email": "Myrtice.Veum97@hotmail.com",
+    "phoneNumber": "B13N950519"
+  }
 }

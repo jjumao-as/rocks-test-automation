@@ -9,5 +9,12 @@ module.exports = {
     documentsAgreementButton : "//span[text()='Documents & Agreements']",
     manageTeamButton : "//span[text()='Manage Team']",
     reportingButton : "//span[text()='Reporting']",
-    needHelpButton : "//h4[contains(text(),'Need Help')]"
+    needHelpButton : "//h4[contains(text(),'Need Help')]",
+    profileDropdown : "//div[contains(@class,'nav-item dropdown')]/a",
+    changeTimeZone : "//span[text()='Change Timezone']",
+    timeZoneSelection : "//section[@id='modalDescription']//span[@class='selection']",
+    setTimeZoneButton : "//span[text()='Set']/parent::button",
+    closeTimeZoneModal : "//button[contains(@class,'btn-close')]",
+    timeZoneField : "//section[@id='modalDescription']//span[@class='selection']//span[contains(@id,'select2-timezone')]",
+    
 }

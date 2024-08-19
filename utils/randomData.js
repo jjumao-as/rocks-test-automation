@@ -49,7 +49,7 @@ function savedContact() {
     }
   }
 
-  existingData.contacts=[fullContactData()];
+  existingData.contacts=fullContactData();
 
   // Convert updated data to JSON format
   const updatedJsonData = JSON.stringify(existingData, null, 2);

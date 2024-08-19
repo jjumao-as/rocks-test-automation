@@ -1,5 +1,6 @@
 const homeLocators = require('../locators/homeLoc');
 const myProfileLocators = require('../locators/myProfileLoc');
+const myContactsLocators = require('../locators/myContactsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 
 exports.HomePage = class HomePage {
@@ -15,6 +16,11 @@ exports.HomePage = class HomePage {
     async navigateMyProfile() {
         await this.actionDriver.clickButton(homeLocators.myProfileButton);
         await this.actionDriver.checkElementVisibility(myProfileLocators.technicalProfile);
+    }
+
+    async navigateMyContacts() {
+        await this.actionDriver.clickButton(homeLocators.myContactButton);
+        await this.actionDriver.checkElementVisibility(myContactsLocators.myContacts);
     }
 
     async checkSectionsVisibility(){
@@ -34,4 +40,31 @@ exports.HomePage = class HomePage {
         await this.actionDriver.checkElementVisibility(homeLocators.needHelpButton);
     }
 
+    async openChangeTimeZone(){
+        await this.actionDriver.clickButton(homeLocators.profileDropdown);
+        await this.actionDriver.clickButton(homeLocators.changeTimeZone);
+    }
+
+    async updateTimeZone(timeZoneData){
+        await this.actionDriver.clickButton(homeLocators.timeZoneSelection);
+        await this.actionDriver.typeText(timeZoneData);
+        await this.actionDriver.keyboardPress('Enter');
+    }
+
+    async closeTimeZoneModal(){
+        await this.actionDriver.clickButton(homeLocators.closeTimeZoneModal);
+    }
+
+    async setTimeZone(){
+        await this.actionDriver.clickButton(homeLocators.setTimeZoneButton);
+    }
+
+    async verifyTimeZone(timeZoneData){
+        await this.actionDriver.expectEquals(timeZoneData, homeLocators.timeZoneField);
+    }
+
+    async navigateFindTalent(){
+        await this.actionDriver.clickButton(homeLocators.findTalentButton);
+        await this.page.waitForLoadState();
+    }
 }
