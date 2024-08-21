@@ -1,0 +1,27 @@
+{
+  "updateProfile": {
+    "needHelp": [
+      "Web Development"
+    ],
+    "techUsed": "NodeJS",
+    "otherTech": "React",
+    "currentlyOnTeamUntick": [
+      "None"
+    ],
+    "currentlyOnTeam": [
+      "Lead Developer",
+      "Product Manager"
+    ]
+  },
+  "timeZone": "(GMT-04:00) America, Kentucky, Monticello",
+  "talent": {
+    "skill": "QA Lead",
+    "nameProfile": "Enrico Jerome B"
+  },
+  "contacts": {
+    "firstName": "Myrtice",
+    "lastName": "Veum",
+    "email": "Myrtice.Veum97@hotmail.com",
+    "phoneNumber": "B13N950519"
+  }
+}
