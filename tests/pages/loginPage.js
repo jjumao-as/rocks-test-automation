@@ -1,3 +1,5 @@
+const { expect } = require('@playwright/test');
+
 exports.LoginPage = class LoginPage {
   /**
    * @param {import('@playwright/test').Page} page
@@ -166,6 +168,7 @@ exports.LoginPage = class LoginPage {
   async logout() {
     await  this.dropdownMenu.click();
     await this.superAdminLogout.click();
+    await expect(this.email).toBeVisible()
   }
 
   // specific super admin login

@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 
+
 class ActionDriver {
     constructor(page) {
         this.page = page;
@@ -7,6 +8,7 @@ class ActionDriver {
 
     async setText(element, text) {
         await this.page.fill(element, text);
+      
     }
 
     async clickButton(element) {
@@ -15,6 +17,7 @@ class ActionDriver {
 
     async checkVisibility(text) {
         await expect(this.page.getByText(text)).toBeVisible();
+        
     }
 
     async expectFalse(result) {
@@ -32,6 +35,7 @@ class ActionDriver {
     async expectEquals(text, element) {
         const received = await this.getText(element);
         await expect(received).toEqual(text);
+        
     }
 
     async expectToHaveCount(element, number) {
@@ -49,6 +53,15 @@ class ActionDriver {
                 break;
             }
         }
+    }
+
+    async selectOption(element){
+        const dropdown = await this.page.locator(element)
+        const optionCount = await dropdown.locator('option').count()
+        const randomIndex = Math.floor(Math.random() * optionCount)
+
+        await dropdown.selectOption({index : randomIndex})
+
     }
 
     async findText(text, element) {

@@ -16,7 +16,13 @@ exports.HomePage = class HomePage {
     this.NeedHelpButton = page.locator('h4', {hasText: 'Need Help'})
     this.homePageButton = page.getByTitle('Go to homepage') 
     this.dropdownMenu = page.locator('.nav-item.dropdown.ks-user')    
-    this.changeTimeZoneButton = page.locator('span', {hasText: 'Change Timezone'})   
+    this.changeTimeZoneButton = page.locator('span', {hasText: 'Change Timezone'})
+    
+    // Left Side-Nav Elements
+    this.submitFeedbackLink = page.getByRole('button', { name: ' Submit Feedback' });
+    this.feedbackFormListingLink = page.getByRole('button', { name: ' Feedback' })
+    this.homeButton = page.getByRole('button', { name: ' Home' })
+
     //My Profile Elements
     this.MyProfileTitle = page.locator('span', { hasText: 'Technical Profile' })
     this.searchBar = page.getByPlaceholder('Search Rocks');
@@ -243,4 +249,18 @@ exports.HomePage = class HomePage {
     await this.showInProfile.click();
     await this.saveShowInProfile.click();
   }
+
+  // Submit Feedback
+
+   async isInHomePage(){
+     await expect(this.homeButton).toBeVisible()
+   }
+
+   async goToSubmitFeedback(){
+    await this.submitFeedbackLink.click()
+   }
+
+   async goToFeedbackList(){
+    await this.feedbackFormListingLink.click()
+   }
 }
