@@ -1,12 +1,11 @@
 import { test } from '@playwright/test';
-import { LoginPage, HomePage, QuickTasksPage, EmployeesPage } from '../pages/functions/index.js';
-import { readJsonFile } from '../utils/jsonReader'
+const { LoginPage, HomePage, QuickTasksPage, EmployeesPage } = require ('../../pages/functions/index.js');
+import { readJsonFile } from '../../utils/jsonReader.js'
 
 let loginPage;
 let homePage;
 let submitFeedbackPage;
 let viewFeedBackPage;
-
 let testDataPath;
 let testData;
 
@@ -16,10 +15,8 @@ test.beforeEach(async ({page}) =>{
     homePage = new HomePage(page);
     submitFeedbackPage = new QuickTasksPage(page)
     viewFeedBackPage = new EmployeesPage(page)
-
     testDataPath = 'feedback';
     testData = await readJsonFile(testDataPath);
-
 })
 
 
