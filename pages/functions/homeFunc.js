@@ -1,3 +1,4 @@
+const loginLocators = require('../locators/loginLoc');
 const homeLocators = require('../locators/homeLoc');
 const myProfileLocators = require('../locators/myProfileLoc');
 const myContactsLocators = require('../locators/myContactsLoc');
@@ -66,5 +67,30 @@ exports.HomePage = class HomePage {
     async navigateFindTalent(){
         await this.actionDriver.clickButton(homeLocators.findTalentButton);
         await this.page.waitForLoadState();
+    }
+
+    async navigateToSubmitFeedback(){
+        await this.actionDriver.checkElementVisibility(homeLocators.submitFeedback)
+        await this.actionDriver.clickButton(homeLocators.submitFeedback)
+    }
+
+    async navigateToFeedbackList(){
+        await this.actionDriver.checkElementVisibility(homeLocators.feedbackList)
+        await this.actionDriver.clickButton(homeLocators.feedbackList)
+
+    }
+
+    async isInHomePage(){
+        await this.actionDriver.checkElementVisibility(homeLocators.homeButton)
+    }
+
+    async logout() {
+        await this.actionDriver.checkElementVisibility(homeLocators.topDropdown)
+
+        await this.actionDriver.clickButton(homeLocators.topDropdown)
+        await this.actionDriver.clickButton(homeLocators.logoutLink)
+
+        await this.actionDriver.checkElementVisibility(loginLocators.email)
+
     }
 }

@@ -162,5 +162,14 @@ class ActionDriver {
             isVisible = await this.checkElementBottom(element);
         }
     }
+    
+    async selectOptionRandom(element){
+        const dropdown = await this.page.locator(element)
+        const optionCount = await dropdown.locator('option').count()
+        const randomIndex = Math.floor(Math.random() * optionCount)
+
+        await dropdown.selectOption({index : randomIndex})
+
+    }
 }
 module.exports = ActionDriver;

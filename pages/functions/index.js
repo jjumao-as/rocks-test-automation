@@ -6,5 +6,6 @@ module.exports = {
     MyProfilePage: require('./myProfileFunc').MyProfilePage,
     MyContactsPage: require('./myContactsFunc').MyContactsPage,
     FindTalentPage: require('./findTalentFunc').FindTalentPage,
+    QuickTasksPage : require('./quickTasksFunc').QuickTasksPage,
+    EmployeesPage : require('./employeeFunc').EmployeesPage
 }
-    
