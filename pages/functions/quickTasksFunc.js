@@ -14,10 +14,6 @@ exports.QuickTasksPage = class QuickTasksPage {
         this.page = page
         this.actionDriver = new ActionDriver(page);
 
-        this.imagePickerBtn = this.page.getByTitle('Insert Image').locator('a')
-        this.clickToUploadBtn = this.page.getByText('Click here to upload...')
-
-       
     }
 
     async isInFeedbackFormPage() {
@@ -27,7 +23,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async selectCategory() {
-        await this.actionDriver.selectRandomOption(submitFeedbackLocator.categoryDropdown )
+        await this.actionDriver.selectOptionRandom(submitFeedbackLocator.categoryDropdown )
         
     }
 
@@ -42,8 +38,9 @@ exports.QuickTasksPage = class QuickTasksPage {
         try {
             const fileChooserPromise = this.page.waitForEvent('filechooser')
 
-            await this.imagePickerBtn.click()
-            await this.clickToUploadBtn.click()
+            await this.actionDriver.clickButton(submitFeedbackLocator.imagePickerBtn)
+            await this.actionDriver.clickButton(submitFeedbackLocator.clickToUploadBtn)
+
             const fileChooser = await fileChooserPromise;
             const path = require('path')
     

@@ -4,10 +4,10 @@ module.exports = {
     categoryLabel : '//*[@id="__BVID__57"]/div/span/label', 
     categoryDropdown : '//*[@id="select-category_id"]',
     feedback : '.bv-no-focus-ring > div > div.editr--content',
-    sendBtn : '//*[@id="fs-page-holder-container"]/div/div[2]/div/div/div/div/div[3]/button',                               // '.fa > svg > path',
+    sendBtn : '//*[@id="fs-page-holder-container"]/div/div[2]/div/div/div/div/div[3]/button',                         
 
     imagePickerBtn : '.vw-btn-image > svg > path',
-    clickToUploadBtn : '//*[@id="60vwdropzone"]/div',
+    clickToUploadBtn : "//span[text()='Click here to upload...']" ,
     previewImage : '.editr--content > img', 
 
     notification : '#main-wrapper > div:nth-child(3) > div.snotify.snotify-centerTop > div > div.snotifyToast__inner > div.snotifyToast__body',
