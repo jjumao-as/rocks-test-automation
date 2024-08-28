@@ -29,15 +29,25 @@ class ActionDriver {
         await expect(this.page.locator(element)).toBeVisible();
     }
 
-    async checkAllElementsVisibility(element){
+    async checkAllElementsVisibility(element) {
         const elements = await this.page.locator(element).all();
         const visibilityResults = await Promise.all(elements.map(async (el) => {
             return await el.isVisible();
         }));
-        
-        visibilityResults.forEach(async(isVisible, index) => {
+
+        visibilityResults.forEach(async (isVisible, index) => {
             await expect(isVisible).toBeTruthy();
         })
+    }
+
+    async elementVisible(element){
+        const el = await this.page.locator(element);
+        const visible = await el.isVisible();
+        if(visible){
+            return true;
+        } else { 
+            return false;
+        }
     }
 
     async expectEquals(text, element) {
@@ -49,7 +59,7 @@ class ActionDriver {
         await expect(this.page.locator(element)).toHaveCount(number);
     }
 
-    async checkInclude(actual, expected){
+    async checkInclude(actual, expected) {
         await expect(expected).toContain(actual);
     }
 
@@ -66,12 +76,12 @@ class ActionDriver {
         }
     }
 
-    async compareFromList(text, element){
+    async compareFromList(text, element) {
         const elements = await this.page.locator(element).all();
         const extractedTexts = await Promise.all(elements.map(async element => {
             return await element.textContent()
         }));
-        
+
         const pageTextContents = extractedTexts.map(name => name.trim().toLowerCase());
 
         const isIncluded = pageTextContents.includes(text);
@@ -79,7 +89,7 @@ class ActionDriver {
         await expect(isIncluded).toBeFalsy();
     }
 
-    async splitTextComma(text){
+    async splitTextComma(text) {
         return text.split(',');
     }
 
@@ -94,7 +104,7 @@ class ActionDriver {
             }
         }
     }
-    
+
     async typeText(text) {
         await this.page.keyboard.type(text);
     }
@@ -108,7 +118,7 @@ class ActionDriver {
         return textContent.trim();
     }
 
-    async getTextofLastElement(element){
+    async getTextofLastElement(element) {
         const elements = await this.page.locator(element).all();
         const lastElement = elements[elements.length - 1];
         const textContent = await lastElement.textContent();
@@ -119,34 +129,34 @@ class ActionDriver {
         const pageTexts = await this.page.locator(element).allTextContents();
         const pageTextContent = pageTexts.join(' ');
 
-        for(const text of texts){
+        for (const text of texts) {
             await expect(pageTextContent).toContain(text);
         }
     }
 
-    async compareAndSelectList(testData, element, elementButton){
+    async compareAndSelectList(testData, element, elementButton) {
         const elements = await this.page.locator(element).all();
-        const viewProfileBtn =  this.page.locator(elementButton);
+        const viewProfileBtn = this.page.locator(elementButton);
         const extractedTexts = await Promise.all(elements.map(async element => {
             return await element.textContent()
         }));
-        
+
         const pageTextContents = extractedTexts.map(name => name.trim().toLowerCase());
 
-        for(const [index, text] of testData.entries()) {
+        for (const [index, text] of testData.entries()) {
             const textLowerCase = text.toLowerCase();
             const isTextIncluded = pageTextContents.some(pageText => pageText.includes(textLowerCase));
             const textIndex = pageTextContents.indexOf(textLowerCase);
-            if(isTextIncluded){
+            if (isTextIncluded) {
                 await viewProfileBtn.nth(textIndex).click();
                 break;
             }
         }
     }
 
-    async checkElementBottom(element){
+    async checkElementBottom(element) {
         const elementHandle = await this.page.$(element);
-        if(elementHandle){
+        if (elementHandle) {
             const boundingBox = await elementHandle.boundingBox();
             return boundingBox !== null;
         }
@@ -155,7 +165,7 @@ class ActionDriver {
 
     async scrollToBottom(element) {
         let isVisible = false;
-        while(!isVisible){
+        while (!isVisible) {
             await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
             await this.page.waitForTimeout(5000);
 
@@ -170,6 +180,10 @@ class ActionDriver {
 
         await dropdown.selectOption({index : randomIndex})
 
+    }
+
+    async selectOption(text, element) {
+        await this.page.selectOption(element,text);
     }
 }
 module.exports = ActionDriver;

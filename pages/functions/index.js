@@ -1,5 +1,3 @@
-const { FindTalentPage } = require('./findTalentFunc');
-
 module.exports = {
     LoginPage: require('./loginFunc').LoginPage,
     HomePage: require('./homeFunc').HomePage,
@@ -7,5 +5,7 @@ module.exports = {
     MyContactsPage: require('./myContactsFunc').MyContactsPage,
     FindTalentPage: require('./findTalentFunc').FindTalentPage,
     QuickTasksPage : require('./quickTasksFunc').QuickTasksPage,
-    EmployeesPage : require('./employeeFunc').EmployeesPage
+    EmployeesPage : require('./employeeFunc').EmployeesPage,
+    ManageClientsPage: require('./manageClientsFunc').ManageClientsPage,
+    DashboardPage: require('./dashboardFunc').DashboardPage,
 }
