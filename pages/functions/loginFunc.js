@@ -8,11 +8,8 @@ exports.LoginPage = class LoginPage {
         this.actionDriver = new ActionDriver(page);
     }
 
-
-
     async login(username, password) {
         await this.page.goto('/', { timeout: 190000 });
-
         await this.actionDriver.setText(loginLocators.email, username);
         await this.actionDriver.setText(loginLocators.password, password);
         await this.actionDriver.clickButton(loginLocators.signIn);
