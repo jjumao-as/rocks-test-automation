@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { LoginPage, HomePage, SubmitFeedbackPage, ViewFeedbackPage } from '../pages/functions/index.js';
+import { LoginPage, HomePage, QuickTasksPage, EmployeesPage } from '../pages/functions/index.js';
 import { readJsonFile } from '../utils/jsonReader'
 
 let loginPage;
@@ -14,8 +14,8 @@ let testData;
 test.beforeEach(async ({page}) =>{
     loginPage = new LoginPage(page);
     homePage = new HomePage(page);
-    submitFeedbackPage = new SubmitFeedbackPage(page)
-    viewFeedBackPage = new ViewFeedbackPage(page)
+    submitFeedbackPage = new QuickTasksPage(page)
+    viewFeedBackPage = new EmployeesPage(page)
 
     testDataPath = 'feedback';
     testData = await readJsonFile(testDataPath);

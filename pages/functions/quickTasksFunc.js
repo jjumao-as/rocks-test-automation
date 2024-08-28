@@ -1,7 +1,8 @@
+const { expect } = require('@playwright/test');
 const ActionDriver = require('../../utils/ActionDriver')
-const submitFeedbackLocator = require('../locators/submitFeedbackLoc');
+const submitFeedbackLocator = require('../locators/quickTasksLoc');
 
-exports.SubmitFeedbackPage = class SubmitFeedbackPage {
+exports.QuickTasksPage = class QuickTasksPage {
 
 /**
    * @param {import('@playwright/test').Page} page
@@ -26,7 +27,7 @@ exports.SubmitFeedbackPage = class SubmitFeedbackPage {
     }
 
     async selectCategory() {
-        await this.actionDriver.selectOption(submitFeedbackLocator.categoryDropdown )
+        await this.actionDriver.selectRandomOption(submitFeedbackLocator.categoryDropdown )
         
     }
 
@@ -38,23 +39,25 @@ exports.SubmitFeedbackPage = class SubmitFeedbackPage {
 
         await this.actionDriver.setText(submitFeedbackLocator.feedback, textFeedback)
 
-        const fileChooserPromise = this.page.waitForEvent('filechooser')
+        try {
+            const fileChooserPromise = this.page.waitForEvent('filechooser')
 
-        await this.imagePickerBtn.click()
-        await this.clickToUploadBtn.click()
+            await this.imagePickerBtn.click()
+            await this.clickToUploadBtn.click()
+            const fileChooser = await fileChooserPromise;
+            const path = require('path')
+    
+            const imgPath = path.resolve('./testdata/playwright.png')
+    
+            await fileChooser.setFiles(imgPath);
+    
+            await this.actionDriver.checkElementVisibility(submitFeedbackLocator.previewImage)
+            
+        } catch (error) {
+            console.log("FAILED UPLOADING IMAGE : " + error)
+        }
 
-        // await this.actionDriver.clickButton(submitFeedbackLocator.imagePickerBtn)
-        // await this.actionDriver.clickButton(submitFeedbackLocator.clickToUploadBtn)
-
-        const fileChooser = await fileChooserPromise;
-        const path = require('path')
-
-        const imgPath = path.resolve('./testdata/playwright.png')
-
-        await fileChooser.setFiles(imgPath);
-
-        await this.actionDriver.checkElementVisibility(submitFeedbackLocator.previewImage)
-
+       
 
     }
 

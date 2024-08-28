@@ -1,7 +1,7 @@
-const viewFeedbackLoc = require('../locators/viewFeedbackLoc');
+const viewFeedbackLoc = require('../locators/employeeLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 
-exports.ViewFeedbackPage = class ViewFeedbackPage {
+exports.EmployeesPage = class EmployeesPage {
     constructor(page) {
         this.page = page;
         this.actionDriver = new ActionDriver(page);

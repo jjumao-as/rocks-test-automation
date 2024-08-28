@@ -84,4 +84,40 @@ exports.FindTalentPage = class FindTalentPage {
             }
         }
     }
+
+    async compareList(testData){
+        await sleep(5000);
+        await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
+        await this.actionDriver.compareAndSelectList(testData, findTalentLocators.nameList, findTalentLocators.viewProfileButtonList);
+        await sleep(10000);
+    }
+
+    async clickBookACall() { 
+        await this.actionDriver.clickButton(findTalentLocators.bookaCall);
+    }
+
+    async selectTimeSlot(){
+        await this.actionDriver.clickButton(findTalentLocators.firstTimeSlot);
+    }
+
+    async clickBookSchedule() {
+        await this.actionDriver.clickButton(findTalentLocators.bookScheduleModalButton);
+    }
+
+    async verifyBooking() {
+        await this.actionDriver.checkAllElementsVisibility(findTalentLocators.yourBookings);
+    }
+
+    async verifyTimeSlot(){
+        await sleep(5000);
+        const text = await this.actionDriver.getTextofLastElement(findTalentLocators.bookingSchedule);
+        const splitText = await this.actionDriver.splitTextComma(text);
+        await this.actionDriver.compareFromList(splitText[splitText.length - 1], findTalentLocators.timeSlots);
+    }
+
+    async verifySchedule(){
+        const timeSlotSelected = await this.actionDriver.getText(findTalentLocators.firstTimeSlot);
+        const bookingTimeSlot = await this.actionDriver.getText(findTalentLocators.bookingFooter);
+        await this.actionDriver.checkInclude(timeSlotSelected, bookingTimeSlot);
+    }
 }

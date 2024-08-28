@@ -1,7 +1,6 @@
 module.exports = {
 
-
-
+    // Submit Feedback locators
     categoryLabel : '//*[@id="__BVID__57"]/div/span/label', 
     categoryDropdown : '//*[@id="select-category_id"]',
     feedback : '.bv-no-focus-ring > div > div.editr--content',
