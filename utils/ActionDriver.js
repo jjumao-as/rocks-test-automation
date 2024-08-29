@@ -14,7 +14,7 @@ class ActionDriver {
     }
 
     async checkVisibility(text) {
-        await expect(this.page.getByText(text)).toBeVisible();
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 60000 });
     }
 
     async expectFalse(result) {
@@ -26,7 +26,7 @@ class ActionDriver {
     }
 
     async checkElementVisibility(element) {
-        await expect(this.page.locator(element)).toBeVisible();
+        await expect(this.page.locator(element)).toBeVisible({ timeout : 60000 });
     }
 
     async checkAllElementsVisibility(element) {

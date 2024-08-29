@@ -21,11 +21,11 @@ exports.SettingsPage = class SettingsPage {
 
     async setRole(testData){
         await this.actionDriver.toggleOff(settingsLocators.userRoleOnToggle, settingsLocators.userRolesToggle)
-        await sleep(5000);
+        await sleep(10000);
         const display = await this.actionDriver.checkDisplay(testData, settingsLocators.userRoles,  settingsLocators.userRoleOnToggle);
         if(display !== 'inline-block'){
             await this.actionDriver.selectDataFromText(testData, settingsLocators.userRoles, settingsLocators.userRolesToggle);
-            await sleep (5000);
+            await sleep (10000);
         }
         await this.actionDriver.keyboardPress('Escape');
     }
