@@ -121,7 +121,7 @@ exports.QuickTasksPage = class QuickTasksPage {
 
     async checkSubmitFeedbackElementsVisibility(){
         await this.actionDriver.checkElementVisibility(quickTasksLocators.category);
-        await this.actionDriver.checkElementVisibility(quickTasksLocators.feedback);
+        await this.actionDriver.checkElementVisibility(quickTasksLocators.feedbackTab);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.sendButton);
     }
 

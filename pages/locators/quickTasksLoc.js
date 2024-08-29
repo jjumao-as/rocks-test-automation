@@ -75,7 +75,7 @@ module.exports = {
     //Submit Feedback
     submitFeedback : "//span[text()='Submit Feedback']",
     category : "//label[text()='Category']",
-    feedback : "//legend[text()='Feedback']",
+    feedbackTab : "//legend[text()='Feedback']",
     sendButton : "//span[text()='Send']/parent::button",
 
 }
