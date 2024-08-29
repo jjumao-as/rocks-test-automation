@@ -33,3 +33,22 @@ test('Home - Search Active Client', async() => {
     await dashboardPage.viewSearchResult();
     await dashboardPage.verifyClient();
 })
+
+test('Home - Search End of Contract Client', async() => {
+    await dashboardPage.search(testData.search.client.endOfContract);
+    await dashboardPage.checkValidSearchResult();
+    await dashboardPage.viewSearchResult();
+    await dashboardPage.verifyClient();
+})
+
+test('Home - Search Active Employee', async() => {
+    await dashboardPage.search(testData.search.employee.active);
+    await dashboardPage.checkValidSearchResult();
+    await dashboardPage.viewSearchResult();
+    await dashboardPage.verifyTalent();
+})
+
+test('Home - Search Resigned Employee', async() => {
+    await dashboardPage.search(testData.search.employee.resigned);
+    await dashboardPage.checkSearchResultOfResignedEmployee();
+})
