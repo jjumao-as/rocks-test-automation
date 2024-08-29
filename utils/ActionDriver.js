@@ -40,12 +40,12 @@ class ActionDriver {
         })
     }
 
-    async elementVisible(element){
+    async elementVisible(element) {
         const el = await this.page.locator(element);
         const visible = await el.isVisible();
-        if(visible){
+        if (visible) {
             return true;
-        } else { 
+        } else {
             return false;
         }
     }
@@ -154,6 +154,19 @@ class ActionDriver {
         }
     }
 
+    async selectDataFromText(testData, element, elementButton) {
+        const elements = await this.page.locator(element);
+        const toggleButton = this.page.locator(elementButton);
+
+        for (let i = 0; i < await elements.count(); i++) {
+            const el = elements.nth(i);
+            const textContent = await el.textContent();
+            if (textContent.trim().toLowerCase() === testData.toLowerCase()) {
+                await toggleButton.nth(i).click();
+            }
+        }
+    }
+
     async checkElementBottom(element) {
         const elementHandle = await this.page.$(element);
         if (elementHandle) {
@@ -172,18 +185,53 @@ class ActionDriver {
             isVisible = await this.checkElementBottom(element);
         }
     }
-    
-    async selectOptionRandom(element){
+
+    async selectOptionRandom(element) {
         const dropdown = await this.page.locator(element)
         const optionCount = await dropdown.locator('option').count()
         const randomIndex = Math.floor(Math.random() * optionCount)
 
-        await dropdown.selectOption({index : randomIndex})
+        await dropdown.selectOption({ index: randomIndex })
 
     }
 
     async selectOption(text, element) {
-        await this.page.selectOption(element,text);
+        await this.page.selectOption(element, text);
+    }
+
+    async checkDisplay(testData, textElements, buttonElements) {
+        const rowIndex = await this.page.evaluate(({ testData, textElements }) => {
+            const elements = Array.from(document.evaluate(textElements, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null));
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i].textContent.includes(testData)) {
+                    return i;
+                }
+            }
+            return -1;
+        }, { testData, textElements });
+        const displayValue = await this.page.evaluate(({ index, buttonElements }) => {
+            const elements = Array.from(document.evaluate(buttonElements, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null));
+            if (index >= 0 && index < elements.length) {
+                const element = elements[index];
+                const computedStyle = window.getComputedStyle(element);
+                return computedStyle.display;
+            }
+            return null;
+        }, { index: rowIndex, buttonElements });
+
+        return displayValue;
+    }
+
+    async toggleOff(toggleOnElement, toggleElements) {
+        const elementsOn = await this.page.locator(toggleOnElement).elementHandles();
+        for(let i=0; i<elementsOn.length; i++){
+            const element = elementsOn[i];
+            const displayValue = await this.page.evaluate(el => getComputedStyle(el).display, element);
+            if(displayValue === 'block'){
+                const toggleToClick = `(${toggleElements})[${i+1}]`;
+                this.clickButton(toggleToClick);
+            }
+        }
     }
 }
 module.exports = ActionDriver;

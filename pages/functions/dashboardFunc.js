@@ -32,10 +32,20 @@ exports.DashboardPage = class DashboardPage {
         await this.actionDriver.checkElementVisibility(dashboardLocators.myDashboard);
     }
 
+    async checkSalesTabsVisibility() {
+        await this.actionDriver.checkElementVisibility(dashboardLocators.myDashboard);
+    }
+
     async checkDashboardSectionVisibility() {
         await sleep(5000);
         await this.actionDriver.checkElementVisibility(dashboardLocators.yourProductivity);
         await this.actionDriver.checkElementVisibility(dashboardLocators.announcements);
+        await this.actionDriver.checkElementVisibility(dashboardLocators.eventsAndHoliday);
+    }
+
+    async checkSalesDashboardSectionVisibility() {
+        await sleep(5000);
+        await this.actionDriver.checkElementVisibility(dashboardLocators.yourProductivity);
         await this.actionDriver.checkElementVisibility(dashboardLocators.eventsAndHoliday);
     }
 
@@ -116,6 +126,13 @@ exports.DashboardPage = class DashboardPage {
         await this.actionDriver.checkElementVisibility(dashboardLocators.timeClockSummary);
         await this.actionDriver.checkElementVisibility(dashboardLocators.expenseReports);
         await this.actionDriver.checkElementVisibility(dashboardLocators.employeeList);
+    }
+
+    async checkSalesSidePanelVisibility() {
+        await this.actionDriver.checkElementVisibility(dashboardLocators.createDailyReportLink);
+        await this.actionDriver.checkElementVisibility(dashboardLocators.createExpenseReportLink);
+        await this.actionDriver.checkElementVisibility(dashboardLocators.submitSelfPerformanceReviewLink);
+        await this.actionDriver.checkElementVisibility(dashboardLocators.submitFeedbackLink);
     }
 
     async navigateEmployeeDashboard(){
@@ -199,5 +216,10 @@ exports.DashboardPage = class DashboardPage {
         await sleep(3000);
         await this.actionDriver.clickButton(dashboardLocators.emptyFloorManager);
         await sleep(3000);
+    }
+
+    async navigateToUsers(){
+        await this.actionDriver.clickButton(dashboardLocators.users);
+        await sleep (5000);
     }
 }

@@ -134,10 +134,10 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.clickButton(quickTasksLocators.projectField);
         await sleep(2000);
         await this.actionDriver.selectOption(testData, quickTasksLocators.projectField);
-        emailSubject = await this.actionDriver.getText(quickTasksLocators.subjectField);
     }
 
     async setWhatIdid(testData){
+        emailSubject = await this.actionDriver.getText(quickTasksLocators.subjectField);
         await this.actionDriver.clickButton(quickTasksLocators.whatIDidField);
         await this.actionDriver.typeText(testData, quickTasksLocators.whatIDidField);
     }

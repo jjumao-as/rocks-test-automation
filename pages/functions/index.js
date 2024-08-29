@@ -8,4 +8,5 @@ module.exports = {
     EmployeesPage : require('./employeeFunc').EmployeesPage,
     ManageClientsPage: require('./manageClientsFunc').ManageClientsPage,
     DashboardPage: require('./dashboardFunc').DashboardPage,
+    SettingsPage: require('./settingsFunc').SettingsPage,
 }
