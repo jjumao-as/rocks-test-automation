@@ -132,24 +132,3 @@ test('Remove Talent - Pending List', async () => {
     await findTalentPage.removeToTeam();
     await findTalentPage.validateTalentRemoved();
 });
-
-test('Find Talent - Book a call', async() => {
-    //Navigate to Find Talent
-    await homePage.navigateFindTalent();
-    //Compare List of Talents from rockTalents.json to list from the site
-    await findTalentPage.compareList(testData.talents)
-    //Click a book a call
-    await findTalentPage.clickBookACall();
-    //Select Time
-    await findTalentPage.selectTimeSlot();
-    //Assert if schedule is correctly displayed in footer modal.
-    await findTalentPage.verifySchedule();
-    //Book Schedule
-    await findTalentPage.clickBookSchedule();
-    // For verification click book a call
-    await findTalentPage.clickBookACall();
-    //Assert if book a call section is displayed
-    await findTalentPage.verifyBooking();
-    //Assert if selected time is not displayed
-    await findTalentPage.verifyTimeSlot();
-})

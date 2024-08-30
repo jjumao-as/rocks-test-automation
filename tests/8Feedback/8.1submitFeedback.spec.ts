@@ -4,8 +4,8 @@ import { readJsonFile } from '../../utils/jsonReader.js'
 
 let loginPage;
 let homePage;
-let submitFeedbackPage;
-let viewFeedBackPage;
+let quickTasksPage;
+let employeesPage;
 let testDataPath;
 let testData;
 
@@ -13,8 +13,8 @@ let testData;
 test.beforeEach(async ({page}) =>{
     loginPage = new LoginPage(page);
     homePage = new HomePage(page);
-    submitFeedbackPage = new QuickTasksPage(page)
-    viewFeedBackPage = new EmployeesPage(page)
+    quickTasksPage = new QuickTasksPage(page)
+    employeesPage = new EmployeesPage(page)
     testDataPath = 'feedback';
     testData = await readJsonFile(testDataPath);
 })
@@ -34,11 +34,11 @@ test('Employee submits text feedback and viewed by SuperAdmin', async () => {
     await homePage.isInHomePage()
     await homePage.navigateToSubmitFeedback()
    
-    await submitFeedbackPage.isInFeedbackFormPage()
-    await submitFeedbackPage.selectCategory()
-    await submitFeedbackPage.enterTextFeedback(testData.submitFeedback.feedbackNote[0])
-    await submitFeedbackPage.submitFeedback()
-    await submitFeedbackPage.isFeedbackSubmitted()
+    await quickTasksPage.isInFeedbackFormPage()
+    await quickTasksPage.selectCategory()
+    await quickTasksPage.enterTextFeedback(testData.submitFeedback.feedbackNote[0])
+    await quickTasksPage.submitFeedback()
+    await quickTasksPage.isFeedbackSubmitted()
 
     await homePage.logout()
 
@@ -47,8 +47,8 @@ test('Employee submits text feedback and viewed by SuperAdmin', async () => {
     await homePage.isInHomePage()
     await homePage.navigateToFeedbackList()
 
-    await viewFeedBackPage.isInFeedbackListing()
-    await viewFeedBackPage.viewFeedbackAdded()
+    await employeesPage.isInFeedbackListing()
+    await employeesPage.viewFeedbackAdded()
 
 
 
@@ -62,11 +62,11 @@ test('Employee submits feedback with image attachment and viewed by SuperAdmin',
     await homePage.isInHomePage()
     await homePage.navigateToSubmitFeedback()
 
-    await submitFeedbackPage.isInFeedbackFormPage()
-    await submitFeedbackPage.selectCategory()
-    await submitFeedbackPage.enterTextWithImageFeedback(testData.submitFeedback.feedbackNote[3])
-    await submitFeedbackPage.submitFeedback()
-    await submitFeedbackPage.isFeedbackSubmitted()
+    await quickTasksPage.isInFeedbackFormPage()
+    await quickTasksPage.selectCategory()
+    await quickTasksPage.enterTextWithImageFeedback(testData.submitFeedback.feedbackNote[3])
+    await quickTasksPage.submitFeedback()
+    await quickTasksPage.isFeedbackSubmitted()
 
     await homePage.logout()
 
@@ -75,8 +75,8 @@ test('Employee submits feedback with image attachment and viewed by SuperAdmin',
     await homePage.isInHomePage()
     await homePage.navigateToFeedbackList()
 
-    await viewFeedBackPage.isInFeedbackListing()
-    await viewFeedBackPage.viewFeedbackAdded()
+    await employeesPage.isInFeedbackListing()
+    await employeesPage.viewFeedbackAdded()
 
 });
 

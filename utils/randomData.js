@@ -1,8 +1,8 @@
 const { faker } = require('@faker-js/faker/locale/en_US')
-const tz = require('../tests/config/timezones.js')
 const fs = require('fs');
 const path = require('path');
 const dataPath = path.join(__dirname, '../testdata/myProfile.json');
+const { readJsonFile } = require('../utils/jsonReader');
 /**
  * @returns {{firstName: string, lastName: string}}
  */
@@ -33,7 +33,9 @@ function fullContactData(contactData = {}, nameSuffix) {
   }
 }
 function getRandomTimezone() {
-  return faker.helpers.arrayElement(tz.TIMEZONE)
+  testDataPath = 'timeZone';
+  tz = readJsonFile(testDataPath);
+  return faker.helpers.arrayElement(tz.timeZone)
 }
 
 function savedContact() {
