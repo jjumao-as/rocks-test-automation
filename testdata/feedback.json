@@ -1,0 +1,42 @@
+{
+    "submitFeedback" : {
+
+        "feedbackCategory" : [
+            "Caterer",
+            "Client On-boarding",
+            "Disciplinary Action",
+            "Employee",
+            "Equipment",
+            "Events and Activities",
+            "Facilities",
+            "Food and Beverages",
+            "Full Scale",
+            "HMO",
+            "HR",
+            "Internet",
+            "Leaves",
+            "Lunch Out",
+            "Management",
+            "Massage and Facial",
+            "Others",
+            "Overtime",
+            "Parking",
+            "Performance Evaluation",
+            "Rocks Chat Support",
+            "Services",
+            "Team Leads",
+            "Training"
+        ],
+        
+        "feedbackNote" : [
+        "A massive thank you for all of your help collecting the data points and the content for the board meeting. I was really pleased with how the presentation landed and hung together. It wouldn't have been as slick if it wasn't for your assistance and input. Thank you!", 
+        "Your willingness and ability to collaborate with other teams is something we can all learn from. Thank you for offering up your time to help others do their role better through sharing your knowledge, like sharing your insights with the sales team so they could better understand customer needs and why they love working with us", 
+        "What a week! I'm really proud of the work you've put into arguably the best tender submission we’ve ever drafted. You've done an amazing job of spinning that plate along with numerous demos, follow-ups and proposals. You're doing an awesome job and I'm delighted to have you in our team. Enjoy the weekend, you've earned it",
+        "Sample Rocks with feedback with TEXT and IMAGE attachment"
+        ]
+
+      
+
+        
+    }
+}

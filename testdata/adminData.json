@@ -1,0 +1,15 @@
+{
+    "search" : {
+        "client" : {
+            "active" : "EmployeeDB",
+            "endOfContract" : "Foresight Reporting, Inc"
+        },
+        "employee" : {
+            "resigned" : "Abarquez, Wendell Guangco",
+            "active" : "Casanova, Dax Gabriel Mayol"
+        }
+    },
+    "project": "LendingStandard",
+    "update": "Sample Update.",
+    "profileOptions" : ["My Profile", "Change Password", "Change Timezone", "Email Signature Template", "Logout"]
+}

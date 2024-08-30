@@ -18,7 +18,7 @@ let findTalentPage;
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
 })
-test.beforeEach(async ({browser : b}) => {
+test.beforeEach(async () => {
     context = await browser.newContext();
     page = await context.newPage();
     loginPage = new LoginPage(page);

@@ -1,2 +1,5 @@
-/.env
-/node_modules
+.env
+node_modules
+/playwright-report
+/test-results
+summary.json

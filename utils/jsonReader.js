@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function readJsonFile(filePath) {
-    const resolvedPath = path.resolve(__dirname, '../testData/' + filePath + '.json');
+    const resolvedPath = path.resolve(__dirname, '../testdata/' + filePath + '.json');
 
     if (fs.existsSync(resolvedPath)) {
         try {
