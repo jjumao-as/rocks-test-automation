@@ -11,7 +11,7 @@ curl -X POST -H "Content-type: application/json" \
     "name": "Automation Test Notification",
     "image": "https://img.freepik.com/premium-vector/hazard-warning-attention-sign-with-exclamation-mark-symbol-white_231786-5218.jpg?w=360"
   },
-       "text": "*'$JOB_NAME'* at *'$BRANCH_NAME'*",
+       "text": "Running *'$JOB_BASE_NAME'* \nCheckout the logs here: *'$JOB_URL'*",
        "broadcast": "true",
        "card": {
          "title": "[INFO] Starting automation test: ",
