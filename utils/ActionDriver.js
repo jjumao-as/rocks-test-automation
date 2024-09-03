@@ -57,10 +57,12 @@ class ActionDriver {
 
     async expectToHaveCount(element, number) {
         await expect(this.page.locator(element)).toHaveCount(number);
+        
     }
 
     async checkInclude(actual, expected) {
-        await expect(expected).toContain(actual);
+        const contains = actual.includes(expected)
+        await this.expectTrue(contains)
     }
 
     async selectFromList(text, element) {
@@ -233,5 +235,16 @@ class ActionDriver {
             }
         }
     }
+
+    async elementCount(element){
+        const count = await this.page.locator(element).count();
+        return count;
+    }
+
+    async hoverElement(element){
+       await this.page.hover(element)
+    }
+
+
 }
 module.exports = ActionDriver;
