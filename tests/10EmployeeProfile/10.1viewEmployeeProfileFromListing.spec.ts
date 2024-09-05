@@ -1,6 +1,6 @@
-import { expect, test } from '@playwright/test';
-import {roles} from '../testdata/rolesForParallel'
-const { LoginPage, HomePage, QuickTasksPage, EmployeesPage, DashboardPage } = require ('../pages/functions/index');
+import { test } from '@playwright/test';
+import { roles } from '../../testdata/rolesForParallel';
+import { LoginPage, HomePage, QuickTasksPage, EmployeesPage, DashboardPage } from '../../pages/functions/index';
 
 let context;
 let page;
@@ -9,7 +9,6 @@ let homePage;
 let quickTasksPage;
 let employeesPage;
 let dashboardPage;
-
 
 const rolesToTest = ['SUPERADMIN', 'ADMIN', 'HR', 'FLOOR']
 
@@ -27,16 +26,13 @@ rolesToTest.forEach(role => {
             quickTasksPage = new QuickTasksPage(page)
             employeesPage = new EmployeesPage(page)
             dashboardPage = new DashboardPage(page)
-
         })
 
         test.afterEach(async ({page}) => {
             await page.close()
-            
         });
 
         test(`${role} views Employee Profile from Employee Listing`, async() => {
-            
             await loginPage.login(username, password)
             await homePage.isInHomePage()
         
@@ -45,22 +41,6 @@ rolesToTest.forEach(role => {
             await employeesPage.isInEmployeeList()
             await employeesPage.selectEmployee()
             await employeesPage.isInEmployeeProfile()
-        
-        
         });
-        
-        
-        
-
-
     })
-
-
 })
-
-
-
-
-
-
-
