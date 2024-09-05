@@ -53,7 +53,7 @@ module.exports = {
     //Find Talent
     findTalents : "//span[text()='Find Talent']",
 
-    //Employees
+    //Employees (superadmin, admin)
     employeeList : "//span[text()='Employee List']",
     performanceReviews : "//span[text()='Performance Reviews']",
 

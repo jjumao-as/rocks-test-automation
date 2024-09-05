@@ -2,6 +2,8 @@ const loginLocators = require('../locators/loginLoc');
 const homeLocators = require('../locators/homeLoc');
 const myProfileLocators = require('../locators/myProfileLoc');
 const myContactsLocators = require('../locators/myContactsLoc');
+const dashboardLocators = require('../locators/dashboardLoc');
+
 const ActionDriver = require('../../utils/ActionDriver');
 
 exports.HomePage = class HomePage {
@@ -78,6 +80,11 @@ exports.HomePage = class HomePage {
         await this.actionDriver.checkElementVisibility(homeLocators.feedbackList)
         await this.actionDriver.clickButton(homeLocators.feedbackList)
 
+    }
+
+    async navigateToEmployeeList(){
+        await this.actionDriver.checkElementVisibility(dashboardLocators.employeeList)
+        await this.actionDriver.clickButton(dashboardLocators.employeeList)
     }
 
     async isInHomePage(){
