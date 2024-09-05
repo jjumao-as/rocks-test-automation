@@ -61,8 +61,7 @@ class ActionDriver {
     }
 
     async checkInclude(actual, expected) {
-        const contains = actual.includes(expected)
-        await this.expectTrue(contains)
+        await expect(expected).toContain(actual)
     }
 
     async selectFromList(text, element) {
