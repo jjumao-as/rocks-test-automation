@@ -22,10 +22,7 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async navigateClientListing(){
         await this.actionDriver.clickButton(manageClientsocators.clientListing);
-    }
-
-    async checkClientListingVisibility() {
-        await this.actionDriver.checkElementVisibility(manageClientsocators.reviewClientProspects);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.exportCurrentRecordsBtn);
     }
 
     async downloadExportCurrentRecords(page) {
@@ -37,17 +34,15 @@ exports.ManageClientsPage = class ManageClientsPage {
             return `${year}-${month}-${day}`;
           }
           
-        await this.actionDriver.checkElementVisibility(manageClientsocators.exportCurrentRecordsBtn);
-
         const [download] = await Promise.all([
             page.waitForEvent('download'),
             page.click(manageClientsocators.exportCurrentRecordsBtn)
         ]);
         const currentDate = getCurrentDate();
-        const suggestedFilename = download.suggestedFilename();
-        const expectedStart = `client_list_${currentDate}_`;
-        const expectedEnd = '.csv';
+        const downloadedFileName = download.suggestedFilename();
+        const expectedStartName = `client_list_${currentDate}_`;
+        const expectedEndName = '.csv';
 
-        expect(suggestedFilename).toMatch(new RegExp(`^${expectedStart}.*${expectedEnd}$`));
+        expect(downloadedFileName).toMatch(new RegExp(`^${expectedStartName}.*${expectedEndName}`));
     }
 }
