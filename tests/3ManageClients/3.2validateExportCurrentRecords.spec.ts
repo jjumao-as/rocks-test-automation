@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
-const { LoginPage, ManageClientsPage } = require('../../pages/functions/index.js');
+import { LoginPage, ManageClientsPage } from '../../pages/functions/index.js';
+import { roles } from '../../testdata/rolesForParallel';
 
 let browser;
 let context;
@@ -7,22 +8,32 @@ let page;
 let loginPage;
 let manageClientsPage;
 
-test.beforeAll(async ({ browser : b}) =>{
-    browser = b;
-})
-test.beforeEach(async () => {
-    context = await browser.newContext();
-    page = await context.newPage();
-    loginPage = await new LoginPage(page);
-    manageClientsPage = await new ManageClientsPage(page);
-    await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
-});
+const rolesToTest = ['SUPERADMIN','ADMIN','FLOOR']
 
-test.afterEach(async () => {
-    await context.close();
-});
+rolesToTest.forEach(role => {
+    const {username, password} = roles[role];
 
-test('Client List - Validate Export Current Records Download', async() => {
-    await manageClientsPage.navigateClientListing();
-    await manageClientsPage.downloadExportCurrentRecords(page);
+    test.describe.parallel('Client List - Validate Export Current Records', () => {
+       
+        test.beforeAll(async ({ browser : b}) =>{
+            browser = b;
+        })
+
+        test.beforeEach(async () => {
+            context = await browser.newContext();
+            page = await context.newPage();
+            loginPage = new LoginPage(page);
+            manageClientsPage = new ManageClientsPage(page);
+        });
+
+        test.afterEach(async () => {
+            await context.close();
+        });
+
+        test(`Client List - Validate Export Current Records Download as ${role}`, async() => {
+            await loginPage.login(username,password);
+            await manageClientsPage.navigateClientListing();
+            await manageClientsPage.downloadExportCurrentRecords(page);
+        })
+    })
 })
