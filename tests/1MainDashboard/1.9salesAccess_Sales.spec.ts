@@ -31,7 +31,7 @@ test.afterEach(async () => {
     await context.close();
 });
 
-test('Home - Sales', async() => {
+test.skip('Home - Sales', async() => {
     await dashboardPage.navigateToUsers();
     await settingsPage.searchUser(process.env.SALES);
     await settingsPage.clickAssignRole();

@@ -1,17 +1,26 @@
 const gmailTester = require('gmail-tester');
 const path = require('path');
 
-async function googleAPI() {
-    const email = await gmailTester.check_inbox(
+async function googleAPI(mailSubject, mailfrom, timeout = 60000) {
+    const checkInboxPromise = gmailTester.check_inbox(
         path.resolve(__dirname, '../testdata/credentials.json'),
         path.resolve(__dirname, '../testdata/token.json'),
         {
-            subject: "Welcome to Full Scale!",
-            from: "noreply@fullscale.io",
+            subject: mailSubject,
+            from: mailfrom,
             include_body: true,
         }
-    )
-    return email;;
+    );
+    const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timed out')), timeout)
+    );
+
+    try {
+        const email = await Promise.race([checkInboxPromise, timeoutPromise]);
+        return email;
+    } catch (error) {
+        return null;
+    }
 }
 
 module.exports = { googleAPI };

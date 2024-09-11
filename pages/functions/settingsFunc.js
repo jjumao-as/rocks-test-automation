@@ -1,6 +1,5 @@
 const settingsLocators = require('../locators/settingsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { sleep } = require('../../utils/utility');
 const { updateJsonData } = require('../../utils/jsonReader');
 
 let newSkill;
@@ -33,27 +32,59 @@ exports.SettingsPage = class SettingsPage {
         await this.actionDriver.keyboardPress('Escape');
     }
 
-    async editWorkFlow() {
-        await this.actionDriver.clickButton(settingsLocators.clientEnableAccessDropdown);
-        await this.actionDriver.clickButton(settingsLocators.clientEnableAccessEditWorkFlow);
+    async editWorkFlow(data) {
+        await this.actionDriver.waitElementUntilClickable(settingsLocators.workFlowActionButton);
+        await this.actionDriver.selectDataFromText(data, settingsLocators.workFlowName, settingsLocators.workFlowActionButton);
+        await this.actionDriver.selectDataFromText(data, settingsLocators.workFlowName, settingsLocators.editWorkFlow);
     }
 
     async saveEmailTo(testData) {
-        await this.actionDriver.waitElementUntilVisible(settingsLocators.clientEnableAccessEmailTo);
-        // Retrieve the content directly from the textbox using XPath
-        let textVal = await this.actionDriver.getTextBoxValue(settingsLocators.clientEnableAccessEmailTo);
-
+        await this.actionDriver.waitElementUntilVisible(settingsLocators.emailToField);
+        let textVal = await this.actionDriver.getTextBoxValue(settingsLocators.emailToField);
         let included = textVal.includes(testData); 
-
         while(!included) {
-            await this.actionDriver.clickButton(settingsLocators.clientEnableAccessEmailTo);
+            await this.actionDriver.clickButton(settingsLocators.emailToField);
             await this.actionDriver.keyboardPress('End');
             await this.actionDriver.typeText(", "+testData);
             await this.actionDriver.clickButton(settingsLocators.saveWorkFlow);
-            await this.actionDriver.clickButton(settingsLocators.saveWorkFlow);
-            await this.actionDriver.waitElementUntilVisible(settingsLocators.clientEnableAccessEmailTo);
-            textVal = await this.actionDriver.getTextBoxValue(settingsLocators.clientEnableAccessEmailTo);
+            await this.actionDriver.waitElementUntilVisible(settingsLocators.emailToField);
+            textVal = await this.actionDriver.getTextBoxValue(settingsLocators.emailToField);
             included = textVal.includes(testData);
+            await this.actionDriver.clickButton(settingsLocators.saveWorkFlow);
+            if(included) {
+                await this.actionDriver.waitElementUntilHidden(settingsLocators.savingChanges);
+                await this.actionDriver.waitElementUntilVisible(settingsLocators.templateUpdated);
+                await this.actionDriver.waitElementUntilHidden(settingsLocators.templateUpdated);
+                await this.actionDriver.waitElementUntilEnabled(settingsLocators.saveWorkFlow);
+                await this.actionDriver.expectTrue(included);
+            }
+        }
+    }
+
+    async revertEmailTo(testData) {
+        await this.actionDriver.waitElementUntilVisible(settingsLocators.emailToField);
+        let textVal = await this.actionDriver.getTextBoxValue(settingsLocators.emailToField);
+        let included = textVal.includes(testData); 
+        while(included) {
+            let items = textVal.split(/\s*,\s*/);
+            let filteredItems = items.filter(item => item !== testData);
+            let result = filteredItems.join(', ');
+            await this.actionDriver.clickButton(settingsLocators.emailToField);
+            await this.actionDriver.keyboardPress('Control+A');
+            await this.actionDriver.keyboardPress('Delete');
+            await this.actionDriver.typeText(result);
+            await this.actionDriver.clickButton(settingsLocators.saveWorkFlow);
+            await this.actionDriver.waitElementUntilVisible(settingsLocators.emailToField);
+            textVal = await this.actionDriver.getTextBoxValue(settingsLocators.emailToField);
+            included = textVal.includes(testData);
+            await this.actionDriver.clickButton(settingsLocators.saveWorkFlow);
+            if(!included) {
+                await this.actionDriver.waitElementUntilHidden(settingsLocators.savingChanges);
+                await this.actionDriver.waitElementUntilVisible(settingsLocators.templateUpdated);
+                await this.actionDriver.waitElementUntilHidden(settingsLocators.templateUpdated);
+                await this.actionDriver.waitElementUntilEnabled(settingsLocators.saveWorkFlow);
+                await this.actionDriver.expectFalse(included);
+            }
         }
     }
 
@@ -62,11 +93,15 @@ exports.SettingsPage = class SettingsPage {
     }
     
     async addNewSkill(testData) {
-        newSkill = testData + Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
-        updateJsonData('settings', 'skill', newSkill);
-        await this.actionDriver.clickButton(settingsLocators.addNewSkillsBtn);
-        await this.actionDriver.setText(settingsLocators.skillName, newSkill);
-        await this.actionDriver.clickButton(settingsLocators.addNewSkillSave);
+        let exist = true;
+        while(exist) {
+            newSkill = testData + Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
+            updateJsonData('settings', 'skill', newSkill);
+            await this.actionDriver.clickButton(settingsLocators.addNewSkillsBtn);
+            await this.actionDriver.setText(settingsLocators.skillName, newSkill);
+            await this.actionDriver.clickButton(settingsLocators.addNewSkillSave);
+            exist = await this.actionDriver.elementVisible(settingsLocators.skillTaken);
+        }
     }
 
     async validateAddedSkill() { 

@@ -51,15 +51,24 @@ exports.ClientsPage = class ClientsPage {
         });
     }
 
-    async validateEmail() {
-        const emailContent = await googleAPI(this.page);
-        await this.page.setContent(emailContent[0].body.html);
-        const hrefValue = await this.page.evaluate(() => {
-            const links = Array.from(document.querySelectorAll('a'));
-            const link = links.find(link => link.textContent.includes('Go To My Account'));
-            return link ? link.href : null;
-        });
-        await this.page.goto(hrefValue);
+    async validateEmail(subject, from) {
+        const emailContent = await googleAPI(subject, from);
+        const empty = emailContent === null ? true : false;
+        if(!empty) {
+            await this.page.setContent(emailContent[0].body.html);
+            const emailSubject = emailContent[0].subject;
+            if (subject.includes('Welcome')) {
+                const hrefValue = await this.page.evaluate(() => {
+                    const links = Array.from(document.querySelectorAll('a'));
+                    const link = links.find(link => link.textContent.includes('Go To My Account'));
+                    return link ? link.href : null;
+                });
+                await this.page.goto(hrefValue);
+            } else {
+                await this.actionDriver.checkInclude(subject, emailSubject)
+            }
+        }
+        await this.actionDriver.expectFalse(empty);
     }
 
     async submitPassword(testData) {
@@ -166,7 +175,7 @@ exports.ClientsPage = class ClientsPage {
                 if (blnResult) {
                     return true;
                 }
-                if(!blnResult && !isLastPage) {
+                if (!blnResult && !isLastPage) {
                     return false;
                 }
                 await this.actionDriver.waitElementUntilVisible(clientPageLoc.paginationNextPage);

@@ -42,11 +42,18 @@ test.describe('Test Script for adding talent to the team', async () => {
         await context.close();
     });
 
-    test('Check Workflow', async () => {
+    test('Edit Workflows', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await dashboardPage.navigateProcessWorkFlow();
-        await settingsPage.editWorkFlow();
-        await settingsPage.saveEmailTo(testData.emailTo);
+        await settingsPage.editWorkFlow(testData.clientEnabledAccess);
+        await settingsPage.saveEmailTo(process.env.GOOGLE_EMAIL);
+        await dashboardPage.navigateProcessWorkFlow();
+        await settingsPage.editWorkFlow(testData.addToTeamClients);
+        await settingsPage.saveEmailTo(process.env.GOOGLE_EMAIL);
+        await dashboardPage.navigateProcessWorkFlow();
+        await settingsPage.editWorkFlow(testData.addToTeamSales);
+        await settingsPage.saveEmailTo(process.env.GOOGLE_EMAIL);
+
     });
 
     test('Create Contacts for EmployeeDB', async () => {
@@ -81,14 +88,13 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Navigate on email link sent for enable login', async () => {
-        await clientPage.validateEmail();
+        await clientPage.validateEmail(testData.welcomeEmail, testData.emailFrom);
         await clientPage.submitPassword(testData.clientPassword);
         await clientPage.validateLogin();
     });
 
     test('Find Talent - Add to the team and submit', async () => {
-        await loginPage.login(process.env.CLIENT, process.env.PASSWORD);
-        //await loginPage.login(testData.contacts.email, testData.clientPassword);
+        await loginPage.login(testData.contacts.email, testData.clientPassword);
         await homePage.navigateFindTalent();
         await findTalentPage.searchTalent(testData.skill)
         await findTalentPage.selectTalent();
@@ -127,6 +133,11 @@ test.describe('Test Script for adding talent to the team', async () => {
         await employeePage.validateClientRemoved(testData.employeeDetails.client);
     });
 
+    test('Validate Client and Sales Email - Add to team', async() => {
+        await clientPage.validateEmail(testData.salesEmailAddToTeam, testData.emailFrom);
+        await clientPage.validateEmail(testData.clientEmailAddToTeam, testData.emailFrom);
+    });
+
     test('Delete Employee', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
@@ -152,4 +163,18 @@ test.describe('Test Script for adding talent to the team', async () => {
         await clientPage.navigateToContacts();
         await clientPage.deleteContact(testData.contacts.email);
     });
+
+    test('Remove changes in workflow', async() => {
+        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await dashboardPage.navigateProcessWorkFlow();
+        await settingsPage.editWorkFlow(testData.clientEnabledAccess);
+        await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
+        await dashboardPage.navigateProcessWorkFlow();
+        await settingsPage.editWorkFlow(testData.addToTeamClients);
+        await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
+        await dashboardPage.navigateProcessWorkFlow();
+        await settingsPage.editWorkFlow(testData.addToTeamSales);
+        await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
+        await dashboardPage.navigateProcessWorkFlow();
+    })
 });

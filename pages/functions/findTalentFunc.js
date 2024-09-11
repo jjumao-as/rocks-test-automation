@@ -102,13 +102,6 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.checkAllElementsVisibility(findTalentLocators.yourBookings);
     }
 
-    async verifyTimeSlot(){
-        await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
-        const text = await this.actionDriver.getTextofLastElement(findTalentLocators.bookingSchedule);
-        const splitText = await this.actionDriver.splitTextComma(text);
-        await this.actionDriver.compareFromList(splitText[splitText.length - 1], findTalentLocators.timeSlots);
-    }
-
     async verifySchedule(){
         const timeSlotSelected = await this.actionDriver.getText(findTalentLocators.firstTimeSlot);
         const bookingTimeSlot = await this.actionDriver.getText(findTalentLocators.bookingFooter);

@@ -17,10 +17,16 @@ module.exports = {
     deleteSkillList : "//i[contains(@class,'la-trash-alt')]",
     confirmDelete : "//button[contains(@class,'swal2-confirm')]",
     paginationNextPage : "//a[contains(@title,'Go to the next page')]",
+    skillTaken : "//span[text()='The name has already been taken.']",
 
     //Process Workflow
+    workFlowName : "//td[contains(@class,'action-buttons')]/following-sibling::td[1]/span[2]",
+    workFlowActionButton : "//button[contains(@id,'fsButtonDropdown-workflow')]",
+    editWorkFlow : "//button[contains(@id,'fsButtonDropdown-workflow')]/following-sibling::div/a",
+    templateUpdated : "//h2[text()='Template updated']",
     clientEnableAccessDropdown : "//span[text()='Client Enable Access - Client']/ancestor::tr/td/div/button[contains(@id,'fsButtonDropdown')]",
     clientEnableAccessEditWorkFlow : "//span[text()='Client Enable Access - Client']/ancestor::tr/td/div/div/a",
-    clientEnableAccessEmailTo : "//input[@id='text-datalist-email_to']",
-    saveWorkFlow : "//span[text()='Save']",
+    emailToField : "//input[@id='text-datalist-email_to']",
+    saveWorkFlow : "//span[text()='Save']/parent::a",
+    savingChanges : "//div[contains(text(),'Saving changes')]",
 }

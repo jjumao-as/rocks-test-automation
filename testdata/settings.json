@@ -1,18 +1,24 @@
 {
-  "emailTo": "%{{custom_email_to}}%",
   "client": "EmployeeDB",
   "clientPassword": "Password123",
   "originalSkill": "Automation",
-  "skill": "Automation10831",
+  "skill": "Automation22251",
+  "clientEnabledAccess": "Client Enable Access - Client",
+  "addToTeamClients": "Add To Team for Clients",
+  "addToTeamSales": "Add To Team for Sales",
+  "welcomeEmail": "Welcome to Full Scale!",
+  "salesEmailAddToTeam": "Add to Team Request: EmployeeDB",
+  "clientEmailAddToTeam": "Full Scale Add to Team Request Received",
+  "emailFrom": "noreply@fullscale.io",
   "contacts": {
-    "firstName": "Brandon",
-    "lastName": "Carter",
-    "phoneNumber": "C24I059813",
-    "email": "rocks.automationjs+7450@gmail.com"
+    "firstName": "Daniela",
+    "lastName": "Renner",
+    "phoneNumber": "Z19K962029",
+    "email": "rocks.automationjs+6806@gmail.com"
   },
   "employeeName": {
-    "firstName": "Hank",
-    "lastName": "Kautzer"
+    "firstName": "Morris",
+    "lastName": "Metz"
   },
   "employeeDetails": {
     "position": "Senior Full Stack",
