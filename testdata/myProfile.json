@@ -1,31 +1,8 @@
 {
-  "updateProfile": {
-    "needHelp": [
-      "Web Development"
-    ],
-    "techUsed": "NodeJS",
-    "otherTech": "React",
-    "currentlyOnTeamUntick": [
-      "None"
-    ],
-    "currentlyOnTeam": [
-      "Lead Developer",
-      "Product Manager"
-    ]
-  },
-  "timeZone": "(GMT-04:00) America, Kentucky, Monticello",
-  "talent": {
-    "skill": "QA Lead",
-    "nameProfile": "Enrico Jerome B"
-  },
   "contacts": {
-    "firstName": "Bret",
-    "lastName": "Frami",
-    "email": "Bret.Frami@hotmail.com",
-    "phoneNumber": "v29l481206"
-  },
-  "talents": [
-    "Clarisse R",
-    "Glenda B"
-  ]
+    "firstName": "Junior",
+    "lastName": "Ritchie",
+    "email": "Junior_Ritchie@hotmail.com",
+    "phoneNumber": "Q28L094372"
+  }
 }

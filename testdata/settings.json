@@ -1,0 +1,22 @@
+{
+  "emailTo": "%{{custom_email_to}}%",
+  "client": "EmployeeDB",
+  "clientPassword": "Password123",
+  "originalSkill": "Automation",
+  "skill": "Automation10831",
+  "contacts": {
+    "firstName": "Brandon",
+    "lastName": "Carter",
+    "phoneNumber": "C24I059813",
+    "email": "rocks.automationjs+7450@gmail.com"
+  },
+  "employeeName": {
+    "firstName": "Hank",
+    "lastName": "Kautzer"
+  },
+  "employeeDetails": {
+    "position": "Senior Full Stack",
+    "role": "Developer",
+    "client": "Override"
+  }
+}

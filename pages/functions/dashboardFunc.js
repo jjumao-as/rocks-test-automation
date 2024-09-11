@@ -1,6 +1,6 @@
 const dashboardLocators = require('../locators/dashboardLoc');
+const settingsLocators = require('../locators/settingsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { sleep } = require('../../utils/utility')
 
 exports.DashboardPage = class DashboardPage {
     constructor(page) {
@@ -37,21 +37,21 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async checkDashboardSectionVisibility() {
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.yourProductivity);
         await this.actionDriver.checkElementVisibility(dashboardLocators.yourProductivity);
         await this.actionDriver.checkElementVisibility(dashboardLocators.announcements);
         await this.actionDriver.checkElementVisibility(dashboardLocators.eventsAndHoliday);
     }
 
     async checkSalesDashboardSectionVisibility() {
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.yourProductivity);
         await this.actionDriver.checkElementVisibility(dashboardLocators.yourProductivity);
         await this.actionDriver.checkElementVisibility(dashboardLocators.eventsAndHoliday);
     }
 
     async navigateClientDashboard(){
         await this.actionDriver.clickButton(dashboardLocators.clientSalesDashboard);
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.activeClients);
     }
 
     async checkClientDashboardSectionVisibility(){
@@ -137,7 +137,7 @@ exports.DashboardPage = class DashboardPage {
 
     async navigateEmployeeDashboard(){
         await this.actionDriver.clickButton(dashboardLocators.employeeDashboard);
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.talentDistribution);
     }
 
     async checkEmployeeDashboardSectionVisibility(){
@@ -194,32 +194,36 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async checkValidSearchResult(){
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.searchFirstRow);
         const result = await this.actionDriver.elementVisible(dashboardLocators.searchFirstRow);
         await this.actionDriver.expectTrue(result);
     }
 
     async verifyClient(){
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.clientName);
         const result = await this.actionDriver.elementVisible(dashboardLocators.clientName);
         await this.actionDriver.expectTrue(result);
     }
 
     async verifyTalent(){
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.talentName);
         const result = await this.actionDriver.elementVisible(dashboardLocators.talentName);
         await this.actionDriver.expectTrue(result);
     }
 
     async deleteFloorManager(){
         await this.actionDriver.clickButton(dashboardLocators.floorManager);
-        await sleep(3000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.emptyFloorManager);
         await this.actionDriver.clickButton(dashboardLocators.emptyFloorManager);
-        await sleep(3000);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.saveSuccessfully);
     }
 
     async navigateToUsers(){
         await this.actionDriver.clickButton(dashboardLocators.users);
-        await sleep (5000);
+        await this.actionDriver.waitElementUntilVisible(settingsLocators.searchUser);
+    }
+
+    async navigateProcessWorkFlow(){
+        await this.actionDriver.clickButton(dashboardLocators.processWorkflow);
     }
 }

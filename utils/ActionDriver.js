@@ -14,7 +14,7 @@ class ActionDriver {
     }
 
     async checkVisibility(text) {
-        await expect(this.page.getByText(text)).toBeVisible({ timeout : 60000 });
+        await expect(this.page.getByText(text)).toBeVisible({ timeout: 90000 });
     }
 
     async expectFalse(result) {
@@ -26,7 +26,7 @@ class ActionDriver {
     }
 
     async checkElementVisibility(element) {
-        await expect(this.page.locator(element)).toBeVisible({ timeout : 60000 });
+        await expect(this.page.locator(element)).toBeVisible({ timeout: 90000 });
     }
 
     async checkAllElementsVisibility(element) {
@@ -42,12 +42,23 @@ class ActionDriver {
 
     async elementVisible(element) {
         const el = await this.page.locator(element);
-        const visible = await el.isVisible();
-        if (visible) {
-            return true;
-        } else {
+        const isElementVisibleWithinTimeout = async (locator, timeout) => {
+            const start = Date.now();
+            const interval = 100; // Check every 100 ms
+
+            while (Date.now() - start < timeout) {
+                try {
+                    if (await locator.isVisible()) {
+                        return true;
+                    }
+                } catch (error) {
+                    // Element is not yet in the DOM or not visible
+                }
+                await this.page.waitForTimeout(interval);
+            }
             return false;
-        }
+        };
+        return await isElementVisibleWithinTimeout(el, 5000);
     }
 
     async expectEquals(text, element) {
@@ -57,7 +68,7 @@ class ActionDriver {
 
     async expectToHaveCount(element, number) {
         await expect(this.page.locator(element)).toHaveCount(number);
-        
+
     }
 
     async checkInclude(actual, expected) {
@@ -99,8 +110,9 @@ class ActionDriver {
         for (let i = 0; i < await elements.count(); i++) {
             const el = elements.nth(i);
             const textContent = await el.textContent();
-            if (textContent.toLowerCase() === text.toLowerCase()) {
-                await expect(el).toBe(text);
+            const trimmedText = textContent.trim();
+            if (trimmedText.toLowerCase() === text.toLowerCase()) {
+                await expect(trimmedText).toBe(text);
                 break;
             }
         }
@@ -157,11 +169,28 @@ class ActionDriver {
 
     async selectDataFromText(testData, element, elementButton) {
         const elements = await this.page.locator(element);
-        const toggleButton = this.page.locator(elementButton);
-
+        const toggleButton = await this.page.locator(elementButton);
         for (let i = 0; i < await elements.count(); i++) {
             const el = elements.nth(i);
             const textContent = await el.textContent();
+            if (textContent.trim().toLowerCase() === testData.toLowerCase()) {
+                await toggleButton.nth(i).click();
+            }
+        }
+    }
+
+    async selectDataFromTextwithNode(testData, element, elementButton) {
+        const elements = await this.page.locator(element);
+        const toggleButton = await this.page.locator(elementButton);
+        for (let i = 0; i < await elements.count(); i++) {
+            const el = elements.nth(i);
+            const textContent = await el.evaluate(node => {
+                // Filter out text from specific child elements
+                return Array.from(node.childNodes)
+                    .filter(n => n.nodeType === Node.TEXT_NODE) // Only text nodes
+                    .map(n => n.textContent.trim()) // Extract and trim text
+                    .join(' '); // Combine text
+            });
             if (textContent.trim().toLowerCase() === testData.toLowerCase()) {
                 await toggleButton.nth(i).click();
             }
@@ -225,25 +254,81 @@ class ActionDriver {
 
     async toggleOff(toggleOnElement, toggleElements) {
         const elementsOn = await this.page.locator(toggleOnElement).elementHandles();
-        for(let i=0; i<elementsOn.length; i++){
+        for (let i = 0; i < elementsOn.length; i++) {
             const element = elementsOn[i];
             const displayValue = await this.page.evaluate(el => getComputedStyle(el).display, element);
-            if(displayValue === 'block'){
-                const toggleToClick = `(${toggleElements})[${i+1}]`;
+            if (displayValue === 'block') {
+                const toggleToClick = `(${toggleElements})[${i + 1}]`;
                 this.clickButton(toggleToClick);
             }
         }
     }
 
-    async elementCount(element){
+    async elementCount(element) {
         const count = await this.page.locator(element).count();
         return count;
     }
 
-    async hoverElement(element){
-       await this.page.hover(element)
+    async hoverElement(element) {
+        await this.page.hover(element)
     }
 
+    async waitElementUntilVisible(element) {
+        await this.page.waitForSelector(element, { state: 'visible', timeout: 90000 });
+    }
 
+    async waitElementUntilEnabled(element) {
+        await this.page.waitForFunction(
+            (el) => {
+                const result = document.evaluate(el, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+                const ele = result.singleNodeValue;
+                return ele && !ele.disabled;
+            },
+            element,
+            { timeout: 90000 }
+        );
+    }
+
+    async waitElementUntilClickable(element) {
+        await this.page.waitForFunction(
+            (el) => {
+                const result = document.evaluate(el, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+                const ele = result.singleNodeValue;
+                return ele && ele.offsetParent !== null && !ele.disabled;
+            },
+            element,
+            { timeout: 90000 }
+        );
+    }
+
+    async waitElementUntilHidden(element) {
+        await this.page.waitForSelector(element, { state: 'hidden', timeout: 60000 });
+    }
+
+    async getTextBoxValue(element) {
+        const textvalue = await this.page.evaluate(xpath => {
+            const xpathResult = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+            const textbox = xpathResult.singleNodeValue;
+            return textbox ? textbox.value : null;
+        }, element);
+
+        return textvalue;
+    }
+
+    async removeChildElement(element) {
+        let parentElements = await this.page.locator(element);
+        let parents = [];
+        let rowCount = await parentElements.count();
+        for (let i = 0; i < rowCount; i++) {
+            const textContent = await parentElements.nth(i).textContent();
+            const popText = textContent.trim().split('\n').pop();
+            parents.push(popText.trim());
+        }
+        return parents;
+    }
+
+    async checkIfIncludesInArray(array, text) {
+        return array.includes(text);
+    }
 }
 module.exports = ActionDriver;

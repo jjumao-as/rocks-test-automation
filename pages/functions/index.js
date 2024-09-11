@@ -9,4 +9,5 @@ module.exports = {
     ManageClientsPage: require('./manageClientsFunc').ManageClientsPage,
     DashboardPage: require('./dashboardFunc').DashboardPage,
     SettingsPage: require('./settingsFunc').SettingsPage,
+    ClientsPage: require('./clientFunc').ClientsPage,
 }

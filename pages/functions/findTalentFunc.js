@@ -1,6 +1,5 @@
 const findTalentLocators = require('../locators/findTalentLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { sleep } = require('../../utils/utility')
 
 exports.FindTalentPage = class FindTalentPage {
     constructor(page) {
@@ -15,13 +14,12 @@ exports.FindTalentPage = class FindTalentPage {
     }
 
     async searchTalent(data) {
-        await sleep(4000);
-        await this.actionDriver.setText(findTalentLocators.enterSkillField, data);
-        await this.actionDriver.expectToHaveCount(findTalentLocators.searchingLabel, 0);
-        await this.actionDriver.clickButton(findTalentLocators.searchButton);
+        await this.actionDriver.waitElementUntilHidden(findTalentLocators.loadingOverlay);
+        await this.actionDriver.waitElementUntilHidden(findTalentLocators.searchingLabel);
         await this.actionDriver.clickButton(findTalentLocators.enterSkillField);
+        await this.actionDriver.typeText(data);
         await this.actionDriver.selectFromList(data, findTalentLocators.searchItems);
-        await this.actionDriver.expectToHaveCount(findTalentLocators.searchingLabel, 0);
+        await this.actionDriver.waitElementUntilHidden(findTalentLocators.searchingLabel);
     }
 
     async validateTalentFound() {
@@ -29,20 +27,23 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.expectToHaveCount(findTalentLocators.searchResult, Number(totalFound));
     }
 
-    async selectFirstTalent() {
+    async selectTalent() {
         await this.actionDriver.clickButton(findTalentLocators.firstTalent);
     }
 
     async validateProfileName() {
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.profileName);
         await this.actionDriver.checkElementVisibility(findTalentLocators.profileName);
     }
 
     async addToTeam() {
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.addToTeam);
         await this.actionDriver.clickButton(findTalentLocators.addToTeam);
         await this.page.waitForLoadState();
     }
 
     async showTalentDrawer() {
+        await this.actionDriver.waitElementUntilClickable(findTalentLocators.talentDrawerButton);
         await this.actionDriver.clickButton(findTalentLocators.talentDrawerButton);
     }
 
@@ -85,13 +86,6 @@ exports.FindTalentPage = class FindTalentPage {
         }
     }
 
-    async compareList(testData){
-        await sleep(5000);
-        await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
-        await this.actionDriver.compareAndSelectList(testData, findTalentLocators.nameList, findTalentLocators.viewProfileButtonList);
-        await sleep(10000);
-    }
-
     async clickBookACall() { 
         await this.actionDriver.clickButton(findTalentLocators.bookaCall);
     }
@@ -109,7 +103,7 @@ exports.FindTalentPage = class FindTalentPage {
     }
 
     async verifyTimeSlot(){
-        await sleep(5000);
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
         const text = await this.actionDriver.getTextofLastElement(findTalentLocators.bookingSchedule);
         const splitText = await this.actionDriver.splitTextComma(text);
         await this.actionDriver.compareFromList(splitText[splitText.length - 1], findTalentLocators.timeSlots);
@@ -119,5 +113,15 @@ exports.FindTalentPage = class FindTalentPage {
         const timeSlotSelected = await this.actionDriver.getText(findTalentLocators.firstTimeSlot);
         const bookingTimeSlot = await this.actionDriver.getText(findTalentLocators.bookingFooter);
         await this.actionDriver.checkInclude(timeSlotSelected, bookingTimeSlot);
+    }
+
+    async finishRequest() {
+        await this.actionDriver.clickButton(findTalentLocators.finishRequest);
+        await this.actionDriver.clickButton(findTalentLocators.submitAddToTeam);
+    }
+
+    async validateFinishingRequest() {
+        await this.actionDriver.checkElementVisibility(findTalentLocators.successMessage);
+        await this.actionDriver.clickButton(findTalentLocators.confirmSuccess);
     }
 }
