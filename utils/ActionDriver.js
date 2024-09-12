@@ -461,5 +461,15 @@ class ActionDriver {
     async checkIfIncludesInArray(array, text) {
         return array.includes(text);
     }
+
+    /**
+     * This will get all the text in all element using specified locator
+     * @param {*} element : locator where all text will be taken.
+     * @returns 
+     */
+    async getTextArray(element){
+        const textArray = await this.page.locator(element).allTextContents();
+        return textArray;
+    }
 }
 module.exports = ActionDriver;
