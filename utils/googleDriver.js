@@ -8,6 +8,7 @@ async function googleAPI(mailSubject, mailfrom, timeout = 60000) {
         {
             subject: mailSubject,
             from: mailfrom,
+            to: process.env.GOOGLE_EMAIL,
             include_body: true,
         }
     );
