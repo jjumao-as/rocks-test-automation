@@ -1,4 +1,5 @@
 module.exports = {
+    loadingOverlay : "//div[contains(@class,'loadingoverlay')]",
     findTalentLabel : "//h4[text()='Find Talent']",
     enterSkillField : "//input[contains(@placeholder,'Enter a skill')]",
     talentDrawerButton : "//div[@id='drawer-popover-addToTeam']/parent::a",
@@ -25,4 +26,9 @@ module.exports = {
     yourBookings: "//h5[text()='Your Bookings:']/following-sibling::div//div[@class='announcement-content']",
     bookingSchedule : "//h5[text()='Your Bookings:']/following-sibling::div//div[@class='announcement-content']//i[contains(@class,'la-calendar')]/parent::p",
     timeSlots : "//button[contains(@class,'time-slot-button')]",
+    finishRequest : "//a[text()='Finish Request']",
+    submitAddToTeam : "//button[text()='Submit']",
+    successMessage : "//p[contains(text(),'We will review this request')]",
+    confirmSuccess : "//button[text()='OK']",
+    talentName : "//a[contains(@class,'photo-card-user-names')]/div",
 }

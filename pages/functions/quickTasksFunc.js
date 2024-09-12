@@ -1,6 +1,5 @@
 const quickTasksLocators = require('../locators/quickTasksLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { sleep } = require('../../utils/utility')
 let emailSubject;
 
 exports.QuickTasksPage = class QuickTasksPage {
@@ -126,13 +125,13 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async clickComposeMessage(){
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.composeNewMessage);
         await this.actionDriver.clickButton(quickTasksLocators.composeNewMessage);
-        await sleep(2000);
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.whatIDidField);
     }
 
     async selectProject(testData) {
         await this.actionDriver.clickButton(quickTasksLocators.projectField);
-        await sleep(2000);
         await this.actionDriver.selectOption(testData, quickTasksLocators.projectField);
     }
 
@@ -149,7 +148,16 @@ exports.QuickTasksPage = class QuickTasksPage {
 
     async sendReport() {
         await this.actionDriver.clickButton(quickTasksLocators.sendReportButton);
-        await sleep(5000);
+        const alreadyExists = await this.actionDriver.elementVisible(quickTasksLocators.reportAlreadyExist);
+        if(alreadyExists) {
+            await this.actionDriver.clickButton(quickTasksLocators.reportExistConfirmButton);
+            await this.actionDriver.keyboardPress('Escape');
+            await this.actionDriver.clickButton(quickTasksLocators.reportExistConfirmButton);
+        } else {
+            await this.actionDriver.waitElementUntilClickable(quickTasksLocators.syncMail);
+            await this.actionDriver.clickButton(quickTasksLocators.syncMail);
+            await this.actionDriver.waitElementUntilHidden(quickTasksLocators.syncSpinner);
+        }
     }
 
     async validateEmail(){
