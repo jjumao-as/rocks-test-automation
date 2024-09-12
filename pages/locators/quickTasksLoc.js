@@ -34,6 +34,10 @@ module.exports = {
     attachementField : "//input[@type='file']",
     sendReportButton : "//span[text()='Send Report']/parent::button",
     subjectList : "//table[contains(@class,'dataTable')]/tbody/tr[1]/td[1]/a",
+    syncMail : "//i[contains(@class,'la-sync')]",
+    syncSpinner : "//i[contains(@class,'fa-spinner')]",
+    reportAlreadyExist : "//div[text()='Report already exists.']",
+    reportExistConfirmButton : "//button[contains(@class,'swal2-confirm')]",
 
     //Expense Report
     createExpenseReport : "//span[text()='Create Expense Report']",

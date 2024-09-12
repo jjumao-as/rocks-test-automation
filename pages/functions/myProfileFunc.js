@@ -1,6 +1,5 @@
 const myProfileLocators = require('../locators/myProfileLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { sleep } = require('../../utils/utility')
 
 exports.MyProfilePage = class MyProfilePage {
     constructor(page) {
@@ -90,21 +89,6 @@ exports.MyProfilePage = class MyProfilePage {
             const element = myProfileLocators.prefix + item + myProfileLocators.suffix;
             await this.actionDriver.clickButton(element);
         }
-    }
-
-    async inputTechUsed(data) {
-        await this.actionDriver.clickButton(myProfileLocators.techUsedField);
-        await this.page.keyboard.press('Backspace');
-        await this.page.keyboard.press('Backspace');
-        await this.page.keyboard.type(data);
-        await sleep(2000);
-        await this.actionDriver.selectFromList(data, myProfileLocators.techUsedOptions);
-        await this.actionDriver.clickButton(myProfileLocators.techUsedField);
-    }
-
-    async inputOtherTech(data) {
-        await this.actionDriver.setText(myProfileLocators.otherTechField, data);
-        await sleep(4000);
     }
 
     async saveUpdates() {

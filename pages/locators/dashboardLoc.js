@@ -14,6 +14,8 @@ module.exports = {
     talentName : "//span[contains(@class,'talent-name')]",
     floorManager : "//p[contains(@class,'client-name')]/following-sibling::div//i[contains(@class,'pen')]",
     emptyFloorManager : "(//span[contains(@class,'multiselect__option')])[1]",
+    addFloorManager : "//a[contains(text(),'Add Floor Manager')]",
+    saveSuccessfully : "//div[contains(@class,'swal2-bottom')]",
 
     //Notifications
     notificationButton : "//div[contains(@class,'ks-notifications')]/a",

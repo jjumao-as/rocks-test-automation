@@ -15,10 +15,6 @@ exports.LoginPage = class LoginPage {
         await this.actionDriver.clickButton(loginLocators.signIn);
     }
 
-    async checkVisibility(text) {
-        await this.actionDriver.checkVisibility(text);
-    }
-
     async launchBrowser(browser) {
         if(browser === 'chromium'){ await chromium.launch(); }
         if(browser === 'firefox'){ await firefox.launch(); }
