@@ -113,6 +113,7 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async deleteSkill(testData) {
+        await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingRecords);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.searchSkill);
         await this.actionDriver.setText(settingsLocators.searchSkill, testData);
         await this.actionDriver.keyboardPress('Enter');

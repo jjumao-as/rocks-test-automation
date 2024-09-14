@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 const { LoginPage, HomePage, DashboardPage, SettingsPage, ClientsPage, EmployeesPage, FindTalentPage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 const { savedContact } = require('../../utils/randomData.js');
+const { refresh_access_token } = require('../../utils/googleDriver');
 
 
 let browser;
@@ -42,6 +43,7 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Save contact Test Data', async() => {
+        await refresh_access_token();
         await savedContact(testDataPath);
     })
 
