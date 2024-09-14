@@ -42,7 +42,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await context.close();
     });
 
-    test('Save contact Test Data', async() => {
+    test('Preparing data...', async() => {
         await refresh_access_token();
         await savedContact(testDataPath);
     })

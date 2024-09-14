@@ -113,13 +113,17 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async deleteSkill(testData) {
+        let isVisible = false;
         await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingBg);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.searchSkill);
         await this.actionDriver.setText(settingsLocators.searchSkill, testData);
-        await this.actionDriver.keyboardPress('Enter');
-        await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingBg);
-        await this.actionDriver.waitElementUntilClickable(settingsLocators.deleteSkillList);
-        await this.actionDriver.selectDataFromText(testData, settingsLocators.skillNameList, settingsLocators.deleteSkillList);
+        while(!isVisible) {
+            await this.actionDriver.keyboardPress('Enter');
+            await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingBg);
+            await this.actionDriver.waitElementUntilClickable(settingsLocators.deleteSkillList);
+            await this.actionDriver.selectDataFromText(testData, settingsLocators.skillNameList, settingsLocators.deleteSkillList);
+            isVisible = await this.actionDriver.elementVisible(settingsLocators.confirmDelete);
+        }
         await this.actionDriver.clickButton(settingsLocators.confirmDelete);
         await this.actionDriver.expectToHaveCount(settingsLocators.skillNameList, 0);
         
