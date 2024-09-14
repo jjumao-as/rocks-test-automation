@@ -5,6 +5,7 @@ module.exports = {
     userRolesToggle : "//ul[contains(@class,'user-role')]/li/span/following-sibling::label",
     userRoleOnToggle : "//ul[contains(@class,'user-role')]//span[@class='ks-on']",
     loadingRecords : "//span[contains(text(),'Loading records')]",
+    loadingBg : "//div[@class='datatable-mask']",
     currentRole : "//span[@class='fs-active-user']",
 
     //skills
@@ -29,4 +30,10 @@ module.exports = {
     emailToField : "//input[@id='text-datalist-email_to']",
     saveWorkFlow : "//span[text()='Save']/parent::a",
     savingChanges : "//div[contains(text(),'Saving changes')]",
+
+    //Expense Report Settings
+    expenseReportTab : "//span[text()='Expense Report']",
+    editGeneralSetting : "//legend[text()='General Settings']/following-sibling::div//a",
+    expenseReportRecipientField : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//div[@class='fs-tags-input']/input",
+    expenseReportRecipient : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//span[contains(@class,'fs-tags-input-badge')]/span",
 }

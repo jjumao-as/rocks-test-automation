@@ -113,11 +113,11 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async deleteSkill(testData) {
-        await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingRecords);
+        await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingBg);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.searchSkill);
         await this.actionDriver.setText(settingsLocators.searchSkill, testData);
         await this.actionDriver.keyboardPress('Enter');
-        await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingRecords);
+        await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingBg);
         await this.actionDriver.waitElementUntilClickable(settingsLocators.deleteSkillList);
         await this.actionDriver.selectDataFromText(testData, settingsLocators.skillNameList, settingsLocators.deleteSkillList);
         await this.actionDriver.clickButton(settingsLocators.confirmDelete);
