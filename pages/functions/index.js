@@ -1,3 +1,5 @@
+const { ClientPortalPage } = require('./clientPortalFunc');
+
 module.exports = {
     LoginPage: require('./loginFunc').LoginPage,
     HomePage: require('./homeFunc').HomePage,
@@ -10,4 +12,5 @@ module.exports = {
     DashboardPage: require('./dashboardFunc').DashboardPage,
     SettingsPage: require('./settingsFunc').SettingsPage,
     ClientsPage: require('./clientFunc').ClientsPage,
+    ClientPortalPage: require('./clientPortalFunc').ClientPortalPage,
 }
