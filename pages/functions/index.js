@@ -1,5 +1,3 @@
-const { ClientPortalPage } = require('./clientPortalFunc');
-
 module.exports = {
     LoginPage: require('./loginFunc').LoginPage,
     HomePage: require('./homeFunc').HomePage,
