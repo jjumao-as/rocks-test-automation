@@ -6,7 +6,7 @@ const fs = require('fs');
 const CREDENTIALS_PATH = path.resolve(__dirname, '../testdata/credentials.json');
 const TOKEN_PATH = path.join(__dirname, '../testdata/token.json');
 
-async function googleAPI(mailSubject, mailfrom, timeout = 60000) {
+async function googleAPI(mailSubject, mailfrom, mailTo, timeout = 60000) {
     const checkInboxPromise = gmailTester.check_inbox(
         CREDENTIALS_PATH,
         TOKEN_PATH,

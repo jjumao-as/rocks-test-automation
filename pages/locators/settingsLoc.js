@@ -32,8 +32,15 @@ module.exports = {
     savingChanges : "//div[contains(text(),'Saving changes')]",
 
     //Expense Report Settings
+    tableMask : "//div[@class='datatable-mask']",
+    searchExpenseId : "//input[contains(@placeholder,'Search by Expense Report ID')]",
+    expenseId : "//p[text()='Expense ID']/following-sibling::span[1]",
+    loadingOverlay : "//div[@class='loadingoverlay']",
     expenseReportTab : "//span[text()='Expense Report']",
     editGeneralSetting : "//legend[text()='General Settings']/following-sibling::div//a",
     expenseReportRecipientField : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//div[@class='fs-tags-input']/input",
     expenseReportRecipient : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//span[contains(@class,'fs-tags-input-badge')]/span",
+    removeExpenseReportRecipient : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//span[contains(@class,'fs-tags-input-badge')]/i",
+    saveGeneralSettings : "//a[contains(text(),'Save')]",
+    expenseReportsTab : "//span[text()='Expense Reports']",
 }

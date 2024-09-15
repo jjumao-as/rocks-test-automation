@@ -163,4 +163,51 @@ exports.QuickTasksPage = class QuickTasksPage {
     async validateEmail(){
         await this.actionDriver.expectEquals(emailSubject, quickTasksLocators.subjectList);
     }
+
+    async navigateToCreateExpenseReport() {
+        await this.actionDriver.clickButton(quickTasksLocators.createExpenseReport);
+    }
+
+    async setExpenseType(testData) {
+        await this.actionDriver.clickButton(quickTasksLocators.expenseTypeFld);
+        await this.actionDriver.selectOption(testData, quickTasksLocators.expenseTypeFld);
+    }
+
+    async setDate() { 
+        await this.actionDriver.clickButton(quickTasksLocators.dateField);
+        await this.actionDriver.clickButton(quickTasksLocators.currentDate);
+    }
+
+    async setAmount(testData) {
+        if(testData.recieptAmount !== "") {
+            await this.actionDriver.setText(quickTasksLocators.receiptAmountFld, testData.recieptAmount);
+        }
+        if(testData.cashAdvanceAmount !== "") {
+            await this.actionDriver.setText(quickTasksLocators.cashAdvanceAmountFld, testData.cashAdvanceAmount);
+        }
+        if(testData.reimbursableAmount !== "") {
+            await this.actionDriver.setText(quickTasksLocators.reimbursableAmountFld, testData.reimbursableAmount);
+        }
+    }
+
+    async setJustification(testData) {
+        await this.actionDriver.setText(quickTasksLocators.justificationFld, testData);
+    }
+
+    async uploadReceipt(testData) {
+        if(testData.missing === "false" || !testData.missing) {
+            await this.actionDriver.fileUpload('../testdata/images/receipt.png', quickTasksLocators.uploadReceipt);
+            await this.actionDriver.waitElementUntilVisible(quickTasksLocators.uploadedReceipt);
+            await this.actionDriver.checkElementVisibility(quickTasksLocators.uploadedReceipt);
+        } else {
+            await this.actionDriver.clickButton(quickTasksLocators.receiptMissingToggle);
+        }
+    }
+
+    async saveExpenseReport() {
+        await this.actionDriver.clickButton(quickTasksLocators.submitButton);
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.confirmationMsg);
+        await this.actionDriver.checkElementVisibility(quickTasksLocators.confirmationMsg);
+        await this.actionDriver.clickButton(quickTasksLocators.okBtn);
+    }
 }

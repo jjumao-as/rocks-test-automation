@@ -467,5 +467,14 @@ class ActionDriver {
         const textArray = await this.page.locator(element).allTextContents();
         return textArray;
     }
+
+    async fileUpload(filePath, button) {
+        const fileChooserPromise = this.page.waitForEvent('filechooser');
+        await this.clickButton(button);
+        const fileChooser = await fileChooserPromise;
+        const path = require('path');
+        const imgPath = path.resolve(__dirname, filePath);
+        await fileChooser.setFiles(imgPath);
+    }
 }
 module.exports = ActionDriver;
