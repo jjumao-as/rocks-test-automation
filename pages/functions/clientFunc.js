@@ -52,7 +52,13 @@ exports.ClientsPage = class ClientsPage {
     }
 
     async validateEmail(subject, from) {
-        const emailContent = await googleAPI(subject, from);
+        let emailContent;
+        for(let i=1; i<=3; i++){
+            emailContent = await googleAPI(subject, from);
+            if(emailContent !== null) {
+                break;
+            }
+        }
         const empty = emailContent === null ? true : false;
         if(!empty) {
             await this.page.setContent(emailContent[0].body.html);

@@ -75,13 +75,11 @@ class ActionDriver {
      */
     async elementVisible(element) {
         const el = await this.page.locator(element);
-        const isElementVisibleWithinTimeout = async (locator, timeout) => {
-            const start = Date.now();
-            const interval = 100; // Check every 100 ms
-
-            while (Date.now() - start < timeout) {
+        const start = Date.now();
+        const interval = 100; // Check every 100 ms
+            while (Date.now() - start < 5000) {
                 try {
-                    if (await locator.isVisible()) {
+                    if (await el.isVisible()) {
                         return true;
                     }
                 } catch (error) {
@@ -90,8 +88,6 @@ class ActionDriver {
                 await this.page.waitForTimeout(interval);
             }
             return false;
-        };
-        return await isElementVisibleWithinTimeout(el, 5000);
     }
 
     /**
