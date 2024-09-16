@@ -1,0 +1,37 @@
+import { test } from '@playwright/test';
+const { LoginPage, QuickTasksPage } = require('../../pages/functions/index.js');
+const { readJsonFile } = require('../../utils/jsonReader');
+
+let browser;
+let context;
+let page;
+let loginPage;
+let quickTasksPage;
+let testDataPath;
+let testData;
+
+test.beforeAll(async ({ browser : b}) =>{
+    browser = b;
+})
+test.beforeEach(async () => {
+    context = await browser.newContext();
+    page = await context.newPage();
+    loginPage = await new LoginPage(page);
+    quickTasksPage = await new QuickTasksPage(page);
+    testDataPath = 'adminData';
+    testData = await readJsonFile(testDataPath);
+    await loginPage.login(process.env.HR, process.env.PASSWORD);
+});
+
+test.afterEach(async () => {
+    await context.close();
+});
+
+test('Create Daily Report - Single Project', async() => {
+    await quickTasksPage.navigateCreateDailyReport();
+    await quickTasksPage.clickComposeMessage();
+    await quickTasksPage.setWhatIdid(testData.update);
+    await quickTasksPage.setWhatWillBeDoing(testData.update);
+    await quickTasksPage.sendReport();
+    await quickTasksPage.validateEmail();
+})

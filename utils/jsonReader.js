@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function readJsonFile(filePath) {
-    const resolvedPath = path.resolve(__dirname, '../testData/' + filePath + '.json');
+    const resolvedPath = path.resolve(__dirname, '../testdata/' + filePath + '.json');
 
     if (fs.existsSync(resolvedPath)) {
         try {
@@ -16,4 +16,20 @@ function readJsonFile(filePath) {
     }
 }
 
-module.exports = { readJsonFile };
+function updateJsonData(file, propertyPath, newValue) {
+    const absolutePath =  path.join(__dirname, '../testdata/'+file+'.json');
+    let jsonData = JSON.parse(fs.readFileSync(absolutePath, 'utf8'));
+
+    const setValueAtPath = (obj, path, value) => {
+        const keys = path.split('>');
+        let lastKey = keys.pop();
+        const lastObj = keys.reduce((acc, key) => acc[key] = acc[key] || {}, obj);
+        lastObj[lastKey] = value;
+    };
+
+    setValueAtPath(jsonData, propertyPath, newValue);
+
+    fs.writeFileSync(absolutePath, JSON.stringify(jsonData, null, 2), 'utf8');
+}
+
+module.exports = { readJsonFile, updateJsonData };
