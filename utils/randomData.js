@@ -1,7 +1,6 @@
 const { faker } = require('@faker-js/faker/locale/en_US')
 const fs = require('fs');
 const path = require('path');
-const dataPath = path.join(__dirname, '../testdata/myProfile.json');
 const { readJsonFile } = require('../utils/jsonReader');
 /**
  * @returns {{firstName: string, lastName: string}}

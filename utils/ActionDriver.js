@@ -75,13 +75,11 @@ class ActionDriver {
      */
     async elementVisible(element) {
         const el = await this.page.locator(element);
-        const isElementVisibleWithinTimeout = async (locator, timeout) => {
-            const start = Date.now();
-            const interval = 100; // Check every 100 ms
-
-            while (Date.now() - start < timeout) {
+        const start = Date.now();
+        const interval = 100; // Check every 100 ms
+            while (Date.now() - start < 5000) {
                 try {
-                    if (await locator.isVisible()) {
+                    if (await el.isVisible()) {
                         return true;
                     }
                 } catch (error) {
@@ -90,8 +88,6 @@ class ActionDriver {
                 await this.page.waitForTimeout(interval);
             }
             return false;
-        };
-        return await isElementVisibleWithinTimeout(el, 5000);
     }
 
     /**
@@ -460,6 +456,25 @@ class ActionDriver {
      */
     async checkIfIncludesInArray(array, text) {
         return array.includes(text);
+    }
+
+    /**
+     * This will get all the text in all element using specified locator
+     * @param {*} element : locator where all text will be taken.
+     * @returns 
+     */
+    async getTextArray(element){
+        const textArray = await this.page.locator(element).allTextContents();
+        return textArray;
+    }
+
+    async fileUpload(filePath, button) {
+        const fileChooserPromise = this.page.waitForEvent('filechooser');
+        await this.clickButton(button);
+        const fileChooser = await fileChooserPromise;
+        const path = require('path');
+        const imgPath = path.resolve(__dirname, filePath);
+        await fileChooser.setFiles(imgPath);
     }
 }
 module.exports = ActionDriver;
