@@ -22,6 +22,7 @@ module.exports = {
     endDataField : "//input[@name='contract_end_date']/following-sibling::input",
     endDateYearArrowUp : "(//input[contains(@class,'cur-year')]/following-sibling::span[@class='arrowUp'])[4]",
     countryField: "//label[text()='Country']/following-sibling::div[contains(@class,'country-select')]",
+    exportCurrentRecordsBtn: "//button[normalize-space()='Export current records']",
     
 
     //Team Requests

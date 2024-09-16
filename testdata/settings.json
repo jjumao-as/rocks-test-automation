@@ -1,0 +1,28 @@
+{
+  "client": "EmployeeDB",
+  "clientPassword": "Password123",
+  "originalSkill": "Automation",
+  "skill": "Automation19821",
+  "clientEnabledAccess": "Client Enable Access - Client",
+  "addToTeamClients": "Add To Team for Clients",
+  "addToTeamSales": "Add To Team for Sales",
+  "welcomeEmail": "Welcome to Full Scale!",
+  "salesEmailAddToTeam": "Add to Team Request: EmployeeDB",
+  "clientEmailAddToTeam": "Full Scale Add to Team Request Received",
+  "emailFrom": "noreply@fullscale.io",
+  "contacts": {
+    "firstName": "Alexie",
+    "lastName": "Feil",
+    "phoneNumber": "X171010869",
+    "email": "rocks.automationjs+7351@gmail.com"
+  },
+  "employeeName": {
+    "firstName": "Kaia",
+    "lastName": "Labadie"
+  },
+  "employeeDetails": {
+    "position": "Senior Full Stack",
+    "role": "Developer",
+    "client": "Override"
+  }
+}

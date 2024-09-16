@@ -1,6 +1,5 @@
 const myContactsLocators = require('../locators/myContactsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { sleep } = require('../../utils/utility')
 
 exports.MyContactsPage = class MyContactsPage {
     constructor(page){
@@ -48,7 +47,7 @@ exports.MyContactsPage = class MyContactsPage {
     }
 
     async paginationCheck(text, elements){
-        await sleep(4000);
+        await this.actionDriver.waitElementUntilVisible(myContactsLocators.paginationNextPage);
         const element = await this.page.locator(myContactsLocators.paginationNextPage);
         let blnResult = false;
         let pages = 0;
@@ -67,7 +66,7 @@ exports.MyContactsPage = class MyContactsPage {
 
       async validateName(text, elements){
         let blnResult = false;
-        await sleep(4000);
+        await this.actionDriver.waitElementUntilVisible(elements);
         const rows = this.page.locator(elements);
         await rows.first().waitFor();
         for(let j=0; j<await rows.count(); j++){

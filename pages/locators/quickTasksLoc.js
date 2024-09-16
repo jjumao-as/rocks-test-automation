@@ -34,19 +34,35 @@ module.exports = {
     attachementField : "//input[@type='file']",
     sendReportButton : "//span[text()='Send Report']/parent::button",
     subjectList : "//table[contains(@class,'dataTable')]/tbody/tr[1]/td[1]/a",
+    syncMail : "//i[contains(@class,'la-sync')]",
+    syncSpinner : "//i[contains(@class,'fa-spinner')]",
+    reportAlreadyExist : "//div[text()='Report already exists.']",
+    reportExistConfirmButton : "//button[contains(@class,'swal2-confirm')]",
 
     //Expense Report
     createExpenseReport : "//span[text()='Create Expense Report']",
     submitExpenseReportModal : "//h4[text()='Submit Expense Report']",
-    expenseType : "//label[text()='Expense Type']",
-    recieptAmount : "//label[text()='Receipt Amount']",
-    cashAdvanceAmount : "//label[text()='Cash Advance Amount']",
-    reimbursableAmount : "//label[text()='Reimbursable Amount']",
-    justification : "//label[text()='Justification']",
-    receiptMissing : "//label[contains(text(),'Receipt Missing?')]",
+    expenseTypeLabel : "//label[text()='Expense Type']",
+    recieptAmountLabel : "//label[text()='Receipt Amount']",
+    cashAdvanceAmountLabel : "//label[text()='Cash Advance Amount']",
+    reimbursableAmountLabel : "//label[text()='Reimbursable Amount']",
+    justificationLabel : "//label[text()='Justification']",
+    receiptMissingLabel : "//label[contains(text(),'Receipt Missing?')]",
+    expenseTypeFld : "//select[@id='select-expense_type_id']",
+    dateField : "//label[text()='Date']/parent::span/following-sibling::div//input[2]",
+    currentDate : "//span[@class='flatpickr-day today']",
+    receiptAmountFld : "//div[@class='number-field-receipt_amount']//input",
+    cashAdvanceAmountFld : "//div[@class='number-field-cash_advance_amount']//input",
+    reimbursableAmountFld : "//div[@class='number-field-reimbursable_amount']//input",
+    justificationFld : "//textarea[@id='textarea-justification']",
+    receiptMissingToggle : "//div[contains(@class,'receipt-missing')]//label[contains(@class,'ks-checkbox-switch')]",
     uploadReceipt : "//span[text()='Upload Receipt']",
+    uploadedReceipt : "//a[@title='View Uploaded Receipt']",
+    uploadReceiptBtn : "//input[@id='uploadReceipt']",
     submitButton : "//a[text()='SUBMIT']",
     closeButton : "//a[text()='close']",
+    confirmationMsg : "//div[text()='We will review your report and send an email once status is updated.']",
+    okBtn : "//button[contains(@class,'swal2-confirm')]",
 
     //Weekly Floor Report
     createWeeklyReport : "//span[text()='Create Weekly Floor Report']",
@@ -78,4 +94,6 @@ module.exports = {
     feedbackTab : "//legend[text()='Feedback']",
     sendButton : "//span[text()='Send']/parent::button",
 
+    //Expense Report
+    
 }

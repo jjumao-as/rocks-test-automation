@@ -1,7 +1,6 @@
 const { faker } = require('@faker-js/faker/locale/en_US')
 const fs = require('fs');
 const path = require('path');
-const dataPath = path.join(__dirname, '../testdata/myProfile.json');
 const { readJsonFile } = require('../utils/jsonReader');
 /**
  * @returns {{firstName: string, lastName: string}}
@@ -28,7 +27,6 @@ function fullContactData(contactData = {}, nameSuffix) {
   return {
     firstName,
     lastName,
-    email: faker.internet.email({ firstName, lastName }),
     phoneNumber,
   }
 }
@@ -38,26 +36,33 @@ function getRandomTimezone() {
   return faker.helpers.arrayElement(tz.timeZone)
 }
 
-function savedContact() {
-  let existingData = { contacts : []};
+function savedContact(fileData) {
+  let existingData = { contacts : [], employeeName : []};
+  const filePath = path.join(__dirname, '../testdata/'+fileData+'.json');
 
-  if (fs.existsSync(dataPath)) {
-    const rawData = fs.readFileSync(dataPath, 'utf8');
+  if (fs.existsSync(filePath)) {
+    const rawData = fs.readFileSync(filePath, 'utf8');
     existingData = JSON.parse(rawData);
 
     // Ensure contacts is an array
     if (!Array.isArray(existingData.contacts)) {
       existingData.contacts = [];
     }
+
+    // Ensure contacts is an array
+    if (!Array.isArray(existingData.employee)) {
+      existingData.employeeName = [];
+    }
   }
 
   existingData.contacts=fullContactData();
+  existingData.employeeName=firstAndLastName();
 
   // Convert updated data to JSON format
   const updatedJsonData = JSON.stringify(existingData, null, 2);
 
   // Write updated JSON data to file
-  fs.writeFileSync(dataPath, updatedJsonData, 'utf8');
+  fs.writeFileSync(filePath, updatedJsonData, 'utf8');
 }
 module.exports = {
   firstAndLastName,
