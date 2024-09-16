@@ -1,6 +1,7 @@
 module.exports = {
     //general locators
     home : "//span[text()='Home']",
+    allSideTabs : "//span[contains(@class,'ks-text')]",
 
     //Avatar
     avatar : "//div[contains(@class,'ks-user')]/a",

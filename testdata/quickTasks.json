@@ -1,0 +1,114 @@
+{
+    "expenseReport": {
+        "SUPERADMIN": {
+            "type": "Meal",
+            "amount": {
+                "recieptAmount": "5000",
+                "cashAdvanceAmount": "3000",
+                "reimbursableAmount": "2000"
+            },
+            "justification": "This is a sample expense report created by SUPERADMIN",
+            "receipt": {
+                "missing": "true",
+                "image": ""
+            },
+            "name": "Blackburn, Darrell"
+        },
+        "ADMIN": {
+            "type": "Trainings and Seminars",
+            "amount": {
+                "recieptAmount": "10000",
+                "cashAdvanceAmount": "1000",
+                "reimbursableAmount": "9000"
+            },
+            "justification": "This is a sample expense report created by ADMIN",
+            "receipt": {
+                "missing": "false",
+                "image": "../images/receipt.png"
+            },
+            "name": "Lasala, Julie Ann Lavares"
+        },
+        "FLOOR": {
+            "type": "Transportation and Travel",
+            "amount": {
+                "recieptAmount": "10000",
+                "cashAdvanceAmount": "",
+                "reimbursableAmount": "7000"
+            },
+            "justification": "This is a sample expense report created by FLOOR",
+            "receipt": {
+                "missing": "false",
+                "image": "../images/receipt.png"
+            },
+            "name": "Tapayan, Retchel Ochea"
+        },
+        "HR": {
+            "type": "Office Supplies",
+            "amount": {
+                "recieptAmount": "1000",
+                "cashAdvanceAmount": "500",
+                "reimbursableAmount": "1000"
+            },
+            "justification": "This is a sample expense report created by HR",
+            "receipt": {
+                "missing": "true",
+                "image": ""
+            },
+            "name": "Dalaota, Katrina Tolingin"
+        },
+        "FINANCE": {
+            "type": "Equipment",
+            "amount": {
+                "recieptAmount": "30000",
+                "cashAdvanceAmount": "1000",
+                "reimbursableAmount": "20000"
+            },
+            "justification": "This is a sample expense report created by FINANCE",
+            "receipt": {
+                "missing": "false",
+                "image": "../images/receipt.png"
+            },
+            "name" : "Diva, Maria Gerlyn Borres"
+        },
+        "EMPLOYEE": {
+            "type": "Shipping and Delivery Expense",
+            "amount": {
+                "recieptAmount": "5000",
+                "cashAdvanceAmount": "",
+                "reimbursableAmount": "3000"
+            },
+            "justification": "This is a sample expense report created by EMPLOYEE",
+            "receipt": {
+                "missing": "false",
+                "image": "../images/receipt.png"
+            },
+            "name": "Macasaet, Luis Francisco Trinidad"
+        },
+        "WRITER": {
+            "type": "Meal",
+            "amount": {
+                "recieptAmount": "500",
+                "cashAdvanceAmount": "",
+                "reimbursableAmount": "500"
+            },
+            "justification": "This is a sample expense report created by EMPLOYEE",
+            "receipt": {
+                "missing": "true",
+                "image": ""
+            },
+            "name" : "Quevedo, Kerr Jason Gordon"
+        },
+        "email" : {
+            "subjects" : [
+                "Action Required - Expense Reimbursement Request By Darrell Blackburn For Approval",
+                "Action Required - Expense Reimbursement Request By Julie Ann Lasala For Approval",
+                "Action Required - Expense Reimbursement Request By Retchel Tapayan For Approval",
+                "Action Required - Expense Reimbursement Request By Katrina Dalaota For Approval",
+                "Action Required - Expense Reimbursement Request By Maria Gerlyn Diva For Approval",
+                "Action Required - Expense Reimbursement Request By Luis Francisco Macasaet For Approval",
+                "Action Required - Expense Reimbursement Request By Kerr Jason Quevedo For Approval"
+            ],
+            "from" : "noreply@fullscale.io"
+        }
+    }
+}

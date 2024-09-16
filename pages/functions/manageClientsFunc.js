@@ -8,10 +8,6 @@ exports.ManageClientsPage = class ManageClientsPage {
         this.actionDriver = new ActionDriver(page);
     }
 
-    async navigateClientDashboard() {
-        await this.actionDriver.clickButton(manageClientsocators.manageClientDashboard);
-    }
-
     async navigateRecentlySignedUpClients() {
         await this.actionDriver.clickButton(manageClientsocators.recentlySignedUpClients);
     }
