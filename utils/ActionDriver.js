@@ -476,5 +476,35 @@ class ActionDriver {
         const imgPath = path.resolve(__dirname, filePath);
         await fileChooser.setFiles(imgPath);
     }
+
+    async scrollToBottom(element) {
+        let isVisible = false;
+            while (!isVisible) {
+            await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+            await this.page.waitForTimeout(5000);
+
+            isVisible = await this.checkElementBottom(element);
+        }
+    }
+
+    async compareAndSelectList(testData, element, elementButton) {
+        const elements = await this.page.locator(element).all();
+        const viewProfileBtn = this.page.locator(elementButton);
+        const extractedTexts = await Promise.all(elements.map(async element => {
+            return await element.textContent()
+        }));
+
+        const pageTextContents = extractedTexts.map(name => name.trim().toLowerCase());
+
+        for (const [index, text] of testData.entries()) {
+            const textLowerCase = text.toLowerCase();
+            const isTextIncluded = pageTextContents.some(pageText => pageText.includes(textLowerCase));
+            const textIndex = pageTextContents.indexOf(textLowerCase);
+            if (isTextIncluded) {
+                await viewProfileBtn.nth(textIndex).click();
+                break;
+            }
+        }
+    }
 }
 module.exports = ActionDriver;
