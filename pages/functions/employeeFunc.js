@@ -1,9 +1,10 @@
 const employeePageLoc = require('../locators/employeeLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const dashboardLoc = require('../locators/dashboardLoc');
-const { readJsonFile } = require('../../utils/jsonReader');;
+const { readJsonFile } = require('../../utils/jsonReader');
 const { time } = require('console');
 const { stat } = require('fs');
+
 
 let empName;
 let clientName;
@@ -22,6 +23,8 @@ exports.EmployeesPage = class EmployeesPage {
 
         this.page = page;
         this.actionDriver = new ActionDriver(page);
+
+    
     }
 
 
@@ -86,7 +89,9 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewModalHeading)
     }
 
-    async addInterview(date, cFeedback) {
+    async addInterview() {
+
+        jsonData = await readJsonFile('clientInterview')
 
         let randomIndexInvitee;
 
@@ -99,12 +104,13 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.keyboardPress('Enter')
 
         // select date
-        interviewDate = date
+        interviewDate = await this.actionDriver.getRandomJsonItem(jsonData, 'interviewDate')
         await this.actionDriver.clickButton(employeePageLoc.dateTimePicker)
         await this.actionDriver.typeText(interviewDate)
         await this.actionDriver.keyboardPress('Enter')
         await this.actionDriver.hoverElement(employeePageLoc.dateSelected)
         await this.actionDriver.clickButton(employeePageLoc.dateSelected)
+
 
         // select time
         await this.actionDriver.clickButton(employeePageLoc.timeDropdown)
@@ -197,9 +203,11 @@ exports.EmployeesPage = class EmployeesPage {
 
 
         // enter client feedback
-        clientFeedback = cFeedback
+        clientFeedback = await this.actionDriver.getRandomJsonItem(jsonData, 'clientFeedback')
         await this.actionDriver.clickButton(employeePageLoc.clientFeedbackTextArea)
         await this.actionDriver.typeText(clientFeedback)
+
+
 
 
     }

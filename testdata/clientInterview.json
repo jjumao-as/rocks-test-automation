@@ -1,16 +1,23 @@
 {
 
-    "employees" : {
-        "employeeName" : {
-            "employee1" : "Riblora, Clarisse Marquez",
-            "employee2" : "Rodriguez, Louie Carlo Opao",
-            "employee3" : "Dilidili, Warren",
-            "employee4" : "Dulin, Noel Manansala",
-            "employee5" : "Alcos, Mercy Sonsona"
+    "SUPERADMIN" : {
+        "employee" : "Riblora, Clarisse Marquez"
+    },
 
-        },
+    
+   "ADMIN" : {
+        "employee" : "Rodriguez, Louie Carlo Opao"
+    },
 
-     
+    "HR" : {
+        "employee" : "Dilidili, Warren"
+    },
+
+    "FLOOR" : {
+        "employee" : "Dulin, Noel Manansala"
+    },
+
+
 
         "interviewDate" : {
             "date1" : "Aug 01, 2023",
@@ -52,16 +59,4 @@
         }
 
         
-
-
-
-       
-
-        
-
-                
-    }
-
-
-
 }

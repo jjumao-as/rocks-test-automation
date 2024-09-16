@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 
-class ActionDriver {
+export class ActionDriver {
     constructor(page) {
         this.page = page;
     }
@@ -460,6 +460,12 @@ class ActionDriver {
      */
     async checkIfIncludesInArray(array, text) {
         return array.includes(text);
+    }
+
+    async getRandomJsonItem(jsonArray, key){
+        const dataArray = Object.values(jsonArray[key])
+        const randomIndex = Math.floor(Math.random() * dataArray.length)
+        return dataArray[randomIndex]
     }
 }
 module.exports = ActionDriver;
