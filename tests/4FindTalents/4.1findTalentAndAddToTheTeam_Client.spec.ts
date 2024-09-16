@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
 const { LoginPage, HomePage, DashboardPage, SettingsPage, ClientsPage, EmployeesPage, FindTalentPage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
-import { savedContact } from '../../utils/randomData.js';
+const { savedContact } = require('../../utils/randomData.js');
+const { refresh_access_token } = require('../../utils/googleDriver');
 
 
 let browser;
@@ -20,9 +21,8 @@ let testData;
 
 test.describe('Test Script for adding talent to the team', async () => {
     test.beforeAll(async ({ browser: b }) => {
-        browser = b;    
-        testDataPath = 'settings';
-        savedContact(testDataPath);
+        browser = b;  
+        testDataPath = 'settings';  
     });
     
     test.beforeEach(async () => {
@@ -41,6 +41,11 @@ test.describe('Test Script for adding talent to the team', async () => {
     test.afterEach(async () => {
         await context.close();
     });
+
+    test('Preparing data...', async() => {
+        await refresh_access_token();
+        await savedContact(testDataPath);
+    })
 
     test('Edit Workflows', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
