@@ -50,6 +50,15 @@ export class ActionDriver {
     }
 
     /**
+     * This function is use to determine and assert if specific element is enabled in the UI.
+     * @param {*} element : element to assert visibility.
+     */
+
+    async checkEnabledElement(element) {
+        await expect(this.page.locator(element)).toBeEnabled();
+    }
+
+    /**
      * This function is used when a locator contains multiple element (i.e. table row, side tabs)
      * @param {*} element : locator with multiple elements.
      */
@@ -62,6 +71,14 @@ export class ActionDriver {
         visibilityResults.forEach(async (isVisible, index) => {
             await expect(isVisible).toBeTruthy();
         })
+    }
+
+    async checkElementVisibility(element) {
+        await expect(this.page.locator(element)).toBeVisible({ timeout: 90000 });
+    }
+
+    async checkHiddenElement(element) {
+        await expect(this.page.locator(element)).toBeHidden({ timeout: 60000 });
     }
 
     /**
