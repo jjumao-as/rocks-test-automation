@@ -482,5 +482,17 @@ export class ActionDriver {
         const randomIndex = Math.floor(Math.random() * dataArray.length)
         return dataArray[randomIndex]
     }
+
+    async ElemetType(element, text) { 
+        await this.page.type(element, text);
+    }
+        
+        async ExpectElementValue(element, text) {
+        await expect(this.page.locator(element)).toHaveValue(text);
+    }
+
+    async checkVisibility(text) {
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 60000 });
+    }
 }
 module.exports = ActionDriver;
