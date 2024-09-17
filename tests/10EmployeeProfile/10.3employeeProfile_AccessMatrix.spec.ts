@@ -97,8 +97,9 @@ test('Check all available tabs for HR > My Profile', async () => {
     await myProfileIntPage.checkClientsIcon();
     await myProfileIntPage.checkClientInterviewsIcon();
     await myProfileIntPage.checkSkillsAndProficienciesIcon();
-    // Checking hidden elements on Clients Tab
+    // Checking hidden elements and links on Clients Tab
     await myProfileIntPage.checkClientsTabEditIconsHidden();
+    await myProfileIntPage.checkClientsNameLinksHidden();
 });
 test('Check all available tabs for Finance > My Profile', async () => {
     // Go to Rocks website and login as Super Admin
@@ -112,8 +113,9 @@ test('Check all available tabs for Finance > My Profile', async () => {
     // Checking visible and enabled icon(s) on header
     await myProfileIntPage.checkClientsIcon();
     await myProfileIntPage.checkSkillsAndProficienciesIcon();
-    // Checking hidden elements on Clients Tab
+    // Checking hidden elements and links on Clients Tab
     await myProfileIntPage.checkClientsTabEditIconsHidden();
+    await myProfileIntPage.checkClientsNameLinksHidden();
 });
 test('Check all available tabs for Content Writer > My Profile', async () => {
     // Go to Rocks website and login as Super Admin
@@ -127,9 +129,10 @@ test('Check all available tabs for Content Writer > My Profile', async () => {
     // Checking visible and enabled icon(s) on header
     await myProfileIntPage.checkClientsIcon();
     await myProfileIntPage.checkSkillsAndProficienciesIcon();
-    // Checking hidden elements on Clients Tab
+    // Checking hidden elements and links on Clients Tab
     await myProfileIntPage.checkFilesAndAssetsSectionHidden();
     await myProfileIntPage.checkClientsTabEditIconsHidden();
+    await myProfileIntPage.checkClientsNameLinksHidden();
 });
 test('Check all available tabs for Employee > My Profile', async () => {
     // Go to Rocks website and login as Super Admin
@@ -140,11 +143,12 @@ test('Check all available tabs for Employee > My Profile', async () => {
     await myProfileIntPage.checkAvailableHeader(testData.roleWithHiddenElements);
     // Checking available tabs below header
     await myProfileIntPage.checkAvailableTabs(testData.employeeTabs);
-    // Checking hidden elements
+    // Checking hidden elements and links
     await myProfileIntPage.checkClientsIconHidden();
     await myProfileIntPage.checkSkillsAndProficienciesIconHidden();
     await myProfileIntPage.checkTalentProfileIconsHidden();
     await myProfileIntPage.checkSpotLightSelectIconHidden();
     await myProfileIntPage.checkFilesAndAssetsSectionHidden();
     await myProfileIntPage.checkClientsTabEditIconsHidden();
+    await myProfileIntPage.checkClientsNameLinksHidden();
 });

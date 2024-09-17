@@ -28,10 +28,6 @@ exports.MyProfileIntPage = class MyProfileIntPage {
         const textArray = await this.actionDriver.getTextArray(elements);
         const visibleElements = data.visible.every(item => textArray.includes(item));
         const hiddenElements = data.hidden.every(item => textArray.includes(item));
-        console.log("Visible Elements");
-        console.log(data.visible);
-        console.log("Hidden Elements");
-        console.log(data.hidden);
         await this.actionDriver.expectTrue(visibleElements);
         await this.actionDriver.expectFalse(hiddenElements);
     }
@@ -60,10 +56,6 @@ exports.MyProfileIntPage = class MyProfileIntPage {
         await this.actionDriver.checkHiddenElement(MyProfileIntLocators.talentProfileEditIcons);
     }
 
-    async checkAllVisibleElements() {
-        await this.actionDriver.checkAllElementsVisibility(MyProfileIntLocators.talentProfileEditIcons);
-    }
-
     async checkSpotLightSelectIconHidden() {
         await this.actionDriver.checkHiddenElement(MyProfileIntLocators.clientSpotLightSelectIcon);
     }
@@ -75,5 +67,9 @@ exports.MyProfileIntPage = class MyProfileIntPage {
     async checkClientsTabEditIconsHidden() {
         await this.actionDriver.clickButton(MyProfileIntLocators.clientsTab);
         await this.actionDriver.checkHiddenElement(MyProfileIntLocators.clientsTabEditIcon);
+    }
+
+    async checkClientsNameLinksHidden() {
+        await this.actionDriver.checkHiddenElement(MyProfileIntLocators.clientsNameLinks);
     }
 }
