@@ -23,6 +23,11 @@ module.exports = {
     endDateYearArrowUp : "(//input[contains(@class,'cur-year')]/following-sibling::span[@class='arrowUp'])[4]",
     countryField: "//label[text()='Country']/following-sibling::div[contains(@class,'country-select')]",
     exportCurrentRecordsBtn: "//button[normalize-space()='Export current records']",
+
+    // Client Profile
+    clientNameLink : "//p[contains(@class,'client-name')]",
+    weeklyReportZeroStateLabel : "//h5[contains(text(), 'Create weekly floor report')]",
+
     
 
     //Team Requests

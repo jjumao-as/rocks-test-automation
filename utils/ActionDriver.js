@@ -482,5 +482,11 @@ export class ActionDriver {
         const randomIndex = Math.floor(Math.random() * dataArray.length)
         return dataArray[randomIndex]
     }
+
+    async goBackPreviousPage(){
+        await this.page.goBack()
+    }
+
+   
 }
 module.exports = ActionDriver;

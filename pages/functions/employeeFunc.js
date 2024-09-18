@@ -1,4 +1,5 @@
 const employeePageLoc = require('../locators/employeeLoc');
+const manageClientsLoc = require('../locators/manageClientsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const dashboardLoc = require('../locators/dashboardLoc');
 const { readJsonFile } = require('../../utils/jsonReader');
@@ -28,7 +29,9 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
 
-    // Employee Feedback Listing functions
+    /*
+    * Employee Feeback functions
+    */ 
 
     async isInFeedbackListing() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.feedbackResponsesHeader)
@@ -43,7 +46,10 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.closeButton)
     }
 
-    // Employee Listing functions
+
+    /*
+    * Employee Listing functions
+    */ 
 
     async isInEmployeeList() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.employeeListHeader)
@@ -63,7 +69,9 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
 
-    // Employee Profile Functions
+    /*
+    * Employee Profile functions
+    */
 
     async isInEmployeeProfile() {
 
@@ -216,6 +224,11 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.addNotesButton)
     }
 
+
+    /**
+    * Client Interview Listing table
+    */
+
     async isInterviewAdded() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.interviewTable)
 
@@ -234,6 +247,20 @@ exports.EmployeesPage = class EmployeesPage {
 
     async isInterviewDeleted() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.zeroStateTable)
+    }
+
+    async clickClientNameLink(){
+        await this.actionDriver.clickButton(employeePageLoc.clientTD)
+          
+    }
+
+    async isInClientPage(){
+        await this.actionDriver.checkElementVisibility(manageClientsLoc.weeklyReportZeroStateLabel) 
+        const cname = await this.actionDriver.getText(manageClientsLoc.clientNameLink)
+        await this.actionDriver.checkInclude(clientName, cname)
+        await this.actionDriver.goBackPreviousPage()
+
+     
     }
 
     async addEmployee(testData) {
