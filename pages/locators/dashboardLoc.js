@@ -1,6 +1,6 @@
 module.exports = {
     //general locators
-    home : "//span[text()='Home']",
+    home : "(//span[text()='Home'])[1]",
     allSideTabs : "//span[contains(@class,'ks-text')]",
 
     //Avatar
@@ -49,41 +49,41 @@ module.exports = {
     seeAllDailyReport : "//span[text()='See all daily reports']",
 
     //Announcement & FAQS
-    announcementFaqs : "//span[text()='Announcements & FAQs']",
+    announcementFaqs : "(//span[text()='Announcements & FAQs'])[1]",
     employeeResources : "//h4[text()='Employee Resources']",
     announcementLinks : "//td[contains(@class,'act-as-link')]",
  
     //Find Talent
-    findTalents : "//span[text()='Find Talent']",
+    findTalents : "(//span[text()='Find Talent'])[1]",
 
     //Employees (superadmin, admin)
-    employeeList : "//span[text()='Employee List']",
-    performanceReviews : "//span[text()='Performance Reviews']",
+    employeeList : "(//span[text()='Employee List'])[1]",
+    performanceReviews : "(//span[text()='Performance Reviews'])[1]",
 
     //Quick Tasks
-    createDailyReportLink : "//span[text()='Create Daily Report']",
-    createExpenseReportLink : "//span[text()='Create Expense Report']",
-    submitSelfPerformanceReviewLink : "//span[text()='Submit Self-Performance Review']",
-    managerPerformanceReviewLink : "//span[text()='Submit Manager Performance Review']",
-    submitFeedbackLink : "//span[text()='Submit Feedback']",
-    weeklyFloorReportLink : "//span[text()='Create Weekly Floor Report']",
+    createDailyReportLink : "(//span[text()='Create Daily Report'])[1]",
+    createExpenseReportLink : "(//span[text()='Create Expense Report'])[1]",
+    submitSelfPerformanceReviewLink : "(//span[text()='Submit Self-Performance Review'])[1]",
+    managerPerformanceReviewLink : "(//span[text()='Submit Manager Performance Review'])[1]",
+    submitFeedbackLink : "(//span[text()='Submit Feedback'])[1]",
+    weeklyFloorReportLink : "(//span[text()='Create Weekly Floor Report'])[1]",
 
     //Reports
-    dailyStatus : "//span[text()='Daily Status']",
-    dailyTimeClock : "//span[text()='Daily Time Clock']",
-    timeClockSummary : "//span[text()='Time Clock Summary']",
-    weeklyTimeClock : "//span[text()='Weekly Time Clock']",
-    expenseReports : "//span[text()='Expense Reports']",
+    dailyStatus : "(//span[text()='Daily Status'])[1]",
+    dailyTimeClock : "(//span[text()='Daily Time Clock'])[1]",
+    timeClockSummary : "(//span[text()='Time Clock Summary'])[1]",
+    weeklyTimeClock : "(//span[text()='Weekly Time Clock'])[1]",
+    expenseReports : "(//span[text()='Expense Reports'])[1]",
 
     //Super Admin Locators
-    users : "//span[text()='Users']",
-    roles : "//span[text()='Roles']",
-    categories : "//span[text()='Categories']",
-    clientManagement : "//span[text()='Client Management']",
-    employeeManagement : "//span[text()='Employee Management']",
-    employeeStatus : "//span[text()='Employee Status']",
-    recruitment : "//span[text()='Recruitment']",
-    expenseReport : "//span[text()='Expense Report']",
-    processWorkflow : "//span[text()='Process Workflow']",
-    documentTemplates : "//span[text()='Document Templates']",
+    users : "(//span[text()='Users'])[1]",
+    roles : "(//span[text()='Roles'])[1]",
+    categories : "(//span[text()='Categories'])[1]",
+    clientManagement : "(//span[text()='Client Management'])[1]",
+    employeeManagement : "(//span[text()='Employee Management'])[1]",
+    employeeStatus : "(//span[text()='Employee Status'])[1]",
+    recruitment : "(//span[text()='Recruitment'])[1]",
+    expenseReport : "(//span[text()='Expense Report'])[1]",
+    processWorkflow : "(//span[text()='Process Workflow'])[1]",
+    documentTemplates : "(//span[text()='Document Templates'])[1]",
 }

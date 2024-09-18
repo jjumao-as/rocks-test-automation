@@ -66,7 +66,7 @@ module.exports = {
     firstNameField : "//input[@name='first_name']",
     lastNameField : "//input[@name='last_name']",
     createEmployeeBtn : "//span[text()='Create Employee']",
-    employeeListTab : "//span[text()='Employee List']",
+    employeeListTab : "(//span[text()='Employee List'])[1]",
     employeeNameList : "//a[contains(@class,'photo-card-user-names')]//span",
     searchEmployee : "//input[contains(@placeholder,'Search Employee')]",
     searchEmployeeBtn : "//button[contains(@class,'btn-search')]",

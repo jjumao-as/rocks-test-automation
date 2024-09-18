@@ -8,7 +8,7 @@ module.exports = {
     reviewClientProspects : "//h4[text()='Review Client Prospects']",
 
     //Client Listing
-    clientListing : "//span[contains(text(),'Client List')]",
+    clientListing : "(//span[contains(text(),'Client List')])[1]",
     clients : "//h4[text()='Clients']",
     paginationBar : "//ul[@class='pagination']",
     addNewClientButton : "//button[text()='Add New Client']",
@@ -26,19 +26,19 @@ module.exports = {
     
 
     //Team Requests
-    teamRequests : "//span[contains(text(),'Team Requests')]",
+    teamRequests : "(//span[contains(text(),'Team Requests')][1]",
 
     //Documents & Agreements
-    documentsAgreements : "//span[contains(text(),'Documents & Agreements')]",
+    documentsAgreements : "(//span[contains(text(),'Documents & Agreements')])[1]",
 
     //Sales Lead
     salesLead : "//span[contains(text(),'Sales Leads')]",
 
     //Client Employee Interviews
-    clientEmpInterviews : "//span[contains(text(),'Client Employee Interviews')]",
+    clientEmpInterviews : "(//span[contains(text(),'Client Employee Interviews')])[1]",
 
     //Find Talent
-    findTalent : "//span[contains(text(),'Find Talent')]",
+    findTalent : "(//span[contains(text(),'Find Talent')])[1]",
 
 
 }
