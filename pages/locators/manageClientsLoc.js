@@ -7,7 +7,7 @@ module.exports = {
     reviewClientProspects : "//h4[text()='Review Client Prospects']",
 
     //Client Listing
-    clientListing : "//span[contains(text(),'Client List')]",
+    clientListing : "(//span[contains(text(),'Client List')])[1]",
     clients : "//h4[text()='Clients']",
     paginationBar : "//ul[@class='pagination']",
     addNewClientButton : "//button[text()='Add New Client']",
