@@ -16,6 +16,7 @@ let reason;
 let grade;
 let clientFeedback;
 let jsonData;
+let newSchedule;
 
 exports.EmployeesPage = class EmployeesPage {
 
@@ -98,7 +99,7 @@ exports.EmployeesPage = class EmployeesPage {
         // selecting client
         await this.actionDriver.clickButton(employeePageLoc.selectClientDropdown)
         const clientCount = await this.actionDriver.elementCount(employeePageLoc.clientOptions)
-        const randomIndexClient = Math.floor(Math.random() * clientCount)
+        const randomIndexClient = Math.floor(Math.random() * (clientCount - 1 + 1)) + 1
         clientName = await this.actionDriver.getText(`(${employeePageLoc.clientOptions})[${randomIndexClient}]`)
         await this.actionDriver.typeText(clientName)
         await this.actionDriver.keyboardPress('Enter')
@@ -115,7 +116,7 @@ exports.EmployeesPage = class EmployeesPage {
         // select time
         await this.actionDriver.clickButton(employeePageLoc.timeDropdown)
         const timeCount = await this.actionDriver.elementCount(employeePageLoc.timeOptions)
-        const randomIndexTime = Math.floor(Math.random() * timeCount)
+        const randomIndexTime = Math.floor(Math.random() * (timeCount - 1 + 1)) + 1
         interviewTime = await this.actionDriver.getText(`${employeePageLoc.timeOptions}[${randomIndexTime}]`)
         await this.actionDriver.typeText(interviewTime)
         await this.actionDriver.keyboardPress('Enter')
@@ -132,7 +133,7 @@ exports.EmployeesPage = class EmployeesPage {
 
             }
             else if (inviteeCount === 2) {
-                randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1)) + 1
+                randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
                 invitee = await this.actionDriver.getText(`(${employeePageLoc.additionalInviteesOptions})[${randomIndexInvitee}]`)
                 await this.actionDriver.typeText(invitee)
                 await this.actionDriver.keyboardPress('Enter')
@@ -140,7 +141,7 @@ exports.EmployeesPage = class EmployeesPage {
 
             }
             else {
-                randomIndexInvitee = Math.floor(Math.random() * inviteeCount) + 1
+                randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
                 invitee = await this.actionDriver.getText(`(${employeePageLoc.additionalInviteesOptions})[${randomIndexInvitee}]`)
                 await this.actionDriver.typeText(invitee)
                 await this.actionDriver.keyboardPress('Enter')
@@ -159,7 +160,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.statusDropdown)
 
         const statusCount = await this.actionDriver.elementCount(employeePageLoc.statusOptions)
-        const randomIndexStatus = Math.floor(Math.random() * statusCount) + 1
+        const randomIndexStatus = Math.floor(Math.random() * (statusCount - 1 + 1)) + 1
 
         await this.actionDriver.getText(`${employeePageLoc.statusOptions}[${randomIndexStatus}]`)
         interviewStatus = await this.actionDriver.getText(`${employeePageLoc.statusOptions}[${randomIndexStatus}]`)
@@ -177,12 +178,12 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.clickButton(employeePageLoc.reasonDropdown)
 
             const reasonCount = await this.actionDriver.elementCount(employeePageLoc.reasonOptions)
-            const randomIndexReason = Math.floor(Math.random() * reasonCount)
+            const randomIndexReason = Math.floor(Math.random() * (reasonCount - 1 + 1)) + 1
 
-            await this.actionDriver.getText(`${employeePageLoc.reasonOptions}[${randomIndexReason}]`)
-            reason = await this.actionDriver.getText(`${employeePageLoc.reasonOptions}[${randomIndexReason}]`)
+            await this.actionDriver.getText(`(${employeePageLoc.reasonOptions})[${randomIndexReason}]`)
+            reason = await this.actionDriver.getText(`(${employeePageLoc.reasonOptions})[${randomIndexReason}]`)
 
-            await this.actionDriver.clickButton(`${employeePageLoc.reasonOptions}[${randomIndexReason}]`)
+            await this.actionDriver.clickButton(`(${employeePageLoc.reasonOptions})[${randomIndexReason}]`)
 
             await this.actionDriver.keyboardPress('Enter')
 
@@ -194,12 +195,12 @@ exports.EmployeesPage = class EmployeesPage {
 
         const gradeCount = await this.actionDriver.elementCount(employeePageLoc.performanceGradeOptions)
 
-        const randomIndexGrade = Math.floor(Math.random() * gradeCount) + 1
+        const randomIndexGrade = Math.floor(Math.random() * (gradeCount - 1 + 1)) + 1
 
-        await this.actionDriver.getText(`${employeePageLoc.performanceGradeOptions}[${randomIndexGrade}]`)
-        grade = await this.actionDriver.getText(`${employeePageLoc.performanceGradeOptions}[${randomIndexGrade}]`)
+        await this.actionDriver.getText(`(${employeePageLoc.performanceGradeOptions})[${randomIndexGrade}]`)
+        grade = await this.actionDriver.getText(`(${employeePageLoc.performanceGradeOptions})[${randomIndexGrade}]`)
 
-        await this.actionDriver.clickButton(`${employeePageLoc.performanceGradeOptions}[${randomIndexGrade}]`)
+        await this.actionDriver.clickButton(`(${employeePageLoc.performanceGradeOptions})[${randomIndexGrade}]`)
 
 
         // enter client feedback
@@ -219,21 +220,62 @@ exports.EmployeesPage = class EmployeesPage {
     async isInterviewAdded() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.interviewTable)
 
-        await this.actionDriver.expectEquals(interviewStatus, employeePageLoc.statusTD)
-        await this.actionDriver.expectEquals(clientName, employeePageLoc.clientTD)
-        await this.actionDriver.expectEquals(grade, employeePageLoc.gradeTD)
-        await this.actionDriver.expectEquals(invitee, employeePageLoc.inviteeTD)
+        const statusList = await this.actionDriver.getTextArray(employeePageLoc.statusTD);
+        await this.actionDriver.checkIfIncludesInArray(statusList, interviewStatus)
+        const clientNameList = await this.actionDriver.getTextArray(employeePageLoc.clientTD);
+        await this.actionDriver.checkIfIncludesInArray(clientNameList, clientName)
+        const gradeList = await this.actionDriver.getTextArray(employeePageLoc.gradeTD);
+        await this.actionDriver.checkIfIncludesInArray(gradeList, grade)
+        const inviteeList = await this.actionDriver.getTextArray(employeePageLoc.inviteeTD);
+        await this.actionDriver.checkIfIncludesInArray(inviteeList, invitee)
 
     }
 
     async deleteInterview() {
-        await this.actionDriver.clickButton(employeePageLoc.deleteButton)
-        await this.actionDriver.checkElementVisibility(employeePageLoc.yesButton)
-        await this.actionDriver.clickButton(employeePageLoc.yesButton)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.addInterviewModalHeading);
+        const oldMonth = interviewDate.split(" ")[0];
+        const newMonth = await jsonData.dateAbbreviation[oldMonth];
+        const newDate = interviewDate.replace(new RegExp(`\\b${oldMonth}\\b`), newMonth);
+        newSchedule = newDate.replace(/\b0(\d{1})\b/, "$1") + ' '+ interviewTime.replace(/^0/, "");
+        let existing = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+        if(existing) {
+            await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.deleteButton);
+            await this.actionDriver.clickButton(employeePageLoc.yesButton);
+        }
     }
 
     async isInterviewDeleted() {
-        await this.actionDriver.checkElementVisibility(employeePageLoc.zeroStateTable)
+        let isStillExist = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+        await this.actionDriver.expectFalse(isStillExist);
+    }
+
+    async paginationCheck(text, elements) {
+        let blnResult = false;
+        let el;
+        let isVisible = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
+        let isLastPage = false;
+        if (isVisible) {
+            while (isVisible) {
+                await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+                el = await this.actionDriver.removeChildElement(elements);
+                blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
+                isLastPage = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
+                if (blnResult) {
+                    return true;
+                }
+                if (!blnResult && !isLastPage) {
+                    return false;
+                }
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.goToNextPage);
+                isVisible = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
+                await this.actionDriver.clickButton(employeePageLoc.goToNextPage);
+            }
+        } else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+            el = await this.actionDriver.removeChildElement(elements);
+            blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
+        }
+        return blnResult;
     }
 
     async addEmployee(testData) {
