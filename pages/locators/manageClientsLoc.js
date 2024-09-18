@@ -38,20 +38,20 @@ module.exports = {
     dropRequestType : "(//span[contains(text(),'Drop')])[1]",
 
     //Team Requests 
-    teamRequests : "//span[contains(text(),'Team Requests')]",
+    teamRequests : "(//span[contains(text(),'Team Requests')])[1]",
     actionColHeader : "//th[contains(text(),'Action')]",
     dropRequestType : "(//td[contains(@class,'for-web')]/child::span)[1]",
 
     //Documents & Agreements
-    documentsAgreements : "//span[contains(text(),'Documents & Agreements')]",
+    documentsAgreements : "(//span[contains(text(),'Documents & Agreements')])[1]",
 
     //Sales Lead
     salesLead : "//span[contains(text(),'Sales Leads')]",
 
     //Client Employee Interviews
-    clientEmpInterviews : "//span[contains(text(),'Client Employee Interviews')]",
+    clientEmpInterviews : "(//span[contains(text(),'Client Employee Interviews')])[1]",
 
     //Find Talent
-    findTalent : "//span[contains(text(),'Find Talent')]",
+    findTalent : "(//span[contains(text(),'Find Talent')])[1]",
 
 }

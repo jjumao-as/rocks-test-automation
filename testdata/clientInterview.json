@@ -1,0 +1,62 @@
+{
+
+    "SUPERADMIN" : {
+        "employee" : "Riblora, Clarisse Marquez"
+    },
+
+    
+   "ADMIN" : {
+        "employee" : "Rodriguez, Louie Carlo Opao"
+    },
+
+    "HR" : {
+        "employee" : "Dilidili, Warren"
+    },
+
+    "FLOOR" : {
+        "employee" : "Dulin, Noel Manansala"
+    },
+
+
+
+        "interviewDate" : {
+            "date1" : "Aug 01, 2023",
+            "date2" : "Jul 31, 2022",
+            "date3" : "Jan 13, 2023",
+            "date4" : "Aug 30, 2024",
+            "date5" : "Jan 15, 2024",
+            "date6" : "Nov 18, 2024",
+            "date7" : "Dec 16, 2024",
+            "date8" : "Oct 07, 2024",
+            "date9" : "Oct 25, 2024",
+            "date10" : "Nov 11, 2024"
+           
+            
+        },
+
+        "clientFeedback" : {
+            "clientFeedback1" : "This is just a sample client feedback one. Please ignore",
+            "clientFeedback2" : "This is just a sample client feedback two. Please ignore",
+            "clientFeedback3" : "This is just a sample client feedback three. Please ignore",
+            "clientFeedback4" : "This is just a sample client feedback four. Please ignore",
+            "clientFeedback5" : "This is just a sample client feedback five. Please ignore"
+        },
+
+        "salesFeedback" : {
+            "salesFeedback1" : "This is just a sample sales feedback one. Please ignore just a test",
+            "salesFeedback2" : "This is just a sample sales feedback two. Please ignore just a test",
+            "salesFeedback3" : "This is just a sample sales feedback three. Please ignore just a test",
+            "salesFeedback4" : "This is just a sample sales feedback four. Please ignore just a test",
+            "salesFeedback5" : "This is just a sample sales feedback five. Please ignore just a test"
+        },
+
+        "talentFeedback" : {
+            "talentFeedback1" : "This is just a sample talent feedback one from employee. Please ignore just a test",
+            "talentFeedback2" : "This is just a sample talent feedback two from employee. Please ignore just a test",
+            "talentFeedback3" : "This is just a sample talent feedback three from employee. Please ignore just a test",
+            "talentFeedback4" : "This is just a sample talent feedback four from employee. Please ignore just a test",
+            "talentFeedback5" : "This is just a sample talent feedback five from employee. Please ignore just a test"
+        }
+
+        
+}

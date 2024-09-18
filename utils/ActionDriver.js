@@ -476,5 +476,11 @@ class ActionDriver {
         const imgPath = path.resolve(__dirname, filePath);
         await fileChooser.setFiles(imgPath);
     }
+
+    async getRandomJsonItem(jsonArray, key){
+        const dataArray = Object.values(jsonArray[key])
+        const randomIndex = Math.floor(Math.random() * dataArray.length)
+        return dataArray[randomIndex]
+    }
 }
 module.exports = ActionDriver;
