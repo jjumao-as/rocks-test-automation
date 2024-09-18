@@ -56,7 +56,7 @@ module.exports = {
 
     deleteButton : '//*[@id="client-interview-table"]/tbody/tr/td[6]/div/div/a',
     yesButton : "//button[@class='swal2-confirm swal2-styled']",
-
+    goToNextPage : "//button[contains(@aria-label,'Go to next page')]",
 
 
 

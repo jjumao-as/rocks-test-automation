@@ -237,12 +237,45 @@ exports.EmployeesPage = class EmployeesPage {
         const newMonth = await jsonData.dateAbbreviation[oldMonth];
         const newDate = interviewDate.replace(new RegExp(`\\b${oldMonth}\\b`), newMonth);
         newSchedule = newDate.replace(/\b0(\d{1})\b/, "$1") + ' '+ interviewTime.replace(/^0/, "");
-        await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.deleteButton);
-        await this.actionDriver.clickButton(employeePageLoc.yesButton)
+        let existing = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+        if(existing) {
+            await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.deleteButton);
+            await this.actionDriver.clickButton(employeePageLoc.yesButton);
+        }
     }
 
     async isInterviewDeleted() {
-        await this.actionDriver.compareFromList(newSchedule, employeePageLoc.scheduleTD)
+        let isStillExist = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+        await this.actionDriver.expectFalse(isStillExist);
+    }
+
+    async paginationCheck(text, elements) {
+        let blnResult = false;
+        let el;
+        let isVisible = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
+        let isLastPage = false;
+        if (isVisible) {
+            while (isVisible) {
+                await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+                el = await this.actionDriver.removeChildElement(elements);
+                blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
+                isLastPage = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
+                if (blnResult) {
+                    return true;
+                }
+                if (!blnResult && !isLastPage) {
+                    return false;
+                }
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.goToNextPage);
+                isVisible = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
+                await this.actionDriver.clickButton(employeePageLoc.goToNextPage);
+            }
+        } else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+            el = await this.actionDriver.removeChildElement(elements);
+            blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
+        }
+        return blnResult;
     }
 
     async addEmployee(testData) {
