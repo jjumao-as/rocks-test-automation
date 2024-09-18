@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 
-export class ActionDriver {
+class ActionDriver {
     constructor(page) {
         this.page = page;
     }

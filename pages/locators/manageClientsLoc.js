@@ -2,13 +2,12 @@ module.exports = {
     //Dashboard
     manageClientDashboard : "//span[text()='Manage Clients']/ancestor::div[contains(@class,'nav-title')]/following-sibling::ul//span[text()='Dashboard']",
 
-
     //Recently Signed Up Clients
     recentlySignedUpClients : "//span[contains(text(),'Recently Signed-up Clients')]",
     reviewClientProspects : "//h4[text()='Review Client Prospects']",
 
     //Client Listing
-    clientListing : "//span[contains(text(),'Client List')]",
+    clientListing : "(//span[contains(text(),'Client List')])[1]",
     clients : "//h4[text()='Clients']",
     paginationBar : "//ul[@class='pagination']",
     addNewClientButton : "//button[text()='Add New Client']",
@@ -44,21 +43,36 @@ module.exports = {
     search : '//input[contains(@placeholder, "Search Company Name")]',
     
 
+    searchCompanyNameField : "//input[contains(@placeholder,'Search Company Name')]",
+    searchButton : "//i[contains(@class,'search-icon')]",
+    companySearchResult : "//a[contains(@class,'client-profile')]",
+    
+    //Client Profile
+    clientLogo : "//div[contains(@class,'client-logo')]",
+    weeklyFloorReportTab : "//a[contains(text(),'Weekly Floor Report')]",
+    teamRequestsTab : "//a[contains(text(),'Team Requests')]",
+    teamMembersTab : "//a[contains(text(),'Team Members')]",
 
-    //Team Requests
-    teamRequests : "//span[contains(text(),'Team Requests')]",
+    //Client Profile Team Requests Table
+    dropRequestedLink : "(//a[contains(text(),'Drop Requested')])[1]",
+    dropRequestTalent : "(//a[contains(@class,'photo-card-user-names')])[1]",
+    dropRequestType : "(//span[contains(text(),'Drop')])[1]",
+
+    //Team Requests 
+    teamRequests : "(//span[contains(text(),'Team Requests')])[1]",
+    actionColHeader : "//th[contains(text(),'Action')]",
+    dropRequestType : "(//td[contains(@class,'for-web')]/child::span)[1]",
 
     //Documents & Agreements
-    documentsAgreements : "//span[contains(text(),'Documents & Agreements')]",
+    documentsAgreements : "(//span[contains(text(),'Documents & Agreements')])[1]",
 
     //Sales Lead
     salesLead : "//span[contains(text(),'Sales Leads')]",
 
     //Client Employee Interviews
-    clientEmpInterviews : "//span[contains(text(),'Client Employee Interviews')]",
+    clientEmpInterviews : "(//span[contains(text(),'Client Employee Interviews')])[1]",
 
     //Find Talent
-    findTalent : "//span[contains(text(),'Find Talent')]",
-
+    findTalent : "(//span[contains(text(),'Find Talent')])[1]",
 
 }
