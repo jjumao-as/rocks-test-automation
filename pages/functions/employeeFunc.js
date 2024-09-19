@@ -218,7 +218,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async isInterviewAdded() {
-        await this.actionDriver.checkElementHidden(employeePageLoc.loadingRecords)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.addInterviewModalHeading);
 
         const statusList = await this.actionDriver.getTextArray(employeePageLoc.statusTD);
         await this.actionDriver.checkIfIncludesInArray(statusList, interviewStatus)
@@ -232,16 +232,17 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async deleteInterview() {
-        await this.actionDriver.waitElementUntilHidden(employeePageLoc.addInterviewModalHeading);
         const oldMonth = interviewDate.split(" ")[0];
         const newMonth = await jsonData.dateAbbreviation[oldMonth];
         const newDate = interviewDate.replace(new RegExp(`\\b${oldMonth}\\b`), newMonth);
         newSchedule = newDate.replace(/\b0(\d{1})\b/, "$1") + ' '+ interviewTime.replace(/^0/, "");
-        let existing = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+        console.log(newSchedule);
+        let existing = await this.paginationCheck(newSchedule+ ' Asia/Manila', employeePageLoc.scheduleTD);
+        console.log(existing);
         if(existing) {
             await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.deleteButton);
             await this.actionDriver.clickButton(employeePageLoc.yesButton);
-            await this.actionDriver.checkElementHidden(employeePageLoc.loadingRecords)
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         }
     }
 
@@ -257,7 +258,6 @@ exports.EmployeesPage = class EmployeesPage {
         let isLastPage = false;
         if (isVisible) {
             while (isVisible) {
-                await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
                 el = await this.actionDriver.removeChildElement(elements);
                 blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
                 isLastPage = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
@@ -270,10 +270,11 @@ exports.EmployeesPage = class EmployeesPage {
                 await this.actionDriver.waitElementUntilVisible(employeePageLoc.goToNextPage);
                 isVisible = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
                 await this.actionDriver.clickButton(employeePageLoc.goToNextPage);
+                await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
             }
         } else {
-            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
             el = await this.actionDriver.removeChildElement(elements);
+            console.log(el);
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;
