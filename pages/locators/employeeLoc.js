@@ -102,4 +102,5 @@ module.exports = {
     confirmDeletion : "//div[contains(@class,'swal2-actions')]/button[text()='Yes']",
     deletionProgress : "//div[contains(text(),'Wait while saving changes')]",
     loadingRecords : "//span[contains(text(),'Loading records')]",
+    interviewDeletionProgress : "//div[contains(text(),'Deleting interview')]",
 }

@@ -25,7 +25,7 @@ exports.EmployeesPage = class EmployeesPage {
         this.page = page;
         this.actionDriver = new ActionDriver(page);
 
-    
+
     }
 
 
@@ -235,18 +235,17 @@ exports.EmployeesPage = class EmployeesPage {
         const oldMonth = interviewDate.split(" ")[0];
         const newMonth = await jsonData.dateAbbreviation[oldMonth];
         const newDate = interviewDate.replace(new RegExp(`\\b${oldMonth}\\b`), newMonth);
-        newSchedule = newDate.replace(/\b0(\d{1})\b/, "$1") + ' '+ interviewTime.replace(/^0/, "");
-        console.log(newSchedule);
-        let existing = await this.paginationCheck(newSchedule+ ' Asia/Manila', employeePageLoc.scheduleTD);
-        console.log(existing);
-        if(existing) {
+        newSchedule = newDate.replace(/\b0(\d{1})\b/, "$1") + ' ' + interviewTime.replace(/^0/, "");
+        let existing = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+        if (existing) {
             await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.deleteButton);
             await this.actionDriver.clickButton(employeePageLoc.yesButton);
-            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.interviewDeletionProgress);
         }
     }
 
     async isInterviewDeleted() {
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         let isStillExist = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
         await this.actionDriver.expectFalse(isStillExist);
     }
@@ -259,6 +258,7 @@ exports.EmployeesPage = class EmployeesPage {
         if (isVisible) {
             while (isVisible) {
                 el = await this.actionDriver.removeChildElement(elements);
+                el = await this.trimSchedule(el);
                 blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
                 isLastPage = await this.actionDriver.elementVisible(employeePageLoc.goToNextPage);
                 if (blnResult) {
@@ -274,10 +274,19 @@ exports.EmployeesPage = class EmployeesPage {
             }
         } else {
             el = await this.actionDriver.removeChildElement(elements);
-            console.log(el);
+            el = await this.trimSchedule(el);
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;
+    }
+
+    async trimSchedule(dateStrings) {
+        const extractedDateTime = dateStrings.map(item => {
+            const match = item.match(/^(.*?\d{4}.*?\d{1,2}:\d{2} [APM]{2})/);
+            return match ? match[1] : null;
+        });
+
+        return extractedDateTime;
     }
 
     async addEmployee(testData) {
@@ -292,7 +301,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async validateAddedEmployee(testData) {
-        const employeeName = testData.lastName+', '+testData.firstName;
+        const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.editEmployeeClients)
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
         await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
@@ -302,7 +311,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async searchEmployee(testData) {
-        const employeeName = testData.lastName+', '+testData.firstName;
+        const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
         await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
         await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
@@ -323,8 +332,8 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.savePosition);
     }
 
-    async validatePostion(testData){
-        const position = testData.position+" "+testData.role;
+    async validatePostion(testData) {
+        const position = testData.position + " " + testData.role;
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.modalTitle);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.currentPosition);
         await this.actionDriver.expectEquals(position, employeePageLoc.currentPosition);
@@ -362,7 +371,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.findText(testData, employeePageLoc.clientList);
     }
 
-    async navigateToEmployeeList(){
+    async navigateToEmployeeList() {
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.employeeListTab);
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab)
     }
@@ -373,12 +382,12 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async deleteEmployee(testData) {
-        const employeeName = testData.lastName+', '+testData.firstName;
+        const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.selectDataFromText(employeeName, employeePageLoc.employeeNameList, employeePageLoc.employeeActionButton);
         await this.actionDriver.selectDataFromText(employeeName, employeePageLoc.employeeNameList, employeePageLoc.deleteRequest);
         await this.actionDriver.clickButton(employeePageLoc.confirmDeletion);
-        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletionProgress); 
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletionProgress);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
         await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
