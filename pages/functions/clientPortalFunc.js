@@ -65,7 +65,8 @@ exports.ClientPortalPage = class ClientPortalPage {
    }
 
     //Verify the drop requested talent
-    async dropTalentStatusCheck(){        
+    async dropTalentStatusCheck(){      
+        await this.actionDriver.waitElementUntilHidden(manageClientLocators.loadingRecords);  
         await this.actionDriver.checkElementVisibility(manageClientLocators.dropRequestTalent);                
         await this.actionDriver.checkElementVisibility(manageClientLocators.dropRequestType);
         await this.actionDriver.checkElementVisibility(manageClientLocators.dropRequestedLink);

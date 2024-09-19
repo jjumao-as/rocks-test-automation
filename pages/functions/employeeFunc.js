@@ -218,7 +218,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async isInterviewAdded() {
-        await this.actionDriver.checkElementVisibility(employeePageLoc.interviewTable)
+        await this.actionDriver.checkElementHidden(employeePageLoc.loadingRecords)
 
         const statusList = await this.actionDriver.getTextArray(employeePageLoc.statusTD);
         await this.actionDriver.checkIfIncludesInArray(statusList, interviewStatus)
@@ -241,6 +241,7 @@ exports.EmployeesPage = class EmployeesPage {
         if(existing) {
             await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.deleteButton);
             await this.actionDriver.clickButton(employeePageLoc.yesButton);
+            await this.actionDriver.checkElementHidden(employeePageLoc.loadingRecords)
         }
     }
 

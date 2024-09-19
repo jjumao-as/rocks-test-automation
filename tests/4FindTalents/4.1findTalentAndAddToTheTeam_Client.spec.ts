@@ -138,11 +138,6 @@ test.describe('Test Script for adding talent to the team', async () => {
         await employeePage.validateClientRemoved(testData.employeeDetails.client);
     });
 
-    test('Validate Client and Sales Email - Add to team', async() => {
-        await clientPage.validateEmail(testData.salesEmailAddToTeam, testData.emailFrom);
-        await clientPage.validateEmail(testData.clientEmailAddToTeam, testData.emailFrom);
-    });
-
     test('Delete Employee', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
@@ -181,5 +176,10 @@ test.describe('Test Script for adding talent to the team', async () => {
         await settingsPage.editWorkFlow(testData.addToTeamSales);
         await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
-    })
+    });
+
+    test('Validate Client and Sales Email - Add to team', async() => {
+        await clientPage.validateEmail(testData.salesEmailAddToTeam, testData.emailFrom);
+        await clientPage.validateEmail(testData.clientEmailAddToTeam, testData.emailFrom);
+    });
 });
