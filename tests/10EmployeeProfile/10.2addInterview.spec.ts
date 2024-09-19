@@ -35,32 +35,40 @@ roleToTest.forEach(role => {
             quickTasksPage = new QuickTasksPage(page)
             employeesPage = new EmployeesPage(page)
             dashboardPage = new DashboardPage(page)
+
+            await loginPage.login(username, password)
+            await homePage.isInHomePage()
+
+           
         
         })
 
       
         test(`${role} adds interview to employee`, async() => {
 
+             // Search Employee
+             await dashboardPage.search(testData[role].employee);
+             await dashboardPage.checkValidSearchResult();
+             await dashboardPage.viewSearchResult();
+             await dashboardPage.verifyTalent();
+
         
-            await loginPage.login(username, password)
-            await homePage.isInHomePage()
-
-            // Search Employee
-            await dashboardPage.search(testData[role].employee);
-            await dashboardPage.checkValidSearchResult();
-            await dashboardPage.viewSearchResult();
-            await dashboardPage.verifyTalent();
-
             // Navigate to Client Interviews
             await employeesPage.navigateToClientInterviews()
             await employeesPage.addInterviewModalIsPresent()
             await employeesPage.addInterview()
             await employeesPage.submitInterview()
             await employeesPage.isInterviewAdded()
-            
 
-          
+            // Navigate to Client page
+            if(role != 'HR'){
+                await employeesPage.clickClientNameLink()
+                await employeesPage.isInClientPage()
+                await employeesPage.navigateToClientInterviews()
+            }
+            
         });
+
 
         test.afterEach(async ({}) => {
             await employeesPage.deleteInterview()

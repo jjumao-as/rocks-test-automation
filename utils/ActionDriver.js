@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 
-export class ActionDriver {
+class ActionDriver {
     constructor(page) {
         this.page = page;
     }
@@ -488,5 +488,31 @@ export class ActionDriver {
     }
 
    
+
+     /**
+     * This function is use to simulate typing of text inside a input field
+     * @param {*} element : locator of the input field element
+     * @param {*} text    : text data value to type inside the input field
+     */
+    async ElemetType(element, text) { 
+        await this.page.type(element, text);
+    }
+      
+     /**
+     * This function is use to asserts if the located element has a specific text value
+     * @param {*} element : locator of the element that contains the text value
+     * @param {*} text    : text data value to assert if it exist inside the specified element
+     */
+    async ExpectElementValue(element, text) {
+    await expect(this.page.locator(element)).toHaveValue(text);
+    }
+
+     /**
+     * This function is use to asserts if the specific text value exist inside the current open page
+     * @param {*} text    : text data value to assert if it exist within the page
+     */
+    async checkVisibility(text) {
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 60000 });
+    }
 }
 module.exports = ActionDriver;

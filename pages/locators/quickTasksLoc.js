@@ -13,7 +13,7 @@ module.exports = {
     notification : '#main-wrapper > div:nth-child(3) > div.snotify.snotify-centerTop > div > div.snotifyToast__inner > div.snotifyToast__body',
     progressBar : '//*[@id="main-wrapper"]/div[2]/div[8]/div/div[1]',
 
-    createDailyReport : "//span[text()='Create Daily Report']",
+    createDailyReport : "(//span[text()='Create Daily Report'])[1]",
     composeNewMessage : "//button[text()='Compose new message']",
     dailyReports : "//h4[text()='Daily Reports']",
     paginationBar : "//ul[@class='pagination']",
@@ -40,7 +40,7 @@ module.exports = {
     reportExistConfirmButton : "//button[contains(@class,'swal2-confirm')]",
 
     //Expense Report
-    createExpenseReport : "//span[text()='Create Expense Report']",
+    createExpenseReport : "(//span[text()='Create Expense Report'])[1]",
     submitExpenseReportModal : "//h4[text()='Submit Expense Report']",
     expenseTypeLabel : "//label[text()='Expense Type']",
     recieptAmountLabel : "//label[text()='Receipt Amount']",
@@ -65,7 +65,7 @@ module.exports = {
     okBtn : "//button[contains(@class,'swal2-confirm')]",
 
     //Weekly Floor Report
-    createWeeklyReport : "//span[text()='Create Weekly Floor Report']",
+    createWeeklyReport : "(//span[text()='Create Weekly Floor Report'])[1]",
     createWeeklyFloorReportModal : "//h4[text()='Create Weekly Floor Report']",
     selectClients : "//label[text()='Select Client(s)']",
     goalsOrDeadline : "//span[text()='Do you have goals or deadlines?']",
@@ -73,7 +73,7 @@ module.exports = {
     needMoreTalent : "//span[text()='Does the project need more talent?']",
 
     //Self-Performance Review
-    submitSelfPerformanceReview : "//span[text()='Submit Self-Performance Review']",
+    submitSelfPerformanceReview : "(//span[text()='Submit Self-Performance Review'])[1]",
     performanceEvaluationReview : "//h4[text()='Performance Evaluation Review']",
     evaluationPeriodStep : "//ol[@class='step-indicator']//span[contains(text(),'Evaluation Period')]",
     performanceCompetencies : "//ol[@class='step-indicator']//span[contains(text(),'Performance Competencies')]",
@@ -82,14 +82,14 @@ module.exports = {
     endDate : "//label[text()='End date']",
 
     //Manager Performance Review
-    managerPerformanceReviewTab : "//span[text()='Submit Manager Performance Review']",
+    managerPerformanceReviewTab : "(//span[text()='Submit Manager Performance Review'])[1]",
     managerPerformanceReview : "//h4[text()='Performance Evaluation Review']",
     managerReviewstartDate : "//label[text()='Start date']",
     managerReviewendDate : "//label[text()='End date']",
     selectTalent : "//label[text()='Select a talent to evaluate']",
 
     //Submit Feedback
-    submitFeedback : "//span[text()='Submit Feedback']",
+    submitFeedback : "(//span[text()='Submit Feedback'])[1]",
     category : "//label[text()='Category']",
     feedbackTab : "//legend[text()='Feedback']",
     sendButton : "//span[text()='Send']/parent::button",
