@@ -54,10 +54,14 @@ exports.ClientPortalPage = class ClientPortalPage {
     async dropTalentNameConfirmedAdmin(){
         await this.actionDriver.checkElementVisibility(manageClientLocators.clientListing);
         await this.actionDriver.clickButton(manageClientLocators.clientListing);
+        await this.actionDriver.waitElementUntilHidden(manageClientLocators.loadingRecords);
+        await this.actionDriver.waitElementUntilHidden(manageClientLocators.loadingOverlay);
+        await this.actionDriver.waitElementUntilVisible(manageClientLocators.clientTableBody);
         await this.actionDriver.checkElementVisibility(manageClientLocators.clients);
         await this.actionDriver.checkElementVisibility(manageClientLocators.searchCompanyNameField);
         await this.actionDriver.setText(manageClientLocators.searchCompanyNameField, "EmployeeDB");
-        await this.actionDriver.clickButton(manageClientLocators.searchButton);
+        await this.actionDriver.keyboardPress('Enter');
+        await this.actionDriver.waitElementUntilHidden(manageClientLocators.loadingRecords);
         await this.actionDriver.clickButton(manageClientLocators.companySearchResult);
         await this.actionDriver.checkElementVisibility(manageClientLocators.clientLogo);
         await this.actionDriver.checkElementVisibility(manageClientLocators.teamRequestsTab);
