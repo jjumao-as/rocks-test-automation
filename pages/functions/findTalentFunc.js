@@ -90,7 +90,7 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.waitElementUntilVisible(findTalentLocators.nameList);
         await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
         await this.actionDriver.compareAndSelectList(testData, findTalentLocators.nameList, findTalentLocators.viewProfileButtonList);
-        await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookaCall);
     }
 
     async clickBookACall() { 
@@ -112,7 +112,7 @@ exports.FindTalentPage = class FindTalentPage {
     async verifyTimeSlot(){
         await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
         const text = await this.actionDriver.getTextofLastElement(findTalentLocators.bookingSchedule);
-        const splitText = await this.actionDriver.splitTextComma(text);
+        const splitText = text.split(',');
         await this.actionDriver.compareFromList(splitText[splitText.length - 1], findTalentLocators.timeSlots);
     }
 

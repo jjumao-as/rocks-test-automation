@@ -468,6 +468,11 @@ class ActionDriver {
         return textArray;
     }
 
+    /**
+     * This function is use on uploading file test case
+     * @param {filePath} filePath : Path of the file to upload should be in testdata
+     * @param {button} button : locator of the button for uploading
+     */
     async fileUpload(filePath, button) {
         const fileChooserPromise = this.page.waitForEvent('filechooser');
         await this.clickButton(button);
@@ -477,6 +482,12 @@ class ActionDriver {
         await fileChooser.setFiles(imgPath);
     }
 
+    /**
+     * This will pick random to given jsonData
+     * @param {jsonArray} jsonArray : list of data to pick saved in array
+     * @param {key} key : key in the array 
+     * @returns 
+     */
     async getRandomJsonItem(jsonArray, key){
         const dataArray = Object.values(jsonArray[key])
         const randomIndex = Math.floor(Math.random() * dataArray.length)
@@ -509,6 +520,24 @@ class ActionDriver {
         await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
     }
 
+    /**
+     * This function is use to check if the element is display usually to verify "No more records to display" is visible
+     * @param {element} element : element to check if visible.
+     * @returns 
+     */
+    async checkElementBottom(element){
+        const elementHandle = await this.page.$(element);
+        if(elementHandle){
+            const boundingBox = await elementHandle.boundingBox();
+            return boundingBox !== null;
+        }
+        return false;
+    }
+
+    /**
+     * This will scroll the page to the bottom.
+     * @param {element} element : element to check if the page reached the bottom. 
+     */
     async scrollToBottom(element) {
         let isVisible = false;
             while (!isVisible) {
@@ -519,6 +548,12 @@ class ActionDriver {
         }
     }
 
+    /**
+     * This function is use to select data from array and will check if the data is visible in the UI, if visible it will click the specified button
+     * @param {testData} testData : Array where all the data to check is stored
+     * @param {element} element : element to check and compare if it includes the data from the array
+     * @param {elementButton} elementButton : button to click once array data is available in UI.
+     */
     async compareAndSelectList(testData, element, elementButton) {
         const elements = await this.page.locator(element).all();
         const viewProfileBtn = this.page.locator(elementButton);
@@ -537,6 +572,18 @@ class ActionDriver {
                 break;
             }
         }
+    }
+
+    /**
+     * This function is use to get the text of last element if locator has multiple element
+     * @param {element} element : locator to check 
+     * @returns 
+     */
+    async getTextofLastElement(element){
+        const elements = await this.page.locator(element).all();
+        const lastElement = elements[elements.length - 1];
+        const textContent = await lastElement.textContent();
+        return textContent.trim();
     }
 }
 module.exports = ActionDriver;
