@@ -86,8 +86,6 @@ exports.FindTalentPage = class FindTalentPage {
         }
     }
 
-<<<<<<< Updated upstream
-=======
     async compareList(testData){
         await this.actionDriver.waitElementUntilVisible(findTalentLocators.nameList);
         await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
@@ -95,7 +93,6 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
     }
 
->>>>>>> Stashed changes
     async clickBookACall() { 
         await this.actionDriver.clickButton(findTalentLocators.bookaCall);
     }
@@ -112,8 +109,6 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.checkAllElementsVisibility(findTalentLocators.yourBookings);
     }
 
-<<<<<<< Updated upstream
-=======
     async verifyTimeSlot(){
         await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
         const text = await this.actionDriver.getTextofLastElement(findTalentLocators.bookingSchedule);
@@ -121,7 +116,6 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.compareFromList(splitText[splitText.length - 1], findTalentLocators.timeSlots);
     }
 
->>>>>>> Stashed changes
     async verifySchedule(){
         const timeSlotSelected = await this.actionDriver.getText(findTalentLocators.firstTimeSlot);
         const bookingTimeSlot = await this.actionDriver.getText(findTalentLocators.bookingFooter);
