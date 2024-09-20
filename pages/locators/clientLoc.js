@@ -17,7 +17,7 @@ module.exports = {
     searchRequest : "//div[contains(@class,'search-wrapper')]//input",
     requestEmployeeName : "//a[contains(@class,'photo-card-user-names')]/div",
     requestStatus : "//td[6]/a",
-    teamRequestSideTab : "//span[contains(text(),'Team Requests')]",
+    teamRequestSideTab : "(//span[contains(text(),'Team Requests')])[1]",
     searchByTalentFld : "//input[@placeholder='Search by talent']",
     teamRequestListStatus : "//p[text()='Status']/following-sibling::a",
     actionButton : "//button[contains(@id,'fsButtonDropdown-request')]",

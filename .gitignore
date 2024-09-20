@@ -4,3 +4,4 @@ node_modules
 /test-results
 summary.json
 testdata/token.json
+testdata/credentials.json

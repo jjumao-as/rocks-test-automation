@@ -9,7 +9,7 @@ module.exports = {
     currentRole : "//span[@class='fs-active-user']",
 
     //skills
-    skillsTab : "//span[text()='Skills']",
+    skillsTab : "(//span[text()='Skills'])[1]",
     addNewSkillsBtn : "//button[text()='Add New Skills']",
     skillName : "//input[@name='name']",
     addNewSkillSave : "//span[text()='Add New Skill']",
@@ -36,11 +36,11 @@ module.exports = {
     searchExpenseId : "//input[contains(@placeholder,'Search by Expense Report ID')]",
     expenseId : "//p[text()='Expense ID']/following-sibling::span[1]",
     loadingOverlay : "//div[@class='loadingoverlay']",
-    expenseReportTab : "//span[text()='Expense Report']",
+    expenseReportTab : "(//span[text()='Expense Report'])[1]",
     editGeneralSetting : "//legend[text()='General Settings']/following-sibling::div//a",
     expenseReportRecipientField : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//div[@class='fs-tags-input']/input",
     expenseReportRecipient : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//span[contains(@class,'fs-tags-input-badge')]/span",
     removeExpenseReportRecipient : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//span[contains(@class,'fs-tags-input-badge')]/i",
     saveGeneralSettings : "//a[contains(text(),'Save')]",
-    expenseReportsTab : "//span[text()='Expense Reports']",
+    expenseReportsTab : "(//span[text()='Expense Reports'])[1]",
 }
