@@ -8,6 +8,7 @@ module.exports = {
 
     //Client Listing
     clientListing : "(//span[contains(text(),'Client List')])[1]",
+    loadingOverlay : "//div[@class='loadingoverlay']",
     clients : "//h4[text()='Clients']",
     paginationBar : "//ul[@class='pagination']",
     addNewClientButton : "//button[text()='Add New Client']",
@@ -36,11 +37,15 @@ module.exports = {
     SelectCity : '//input[contains(@name, "city")]' ,
     ContactTab : '//a[contains(@data-target, "#contact")]',
     AddContact : '//button[contains(text(),"Add Contact")]',
+    addNewClientTitle : "//h4[text()='Add New Client']",
+    clientTableBody : "//table/tbody/tr",
     email : '//input[contains(@name, "email")]',
     name : '//input[contains(@name, "name")]', 
     number : '//input[contains(@name, "number")]', 
     close : '//button[contains(@area-label, "Close Modal")]', 
     search : '//input[contains(@placeholder, "Search Company Name")]',
+    editClientName : '//input[contains(@name, "company")]',
+    deletionProgress : "//div[contains(text(),'Deleting')]",
     
 
     searchCompanyNameField : "//input[contains(@placeholder,'Search Company Name')]",

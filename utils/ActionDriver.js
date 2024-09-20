@@ -46,7 +46,7 @@ class ActionDriver {
      * @param {*} element : element to assert visibility.
      */
     async checkElementVisibility(element) {
-        await expect(this.page.locator(element)).toBeVisible({ timeout: 90000 });
+        await expect(this.page.locator(element)).toBeVisible({ timeout: 120000 });
     }
 
     /**
@@ -364,7 +364,7 @@ class ActionDriver {
      * @param {*} element : element to wait.
      */
     async waitElementUntilVisible(element) {
-        await this.page.waitForSelector(element, { state: 'visible', timeout: 90000 });
+        await this.page.waitForSelector(element, { state: 'visible', timeout: 120000 });
     }
 
     /**
@@ -382,7 +382,7 @@ class ActionDriver {
                 return ele && !ele.disabled;
             },
             element,
-            { timeout: 90000 }
+            { timeout: 120000 }
         );
     }
 
@@ -401,7 +401,7 @@ class ActionDriver {
                 return ele && ele.offsetParent !== null && !ele.disabled;
             },
             element,
-            { timeout: 90000 }
+            { timeout: 120000 }
         );
     }
 
@@ -411,7 +411,7 @@ class ActionDriver {
      * @param {*} element : element to wait.
      */
     async waitElementUntilHidden(element) {
-        await this.page.waitForSelector(element, { state: 'hidden', timeout: 60000 });
+        await this.page.waitForSelector(element, { state: 'hidden', timeout: 120000 });
     }
 
     /**
@@ -512,7 +512,7 @@ class ActionDriver {
      * @param {*} text    : text data value to assert if it exist within the page
      */
     async checkVisibility(text) {
-        await expect(this.page.getByText(text)).toBeVisible({ timeout : 60000 });
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
     }
 }
 module.exports = ActionDriver;

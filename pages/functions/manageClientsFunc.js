@@ -1,6 +1,9 @@
 const manageClientsocators = require('../locators/manageClientsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const { expect } = require('@playwright/test');
+const { readJsonFile } = require('../../utils/jsonReader')
+
+let updatedJson;
 
 exports.ManageClientsPage = class ManageClientsPage {
     constructor(page) {
@@ -18,6 +21,8 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async navigateClientListing(){
         await this.actionDriver.clickButton(manageClientsocators.clientListing);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);
         await this.actionDriver.checkElementVisibility(manageClientsocators.exportCurrentRecordsBtn);
     }
 
@@ -46,6 +51,21 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.actionDriver.clickButton(manageClientsocators.addNewClientButton);
     }
 
+    async removeClientIfExisting(name) {
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.clientTableBody);
+        await this.actionDriver.setText(manageClientsocators.search, name);
+        await this.actionDriver.keyboardPress('Enter');
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+        const exists = this.actionDriver.elementVisible(manageClientsocators.CreatedClient);
+        if(exists) {
+            await this.actionDriver.clickButton(manageClientsocators.firstElipsis);
+            await this.actionDriver.clickButton(manageClientsocators.firstDelete);
+            await this.actionDriver.clickButton(manageClientsocators.deleteYes);
+            await this.actionDriver.waitElementUntilHidden(manageClientsocators.deletionProgress);
+            await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+        }
+    }
+
     async ClickstartDateField(){  
         await this.actionDriver.clickButton(manageClientsocators.startDateField);
     }
@@ -63,12 +83,14 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async AddClientName(data){   
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.companyNameField);
         await this.actionDriver.setText(manageClientsocators.companyNameField, data);
     }
 
     async ClickCreateClientButton(){ 
-    await this.actionDriver.clickButton(manageClientsocators.CreateClientButton);
-    await this.page.waitForTimeout(12000);
+        await this.actionDriver.clickButton(manageClientsocators.CreateClientButton);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.addNewClientTitle);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
     } 
 
     async ClickFirstElipsis(){ 
@@ -81,20 +103,20 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async ClickYES(){ 
         await this.actionDriver.clickButton(manageClientsocators.deleteYes);
-        await this.page.waitForTimeout(6000);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
     } 
 
     async ClickCreatedClient(){  
         await this.actionDriver.clickButton(manageClientsocators.CreatedClient);
-        await this.page.waitForTimeout(3000);
     }
 
     async ClickEditClient(){  
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.EditClient);
         await this.actionDriver.clickButton(manageClientsocators.EditClient);
-        await this.page.waitForTimeout(3000);
     }
 
     async VerifyCompanyName(text){
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.editClientName);
         await this.actionDriver.checkVisibility(text);
     }      
            
@@ -121,10 +143,12 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async AddContact(){  
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.AddContact);
         await this.actionDriver.clickButton(manageClientsocators.AddContact);
     }
 
     async name(data){   
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.name);
         await this.actionDriver.setText(manageClientsocators.name, data);
         await this.page.waitForTimeout(1000);
     }
@@ -150,10 +174,4 @@ exports.ManageClientsPage = class ManageClientsPage {
     async Clickclose(){  
         await this.actionDriver.clickButton(manageClientsocators.close);
     }
-
-    async SearchClient(data){   
-        await this.actionDriver.setText(manageClientsocators.search, data);
-        await this.actionDriver.keyboardPress('Enter');
-        await this.page.waitForTimeout(6000);
-    } 
 }

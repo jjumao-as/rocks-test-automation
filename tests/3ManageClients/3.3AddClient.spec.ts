@@ -55,9 +55,6 @@ test.beforeAll(async ({ browser : b}) =>{
             await manageClientsPage.VerifyContactemail(testData.newClient.contacts.email);
             await manageClientsPage.Clickclose();
             await manageClientsPage.navigateClientListing();
-            await manageClientsPage.SearchClient(testData.newClient.general.companyName);
-            await manageClientsPage.ClickFirstElipsis();
-            await manageClientsPage.ClickfirstDelete(); 
-            await manageClientsPage.ClickYES();
+            await manageClientsPage.removeClientIfExisting(testData.newClient.general.companyName);
         })
     

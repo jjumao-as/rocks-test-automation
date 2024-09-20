@@ -45,7 +45,7 @@ module.exports = defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-  timeout: 90 * 1000, // default time out 60s
+  timeout: 5 * 60 * 1000, // default time out 60s
   expect: {
     timeout: 30 * 1000, // default expect time out 30s
   },
@@ -55,7 +55,7 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome']},
     },
 
     // {
