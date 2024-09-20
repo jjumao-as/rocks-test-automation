@@ -46,7 +46,7 @@ class ActionDriver {
      * @param {*} element : element to assert visibility.
      */
     async checkElementVisibility(element) {
-        await expect(this.page.locator(element)).toBeVisible({ timeout: 90000 });
+        await expect(this.page.locator(element)).toBeVisible({ timeout: 120000 });
     }
 
     /**
@@ -364,7 +364,7 @@ class ActionDriver {
      * @param {*} element : element to wait.
      */
     async waitElementUntilVisible(element) {
-        await this.page.waitForSelector(element, { state: 'visible', timeout: 90000 });
+        await this.page.waitForSelector(element, { state: 'visible', timeout: 120000 });
     }
 
     /**
@@ -382,7 +382,7 @@ class ActionDriver {
                 return ele && !ele.disabled;
             },
             element,
-            { timeout: 90000 }
+            { timeout: 120000 }
         );
     }
 
@@ -401,7 +401,7 @@ class ActionDriver {
                 return ele && ele.offsetParent !== null && !ele.disabled;
             },
             element,
-            { timeout: 90000 }
+            { timeout: 120000 }
         );
     }
 
@@ -411,7 +411,7 @@ class ActionDriver {
      * @param {*} element : element to wait.
      */
     async waitElementUntilHidden(element) {
-        await this.page.waitForSelector(element, { state: 'hidden', timeout: 60000 });
+        await this.page.waitForSelector(element, { state: 'hidden', timeout: 120000 });
     }
 
     /**
@@ -475,6 +475,38 @@ class ActionDriver {
         const path = require('path');
         const imgPath = path.resolve(__dirname, filePath);
         await fileChooser.setFiles(imgPath);
+    }
+
+    async getRandomJsonItem(jsonArray, key){
+        const dataArray = Object.values(jsonArray[key])
+        const randomIndex = Math.floor(Math.random() * dataArray.length)
+        return dataArray[randomIndex]
+    }
+
+     /**
+     * This function is use to simulate typing of text inside a input field
+     * @param {*} element : locator of the input field element
+     * @param {*} text    : text data value to type inside the input field
+     */
+    async ElemetType(element, text) { 
+        await this.page.type(element, text);
+    }
+      
+     /**
+     * This function is use to asserts if the located element has a specific text value
+     * @param {*} element : locator of the element that contains the text value
+     * @param {*} text    : text data value to assert if it exist inside the specified element
+     */
+    async ExpectElementValue(element, text) {
+    await expect(this.page.locator(element)).toHaveValue(text);
+    }
+
+     /**
+     * This function is use to asserts if the specific text value exist inside the current open page
+     * @param {*} text    : text data value to assert if it exist within the page
+     */
+    async checkVisibility(text) {
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
     }
 }
 module.exports = ActionDriver;

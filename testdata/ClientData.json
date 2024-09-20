@@ -1,0 +1,15 @@
+{
+    "newClient" : {
+        "general" : {
+            "companyName" : "AutoClient",
+            "country" : "United States",
+            "state"   : "Georgia",
+            "city"    : "Acworth"
+        },
+        "contacts" : {
+            "name" : "JohnDoe",
+            "email" : "johndoe@yahoo.com",
+            "phone" : "1234567890"
+        }
+    }
+}
