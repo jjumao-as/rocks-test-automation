@@ -7,6 +7,12 @@ module.exports = {
     myTeamHeader : "//p[text()='My Team']",
 
     //My Team Table
+    teamNameList : "//table[@id='resource-manage-team-assigned']/tbody//td[2]/a",
+    teamActionButtonList : "//i[contains(@class,'la-ellipsis-h')]",
+    cancelDropRequest: "//a[text()='Cancel Drop Request']",
+    confirmCancelDrop: "//button[contains(text(),'OK')]",
+    confirmCancel : "//button[contains(@class,'swal2-confirm')]",
+    verificationMessage: "//div[contains(text(),'You will receive an email')]",
     contextMenuActiveTalent : "(//a[contains(text(),'Drop from my Team')]/ancestor::td)[1]",
     talentNameSelectedRow : "(((//a[contains(text(),'Drop from my Team')]/ancestor::td)/preceding-sibling::td)/child::a)[1]",
     dropFromMyTeamSelectActionMenu : "//a[contains(text(),'Drop from my Team')]",

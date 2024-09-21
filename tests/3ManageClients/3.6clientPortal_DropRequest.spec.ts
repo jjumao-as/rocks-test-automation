@@ -6,6 +6,7 @@ let context;
 let page;
 let loginPage;
 let clientPortalPage;
+let name;
 
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
@@ -26,7 +27,7 @@ test('Client Portal - Manage Team', async() => {
     await clientPortalPage.checkManageTeamMenuVisibility();
     await clientPortalPage.navigateManageTeam();
     await clientPortalPage.checkMyTeamTableVisibility();
-    const name = await clientPortalPage.dropTalentName();
+    name = await clientPortalPage.dropTalentName();
     await clientPortalPage.dropFromMyTeam();   
     await clientPortalPage.dropTalentNameConfirmed(name);
     
@@ -37,3 +38,11 @@ test('Admin: Client Profile - Team Requests', async() => {
     await clientPortalPage.dropTalentNameConfirmedAdmin();
     await clientPortalPage.dropTalentStatusCheck();
 });
+
+test('Revert Drop', async() => {
+    await loginPage.login(process.env.CLIENT, process.env.PASSWORD);
+    await clientPortalPage.checkManageTeamMenuVisibility();
+    await clientPortalPage.navigateManageTeam();
+    await clientPortalPage.checkMyTeamTableVisibility();
+    await clientPortalPage.cancelDropTalentNameConfirmed(name);
+})

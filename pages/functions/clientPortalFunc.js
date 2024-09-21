@@ -44,6 +44,14 @@ exports.ClientPortalPage = class ClientPortalPage {
         await this.actionDriver.clickButton(clientPortalLocators.OKthankYouButton);        
     }
 
+    async cancelDropTalentNameConfirmed(name) {
+        await this.actionDriver.selectDataFromText(name, clientPortalLocators.teamNameList, clientPortalLocators.teamActionButtonList);
+        await this.actionDriver.selectDataFromText(name, clientPortalLocators.teamNameList, clientPortalLocators.cancelDropRequest);
+        await this.actionDriver.clickButton(clientPortalLocators.confirmCancelDrop);
+        await this.actionDriver.waitElementUntilVisible(clientPortalLocators.verificationMessage);
+        await this.actionDriver.clickButton(clientPortalLocators.confirmCancel);
+    }
+
     //To verify the drop requested talent matches in the table
     async dropTalentNameConfirmed(nameValue){
         const name = await this.actionDriver.getText(clientPortalLocators.talentNameConfirmed + nameValue + "')]");
@@ -71,6 +79,7 @@ exports.ClientPortalPage = class ClientPortalPage {
     //Verify the drop requested talent
     async dropTalentStatusCheck(){      
         await this.actionDriver.waitElementUntilHidden(manageClientLocators.loadingRecords);  
+        await this.actionDriver.waitElementUntilVisible(manageClientLocators.clientTableBody);
         await this.actionDriver.checkElementVisibility(manageClientLocators.dropRequestTalent);                
         await this.actionDriver.checkElementVisibility(manageClientLocators.dropRequestType);
         await this.actionDriver.checkElementVisibility(manageClientLocators.dropRequestedLink);
