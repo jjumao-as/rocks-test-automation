@@ -86,6 +86,13 @@ exports.FindTalentPage = class FindTalentPage {
         }
     }
 
+    async compareList(testData){
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.nameList);
+        await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
+        await this.actionDriver.compareAndSelectList(testData, findTalentLocators.nameList, findTalentLocators.viewProfileButtonList);
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookaCall);
+    }
+
     async clickBookACall() { 
         await this.actionDriver.clickButton(findTalentLocators.bookaCall);
     }
@@ -100,6 +107,13 @@ exports.FindTalentPage = class FindTalentPage {
 
     async verifyBooking() {
         await this.actionDriver.checkAllElementsVisibility(findTalentLocators.yourBookings);
+    }
+
+    async verifyTimeSlot(){
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.bookingSchedule);
+        const text = await this.actionDriver.getTextofLastElement(findTalentLocators.bookingSchedule);
+        const splitText = text.split(',');
+        await this.actionDriver.compareFromList(splitText[splitText.length - 1], findTalentLocators.timeSlots);
     }
 
     async verifySchedule(){
