@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { HomePage, LoginPage, QuickTasksPage, SettingsPage } from '../../pages/functions/index.js';
 import { roles } from '../../testdata/rolesForParallel.js';
 const { readJsonFile } = require('../../utils/jsonReader');
+const { refresh_access_token } = require('../../utils/googleDriver');
 
 let browser;
 let context;
@@ -66,6 +67,7 @@ rolesToTest.forEach(role => {
             });
 
             test(`Validate emails for approval`, async() => {
+                await refresh_access_token();
                 await settingsPage.validateEmail(testData.expenseReport.email);
             });
 
