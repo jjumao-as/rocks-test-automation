@@ -172,7 +172,14 @@ exports.SettingsPage = class SettingsPage {
     async validateEmail(email) {
         for(let i=0 ; i<email.subjects.length ; i++) {
             const subject = email.subjects[i];
-            const emailContent = await googleAPI(subject, email.from);
+            let emailContent;
+            for(let j=1 ; j<=3; j++) {
+                emailContent = await googleAPI(subject, email.from);
+                if(emailContent !== null) {
+                    break;
+                }
+                await this.page.waitForTimeout(1000);
+            }
             const empty = emailContent === null ? true : false;
             if(!empty) {
                 const emailSubject = emailContent[0].subject;

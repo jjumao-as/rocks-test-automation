@@ -10,5 +10,6 @@ module.exports = {
     DashboardPage: require('./dashboardFunc').DashboardPage,
     SettingsPage: require('./settingsFunc').SettingsPage,
     ClientsPage: require('./clientFunc').ClientsPage,
+    ClientPortalPage: require('./clientPortalFunc').ClientPortalPage,
     MyProfileIntPage: require('./myProfileIntFunc').MyProfileIntPage
 }

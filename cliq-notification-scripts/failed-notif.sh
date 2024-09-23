@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the webhook URL
-webhook_url="https://cliq.zoho.com/company/840183019/api/v2/channelsbyname/testreport/message?zapikey=1001.c216d7a90e9ef3cd442b476e00cfb29c.32feabe60b35fde7e6836c5cadf63488"
+webhook_url=$WEBHOOK_URL_FULL
 
 # Define the message payload with formatting and bot name
 curl -X POST -H "Content-type: application/json" \

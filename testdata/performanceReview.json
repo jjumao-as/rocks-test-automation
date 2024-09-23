@@ -1,0 +1,33 @@
+{
+  "contacts": {
+    "firstName": "Lyric",
+    "lastName": "Walsh",
+    "phoneNumber": "j91A843610"
+  },
+  "employeeName": {
+    "firstName": "Rasheed",
+    "lastName": "Murphy"
+  },
+  "employeeDetails": {
+    "position": "Senior Full Stack",
+    "role": "Developer",
+    "client": "Employee DB Project",
+    "displayClientName": "EmployeeDB"
+  },
+  "evaluation": {
+    "grading": [
+      1,
+      2,
+      3,
+      1,
+      2,
+      3,
+      1,
+      2,
+      2,
+      3
+    ],
+    "overallrating": 3,
+    "comments": "This is a sample overall rating comment."
+  }
+}

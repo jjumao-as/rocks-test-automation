@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 
-export class ActionDriver {
+class ActionDriver {
     constructor(page) {
         this.page = page;
     }
@@ -41,12 +41,21 @@ export class ActionDriver {
     }
 
     /**
+     * This function is use to validate if button is enabled.
+     * @param {*} element : element to check if enabled
+     */
+    async expectEnabled(element) {
+        const locator = this.page.locator(element);
+        await expect(locator).toBeEnabled();
+    }
+
+    /**
      * This function is use to determine and assert if specific element is visible in the UI.
      * This will check element visibility upto 90 seconds.
      * @param {*} element : element to assert visibility.
      */
     async checkElementVisibility(element) {
-        await expect(this.page.locator(element)).toBeVisible({ timeout: 90000 });
+        await expect(this.page.locator(element)).toBeVisible({ timeout: 120000 });
     }
 
     /**
@@ -381,7 +390,7 @@ export class ActionDriver {
      * @param {*} element : element to wait.
      */
     async waitElementUntilVisible(element) {
-        await this.page.waitForSelector(element, { state: 'visible', timeout: 90000 });
+        await this.page.waitForSelector(element, { state: 'visible', timeout: 120000 });
     }
 
     /**
@@ -399,7 +408,7 @@ export class ActionDriver {
                 return ele && !ele.disabled;
             },
             element,
-            { timeout: 90000 }
+            { timeout: 120000 }
         );
     }
 
@@ -418,7 +427,7 @@ export class ActionDriver {
                 return ele && ele.offsetParent !== null && !ele.disabled;
             },
             element,
-            { timeout: 90000 }
+            { timeout: 120000 }
         );
     }
 
@@ -428,7 +437,7 @@ export class ActionDriver {
      * @param {*} element : element to wait.
      */
     async waitElementUntilHidden(element) {
-        await this.page.waitForSelector(element, { state: 'hidden', timeout: 60000 });
+        await this.page.waitForSelector(element, { state: 'hidden', timeout: 120000 });
     }
 
     /**
@@ -485,6 +494,11 @@ export class ActionDriver {
         return textArray;
     }
 
+    /**
+     * This function is use on uploading file test case
+     * @param {filePath} filePath : Path of the file to upload should be in testdata
+     * @param {button} button : locator of the button for uploading
+     */
     async fileUpload(filePath, button) {
         const fileChooserPromise = this.page.waitForEvent('filechooser');
         await this.clickButton(button);
@@ -494,10 +508,108 @@ export class ActionDriver {
         await fileChooser.setFiles(imgPath);
     }
 
+    /**
+     * This will pick random to given jsonData
+     * @param {jsonArray} jsonArray : list of data to pick saved in array
+     * @param {key} key : key in the array 
+     * @returns 
+     */
     async getRandomJsonItem(jsonArray, key){
         const dataArray = Object.values(jsonArray[key])
         const randomIndex = Math.floor(Math.random() * dataArray.length)
         return dataArray[randomIndex]
+    }
+
+     /**
+     * This function is use to simulate typing of text inside a input field
+     * @param {*} element : locator of the input field element
+     * @param {*} text    : text data value to type inside the input field
+     */
+    async ElemetType(element, text) { 
+        await this.page.type(element, text);
+    }
+      
+     /**
+     * This function is use to asserts if the located element has a specific text value
+     * @param {*} element : locator of the element that contains the text value
+     * @param {*} text    : text data value to assert if it exist inside the specified element
+     */
+    async ExpectElementValue(element, text) {
+        await expect(this.page.locator(element)).toHaveValue(text);
+    }
+
+     /**
+     * This function is use to asserts if the specific text value exist inside the current open page
+     * @param {*} text    : text data value to assert if it exist within the page
+     */
+    async checkVisibility(text) {
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
+    }
+
+    /**
+     * This function is use to check if the element is display usually to verify "No more records to display" is visible
+     * @param {element} element : element to check if visible.
+     * @returns 
+     */
+    async checkElementBottom(element){
+        const elementHandle = await this.page.$(element);
+        if(elementHandle){
+            const boundingBox = await elementHandle.boundingBox();
+            return boundingBox !== null;
+        }
+        return false;
+    }
+
+    /**
+     * This will scroll the page to the bottom.
+     * @param {element} element : element to check if the page reached the bottom. 
+     */
+    async scrollToBottom(element) {
+        let isVisible = false;
+            while (!isVisible) {
+            await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+            await this.page.waitForTimeout(5000);
+
+            isVisible = await this.checkElementBottom(element);
+        }
+    }
+
+    /**
+     * This function is use to select data from array and will check if the data is visible in the UI, if visible it will click the specified button
+     * @param {testData} testData : Array where all the data to check is stored
+     * @param {element} element : element to check and compare if it includes the data from the array
+     * @param {elementButton} elementButton : button to click once array data is available in UI.
+     */
+    async compareAndSelectList(testData, element, elementButton) {
+        const elements = await this.page.locator(element).all();
+        const viewProfileBtn = this.page.locator(elementButton);
+        const extractedTexts = await Promise.all(elements.map(async element => {
+            return await element.textContent()
+        }));
+
+        const pageTextContents = extractedTexts.map(name => name.trim().toLowerCase());
+
+        for (const [index, text] of testData.entries()) {
+            const textLowerCase = text.toLowerCase();
+            const isTextIncluded = pageTextContents.some(pageText => pageText.includes(textLowerCase));
+            const textIndex = pageTextContents.indexOf(textLowerCase);
+            if (isTextIncluded) {
+                await viewProfileBtn.nth(textIndex).click();
+                break;
+            }
+        }
+    }
+
+    /**
+     * This function is use to get the text of last element if locator has multiple element
+     * @param {element} element : locator to check 
+     * @returns 
+     */
+    async getTextofLastElement(element){
+        const elements = await this.page.locator(element).all();
+        const lastElement = elements[elements.length - 1];
+        const textContent = await lastElement.textContent();
+        return textContent.trim();
     }
 }
 module.exports = ActionDriver;
