@@ -82,10 +82,6 @@ class ActionDriver {
         })
     }
 
-    async checkElementVisibility(element) {
-        await expect(this.page.locator(element)).toBeVisible({ timeout: 90000 });
-    }
-
     async checkHiddenElement(element) {
         await expect(this.page.locator(element)).toBeHidden({ timeout: 60000 });
     }
