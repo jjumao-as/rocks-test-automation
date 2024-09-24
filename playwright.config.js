@@ -35,7 +35,7 @@ module.exports = defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['playwright-json-summary-reporter'],
-    ['html'], // other reporters
+    ['html', { outputFile: 'playwright-report/index.html' }], // other reporters
     ['dot']
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
