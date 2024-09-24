@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { HomePage, LoginPage, QuickTasksPage, SettingsPage } from '../../pages/functions/index.js';
 import { roles } from '../../testdata/rolesForParallel.js';
 const { readJsonFile } = require('../../utils/jsonReader');
-const { refresh_access_token } = require('../../utils/googleDriver');
+
 
 let browser;
 let context;
@@ -44,7 +44,7 @@ rolesToTest.forEach(role => {
         if(role === "SUPERADMIN") {
             test('Preparing data using SUPERADMIN role', async() => {
                 await settingsPage.navigateToExpenseReportSettings();
-                await settingsPage.addRecipient(process.env.GOOGLE_EMAIL);
+                await settingsPage.addRecipient(process.env.ZOHO_EMAIL);
             });
         }
 
@@ -63,15 +63,16 @@ rolesToTest.forEach(role => {
                 await homePage.logout();
                 await loginPage.login(process.env.SUPERADMIN,process.env.PASSWORD);
                 await settingsPage.navigateToExpenseReportSettings();
-                await settingsPage.removeRecipient(process.env.GOOGLE_EMAIL);
+                await settingsPage.removeRecipient(process.env.ZOHO_EMAIL);
             });
 
             test(`Validate emails for approval`, async() => {
-                await refresh_access_token();
-                await settingsPage.validateEmail(testData.expenseReport.email);
+                await homePage.logout();
+                await settingsPage.validateZohoEmail(testData.expenseReport.email);
             });
 
             test('Validate expense reports log', async() => {
+                await homePage.logout();
                 await loginPage.login(process.env.SUPERADMIN,process.env.PASSWORD);
                 await settingsPage.validateExpenseReports();
             })
