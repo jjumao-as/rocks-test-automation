@@ -1,4 +1,3 @@
-import { expect } from 'playwright/test';
 const MyProfileIntLocators = require('../locators/myProfileIntLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const { sleep } = require('../../utils/utility')
