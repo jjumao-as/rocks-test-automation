@@ -2,7 +2,7 @@
   "client": "EmployeeDB",
   "clientPassword": "Password123",
   "originalSkill": "Automation",
-  "skill": "Automation60511",
+  "skill": "Automation19821",
   "clientEnabledAccess": "Client Enable Access - Client",
   "addToTeamClients": "Add To Team for Clients",
   "addToTeamSales": "Add To Team for Sales",
@@ -11,14 +11,14 @@
   "clientEmailAddToTeam": "Full Scale Add to Team Request Received",
   "emailFrom": "noreply@fullscale.io",
   "contacts": {
-    "firstName": "Forrest",
-    "lastName": "Hahn",
-    "phoneNumber": "406d465654",
-    "email": "wdilidili+4992@fullscale.ph"
+    "firstName": "Alexie",
+    "lastName": "Feil",
+    "phoneNumber": "X171010869",
+    "email": "rocks.automationjs+7351@gmail.com"
   },
   "employeeName": {
-    "firstName": "Juliet",
-    "lastName": "Will"
+    "firstName": "Kaia",
+    "lastName": "Labadie"
   },
   "employeeDetails": {
     "position": "Senior Full Stack",
