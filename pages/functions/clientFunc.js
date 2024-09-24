@@ -2,6 +2,7 @@ const clientPageLoc = require('../locators/clientLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const { updateJsonData } = require('../../utils/jsonReader');
 const { googleAPI } = require('../../utils/googleDriver');
+const { getLatestEmail } = require('../../utils/zohoDriver');
 
 let newEmail;
 
@@ -24,9 +25,11 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.clickButton(clientPageLoc.addContactBtn);
         await this.actionDriver.setText(clientPageLoc.contactName, testData.firstName + " " + testData.lastName);
         await this.actionDriver.setText(clientPageLoc.contactEmail, newEmail);
-        await this.actionDriver.waitElementUntilEnabled(clientPageLoc.enableLoginToggle);
-        await this.changeStyle();
-        await this.actionDriver.clickButton(clientPageLoc.enableLoginToggle);
+        if(!emailAdd[1].includes('fullscale')){
+            await this.actionDriver.waitElementUntilEnabled(clientPageLoc.enableLoginToggle);
+            await this.changeStyle();
+            await this.actionDriver.clickButton(clientPageLoc.enableLoginToggle);
+        }
         await this.actionDriver.clickButton(clientPageLoc.saveContact);
         await this.actionDriver.waitElementUntilHidden(clientPageLoc.contactName);
         await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
@@ -63,6 +66,32 @@ exports.ClientsPage = class ClientsPage {
         if(!empty) {
             await this.page.setContent(emailContent[0].body.html);
             const emailSubject = emailContent[0].subject;
+            if (subject.includes('Welcome')) {
+                const hrefValue = await this.page.evaluate(() => {
+                    const links = Array.from(document.querySelectorAll('a'));
+                    const link = links.find(link => link.textContent.includes('Go To My Account'));
+                    return link ? link.href : null;
+                });
+                await this.page.goto(hrefValue);
+            } else {
+                await this.actionDriver.checkInclude(subject, emailSubject)
+            }
+        }
+        await this.actionDriver.expectFalse(empty);
+    }
+
+    async validateZohoEmail(subject, from) {
+        let emailContent;
+        for(let i=1; i<=3; i++){
+            emailContent = await getLatestEmail(subject, from);
+            if(emailContent !== null) {
+                break;
+            }
+        }
+        const empty = emailContent === null ? true : false;
+        if(!empty) {
+            await this.page.setContent(emailContent.content);
+            const emailSubject = emailContent.subject;
             if (subject.includes('Welcome')) {
                 const hrefValue = await this.page.evaluate(() => {
                     const links = Array.from(document.querySelectorAll('a'));

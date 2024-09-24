@@ -2,7 +2,6 @@ import { test } from '@playwright/test';
 const { LoginPage, HomePage, DashboardPage, SettingsPage, ClientsPage, EmployeesPage, FindTalentPage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 const { savedContact } = require('../../utils/randomData.js');
-const { refresh_access_token } = require('../../utils/googleDriver');
 
 
 let browser;
@@ -43,7 +42,6 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Preparing data...', async() => {
-        await refresh_access_token();
         await savedContact(testDataPath);
     })
 
@@ -51,13 +49,13 @@ test.describe('Test Script for adding talent to the team', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.clientEnabledAccess);
-        await settingsPage.saveEmailTo(process.env.GOOGLE_EMAIL);
+        await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.addToTeamClients);
-        await settingsPage.saveEmailTo(process.env.GOOGLE_EMAIL);
+        await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.addToTeamSales);
-        await settingsPage.saveEmailTo(process.env.GOOGLE_EMAIL);
+        await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
 
     });
 
@@ -68,7 +66,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await dashboardPage.viewSearchResult();
         await dashboardPage.verifyClient();
         await clientPage.navigateToContacts();
-        await clientPage.addContact(testData.contacts, process.env.GOOGLE_EMAIL);
+        await clientPage.addContact(testData.contacts, process.env.ZOHO_EMAIL);
         await clientPage.verifyContactAdded();
     });
 
@@ -93,7 +91,7 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Navigate on email link sent for enable login', async () => {
-        await clientPage.validateEmail(testData.welcomeEmail, testData.emailFrom);
+        await clientPage.validateZohoEmail(testData.welcomeEmail, testData.emailFrom);
         await clientPage.submitPassword(testData.clientPassword);
         await clientPage.validateLogin();
     });
@@ -168,18 +166,18 @@ test.describe('Test Script for adding talent to the team', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.clientEnabledAccess);
-        await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
+        await settingsPage.revertEmailTo(process.env.ZOHO_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.addToTeamClients);
-        await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
+        await settingsPage.revertEmailTo(process.env.ZOHO_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.addToTeamSales);
-        await settingsPage.revertEmailTo(process.env.GOOGLE_EMAIL);
+        await settingsPage.revertEmailTo(process.env.ZOHO_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
     });
 
     test('Validate Client and Sales Email - Add to team', async() => {
-        await clientPage.validateEmail(testData.salesEmailAddToTeam, testData.emailFrom);
-        await clientPage.validateEmail(testData.clientEmailAddToTeam, testData.emailFrom);
+        await clientPage.validateZohoEmail(testData.salesEmailAddToTeam, testData.emailFrom);
+        await clientPage.validateZohoEmail(testData.clientEmailAddToTeam, testData.emailFrom);
     });
 });
