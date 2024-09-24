@@ -33,7 +33,7 @@ exports.MyProfileIntPage = class MyProfileIntPage {
     }
 
     async checkClientsIcon() {
-        await this.actionDriver.checkEnabledElement(MyProfileIntLocators.clientsEditIcon);
+        await this.actionDriver.expectEnabled(MyProfileIntLocators.clientsEditIcon);
     }
 
     async checkClientsIconHidden() {
@@ -41,11 +41,11 @@ exports.MyProfileIntPage = class MyProfileIntPage {
     }
 
     async checkClientInterviewsIcon() {
-        await this.actionDriver.checkEnabledElement(MyProfileIntLocators.clientInterviewsIcon);
+        await this.actionDriver.expectEnabled(MyProfileIntLocators.clientInterviewsIcon);
     }
 
     async checkSkillsAndProficienciesIcon() {
-        await this.actionDriver.checkEnabledElement(MyProfileIntLocators.skillsAndProfEditIcon);
+        await this.actionDriver.expectEnabled(MyProfileIntLocators.skillsAndProfEditIcon);
     }
 
     async checkSkillsAndProficienciesIconHidden() {

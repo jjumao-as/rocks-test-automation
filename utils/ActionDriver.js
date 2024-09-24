@@ -41,6 +41,15 @@ class ActionDriver {
     }
 
     /**
+     * This function is use to validate if button is disabled.
+     * @param {*} element : element to check if disabled
+     */
+    async expectDisabled(element) {
+        const locator = this.page.locator(element);
+        await expect(locator).toBeDisabled();
+    }
+
+    /**
      * This function is use to validate if button is enabled.
      * @param {*} element : element to check if enabled
      */
@@ -56,15 +65,6 @@ class ActionDriver {
      */
     async checkElementVisibility(element) {
         await expect(this.page.locator(element)).toBeVisible({ timeout: 120000 });
-    }
-
-    /**
-     * This function is use to determine and assert if specific element is enabled in the UI.
-     * @param {*} element : element to assert visibility.
-     */
-
-    async checkEnabledElement(element) {
-        await expect(this.page.locator(element)).toBeEnabled();
     }
 
     /**
