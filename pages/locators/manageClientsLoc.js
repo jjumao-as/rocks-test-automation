@@ -57,6 +57,8 @@ module.exports = {
     weeklyFloorReportTab : "//a[contains(text(),'Weekly Floor Report')]",
     teamRequestsTab : "//a[contains(text(),'Team Requests')]",
     teamMembersTab : "//a[contains(text(),'Team Members')]",
+    clientNameLink : "//p[contains(@class,'client-name')]",
+    weeklyReportZeroStateLabel : "//h5[contains(text(), 'Create weekly floor report')]",
 
     //Client Profile Team Requests Table
     dropRequestedLink : "(//a[contains(text(),'Drop Requested')])[1]",

@@ -82,6 +82,10 @@ class ActionDriver {
         })
     }
 
+    async checkHiddenElement(element) {
+        await expect(this.page.locator(element)).toBeHidden({ timeout: 60000 });
+    }
+
     /**
      * This function is to check if element is visible.
      * This will check element visibility every 100ms and will time out after 5 seconds
@@ -511,6 +515,12 @@ class ActionDriver {
         const randomIndex = Math.floor(Math.random() * dataArray.length)
         return dataArray[randomIndex]
     }
+
+    async goBackPreviousPage(){
+        await this.page.goBack()
+    }
+
+   
 
      /**
      * This function is use to simulate typing of text inside a input field
