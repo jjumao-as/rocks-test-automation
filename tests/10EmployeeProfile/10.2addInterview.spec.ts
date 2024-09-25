@@ -61,7 +61,7 @@ roleToTest.forEach(role => {
             await employeesPage.isInterviewAdded()
 
             // Navigate to Client page
-            if(role != 'HR'){
+            if(role !== 'HR'){
                 await employeesPage.clickClientNameLink()
                 await employeesPage.isInClientPage()
                 await employeesPage.navigateToClientInterviews()

@@ -303,7 +303,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async clickClientNameLink(){
-        await this.actionDriver.clickButton(employeePageLoc.clientTD)
+        await this.actionDriver.clickButton(employeePageLoc.clientNameLink)
           
     }
 
