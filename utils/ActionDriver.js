@@ -516,6 +516,12 @@ class ActionDriver {
         return dataArray[randomIndex]
     }
 
+    async goBackPreviousPage(){
+        await this.page.goBack()
+    }
+
+   
+
      /**
      * This function is use to simulate typing of text inside a input field
      * @param {*} element : locator of the input field element

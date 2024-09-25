@@ -49,6 +49,7 @@ module.exports = {
     zeroStateTable : "//h5[contains(text(), 'There are no contents to show')]",
     
     statusTD : '//*[@id="client-interview-table"]/tbody/tr/td[1]/div/div',
+    clientNameLink : "//a[contains(@class, 'text-forest-green hover:text-forest-green hover:underline')]",
     clientTD : "//span[@class='w-100 d-block text-wrap text-break']",
     gradeTD : '//*[@id="client-interview-table"]/tbody/tr/td[3]/span',
     inviteeTD : '//*[@id="client-interview-table"]/tbody/tr/td[4]/p/span[1]',
