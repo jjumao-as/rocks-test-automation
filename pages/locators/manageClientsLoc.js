@@ -82,4 +82,24 @@ module.exports = {
     //Find Talent
     findTalent : "(//span[contains(text(),'Find Talent')])[1]",
 
+    //Manage Team
+    performanceEvaluation : "//span[text()='Performance Review']",
+    perfNameList : "//p[contains(@class,'talent-name')]",
+    perfEvalButton : "//span[text()='EVALUATE']",
+    evalModal: "//div[contains(@class,'review-competencies')]",
+    needsImprovement : "//div[contains(@class,'review-competencies')]/div[contains(@class,'text-center')]//input[contains(@id,'option_0')]/parent::div",
+    meetsExpectations : "//div[contains(@class,'review-competencies')]/div[contains(@class,'text-center')]//input[contains(@id,'option_1')]/parent::div",
+    exceedsExpectations : "//div[contains(@class,'review-competencies')]/div[contains(@class,'text-center')]//input[contains(@id,'option_2')]/parent::div",
+    overAllNeedsImprovement : "//div[contains(@class,'summary-feedback')]//div[contains(@class,'text-center')]//input[contains(@id,'option_0')]/parent::div",
+    overAllmeetsExpectations: "//div[contains(@class,'summary-feedback')]//div[contains(@class,'text-center')]//input[contains(@id,'option_1')]/parent::div",
+    overAllexceedsExpectations: "//div[contains(@class,'summary-feedback')]//div[contains(@class,'text-center')]//input[contains(@id,'option_2')]/parent::div",
+    commentsOverallRating: "//div[@class='tox-edit-area']",
+    commentsIframe: "//iframe[@class='tox-edit-area__iframe']",
+    commentsBody: "//body[@id='tinymce']",
+    submitPerfEvalBtn: "//button[contains(text(),'Submit')]",
+    submitProgress : "//div[contains(text(),'Wait while saving changes')]",
+    cancelPerfEvalBtn: "//button[contains(text(),'Cancel')]",
+    perfEvalModalTitle: "//h4[@class='modal-title']",
+    nameListWithSubmittedEval: "//span[text()='VIEW SUBMISSION']//ancestor::div[contains(@class,'card-body')]//p[contains(@class,'talent-name')]",
+    viewSubmissionBtns: "//span[text()='VIEW SUBMISSION']",
 }
