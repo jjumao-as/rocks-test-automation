@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-const { LoginPage, MyProfileIntPage } = require('../../pages/functions/index.js');
-const { readJsonFile } = require('../../utils/jsonReader');
+import { LoginPage, MyProfileIntPage } from '../../pages/functions/index.js';
 import { roles } from '../../testdata/rolesForParallel';
+const { readJsonFile } = require('../../utils/jsonReader');
 
 let browser;
 let context;
@@ -30,6 +30,7 @@ rolesToTest.forEach(role => {
             testDataPath = 'myProfileInt';
             testData = await readJsonFile(testDataPath);
         });
+
         test.afterEach(async () => {
             await context.close();
         });
@@ -48,6 +49,11 @@ rolesToTest.forEach(role => {
                 await myProfileIntPage.checkClientsIcon();
                 await myProfileIntPage.checkClientInterviewsIcon();
                 await myProfileIntPage.checkSkillsAndProficienciesIcon();
+                if (role === "HR") {
+                    // Additional checking for hidden elements and links on Clients Tab
+                    await myProfileIntPage.checkClientsTabEditIconsHidden();
+                    await myProfileIntPage.checkClientsNameLinksHidden();
+                };
             };
             if (role === "FLOOR") {
                 // Checking available elements on header
@@ -72,11 +78,6 @@ rolesToTest.forEach(role => {
                 await myProfileIntPage.checkTalentProfileIconsHidden();
                 await myProfileIntPage.checkSpotLightSelectIconHidden();
                 await myProfileIntPage.checkFilesAndAssetsSectionHidden();
-            };
-            if (role === "HR") {
-                // Additional checking for hidden elements and links on Clients Tab
-                await myProfileIntPage.checkClientsTabEditIconsHidden();
-                await myProfileIntPage.checkClientsNameLinksHidden();
             };
             if (role === "FINANCE") {
                 // Checking available elements on header

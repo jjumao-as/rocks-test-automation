@@ -37,6 +37,5 @@ module.exports = {
     applicantAssessmentNotes : "//a[@id='nav-applicant-assessment-notes-link']",
     filesAndAssets : "//div[contains(text(),'Files and Assets')]",
     clientsTabEditIcon : "//a[@type='button']",
-    clientsTab : "//a[@id='nav-clients-link']",
     clientsNameLinks: "//div[contains(@class,'text-wrap')]//a"
 }
