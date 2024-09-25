@@ -44,4 +44,8 @@ export const roles =  {
         password : process.env.PASSWORD
     },
 
+    SALES : {
+        username : process.env.SALES, 
+        password : process.env.PASSWORD
+    },
 }

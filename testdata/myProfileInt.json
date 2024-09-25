@@ -1,0 +1,101 @@
+{
+    "allHeaderElements": {
+        "visible": [
+            "Clients",
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Skills & Proficiencies"
+        ],
+        "hidden": [
+            ""
+        ]
+    },
+    "roleWithHiddenElements": {
+        "visible": [
+            "Clients",
+            "Skills & Proficiencies"
+        ],
+        "hidden": [
+            "Clients",
+            "Client Interviews",
+            "Checkpoint Meetings"
+        ]
+    },
+    "allSideTabs": {
+        "visible": [
+            "Talent Profile",
+            "Clients",
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Personal",
+            "Employment",
+            "Change Log",
+            "Applicant Assessment Notes"
+        ],
+        "hidden": [
+            ""
+        ]
+    },
+    "floorManagerTabs": {
+        "visible": [
+            "Talent Profile",
+            "Clients",
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Personal",
+            "Employment",
+            "Change Log"
+        ],
+        "hidden": [
+            "Applicatant Assessment Notes"
+        ]
+    },
+    "financeTabs": {
+        "visible": [
+            "Talent Profile",
+            "Clients",
+            "Personal",
+            "Employment",
+            "Change Log"
+        ],
+        "hidden": [
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Applicatant Assessment Notes"
+        ]
+    },
+    "contentWriterTabs": {
+        "visible": [
+            "Talent Profile",
+            "Clients",
+            "Personal",
+            "Employment",
+            "Change Log"
+        ],
+        "hidden": [
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Applicatant Assessment Notes"
+        ]
+    },
+    "employeeTabs": {
+        "visible": [
+            "Talent Profile",
+            "Clients",
+            "Personal",
+            "Employment"
+        ],
+        "hidden": [
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Change Log",
+            "Applicatant Assessment Notes"
+        ]
+    }
+}
