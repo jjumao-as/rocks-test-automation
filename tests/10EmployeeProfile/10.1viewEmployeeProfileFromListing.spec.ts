@@ -28,8 +28,8 @@ rolesToTest.forEach(role => {
             dashboardPage = new DashboardPage(page)
         })
 
-        test.afterEach(async ({page}) => {
-            await page.close()
+        test.afterEach(async () => {
+            await context.close()
         });
 
         test(`${role} views Employee Profile from Employee Listing`, async() => {

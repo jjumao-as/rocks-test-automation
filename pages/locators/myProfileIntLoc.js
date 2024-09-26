@@ -1,5 +1,6 @@
 module.exports = {
     superAdminAvatar : "//div[@class='nav-item dropdown ks-user']",
+    chart : "//div[contains(@id,'apexchart')]",
     selectMyProfileOption : "//span[text()='My Profile']",
     profileName : "//span[contains(@class, 'talent-name')]",
     profileStatus : "//div[contains(@class, 'status-alert--success')]",

@@ -70,11 +70,10 @@ roleToTest.forEach(role => {
         });
 
 
-        test.afterEach(async ({}) => {
+        test.afterEach(async () => {
             await employeesPage.deleteInterview()
             await employeesPage.isInterviewDeleted()
             await context.close()
-            await page.close()
         });
         
    

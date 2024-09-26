@@ -61,7 +61,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.hoverElement(employeePageLoc.employeeTable)
 
         const rowCount = await this.actionDriver.elementCount(employeePageLoc.employeeNameLink)
-        const randomIndex = Math.floor(Math.random() * rowCount)
+        const randomIndex = Math.floor(Math.random() * (rowCount - 1 + 1)) + 1
 
         empName = await this.actionDriver.getText(`(${employeePageLoc.employeeNameLink})[${randomIndex}]`)
 
@@ -308,6 +308,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async isInClientPage(){
+        await this.actionDriver.waitElementUntilVisible(manageClientsLoc.weeklyReportZeroStateLabel) 
         await this.actionDriver.checkElementVisibility(manageClientsLoc.weeklyReportZeroStateLabel) 
         const cname = await this.actionDriver.getText(manageClientsLoc.clientNameLink)
         await this.actionDriver.checkInclude(clientName, cname)
