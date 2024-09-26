@@ -9,7 +9,7 @@ exports.MyProfileIntPage = class MyProfileIntPage {
     }
 
     async navigateEmployeeProfile() {
-        await sleep(10000);
+        await this.actionDriver.waitElementUntilVisible(MyProfileIntLocators.chart);
         await this.actionDriver.clickButton(MyProfileIntLocators.superAdminAvatar);
         await this.actionDriver.clickButton(MyProfileIntLocators.selectMyProfileOption);
     }
@@ -23,7 +23,7 @@ exports.MyProfileIntPage = class MyProfileIntPage {
     }
 
     async checkAvailableElements(elements, data) {
-        await sleep(10000);
+        await this.actionDriver.waitElementUntilVisible(elements);
         const textArray = await this.actionDriver.getTextArray(elements);
         const visibleElements = data.visible.every(item => textArray.includes(item));
         const hiddenElements = data.hidden.every(item => textArray.includes(item));
