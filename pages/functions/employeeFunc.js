@@ -87,6 +87,8 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
 
+    /* Add Client Interview */
+
     async navigateToClientInterviews() {
         await this.actionDriver.clickButton(employeePageLoc.clientInterviewLink)
         await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewButton)
@@ -223,15 +225,13 @@ exports.EmployeesPage = class EmployeesPage {
 
     async submitInterview() {
         await this.actionDriver.clickButton(employeePageLoc.addNotesButton)
+        console.log(`Added Interview : ${interviewStatus} | ${clientName} | ${grade} | ${invitee} | ${interviewDate}, ${interviewTime}`)
     }
 
 
-    /**
-    * Client Interview Listing table
-    */
-
+    
     async isInterviewAdded() {
-        await this.actionDriver.waitElementUntilHidden(employeePageLoc.addInterviewModalHeading);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
 
         const statusList = await this.actionDriver.getTextArray(employeePageLoc.statusTD);
         await this.actionDriver.checkIfIncludesInArray(statusList, interviewStatus)
@@ -244,6 +244,9 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
+    
+    /* Delete Client Interview */
+
     async deleteInterview() {
         const oldMonth = interviewDate.split(" ")[0];
         const newMonth = await jsonData.dateAbbreviation[oldMonth];
@@ -255,6 +258,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.clickButton(employeePageLoc.yesButton);
             await this.actionDriver.waitElementUntilHidden(employeePageLoc.interviewDeletionProgress);
         }
+       
     }
 
     async isInterviewDeleted() {
@@ -262,6 +266,199 @@ exports.EmployeesPage = class EmployeesPage {
         let isStillExist = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
         await this.actionDriver.expectFalse(isStillExist);
     }
+
+
+
+    /* Update Client Interview */
+
+    async updateInterview(){
+        const oldMonth = interviewDate.split(" ")[0];
+        const newMonth = await jsonData.dateAbbreviation[oldMonth];
+        const newDate = interviewDate.replace(new RegExp(`\\b${oldMonth}\\b`), newMonth);
+        newSchedule = newDate.replace(/\b0(\d{1})\b/, "$1") + ' ' + interviewTime.replace(/^0/, "");
+        let existing = await this.paginationCheck(newSchedule, employeePageLoc.scheduleTD);
+
+        if (existing) {
+
+            jsonData = await readJsonFile('clientInterview')
+            let randomIndexInvitee;
+
+            // click VIEW link
+            await this.actionDriver.selectDataFromTextwithNode(newSchedule, employeePageLoc.scheduleTD, employeePageLoc.viewButton);
+            await this.actionDriver.checkElementVisibility(employeePageLoc.viewInterviewModalHeading);
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+
+            // Check if added Interview details matched with viewed interview details
+            const vStatus = await this.actionDriver.getText(employeePageLoc.viewedStatus)
+            const vClientName = await this.actionDriver.getText(employeePageLoc.viewedClientName)
+            const vGrade = await this.actionDriver.getText(employeePageLoc.viewedGrade)
+            const vInvitee = await this.actionDriver.getText(employeePageLoc.viewedInvitee)
+            const vDate = await this.actionDriver.getText(employeePageLoc.viewedDate)
+            const vTime = await this.actionDriver.getText(employeePageLoc.viewedTime)
+
+            await this.actionDriver.checkInclude(interviewStatus, vStatus)
+            await this.actionDriver.checkInclude(clientName, vClientName)
+            await this.actionDriver.checkInclude(grade, vGrade)
+            await this.actionDriver.checkInclude(invitee, vInvitee)
+            await this.actionDriver.checkInclude(interviewDate, vDate)
+            await this.actionDriver.checkInclude(interviewTime, vTime)
+
+            console.log(`Viewed Interview : ${vStatus} | ${vClientName} | ${vGrade} | ${vInvitee} | ${vDate}, ${vTime}`)
+
+
+
+            // edit clientName
+            await this.actionDriver.clickButton(employeePageLoc.clientPenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.updateClientDropdown)
+            await this.actionDriver.clickButton(employeePageLoc.updateClientDropdown)
+
+            const clientCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedClients)
+            const randomIndexClient = Math.floor(Math.random() * (clientCount - 1 + 1)) + 1
+            clientName = await this.actionDriver.getText(`(${employeePageLoc.notSelectedClients})[${randomIndexClient}]`)
+            await this.actionDriver.typeText(clientName)
+            await this.actionDriver.keyboardPress('Enter')
+
+            
+            // edit interviewDate
+            interviewDate = await this.actionDriver.getRandomJsonItem(jsonData, 'interviewDate')
+
+            await this.actionDriver.clickButton(employeePageLoc.datePenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.dateTimePicker)
+
+            await this.actionDriver.clickButton(employeePageLoc.dateTimePicker)
+
+            // to clear the date textfield
+            await this.actionDriver.keyboardPress('Control+A')
+            await this.actionDriver.keyboardPress('Backspace')
+
+            // to enter the new randomized date in the date textfield
+            await this.actionDriver.typeText(interviewDate)
+            await this.actionDriver.keyboardPress('Enter')
+            await this.actionDriver.hoverElement(employeePageLoc.dateSelected)
+            await this.actionDriver.clickButton(employeePageLoc.dateSelected)
+
+            // edit interviewTime
+            await this.actionDriver.clickButton(employeePageLoc.timePenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.timeDropdown)
+            await this.actionDriver.clickButton(employeePageLoc.timeDropdown)
+            const timeCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedTimes)
+            const randomIndexTime = Math.floor(Math.random() * (timeCount - 1 + 1)) + 1
+            interviewTime = await this.actionDriver.getText(`${employeePageLoc.notSelectedTimes}[${randomIndexTime}]`)
+            await this.actionDriver.typeText(interviewTime)
+            await this.actionDriver.keyboardPress('Enter')
+            
+
+            // edit invitees
+            await this.actionDriver.clickButton(employeePageLoc.inviteesPenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.updateInviteesMultiSelect)
+            await this.actionDriver.clickButton(employeePageLoc.updateInviteesMultiSelect)
+
+
+            const inviteeCount = await this.actionDriver.elementCount(employeePageLoc.updateInviteesOptions)
+
+            if (inviteeCount > 0) {
+                if (inviteeCount === 1) {
+                    invitee = await this.actionDriver.getText(`(${employeePageLoc.updateInviteesOptions})`)
+                    await this.actionDriver.keyboardPress('Enter')
+
+    
+                }
+                else if (inviteeCount === 2) {
+                    randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
+                    invitee = await this.actionDriver.getText(`(${employeePageLoc.updateInviteesOptions})[${randomIndexInvitee}]`)
+                    await this.actionDriver.typeText(invitee)
+                    await this.actionDriver.keyboardPress('Enter')
+
+    
+    
+                }
+                else {
+                    randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
+                    invitee = await this.actionDriver.getText(`(${employeePageLoc.updateInviteesOptions})[${randomIndexInvitee}]`)
+                    await this.actionDriver.typeText(invitee)
+                    await this.actionDriver.keyboardPress('Enter')
+
+    
+    
+                }
+    
+            }
+            else {
+                console.log("No options available to select")
+            }
+
+            // edit status
+            await this.actionDriver.clickButton(employeePageLoc.statusPenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.statusDropdown)
+            await this.actionDriver.clickButton(employeePageLoc.statusDropdown)
+
+            const statusCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedStatus)
+            const randomIndexStatus = Math.floor(Math.random() * (statusCount - 1 + 1)) + 1
+
+            await this.actionDriver.getText(`${employeePageLoc.notSelectedStatus}[${randomIndexStatus}]`)
+            interviewStatus = await this.actionDriver.getText(`${employeePageLoc.notSelectedStatus}[${randomIndexStatus}]`)
+
+            await this.actionDriver.clickButton(`${employeePageLoc.notSelectedStatus}[${randomIndexStatus}]`)
+
+
+
+        
+            // select reason for "Failed" status
+            if (interviewStatus === 'Failed') {
+                await this.actionDriver.clickButton(employeePageLoc.reasonPenIcon)
+                await this.actionDriver.checkElementVisibility(employeePageLoc.reasonDropdown)
+                await this.actionDriver.clickButton(employeePageLoc.reasonDropdown)
+
+                const reasonCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedReasons)
+                const randomIndexReason = Math.floor(Math.random() * (reasonCount - 1 + 1)) + 1
+
+                await this.actionDriver.getText(`(${employeePageLoc.notSelectedReasons})[${randomIndexReason}]`)
+                reason = await this.actionDriver.getText(`(${employeePageLoc.notSelectedReasons})[${randomIndexReason}]`)
+
+                await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedReasons})[${randomIndexReason}]`)
+
+                await this.actionDriver.keyboardPress('Enter')
+
+
+            }
+
+            // update grade
+
+            await this.actionDriver.clickButton(employeePageLoc.gradePenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.performanceGradeDropdown)
+            await this.actionDriver.clickButton(employeePageLoc.performanceGradeDropdown)
+
+            const gradeCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedGrade)
+
+            const randomIndexGrade = Math.floor(Math.random() * (gradeCount - 1 + 1)) + 1
+
+            await this.actionDriver.getText(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
+            grade = await this.actionDriver.getText(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
+
+            await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
+            
+            // edit Client Feedback
+
+            await this.actionDriver.clickButton(employeePageLoc.clientFeedbackPenIcon)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.clientFeedbackTextArea)
+            clientFeedback = await this.actionDriver.getRandomJsonItem(jsonData, 'clientFeedback')
+            await this.actionDriver.clickButton(employeePageLoc.clientFeedbackTextArea)
+            await this.actionDriver.typeText(clientFeedback)
+
+            // uncheck Send Notifications
+            await this.actionDriver.clickButton(employeePageLoc.notificationCheckbox)
+
+            
+            // click Save Notes button
+            await this.actionDriver.clickButton(employeePageLoc.saveNotesButton)
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader)
+
+            console.log(`Updated Interview : ${interviewStatus} | ${clientName} | ${grade} | ${invitee} | ${interviewDate}, ${interviewTime} | ${clientFeedback}`)
+
+        }
+
+    }
+
 
     async paginationCheck(text, elements) {
         let blnResult = false;
@@ -301,6 +498,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         return extractedDateTime;
     }
+
 
     async clickClientNameLink(){
         await this.actionDriver.clickButton(employeePageLoc.clientNameLink)
