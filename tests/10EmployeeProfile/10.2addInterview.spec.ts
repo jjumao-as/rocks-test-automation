@@ -48,28 +48,23 @@ roleToTest.forEach(role => {
             // Navigate to Client Interviews
             await employeesPage.navigateToClientInterviews()
 
-        
-        })
-
-      
-        test(`${role} adds interview to employee`, async() => {
-
-        
             // Navigate to Client Interviews
             await employeesPage.addInterviewModalIsPresent()
             await employeesPage.addInterview()
             await employeesPage.submitInterview()
             await employeesPage.isInterviewAdded()
-
+  
             // Navigate to Client page
             if(role !== 'HR'){
                 await employeesPage.clickClientNameLink()
                 await employeesPage.isInClientPage()
                 await employeesPage.navigateToClientInterviews()
             }
-            
-        });
 
+        
+        })
+
+      
         test(`${role} updates interview for employee`, async() => {
             await employeesPage.updateInterview()
             await employeesPage.isInterviewAdded()
@@ -85,6 +80,7 @@ roleToTest.forEach(role => {
 
         test.afterEach(async ({}) => {
             await context.close()
+            await page.close()
         });
         
    
