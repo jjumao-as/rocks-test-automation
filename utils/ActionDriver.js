@@ -257,6 +257,7 @@ class ActionDriver {
             const textContent = await el.textContent();
             if (textContent.trim().toLowerCase() === testData.toLowerCase()) {
                 await toggleButton.nth(i).click();
+                break;
             }
         }
     }
@@ -284,6 +285,7 @@ class ActionDriver {
             });
             if (textContent.trim().toLowerCase() === testData.toLowerCase()) {
                 await toggleButton.nth(i).click();
+                break;
             }
         }
     }

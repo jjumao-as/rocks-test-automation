@@ -1,0 +1,53 @@
+{
+  "employeeName": {
+    "firstName": "Sarah",
+    "lastName": "Pouros"
+  },
+  "employeeDetails": {
+    "position": "Senior Full Stack",
+    "role": "Developer",
+    "client": "Override"
+  },
+  "aboutMe": "I Love PHP",
+  "skills": [
+    [
+      "Repo Hosting Services",
+      true,
+      true
+    ],
+    [
+      "Conflict Management",
+      true,
+      false
+    ],
+    [
+      "Project Team Leadership",
+      false,
+      true
+    ],
+    [
+      "Personnel Management",
+      false,
+      false
+    ]
+  ],
+  "workExperience": {
+    "jobPosition": "Software Engineer",
+    "companyName": "Sample Company",
+    "projectName": "E-commerce Project",
+    "description": "Using Mobile Payment"
+  },
+  "toSearch": {
+    "skill1": "Repo Hosting Services",
+    "skill2": "Conflict Management",
+    "skill3": "Project Team Leadership",
+    "skill4": "Personnel Management",
+    "about": "PHP",
+    "exp": "Payment"
+  },
+  "contacts": {
+    "firstName": "Santa",
+    "lastName": "Stokes",
+    "phoneNumber": "x58O451851"
+  }
+}
