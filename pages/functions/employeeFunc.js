@@ -334,6 +334,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
         await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
         await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.findText(employeeName, employeePageLoc.employeeNameList);
         await this.actionDriver.selectDataFromText(employeeName, employeePageLoc.employeeNameList, employeePageLoc.employeeNameList);
     }
@@ -365,6 +366,33 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.modalTitle);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.currentPosition);
         await this.actionDriver.expectEquals(position, employeePageLoc.currentPosition);
+    }
+
+    async addSkills(testData) {
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.editSkills);
+        await this.actionDriver.clickButton(employeePageLoc.enterSkillField);
+        for(let i=0; i<testData.length; i++) {
+            await this.actionDriver.typeText(testData[i][0]);
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
+            await this.actionDriver.selectFromList(testData[i][0], employeePageLoc.itemSearchSuggestion);
+        }
+        for(let j=0; j<testData.length; j++) {
+            const skill = testData[j];
+            if(!skill[1]) {
+                await this.actionDriver.clickButton(`(${employeePageLoc.showInProfileCheckbox})[${j+1}]`);
+            }
+            if(skill[2]) {
+                await this.actionDriver.clickButton(`(${employeePageLoc.searchbleCheckbox})[${j+1}]`);
+            }
+        }
+        await this.actionDriver.clickButton(employeePageLoc.saveSkills);
+    }
+
+    async validateTalentSkill(skills) {
+        for(let i=0; i<skills.length; i++) {
+            await this.actionDriver.findText(skills[0], employeePageLoc.skillsListInProfile);
+        }
     }
 
     async updateSkills() {
@@ -421,5 +449,49 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.compareFromList(employeeName, employeePageLoc.employeeNameList);
+    }
+
+    async editAboutMe(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editAboutMe);
+        await this.actionDriver.clickButton(employeePageLoc.editAboutMe);
+        await this.actionDriver.ElemetType(employeePageLoc.aboutMeTxtArea, testData);
+        await this.actionDriver.clickButton(employeePageLoc.saveAboutMeBtn);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.aboutMeTxtArea);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editAboutMe);
+        const text = await this.actionDriver.getText(employeePageLoc.aboutMeDetails);
+        await this.actionDriver.checkInclude(text, testData);
+    }
+
+    async addWorkExperience(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
+        await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
+        await this.actionDriver.ElemetType(employeePageLoc.jobTitle, testData.jobPosition);
+        await this.actionDriver.clickButton(employeePageLoc.startDate);
+        await this.actionDriver.clickButton(employeePageLoc.dateToday);
+        await this.actionDriver.clickButton(employeePageLoc.otherCompany);
+        await this.actionDriver.ElemetType(employeePageLoc.otherCompanyName, testData.companyName);
+        await this.actionDriver.clickButton(employeePageLoc.addProject);
+        await this.actionDriver.ElemetType(employeePageLoc.modalprojectName, testData.projectName);
+        await this.setProjectDescription(testData.description);
+        await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal);
+        await this.actionDriver.clickButton(employeePageLoc.saveWorkExp);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletionProgress);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
+    }
+
+    async validateWorkExperience(testData) {
+        await this.actionDriver.expectEquals(testData.jobPosition, employeePageLoc.addedJobTitle);
+        await this.actionDriver.expectEquals(testData.projectName, employeePageLoc.projectName);
+        await this.actionDriver.expectEquals(testData.description, employeePageLoc.projectDesc);
+    }
+
+    async setProjectDescription(description) {
+        const frameHandle = await this.page.waitForSelector(employeePageLoc.descriptionIframe);
+        const frame = await frameHandle.contentFrame();
+        if(frame) {
+                await frame.type(employeePageLoc.descriptionBody, description);
+                await this.page.waitForTimeout(1000);
+        }
     }
 }

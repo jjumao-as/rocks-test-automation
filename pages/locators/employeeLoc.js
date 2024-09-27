@@ -104,4 +104,24 @@ module.exports = {
     deletionProgress : "//div[contains(text(),'Wait while saving changes')]",
     loadingRecords : "//span[contains(text(),'Loading records')]",
     interviewDeletionProgress : "//div[contains(text(),'Deleting interview')]",
+
+    editAboutMe : "//div[contains(text(),'About Me')]//span[text()='Edit']",
+    aboutMeTxtArea : "//textarea[@placeholder='About Me']",
+    saveAboutMeBtn : "//h4[text()='About Me']/following-sibling::div//span[text()='Save']",
+    aboutMeDetails : "//div[contains(@class,'about-me')]//blockquote",
+
+    addWorkExpBtn : "//span[text()='Work Experience']/following-sibling::a//span[text()='Add']",
+    jobTitle : "//input[@id='text-job_title']",
+    otherCompany : "//span[text()='Other (Specify company)']",
+    otherCompanyName : "//input[@id='text-other_company_name']",
+    addProject : "//span[text()='Add Project']",
+    modalprojectName : "//span[text()='Project Display Name']/parent::label/following-sibling::div/input",
+    descriptionIframe : "//iframe[@class='tox-edit-area__iframe']",
+    descriptionBody: "//body[@id='tinymce']",
+    addProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Add Project']",
+    saveWorkExp : "//span[text()='Save Work Experience']",
+    addedJobTitle : "//div[contains(@class,'job-position')][1]//div[@class='left-section']/span[1]",
+    projectName : "(//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//span[1]",
+    projectDesc: "((//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//p)[2]",
+
 }
