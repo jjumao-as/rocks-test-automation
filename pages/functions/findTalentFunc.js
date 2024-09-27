@@ -86,6 +86,61 @@ exports.FindTalentPage = class FindTalentPage {
         }
     }
 
+    async validateTalentDisplayedAndSelect(testData) {
+        const lastName = testData.lastName;
+        const talentName = testData.firstName + " " + lastName.charAt(0);
+        const countElements = await this.page.$$(findTalentLocators.nameList);
+        if(countElements.length > 1) {
+            await this.actionDriver.waitElementUntilHidden(findTalentLocators.searchingLabel);
+            await this.actionDriver.waitElementUntilVisible(findTalentLocators.nameList);
+            await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
+            await this.actionDriver.waitElementUntilVisible(findTalentLocators.viewProfileButtonList);
+            await this.actionDriver.selectDataFromText(talentName, findTalentLocators.nameList, findTalentLocators.viewProfileButtonList);
+        } else {
+            await this.selectTalent();
+        }
+    }
+
+    async validateTalentNotDisplayed(name) {
+        await this.actionDriver.waitElementUntilHidden(findTalentLocators.searchingLabel);
+        const countElements = await this.page.$$(findTalentLocators.nameList);
+        if(countElements > 1) {
+            const lastName = name.lastName;
+            const talentName = name.firstName + " " + lastName.charAt(0);
+            await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);
+            const talentList = await this.actionDriver.getTextArray(findTalentLocators.nameList);
+            const displayed = await this.actionDriver.checkIfIncludesInArray(talentList, talentName);
+            await this.actionDriver.expectFalse(displayed);
+        } else {
+            await this.actionDriver.expectToHaveCount(findTalentLocators.nameList, 0);
+        }
+    }
+        
+
+    async validateSkillDisplayed(skill){
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.talentSkills);
+        const textArray = await this.actionDriver.getTextArray(findTalentLocators.talentSkills);
+        const include = await this.actionDriver.checkIfIncludesInArray(textArray, skill);
+        await this.actionDriver.expectTrue(include);
+    }
+
+    async validateSkillNotDisplayed(skill){
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.talentSkills);
+        const textArray = await this.actionDriver.getTextArray(findTalentLocators.talentSkills);
+        const include = await this.actionDriver.checkIfIncludesInArray(textArray, skill);
+        await this.actionDriver.expectFalse(include);
+    }
+
+    async validateAboutMeSection(about) {
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.talentAboutMe);
+        await this.actionDriver.expectEquals(about, findTalentLocators.talentAboutMe);
+    }
+
+    async validateWorkExpSection(exp) {
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.workExperienceDesc);
+        await this.actionDriver.expectEquals(exp, findTalentLocators.workExperienceDesc);
+    }
+    
     async compareList(testData){
         await this.actionDriver.waitElementUntilVisible(findTalentLocators.nameList);
         await this.actionDriver.scrollToBottom(findTalentLocators.noMoreRecords);

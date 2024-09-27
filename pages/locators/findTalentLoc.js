@@ -31,4 +31,9 @@ module.exports = {
     successMessage : "//p[contains(text(),'We will review this request')]",
     confirmSuccess : "//button[text()='OK']",
     talentName : "//a[contains(@class,'photo-card-user-names')]/div",
+
+
+    talentSkills : "//span[contains(@class,'skill-name')]",
+    talentAboutMe : "//h3[text()='About Me']/parent::header/following-sibling::article/p",
+    workExperienceDesc : "//h3[text()='E-commerce Project']/following-sibling::p/p",
 }
