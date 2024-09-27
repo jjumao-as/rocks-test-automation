@@ -21,7 +21,7 @@ roleToTest.forEach(role => {
 
     const {username, password} = roles[role]
 
-    test.describe.parallel('Add Interview to employee', () => {
+    test.describe.parallel('Client Interview Management', () => {
 
         test.beforeEach(async ({browser}) =>{
             context = await browser.newContext()
@@ -39,41 +39,48 @@ roleToTest.forEach(role => {
             await loginPage.login(username, password)
             await homePage.isInHomePage()
 
-           
-        
-        })
+            // Search Employee
+            await dashboardPage.search(testData[role].employee);
+            await dashboardPage.checkValidSearchResult();
+            await dashboardPage.viewSearchResult();
+            await dashboardPage.verifyTalent();
 
-      
-        test(`${role} adds interview to employee`, async() => {
-
-             // Search Employee
-             await dashboardPage.search(testData[role].employee);
-             await dashboardPage.checkValidSearchResult();
-             await dashboardPage.viewSearchResult();
-             await dashboardPage.verifyTalent();
-
-        
             // Navigate to Client Interviews
             await employeesPage.navigateToClientInterviews()
+
+            // Navigate to Client Interviews
             await employeesPage.addInterviewModalIsPresent()
             await employeesPage.addInterview()
             await employeesPage.submitInterview()
             await employeesPage.isInterviewAdded()
-
+  
             // Navigate to Client page
             if(role !== 'HR'){
                 await employeesPage.clickClientNameLink()
                 await employeesPage.isInClientPage()
                 await employeesPage.navigateToClientInterviews()
             }
-            
-        });
 
+        
+        })
 
-        test.afterEach(async () => {
+      
+        test(`${role} updates interview for employee`, async() => {
+            await employeesPage.updateInterview()
+            await employeesPage.isInterviewAdded()
+
+        })
+
+        test(`${role} deletes interview for employee`, async() => {
             await employeesPage.deleteInterview()
             await employeesPage.isInterviewDeleted()
+
+        })
+
+
+        test.afterEach(async ({}) => {
             await context.close()
+            await page.close()
         });
         
    

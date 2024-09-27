@@ -13,7 +13,7 @@ module.exports = {
     employeeListHeader : "//h4[contains(text(), 'Employees')]",
     employeeNameLink : "//a[contains(@class,'photo-card-user-names')]",
 
-    // Employee Profile Locators
+    // Employee Profile Locators > Add Interview
     clientInterviewLink : "//a[contains(@id, 'nav-client-interviews-link')]",
     addInterviewButton : "//span[contains(text(), 'Add Interview')]",
     addInterviewModalHeading : "//h4[contains(text(), 'Add Interview')]",
@@ -59,7 +59,52 @@ module.exports = {
     yesButton : "//button[@class='swal2-confirm swal2-styled']",
     goToNextPage : "//button[contains(@aria-label,'Go to next page')]",
 
+    
+    // View Client Interview
+    viewedClientName : "//*[@id='modalDescription']/div[2]/div[1]/div",
+    viewedDate : "//*[@id='modalDescription']/div[2]/div[3]/div",
+    viewedInvitee : "//*[@id='modalDescription']/div[2]/div[5]/div",
+    viewedTime : "//*[@id='modalDescription']/div[2]/div[4]/div",
+    viewedStatus : "//*[@id='modalDescription']/div[3]/div[1]/div",
+    viewedGrade : "//*[@id='modalDescription']/div[3]/div[3]/div",
+    viewedClientFeedback : "//*[@id='modalDescription']/div[3]/div[4]/dl/dd[1]/div/p",
 
+
+    // Update Client Interview
+
+    viewButton : "//*[@id='client-interview-table']/tbody/tr/td[6]/div/a",
+
+    loadingDots : "//div[contains(@class, 'inline-loader')]",
+    viewInterviewModalHeading : "//h4[contains(text(), 'View Client Interview Notes')]",
+
+    clientPenIcon : '//*[@id="modalDescription"]/div[2]/div[1]/label/i',
+    updateClientDropdown : "//*[@id='modalDescription']/div[2]/div[1]/span/span[1]/span",
+    loaderClientUpdate : "//*[@id='modalDescription']/div[2]/div[1]",
+                          
+    datePenIcon : "//*[@id='modalDescription']/div[2]/div[3]/label/i",
+    timePenIcon : "//*[@id='modalDescription']/div[2]/div[4]/label/i",
+
+    inviteesPenIcon : "//*[@id='modalDescription']/div[2]/div[5]/label/i",
+    updateInviteesMultiSelect : "//*[@id='modalDescription']/div[2]/div[5]/div/div[2]",
+    updateInviteesOptions : "//*[@id='modalDescription']/div[2]/div[5]/div/div[3]/ul/li[not(contains(@style, 'display: none'))]",
+
+    statusPenIcon : "//*[@id='modalDescription']/div[3]/div[1]/label/i",
+    reasonPenIcon : "//*[@id='modalDescription']/div[3]/div[2]/label/i",
+    gradePenIcon : "//*[@id='modalDescription']/div[3]/div[3]/label/i",
+
+    clientFeedbackPenIcon : "//*[@id='modalDescription']/div[3]/div[4]/dl/dt[1]/i",
+    salesFeedbackPenIcon : "//*[@id='modalDescription']/div[3]/div[4]/dl/dt[2]/i",
+    talentFeedbackPenIcon : "//*[@id='modalDescription']/div[3]/div[4]/dl/dt[3]/i",
+
+    notSelectedClients : "//li[@class='select2-results__option' and not(@aria-selected='true')]",
+    notSelectedTimes : "//li[@class='select2-results__option' and not(@aria-selected='true')]",
+    notSelectedStatus : "//li[@class='select2-results__option' and not(@aria-selected='true')]",
+    notSelectedReasons : "//li[contains(@class, 'select2-results__option') and not(@aria-selected='true')]",
+    notSelectedGrade : "//li[contains(@class, 'select2-results__option') and position() > 1 and not(@aria-selected='true')]",
+    notificationCheckbox : "//input[@id='send_notification']",
+
+    saveNotesButton : "//span[contains(text(), 'Save Notes')]",
+    savingChangesLoader : "//div[contains(text(), 'Wait while saving changes')]",
 
     addNewEmployeeButton : "//span[text()='Add New Employee']",
     startDate : "//label[contains(text(),'Start Date')]/following-sibling::input[2]",
