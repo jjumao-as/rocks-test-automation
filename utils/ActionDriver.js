@@ -616,6 +616,12 @@ class ActionDriver {
         return textContent.trim();
     }
 
+    /**
+     * 
+     * @param {*} context : browser context passed from the .spec file
+     * @param {*} action : any action that triggers new tab (clicking a link or button)
+     * @returns : newPage instance
+     */
     async openNewTab(context, action) {
         const [newPage] = await Promise.all([
           context.waitForEvent('page'),
@@ -627,12 +633,5 @@ class ActionDriver {
         return newPage;
     }
 
-    /**
-     * Function to check if a string contains a specified string
-     * 
-     */
-    async checkIfStringIncludesText(expectedString, actualString){
-        await expectedString.includes(actualString)
-    }
 }
 module.exports = ActionDriver;

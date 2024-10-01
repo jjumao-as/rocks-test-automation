@@ -102,9 +102,12 @@ exports.EmployeesPage = class EmployeesPage {
         const actionDriverNewPage = new ActionDriver(newPage)
 
         await actionDriverNewPage.checkElementVisibility(employeePageLoc.profileName)
+
         const pName = await actionDriverNewPage.getText(employeePageLoc.profileName)
-        await actionDriverNewPage.checkIfStringIncludesText(empName, pName)
-        console.log(`Profile page => ${pName}`)
+        const profileName = pName.split(" ")[0]
+        
+        await actionDriverNewPage.checkInclude(profileName, empName)
+        console.log(`Profile page => ${profileName}`)
 
     }
 
