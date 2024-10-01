@@ -615,5 +615,24 @@ class ActionDriver {
         const textContent = await lastElement.textContent();
         return textContent.trim();
     }
+
+    async openNewTab(context, action) {
+        const [newPage] = await Promise.all([
+          context.waitForEvent('page'),
+          action()  
+        ]);
+    
+        await newPage.waitForLoadState('domcontentloaded');
+    
+        return newPage;
+    }
+
+    /**
+     * Function to check if a string contains a specified string
+     * 
+     */
+    async checkIfStringIncludesText(expectedString, actualString){
+        await expectedString.includes(actualString)
+    }
 }
 module.exports = ActionDriver;
