@@ -46,11 +46,52 @@ module.exports = {
     search : '//input[contains(@placeholder, "Search Company Name")]',
     editClientName : '//input[contains(@name, "company")]',
     deletionProgress : "//div[contains(text(),'Deleting')]",
-    
+
+    clientTableSortableCols : "//span[contains(@class,'sorting')]/parent::div/preceding-sibling::div",
+    clientTableCols : "//th[not(contains(@class,'sort'))]",
+    sortedClientName : "//p[text()='Client Name']/following-sibling::a",
+    sortedStatus : "//p[text()='Status']/following-sibling::span",
+    sortedStartDate : "//p[text()='Start Date']/following-sibling::span",
+    sortedSource : "//p[text()='Source']/following-sibling::p[1]",
+    sortedLoc : "//p[text()='Location']/parent::td",
+    sortedServicesNeeded : "//p[text()='Services Needed']/parent::td",
+    sortedTechStack : "//p[text()='Tech Stack']/parent::td",
+    sortedNumberOfTalent : "//p[text()='No. of Talent']/parent::td",
+    sortedDateAdded : "//p[text()='Date Added']/parent::td",
+    sortedLastUpdated : "//p[text()='Last Updated']/parent::td",
+
+    msaStatusCol : "//p[text()='MSA Status']/following-sibling::div//div[contains(@class,'status')]",
+    paginationNextPage : "//a[contains(@title,'Go to the next page')]",
+    paginationLastPage : "//a[contains(@title,'Go to the last page')]",
+    paginationPrevPage : "//a[contains(@title,'Go to the previous page')]",
+    paginationFirstPage : "//a[contains(@title,'Go to the first page')]",
+
 
     searchCompanyNameField : "//input[contains(@placeholder,'Search Company Name')]",
     searchButton : "//i[contains(@class,'search-icon')]",
     companySearchResult : "//a[contains(@class,'client-profile')]",
+
+    showingResult: "//div[contains(text(),'Showing')]",
+
+    //Client Filters
+    thead: "//thead",
+    filterLocationFld : "//div[@id='location-filter']//div[@class='vue-treeselect__multi-value']",
+    filterLocationSelections : "//div[@id='location-filter']//label[@class='vue-treeselect__label']",
+    filterServicesNeededFld : "//div[@id='project-needs-filter']//div[@class='vue-treeselect__multi-value']",
+    filterServicesNeededSelections : "//div[@id='project-needs-filter']//label[@class='vue-treeselect__label']",
+    filterTechStacksFld : "//div[@id='tech-stack-filter']//div[@class='vue-treeselect__multi-value']",
+    filterTechStacksSelections : "//div[@id='tech-stack-filter']//label[@class='vue-treeselect__label']",
+    filterStatusFld : "//div[@id='status-filter']//div[@class='vue-treeselect__multi-value']",
+    filterStatusSelections : "//div[@id='status-filter']//label[@class='vue-treeselect__label']",
+    filterHighGrowthFld : "//div[@id='high-growth-filter']//div[@class='vue-treeselect__multi-value']",
+    filterHighGrowthSelections : "//div[@id='high-growth-filter']//label[@class='vue-treeselect__label']",
+    filterTimeLineFld : "//div[@id='timeline-filter']//div[@class='vue-treeselect__multi-value']",
+    filterTimeLineSelections : "//div[@id='timeline-filter']//label[@class='vue-treeselect__label']",
+    filterMSAFld : "//div[@id='msa-status-filter']//div[@class='vue-treeselect__multi-value']",
+    filterMSASelections : "//div[@id='msa-status-filter']//label[@class='vue-treeselect__label']",
+    filterSourceFld : "//div[@id='lead-source-filter']//div[@class='vue-treeselect__multi-value']",
+    filterSourceSelections : "//div[@id='lead-source-filter']//label[@class='vue-treeselect__label']",
+    
     
     //Client Profile
     clientLogo : "//div[contains(@class,'client-logo')]",

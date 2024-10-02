@@ -1,15 +1,52 @@
 {
-    "newClient" : {
-        "general" : {
-            "companyName" : "AutoClient",
-            "country" : "United States",
-            "state"   : "Georgia",
-            "city"    : "Acworth"
+    "newClient": {
+        "general": {
+            "companyName": "AutoClient",
+            "country": "United States",
+            "state": "Georgia",
+            "city": "Acworth"
         },
-        "contacts" : {
-            "name" : "JohnDoe",
-            "email" : "johndoe@yahoo.com",
-            "phone" : "1234567890"
+        "contacts": {
+            "name": "JohnDoe",
+            "email": "johndoe@yahoo.com",
+            "phone": "1234567890"
+        }
+    },
+    "manageClient": {
+        "columns": {
+            "sort": [
+                "Client Name",
+                "Status",
+                "Start Date",
+                "Source",
+                "Location",
+                "Services Needed",
+                "Tech stack",
+                "No. of Talent",
+                "Date Added",
+                "Last Updated"
+            ],
+            "notSort": [
+                "Action",
+                "MSA Status"
+            ]
+        },
+        "asc" : "asc",
+        "desc" : "desc",
+        "nonExistingClient" : {
+            "clientName" : "Non-ExistingClient",
+            "result" : "Showing  0 entry"
+        },
+        "existingClient" : "EmployeeDB",
+        "filters" : {
+            "location" : "United States",
+            "servicesNeeded" : "Web Development",
+            "techStack" : ".NET Framework",
+            "status" : "Active",
+            "highGrowth" : "No",
+            "timeline" : "Long Term",
+            "msaStatus" : "Complete",
+            "source" : "LinkedIn"
         }
     }
 }

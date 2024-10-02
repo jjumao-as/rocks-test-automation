@@ -86,6 +86,31 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
+    /**
+     * View public profile
+     */
+
+    async viewPublicProfile(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.talentName)
+        empName = await this.actionDriver.getText(employeePageLoc.talentName)
+        console.log(`Employee page => ${empName}`)
+        await this.actionDriver.clickButton(employeePageLoc.publicProfileLink)
+    }
+
+    async isInPublicProfile(newPage){
+
+        const actionDriverNewPage = new ActionDriver(newPage)
+
+        await actionDriverNewPage.checkElementVisibility(employeePageLoc.profileName)
+
+        const pName = await actionDriverNewPage.getText(employeePageLoc.profileName)
+        const profileName = pName.split(" ")[0]
+        
+        await actionDriverNewPage.checkInclude(profileName, empName)
+        console.log(`Profile page => ${profileName}`)
+
+    }
+
 
     /* Add Client Interview */
 

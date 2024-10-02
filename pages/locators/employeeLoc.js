@@ -14,6 +14,13 @@ module.exports = {
     employeeNameLink : "//a[contains(@class,'photo-card-user-names')]",
 
     // Employee Profile Locators > Add Interview
+
+    talentName : "//span[contains(@class, 'talent-name')]",
+    profileName : "//h2[contains(@class, 'profile-name')]",
+    publicProfileLink : "//a[contains(text(), 'Public Profile')]",
+    
+
+
     clientInterviewLink : "//a[contains(@id, 'nav-client-interviews-link')]",
     addInterviewButton : "//span[contains(text(), 'Add Interview')]",
     addInterviewModalHeading : "//h4[contains(text(), 'Add Interview')]",

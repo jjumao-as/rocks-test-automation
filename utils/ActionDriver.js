@@ -615,5 +615,23 @@ class ActionDriver {
         const textContent = await lastElement.textContent();
         return textContent.trim();
     }
+
+    /**
+     * 
+     * @param {*} context : browser context passed from the .spec file
+     * @param {*} action : any action that triggers new tab (clicking a link or button)
+     * @returns : newPage instance
+     */
+    async openNewTab(context, action) {
+        const [newPage] = await Promise.all([
+          context.waitForEvent('page'),
+          action()  
+        ]);
+    
+        await newPage.waitForLoadState('domcontentloaded');
+    
+        return newPage;
+    }
+
 }
 module.exports = ActionDriver;
