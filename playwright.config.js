@@ -54,7 +54,7 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'parallel',
       use: { 
         ...devices['Desktop Chrome'],
         workers: undefined,
@@ -69,7 +69,7 @@ module.exports = defineConfig({
       ]
     },
     {
-      name: 'chromium',
+      name: 'single',
       use: { 
         ...devices['Desktop Chrome'],
         workers: 1,
