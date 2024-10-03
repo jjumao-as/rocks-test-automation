@@ -68,9 +68,25 @@ module.exports = {
     createWeeklyReport : "(//span[text()='Create Weekly Floor Report'])[1]",
     createWeeklyFloorReportModal : "//h4[text()='Create Weekly Floor Report']",
     selectClients : "//label[text()='Select Client(s)']",
+    selectClientsFld : "//div[@id='client_ids']",
+    selectedClientName : "//div[@class='vue-treeselect__multi-value-item']/span[1]",
+    clientOptions : "//label[text()='Select Client(s)']/parent::span/following-sibling::div//div[contains(@class,'label-container')]",
+    goalsOrDeadlineOpt : "//span[text()='Do you have goals or deadlines?']/parent::label/following-sibling::div//span",
+    onTrackOpt : "//span[text()='Are you on track?']/parent::label/following-sibling::div//span",
     goalsOrDeadline : "//span[text()='Do you have goals or deadlines?']",
+    
+    makingProgressOpt : "//span[text()='Is the team making progress?']/parent::label/following-sibling::div//span",
+    blockersOpt : "//span[text()='What are the blockers?']/parent::label/following-sibling::div//span",
+    problemCommunicatedOpt : "//span[text()='Has the problem been communicated?']/parent::label/following-sibling::div//span",
+    probCommunicatedSubOpt : "//span[text()='Has the problem been communicated?']/ancestor::div[contains(@class,'radio-field material')]/parent::div/following-sibling::div[contains(@class,'sub-question')]//span",
+    
+    needMoreTalentOpt : "//span[text()='Does the project need more talent?']/parent::label/following-sibling::div//span",
+    specificTalentOpt : "//span[text()='What specific talent are needed?']/parent::label/following-sibling::div//span",
+    howLongTalentOpt : "//span[text()='How long are the talent needed for?']/parent::label/following-sibling::div//span",
     makingProgress : "//span[text()='Is the team making progress?']",
     needMoreTalent : "//span[text()='Does the project need more talent?']",
+    saveFlrReport : "//span[text()='Save']",
+    questionList : "//div[@class='question-list']",
 
     //Self-Performance Review
     submitSelfPerformanceReview : "(//span[text()='Submit Self-Performance Review'])[1]",
@@ -93,7 +109,5 @@ module.exports = {
     category : "//label[text()='Category']",
     feedbackTab : "//legend[text()='Feedback']",
     sendButton : "//span[text()='Send']/parent::button",
-
-    //Expense Report
     
 }

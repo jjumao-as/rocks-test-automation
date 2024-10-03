@@ -43,4 +43,13 @@ module.exports = {
     removeExpenseReportRecipient : "//div[contains(text(),'Admin Email Recipients')]/following-sibling::div//span[contains(@class,'fs-tags-input-badge')]/i",
     saveGeneralSettings : "//a[contains(text(),'Save')]",
     expenseReportsTab : "(//span[text()='Expense Reports'])[1]",
+
+    //Floor Report Settings
+    weeklyFloorReports : "(//span[text()='Weekly Floor Reports'])[1]",
+    reporterName : "//div[contains(@class,'tr flag')]/div[2]/div",
+    projectName : "//div[contains(@class,'tr flag')]/div[3]/div",
+    reportRow : "//div[contains(@class,'tr flag')]",
+    searchReport : "//input[@placeholder='Search..']",
+    fetchingReport : "//span[text()='Fetching weekly floor reports...']",
+
 }

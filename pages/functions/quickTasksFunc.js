@@ -1,5 +1,6 @@
 const quickTasksLocators = require('../locators/quickTasksLoc');
 const ActionDriver = require('../../utils/ActionDriver');
+const { updateJsonData } = require('../../utils/jsonReader');
 let emailSubject;
 
 exports.QuickTasksPage = class QuickTasksPage {
@@ -209,5 +210,56 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.waitElementUntilVisible(quickTasksLocators.confirmationMsg);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.confirmationMsg);
         await this.actionDriver.clickButton(quickTasksLocators.okBtn);
+    }
+
+    async navigateWeeklyFloorReport() {
+        await this.actionDriver.clickButton(quickTasksLocators.createWeeklyReport);
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.createWeeklyFloorReportModal);
+    }
+
+    async selectClient() {
+        await this.actionDriver.clickButton(quickTasksLocators.selectClientsFld);
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.clientOptions);
+        await this.actionDriver.selectRandomFromList(quickTasksLocators.clientOptions);
+        await this.actionDriver.clickButton(quickTasksLocators.questionList);
+    }
+    
+    async saveGreenFloorReport(data, role) {
+        const clientName = await this.actionDriver.getText(quickTasksLocators.selectedClientName);
+        updateJsonData('floorReport', `users>${role}>greenClientName`, clientName);
+        await this.actionDriver.waitElementUntilClickable(quickTasksLocators.goalsOrDeadlineOpt);
+        await this.actionDriver.selectFromList(data.goals, quickTasksLocators.goalsOrDeadlineOpt);
+        await this.actionDriver.selectFromList(data.track, quickTasksLocators.onTrackOpt);
+        await this.actionDriver.selectFromList(data.progress, quickTasksLocators.makingProgressOpt);
+        await this.actionDriver.selectFromList(data.talent, quickTasksLocators.needMoreTalentOpt);
+        await this.actionDriver.clickButton(quickTasksLocators.saveFlrReport);
+        await this.actionDriver.waitElementUntilHidden(quickTasksLocators.createWeeklyFloorReportModal);
+    }
+
+    async saveOrangeFloorReport(data, role) {
+        const clientName = await this.actionDriver.getText(quickTasksLocators.selectedClientName);
+        updateJsonData('floorReport', `users>${role}>orangeClientName`, clientName);
+        await this.actionDriver.waitElementUntilClickable(quickTasksLocators.goalsOrDeadlineOpt);
+        await this.actionDriver.selectFromList(data.goals, quickTasksLocators.goalsOrDeadlineOpt);
+        await this.actionDriver.selectFromList(data.track, quickTasksLocators.onTrackOpt);
+        await this.actionDriver.selectFromList(data.progress, quickTasksLocators.makingProgressOpt);
+        await this.actionDriver.selectFromList(data.blocker, quickTasksLocators.blockersOpt);
+        await this.actionDriver.selectFromList(data.communicated, quickTasksLocators.problemCommunicatedOpt);
+        await this.actionDriver.selectFromList(data.subq, quickTasksLocators.probCommunicatedSubOpt);
+        await this.actionDriver.selectFromList(data.talent, quickTasksLocators.needMoreTalentOpt);
+        await this.actionDriver.clickButton(quickTasksLocators.saveFlrReport);
+        await this.actionDriver.waitElementUntilHidden(quickTasksLocators.createWeeklyFloorReportModal);
+    }
+
+    async saveRedFloorReport(data, role) {
+        const clientName = await this.actionDriver.getText(quickTasksLocators.selectedClientName);
+        updateJsonData('floorReport', `users>${role}>redClientName`, clientName);
+        await this.actionDriver.waitElementUntilClickable(quickTasksLocators.goalsOrDeadlineOpt);
+        await this.actionDriver.selectFromList(data.goals, quickTasksLocators.goalsOrDeadlineOpt);
+        await this.actionDriver.selectFromList(data.track, quickTasksLocators.onTrackOpt);
+        await this.actionDriver.selectFromList(data.progress, quickTasksLocators.makingProgressOpt);
+        await this.actionDriver.selectFromList(data.talent, quickTasksLocators.needMoreTalentOpt);
+        await this.actionDriver.clickButton(quickTasksLocators.saveFlrReport);
+        await this.actionDriver.waitElementUntilHidden(quickTasksLocators.createWeeklyFloorReportModal);
     }
 }
