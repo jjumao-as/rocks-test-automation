@@ -99,7 +99,7 @@ module.exports = {
     teamRequestsTab : "//a[contains(text(),'Team Requests')]",
     teamMembersTab : "//a[contains(text(),'Team Members')]",
     clientNameLink : "//p[contains(@class,'client-name')]",
-    weeklyReportZeroStateLabel : "//a[contains(text(), 'Weekly Floor Report')]",
+    weeklyReportZeroStateLabel : "//div[contains(@class,'talent-interview-wrapper')]//div[contains(@class,'justify-content-end')]/div[1]//h2",
 
     //Client Profile Team Requests Table
     dropRequestedLink : "(//div[contains(@class,'action-dropdowns')]//button[contains(text(),'Drop Requested')])[1]",

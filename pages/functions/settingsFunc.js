@@ -204,7 +204,7 @@ exports.SettingsPage = class SettingsPage {
                 if(emailContent !== null) {
                     break;
                 }
-                await this.page.waitForTimeout(1000);
+                await this.page.waitForTimeout(2000);
             }
             const empty = emailContent === null ? true : false;
             if(!empty) {
@@ -230,6 +230,7 @@ exports.SettingsPage = class SettingsPage {
             await this.actionDriver.keyboardPress('Enter');
             await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingRecords);
             await this.actionDriver.waitElementUntilHidden(settingsLocators.tableMask);
+            await this.page.waitForTimeout(2000);
             await this.actionDriver.expectEquals(expenseId, settingsLocators.expenseId);
         }
     }
