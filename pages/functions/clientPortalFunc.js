@@ -25,7 +25,7 @@ exports.ClientPortalPage = class ClientPortalPage {
 
     //Get the first Active talent name 
     async dropTalentName() {
-        const name = (await this.actionDriver.getText(clientPortalLocators.talentNameSelectedRow));  
+        const name = await this.actionDriver.getText(clientPortalLocators.talentNameSelectedRow);  
         return name;        
     }
 
@@ -44,8 +44,8 @@ exports.ClientPortalPage = class ClientPortalPage {
     }
 
     async cancelDropTalentNameConfirmed(name) {
-        await this.actionDriver.selectDataFromText(name, clientPortalLocators.teamNameList, clientPortalLocators.teamActionButtonList);
-        await this.actionDriver.selectDataFromText(name, clientPortalLocators.teamNameList, clientPortalLocators.cancelDropRequest);
+        await this.actionDriver.selectDataFromText(name, clientPortalLocators.cancelForRevertDropNameList, clientPortalLocators.cancelForRevertDropActionList);
+        await this.actionDriver.selectDataFromText(name, clientPortalLocators.cancelForRevertDropNameList, clientPortalLocators.cancelDropRequest);
         await this.actionDriver.clickButton(clientPortalLocators.confirmCancelDrop);
         await this.actionDriver.waitElementUntilVisible(clientPortalLocators.verificationMessage);
         await this.actionDriver.clickButton(clientPortalLocators.confirmCancel);
@@ -53,7 +53,7 @@ exports.ClientPortalPage = class ClientPortalPage {
 
     //To verify the drop requested talent matches in the table
     async dropTalentNameConfirmed(nameValue){
-        const name = await this.actionDriver.getText(clientPortalLocators.talentNameConfirmed + nameValue + "')]");
+        await this.actionDriver.expectEquals(nameValue,clientPortalLocators.talentNameConfirmed + nameValue + "')]");
     }
 
     //To verify in the Admin client profile the drop requested talent status
