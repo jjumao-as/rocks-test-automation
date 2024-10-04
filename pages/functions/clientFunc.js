@@ -140,33 +140,33 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.keyboardPress('Enter');
     }
 
-    async validateUser(testData) {
+    async validateUser(testData, status) {
         const name = testData.firstName + " " + testData.lastName
+        await this.actionDriver.waitElementUntilVisible(clientPageLoc.requestEmployeeName);
         await this.actionDriver.findText(name, clientPageLoc.requestEmployeeName);
-        await this.actionDriver.waitElementUntilVisible(clientPageLoc.requestStatus);
-        const rows = this.page.locator(clientPageLoc.requestStatus);
+        const rows = this.page.locator(clientPageLoc.requestEmployeeName);
         await rows.first().waitFor();
         for (let j = 0; j < await rows.count(); j++) {
             const textContent = await rows.nth(j).textContent();
             const correctedContent = textContent.trim();
-            if (correctedContent === newEmail) {
-                await this.actionDriver.expectEquals(testData.status, rows.nth(j));
+            if (correctedContent === name) {
+                await this.actionDriver.expectEquals(status, `(${clientPageLoc.requestStatus})[${j+1}]`);
             }
         }
     }
 
-    async validateUserFromTeamRequest(testData) {
+    async validateUserFromTeamRequest(testData, status) {
         const name = testData.firstName + " " + testData.lastName
-        await this.actionDriver.waitElementUntilVisible(clientPageLoc.requestEmployeeName);
-        await this.actionDriver.findText(name, clientPageLoc.requestEmployeeName);
+        await this.actionDriver.waitElementUntilVisible(clientPageLoc.teamRequestListName);
+        await this.actionDriver.findText(name, clientPageLoc.teamRequestListName);
         await this.actionDriver.waitElementUntilVisible(clientPageLoc.teamRequestListStatus);
-        const rows = this.page.locator(clientPageLoc.teamRequestListStatus);
+        const rows = this.page.locator(clientPageLoc.teamRequestListName);
         await rows.first().waitFor();
         for (let j = 0; j < await rows.count(); j++) {
             const textContent = await rows.nth(j).textContent();
             const correctedContent = textContent.replace(/Name\s*/g, '').trim();
-            if (correctedContent === newEmail) {
-                await this.actionDriver.expectEquals(testData.status, rows.nth(j));
+            if (correctedContent === name) {
+                await this.actionDriver.expectEquals(status, `(${clientPageLoc.teamRequestListStatus})[${j+1}]`);
             }
         }
     }
@@ -174,11 +174,11 @@ exports.ClientsPage = class ClientsPage {
     async deleteRequest(testData) {
         const name = testData.firstName + " " + testData.lastName
         await this.actionDriver.waitElementUntilClickable(clientPageLoc.actionButton);
-        await this.actionDriver.selectDataFromText(name, clientPageLoc.requestEmployeeName, clientPageLoc.actionButton);
-        await this.actionDriver.selectDataFromText(name, clientPageLoc.requestEmployeeName, clientPageLoc.deleteRequest);
+        await this.actionDriver.selectDataFromText(name, clientPageLoc.teamRequestListName, clientPageLoc.actionButton);
+        await this.actionDriver.selectDataFromText(name, clientPageLoc.teamRequestListName, clientPageLoc.deleteRequest);
         await this.actionDriver.clickButton(clientPageLoc.confirmDeletion);
-        this.searchTeamRequestTalent(name);
-        await this.actionDriver.compareFromList(name, clientPageLoc.requestEmployeeName);
+        await this.searchTeamRequestTalent(name);
+        await this.actionDriver.compareFromList(name, clientPageLoc.teamRequestListName);
     }
 
     async deleteContact(testData) {

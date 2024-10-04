@@ -220,7 +220,10 @@ exports.QuickTasksPage = class QuickTasksPage {
     async selectClient() {
         await this.actionDriver.clickButton(quickTasksLocators.selectClientsFld);
         await this.actionDriver.waitElementUntilVisible(quickTasksLocators.clientOptions);
-        await this.actionDriver.selectRandomFromList(quickTasksLocators.clientOptions);
+        const index = await this.actionDriver.selectRandomIndexFromList(quickTasksLocators.clientOptions);
+        const text = await this.actionDriver.getText(`(${quickTasksLocators.clientNameList})[${index}]`);
+        await this.actionDriver.typeText(text);
+        await this.actionDriver.selectDataFromText(text, quickTasksLocators.clientNameList, quickTasksLocators.clientOptions);
         await this.actionDriver.clickButton(quickTasksLocators.questionList);
     }
     

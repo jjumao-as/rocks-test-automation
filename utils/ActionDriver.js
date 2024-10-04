@@ -170,11 +170,11 @@ class ActionDriver {
      * @param {*} text : text to select 
      * @param {*} element : list of options from the dropdown selection
      */
-    async selectRandomFromList(element) {
+    async selectRandomIndexFromList(element) {
         const elements = await this.page.locator(element);
         const count = await elements.count();
         const randomIndex = Math.floor(Math.random() * (count - 1 + 1)) + 1
-        await elements.nth(randomIndex).click();
+        return randomIndex;
     }
 
     /**

@@ -116,15 +116,14 @@ test.describe('Test Script for adding talent to the team', async () => {
         await dashboardPage.viewSearchResult();
         await dashboardPage.verifyClient();
         await clientPage.navigateTeamRequest();
-        await clientPage.searchUser(testData.employeeName.firstName);
-        await clientPage.validateUser(testData.employeeName);
+        await clientPage.validateUser(testData.employeeName, testData.employeeDetails.status);
     });
 
     test('Validate Employee added to Team Request - Listing', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
         await clientPage.searchTalent(testData.employeeName.firstName);
-        await clientPage.validateUserFromTeamRequest(testData.employeeName);
+        await clientPage.validateUserFromTeamRequest(testData.employeeName, testData.employeeDetails.status);
     });
 
     test('Validate Employee Client', async () => {

@@ -179,7 +179,7 @@ exports.SettingsPage = class SettingsPage {
                 if(emailContent !== null) {
                     break;
                 }
-                await this.page.waitForTimeout(1000);
+                await this.page.waitForTimeout(2000);
             }
             const empty = emailContent === null ? true : false;
             if(!empty) {

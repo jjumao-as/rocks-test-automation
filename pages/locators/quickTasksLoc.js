@@ -71,6 +71,7 @@ module.exports = {
     selectClientsFld : "//div[@id='client_ids']",
     selectedClientName : "//div[@class='vue-treeselect__multi-value-item']/span[1]",
     clientOptions : "//label[text()='Select Client(s)']/parent::span/following-sibling::div//div[contains(@class,'label-container')]",
+    clientNameList: "//label[text()='Select Client(s)']/parent::span/following-sibling::div//div[contains(@class,'label-container')]/label",
     goalsOrDeadlineOpt : "//span[text()='Do you have goals or deadlines?']/parent::label/following-sibling::div//span",
     onTrackOpt : "//span[text()='Are you on track?']/parent::label/following-sibling::div//span",
     goalsOrDeadline : "//span[text()='Do you have goals or deadlines?']",
