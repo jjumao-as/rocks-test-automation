@@ -26,7 +26,6 @@ exports.ClientPortalPage = class ClientPortalPage {
     //Get the first Active talent name 
     async dropTalentName() {
         const name = (await this.actionDriver.getText(clientPortalLocators.talentNameSelectedRow));  
-        console.log('Talent to drop: ' + name);
         return name;        
     }
 
@@ -55,7 +54,6 @@ exports.ClientPortalPage = class ClientPortalPage {
     //To verify the drop requested talent matches in the table
     async dropTalentNameConfirmed(nameValue){
         const name = await this.actionDriver.getText(clientPortalLocators.talentNameConfirmed + nameValue + "')]");
-        console.log('Drop requested: ' + name);
     }
 
     //To verify in the Admin client profile the drop requested talent status

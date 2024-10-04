@@ -528,7 +528,7 @@ class ActionDriver {
      */
     async getRandomJsonItem(jsonArray, key){
         const dataArray = Object.values(jsonArray[key])
-        const randomIndex = Math.floor(Math.random() * (dataArray.length - 1 + 1)) + 1
+        const randomIndex = Math.floor(Math.random() * dataArray.length);
         return dataArray[randomIndex]
     }
 

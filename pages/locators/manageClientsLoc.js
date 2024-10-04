@@ -102,9 +102,9 @@ module.exports = {
     weeklyReportZeroStateLabel : "//h5[contains(text(), 'Create weekly floor report')]",
 
     //Client Profile Team Requests Table
-    dropRequestedLink : "(//a[contains(text(),'Drop Requested')])[1]",
-    dropRequestTalent : "(//a[contains(@class,'photo-card-user-names')])[1]",
-    dropRequestType : "(//span[contains(text(),'Drop')])[1]",
+    dropRequestedLink : "(//div[contains(@class,'action-dropdowns')]//button[contains(text(),'Drop Requested')])[1]",
+    dropRequestTalent : "(//div[contains(@class,'photo position-relative')]/a)[1]",
+    dropRequestType : "(//div[contains(@class,'align-items-center')]//span[text()='Drop'])[1]",
     loadingRecords : "//span[contains(text(),'Loading records')]",
 
     //Team Requests 
