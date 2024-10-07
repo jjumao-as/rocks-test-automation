@@ -21,7 +21,7 @@ roleToTest.forEach(role => {
 
     const {username, password} = roles[role]
 
-    test.describe.parallel('Client Interview Management', () => {
+    test.describe('Client Interview Management', () => {
 
         test.beforeEach(async ({browser}) =>{
             context = await browser.newContext()

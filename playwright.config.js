@@ -31,7 +31,7 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 1,
+  // workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['playwright-json-summary-reporter'],
@@ -54,8 +54,31 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome']},
+      name: 'parallel',
+      use: { 
+        ...devices['Desktop Chrome'],
+        workers: undefined,
+      },
+      testMatch : [
+        '**/*.spec.ts',
+      ],
+      testIgnore : [
+        '**/4FindTalents/**',
+        '8Feedback/8.1submitFeedback.spec.ts',
+        '10EmployeeProfile/10.2addInterview.spec.ts',
+      ]
+    },
+    {
+      name: 'single',
+      use: { 
+        ...devices['Desktop Chrome'],
+        workers: 1,
+      },
+      testMatch : [
+        '**/4FindTalents/**',
+        '8Feedback/8.1submitFeedback.spec.ts',
+        '10EmployeeProfile/10.2addInterview.spec.ts',
+      ]
     },
 
     // {

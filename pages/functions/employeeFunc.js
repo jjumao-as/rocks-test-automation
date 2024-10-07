@@ -93,7 +93,6 @@ exports.EmployeesPage = class EmployeesPage {
     async viewPublicProfile(){
         await this.actionDriver.checkElementVisibility(employeePageLoc.talentName)
         empName = await this.actionDriver.getText(employeePageLoc.talentName)
-        console.log(`Employee page => ${empName}`)
         await this.actionDriver.clickButton(employeePageLoc.publicProfileLink)
     }
 
@@ -107,7 +106,6 @@ exports.EmployeesPage = class EmployeesPage {
         const profileName = pName.split(" ")[0]
         
         await actionDriverNewPage.checkInclude(profileName, empName)
-        console.log(`Profile page => ${profileName}`)
 
     }
 
@@ -250,7 +248,6 @@ exports.EmployeesPage = class EmployeesPage {
 
     async submitInterview() {
         await this.actionDriver.clickButton(employeePageLoc.addNotesButton)
-        console.log(`Added Interview : ${interviewStatus} | ${clientName} | ${grade} | ${invitee} | ${interviewDate}, ${interviewTime}`)
     }
 
 
@@ -327,10 +324,6 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.checkInclude(invitee, vInvitee)
             await this.actionDriver.checkInclude(interviewDate, vDate)
             await this.actionDriver.checkInclude(interviewTime, vTime)
-
-            console.log(`Viewed Interview : ${vStatus} | ${vClientName} | ${vGrade} | ${vInvitee} | ${vDate}, ${vTime}`)
-
-
 
             // edit clientName
             await this.actionDriver.clickButton(employeePageLoc.clientPenIcon)
@@ -477,9 +470,6 @@ exports.EmployeesPage = class EmployeesPage {
             // click Save Notes button
             await this.actionDriver.clickButton(employeePageLoc.saveNotesButton)
             await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader)
-
-            console.log(`Updated Interview : ${interviewStatus} | ${clientName} | ${grade} | ${invitee} | ${interviewDate}, ${interviewTime} | ${clientFeedback}`)
-
         }
 
     }

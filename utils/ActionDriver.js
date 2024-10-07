@@ -164,6 +164,20 @@ class ActionDriver {
     }
 
     /**
+     * This is use to select specific text into the dropdown list.
+     * NOTE: This cannot be used for select option
+     * 
+     * @param {*} text : text to select 
+     * @param {*} element : list of options from the dropdown selection
+     */
+    async selectRandomIndexFromList(element) {
+        const elements = await this.page.locator(element);
+        const count = await elements.count();
+        const randomIndex = Math.floor(Math.random() * (count - 1 + 1)) + 1
+        return randomIndex;
+    }
+
+    /**
      * This function usually use to determine if the data to be inputted is not yet added or existing
      * This can be also use to determine if a deleted data was not in the list.
      * 
@@ -297,7 +311,7 @@ class ActionDriver {
     async selectOptionRandom(element) {
         const dropdown = await this.page.locator(element)
         const optionCount = await dropdown.locator('option').count()
-        const randomIndex = Math.floor(Math.random() * optionCount)
+        const randomIndex = Math.floor(Math.random() * (optionCount - 1 + 1)) + 1
 
         await dropdown.selectOption({ index: randomIndex })
 
@@ -514,7 +528,7 @@ class ActionDriver {
      */
     async getRandomJsonItem(jsonArray, key){
         const dataArray = Object.values(jsonArray[key])
-        const randomIndex = Math.floor(Math.random() * dataArray.length)
+        const randomIndex = Math.floor(Math.random() * dataArray.length);
         return dataArray[randomIndex]
     }
 

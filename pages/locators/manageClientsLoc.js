@@ -99,12 +99,12 @@ module.exports = {
     teamRequestsTab : "//a[contains(text(),'Team Requests')]",
     teamMembersTab : "//a[contains(text(),'Team Members')]",
     clientNameLink : "//p[contains(@class,'client-name')]",
-    weeklyReportZeroStateLabel : "//h5[contains(text(), 'Create weekly floor report')]",
+    weeklyReportZeroStateLabel : "//div[contains(@class,'talent-interview-wrapper')]//div[contains(@class,'justify-content-end')]/div[1]//h2",
 
     //Client Profile Team Requests Table
-    dropRequestedLink : "(//a[contains(text(),'Drop Requested')])[1]",
-    dropRequestTalent : "(//a[contains(@class,'photo-card-user-names')])[1]",
-    dropRequestType : "(//span[contains(text(),'Drop')])[1]",
+    dropRequestedLink : "(//div[contains(@class,'action-dropdowns')]//button[contains(text(),'Drop Requested')])[1]",
+    dropRequestTalent : "(//div[contains(@class,'photo position-relative')]/a)[1]",
+    dropRequestType : "(//div[contains(@class,'align-items-center')]//span[text()='Drop'])[1]",
     loadingRecords : "//span[contains(text(),'Loading records')]",
 
     //Team Requests 

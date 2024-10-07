@@ -1,0 +1,49 @@
+{
+  "green": {
+    "goals": "Yes",
+    "track": "Yes",
+    "progress": "Yes",
+    "talent": "No"
+  },
+  "orange": {
+    "goals": "Yes",
+    "track": "Yes",
+    "progress": "No",
+    "blocker": "Equipment and tools",
+    "communicated": "Yes",
+    "subq": "Resolution is in progress",
+    "talent": "No"
+  },
+  "red": {
+    "goals": "Yes",
+    "track": "No",
+    "progress": "Yes",
+    "talent": "No"
+  },
+  "users": {
+    "SUPERADMIN": {
+      "name": "Darell Blackburn",
+      "redClientName": "Netreo Inc.",
+      "orangeClientName": "SaveOnBranson",
+      "greenClientName": "Spring Venture Group LLC"
+    },
+    "ADMIN": {
+      "name": "Julie Ann Lasala",
+      "redClientName": "SupplyKick",
+      "orangeClientName": "Screen Steps",
+      "greenClientName": "SaveOnBranson"
+    },
+    "FLOOR": {
+      "name": "Retchel Tapayan",
+      "redClientName": "Foundant Technologies",
+      "orangeClientName": "e-Industrial Solutions",
+      "greenClientName": "CAMP Digital"
+    },
+    "SALES": {
+      "name": "Chario Maxilom",
+      "redClientName": "WebBuy",
+      "orangeClientName": "DivvyHQ",
+      "greenClientName": "Bloomerang LLC"
+    }
+  }
+}

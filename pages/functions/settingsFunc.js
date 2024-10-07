@@ -179,7 +179,7 @@ exports.SettingsPage = class SettingsPage {
                 if(emailContent !== null) {
                     break;
                 }
-                await this.page.waitForTimeout(1000);
+                await this.page.waitForTimeout(2000);
             }
             const empty = emailContent === null ? true : false;
             if(!empty) {
@@ -204,7 +204,7 @@ exports.SettingsPage = class SettingsPage {
                 if(emailContent !== null) {
                     break;
                 }
-                await this.page.waitForTimeout(1000);
+                await this.page.waitForTimeout(2000);
             }
             const empty = emailContent === null ? true : false;
             if(!empty) {
@@ -230,8 +230,58 @@ exports.SettingsPage = class SettingsPage {
             await this.actionDriver.keyboardPress('Enter');
             await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingRecords);
             await this.actionDriver.waitElementUntilHidden(settingsLocators.tableMask);
+            await this.page.waitForTimeout(2000);
             await this.actionDriver.expectEquals(expenseId, settingsLocators.expenseId);
         }
+    }
+
+    async navigateWeeklyFloorReport() {
+        await this.actionDriver.clickButton(settingsLocators.weeklyFloorReports);
+        await this.actionDriver.waitElementUntilVisible(settingsLocators.reportRow);
+    }
+
+    async searchUser(name) {
+        const firstName = name.split(" ");
+        await this.actionDriver.setText(settingsLocators.searchReport, firstName[0]);
+        await this.actionDriver.waitElementUntilHidden(settingsLocators.fetchingReport);
+    }
+
+    async validateReport(reportDetails, reportType) {
+        const rows = await this.page.locator(settingsLocators.reportRow);
+        const reporter = await this.page.locator(settingsLocators.reporterName);
+        const project = await this.page.locator(settingsLocators.projectName);
+        let pName = "";
+        let flag = "";
+
+        if(reportType === "green") {
+            pName = reportDetails.greenClientName;
+            flag = "flag-3";
+        }
+        if(reportType === "orange") {
+            pName = reportDetails.orangeClientName;
+            flag = "flag-2";
+        }
+        if(reportType === "red") {
+            pName = reportDetails.redClientName;
+            flag = "flag-1";
+        }
+
+        for(let i=0; i< await rows.count(); i++) {
+            const reporterName = reporter.nth(i);
+            const reporterNameText = await reporterName.textContent();
+            const projectName = project.nth(i);
+            const projectNameText = await projectName.textContent();
+            if(reporterNameText.trim().toLowerCase() === reportDetails.name && 
+            projectNameText.trim().toLowerCase() === pName) {
+                const attr = await this.getClassValue(rows.nth(i));
+                const isCorrect = await this.actionDriver.checkIfIncludesInArray(attr, flag);
+                await this.actionDriver.expectTrue(isCorrect);
+            }
+        }
+    }
+    
+    async getClassValue(element) {
+        return await element.getAttribute('class');
     }
 
 }

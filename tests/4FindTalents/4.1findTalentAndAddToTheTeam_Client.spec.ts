@@ -60,7 +60,7 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Create Contacts for EmployeeDB', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.client);
         await dashboardPage.checkValidSearchResult();
         await dashboardPage.viewSearchResult();
@@ -71,14 +71,14 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Add Skill', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await settingsPage.navigateToSkills();
         await settingsPage.addNewSkill(testData.originalSkill);
         await settingsPage.validateAddedSkill();
     });
 
     test('Add Employee', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await employeePage.navigateToEmployeeList();
         await employeePage.addEmployee(testData.employeeName);
         await employeePage.validateAddedEmployee(testData.employeeName);
@@ -110,25 +110,24 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Validate Employee added to Team Request - Client', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.client);
         await dashboardPage.checkValidSearchResult();
         await dashboardPage.viewSearchResult();
         await dashboardPage.verifyClient();
         await clientPage.navigateTeamRequest();
-        await clientPage.searchUser(testData.employeeName.firstName);
-        await clientPage.validateUser(testData.employeeName);
+        await clientPage.validateUser(testData.employeeName, testData.employeeDetails.status);
     });
 
     test('Validate Employee added to Team Request - Listing', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
         await clientPage.searchTalent(testData.employeeName.firstName);
-        await clientPage.validateUserFromTeamRequest(testData.employeeName);
+        await clientPage.validateUserFromTeamRequest(testData.employeeName, testData.employeeDetails.status);
     });
 
     test('Validate Employee Client', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.employeeName.lastName + ', ' + testData.employeeName.firstName);
         await dashboardPage.checkValidSearchResult();
         await dashboardPage.viewSearchResult();
@@ -137,7 +136,7 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Delete Employee', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
         await clientPage.searchTeamRequestTalent(testData.employeeName.firstName);
         await clientPage.deleteRequest(testData.employeeName);
@@ -147,13 +146,13 @@ test.describe('Test Script for adding talent to the team', async () => {
     });
 
     test('Delete Skill', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await settingsPage.navigateToSkills();
         await settingsPage.deleteSkill(testData.skill);
     });
 
     test('Delete Contacts', async () => {
-        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.client);
         await dashboardPage.checkValidSearchResult();
         await dashboardPage.viewSearchResult();
