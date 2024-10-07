@@ -242,6 +242,8 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.typeText(clientFeedback)
 
 
+        await this.actionDriver.clickButton(employeePageLoc.notificationCheckbox)
+
 
 
     }
@@ -462,8 +464,6 @@ exports.EmployeesPage = class EmployeesPage {
             clientFeedback = await this.actionDriver.getRandomJsonItem(jsonData, 'clientFeedback')
             await this.actionDriver.clickButton(employeePageLoc.clientFeedbackTextArea)
             await this.actionDriver.typeText(clientFeedback)
-
-            // uncheck Send Notifications
             await this.actionDriver.clickButton(employeePageLoc.notificationCheckbox)
 
             
