@@ -5,3 +5,4 @@ node_modules
 summary.json
 testdata/token.json
 testdata/credentials.json
+/screenshots

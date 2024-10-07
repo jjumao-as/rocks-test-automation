@@ -1,8 +1,37 @@
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 class ActionDriver {
     constructor(page) {
         this.page = page;
+    }
+
+    /**
+     * This function is use to take a screenshot of the test and attach it in the report.
+     */
+    async takeScreenshot() {
+        const formattedDateTime = await this.getCurrentDateTime();
+
+        const screenshotPath = `screenshots/${formattedDateTime}.png`;
+        const screenshot = await this.page.screenshot({ path : screenshotPath });
+        test.info().attach('screenshot', { body: screenshot, contentType: 'image/png' });
+    }
+
+    /**
+     * This function is to get current date time.
+     */
+    async getCurrentDateTime() {
+        const currentDate = new Date();
+
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+        const formattedDateTime = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+        return formattedDateTime;
     }
 
     /**
@@ -29,6 +58,7 @@ class ActionDriver {
      */
     async expectFalse(result) {
         await expect(result).toBeFalsy();
+        await this.takeScreenshot();
     }
 
     /**
@@ -38,6 +68,7 @@ class ActionDriver {
      */
     async expectTrue(result) {
         await expect(result).toBeTruthy();
+        await this.takeScreenshot();
     }
 
     /**
@@ -47,6 +78,7 @@ class ActionDriver {
     async expectDisabled(element) {
         const locator = this.page.locator(element);
         await expect(locator).toBeDisabled();
+        await this.takeScreenshot();
     }
 
     /**
@@ -56,6 +88,7 @@ class ActionDriver {
     async expectEnabled(element) {
         const locator = this.page.locator(element);
         await expect(locator).toBeEnabled();
+        await this.takeScreenshot();
     }
 
     /**
@@ -65,6 +98,7 @@ class ActionDriver {
      */
     async checkElementVisibility(element) {
         await expect(this.page.locator(element)).toBeVisible({ timeout: 120000 });
+        await this.takeScreenshot();
     }
 
     /**
@@ -79,11 +113,13 @@ class ActionDriver {
 
         visibilityResults.forEach(async (isVisible, index) => {
             await expect(isVisible).toBeTruthy();
+            await this.takeScreenshot();
         })
     }
 
     async checkHiddenElement(element) {
         await expect(this.page.locator(element)).toBeHidden({ timeout: 60000 });
+        await this.takeScreenshot();
     }
 
     /**
@@ -120,6 +156,7 @@ class ActionDriver {
     async expectEquals(text, element) {
         const received = await this.getText(element);
         await expect(received).toEqual(text);
+        await this.takeScreenshot();
     }
 
     /**
@@ -130,6 +167,7 @@ class ActionDriver {
      */
     async expectToHaveCount(element, number) {
         await expect(this.page.locator(element)).toHaveCount(number);
+        await this.takeScreenshot();
 
     }
 
@@ -141,6 +179,7 @@ class ActionDriver {
      */
     async checkInclude(actual, expected) {
         await expect(expected).toContain(actual)
+        await this.takeScreenshot();
     }
 
     /**
@@ -195,6 +234,7 @@ class ActionDriver {
         const isIncluded = pageTextContents.includes(text);
 
         await expect(isIncluded).toBeFalsy();
+        await this.takeScreenshot();
     }
 
     /**
@@ -211,6 +251,7 @@ class ActionDriver {
             const trimmedText = textContent.trim();
             if (trimmedText.toLowerCase() === text.toLowerCase()) {
                 await expect(trimmedText).toBe(text);
+                await this.takeScreenshot();
                 break;
             }
         }
@@ -254,6 +295,7 @@ class ActionDriver {
         const pageTextContent = pageTexts.join(' ');
         for (const text of texts) {
             await expect(pageTextContent).toContain(text);
+            await this.takeScreenshot();
         }
     }
 
@@ -554,6 +596,7 @@ class ActionDriver {
      */
     async ExpectElementValue(element, text) {
         await expect(this.page.locator(element)).toHaveValue(text);
+        await this.takeScreenshot();
     }
 
      /**
@@ -562,6 +605,7 @@ class ActionDriver {
      */
     async checkVisibility(text) {
         await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
+        await this.takeScreenshot();
     }
 
     /**
