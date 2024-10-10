@@ -31,7 +31,7 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 1,
   /* Opt out of parallel tests on CI. */
-  // workers: process.env.CI ? 1 : 1,
+  workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['playwright-json-summary-reporter'],
@@ -65,7 +65,6 @@ module.exports = defineConfig({
       testIgnore : [
         '**/4FindTalents/**',
         '8Feedback/8.1submitFeedback.spec.ts',
-        '10EmployeeProfile/10.2addInterview.spec.ts',
       ]
     },
     {
@@ -76,8 +75,8 @@ module.exports = defineConfig({
       },
       testMatch : [
         '**/4FindTalents/**',
-        '8Feedback/8.1submitFeedback.spec.ts',
-        '10EmployeeProfile/10.2addInterview.spec.ts',
+        '8Feedback/8.1submitFeedback.spec.ts'
+
       ]
     },
 
