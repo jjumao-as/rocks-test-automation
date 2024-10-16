@@ -32,7 +32,7 @@ exports.EmployeesPage = class EmployeesPage {
 
     /*
     * Employee Feeback functions
-    */ 
+    */
 
     async isInFeedbackListing() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.feedbackResponsesHeader)
@@ -50,7 +50,7 @@ exports.EmployeesPage = class EmployeesPage {
 
     /*
     * Employee Listing functions
-    */ 
+    */
 
     async isInEmployeeList() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.employeeListHeader)
@@ -90,13 +90,13 @@ exports.EmployeesPage = class EmployeesPage {
      * View public profile
      */
 
-    async viewPublicProfile(){
+    async viewPublicProfile() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.talentName)
         empName = await this.actionDriver.getText(employeePageLoc.talentName)
         await this.actionDriver.clickButton(employeePageLoc.publicProfileLink)
     }
 
-    async isInPublicProfile(newPage){
+    async isInPublicProfile(newPage) {
 
         const actionDriverNewPage = new ActionDriver(newPage)
 
@@ -104,7 +104,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         const pName = await actionDriverNewPage.getText(employeePageLoc.profileName)
         const profileName = pName.split(" ")[0]
-        
+
         await actionDriverNewPage.checkInclude(profileName, empName)
 
     }
@@ -253,7 +253,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
 
-    
+
     async isInterviewAdded() {
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
 
@@ -268,7 +268,7 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
-    
+
     /* Delete Client Interview */
 
     async deleteInterview() {
@@ -282,7 +282,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.clickButton(employeePageLoc.yesButton);
             await this.actionDriver.waitElementUntilHidden(employeePageLoc.interviewDeletionProgress);
         }
-       
+
     }
 
     async isInterviewDeleted() {
@@ -295,7 +295,7 @@ exports.EmployeesPage = class EmployeesPage {
 
     /* Update Client Interview */
 
-    async updateInterview(){
+    async updateInterview() {
         const oldMonth = interviewDate.split(" ")[0];
         const newMonth = await jsonData.dateAbbreviation[oldMonth];
         const newDate = interviewDate.replace(new RegExp(`\\b${oldMonth}\\b`), newMonth);
@@ -338,7 +338,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.typeText(clientName)
             await this.actionDriver.keyboardPress('Enter')
 
-            
+
             // edit interviewDate
             interviewDate = await this.actionDriver.getRandomJsonItem(jsonData, 'interviewDate')
 
@@ -366,7 +366,7 @@ exports.EmployeesPage = class EmployeesPage {
             interviewTime = await this.actionDriver.getText(`${employeePageLoc.notSelectedTimes}[${randomIndexTime}]`)
             await this.actionDriver.typeText(interviewTime)
             await this.actionDriver.keyboardPress('Enter')
-            
+
 
             // edit invitees
             await this.actionDriver.clickButton(employeePageLoc.inviteesPenIcon)
@@ -381,7 +381,7 @@ exports.EmployeesPage = class EmployeesPage {
                     invitee = await this.actionDriver.getText(`(${employeePageLoc.updateInviteesOptions})`)
                     await this.actionDriver.keyboardPress('Enter')
 
-    
+
                 }
                 else if (inviteeCount === 2) {
                     randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
@@ -389,8 +389,8 @@ exports.EmployeesPage = class EmployeesPage {
                     await this.actionDriver.typeText(invitee)
                     await this.actionDriver.keyboardPress('Enter')
 
-    
-    
+
+
                 }
                 else {
                     randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
@@ -398,10 +398,10 @@ exports.EmployeesPage = class EmployeesPage {
                     await this.actionDriver.typeText(invitee)
                     await this.actionDriver.keyboardPress('Enter')
 
-    
-    
+
+
                 }
-    
+
             }
             else {
                 console.log("No options available to select")
@@ -422,7 +422,7 @@ exports.EmployeesPage = class EmployeesPage {
 
 
 
-        
+
             // select reason for "Failed" status
             if (interviewStatus === 'Failed') {
                 await this.actionDriver.clickButton(employeePageLoc.reasonPenIcon)
@@ -456,7 +456,7 @@ exports.EmployeesPage = class EmployeesPage {
             grade = await this.actionDriver.getText(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
 
             await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
-            
+
             // edit Client Feedback
 
             await this.actionDriver.clickButton(employeePageLoc.clientFeedbackPenIcon)
@@ -466,7 +466,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.typeText(clientFeedback)
             await this.actionDriver.clickButton(employeePageLoc.notificationCheckbox)
 
-            
+
             // click Save Notes button
             await this.actionDriver.clickButton(employeePageLoc.saveNotesButton)
             await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader)
@@ -515,19 +515,19 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
 
-    async clickClientNameLink(){
+    async clickClientNameLink() {
         await this.actionDriver.clickButton(employeePageLoc.clientNameLink)
-          
+
     }
 
-    async isInClientPage(){
-        await this.actionDriver.waitElementUntilVisible(manageClientsLoc.weeklyReportZeroStateLabel) 
-        await this.actionDriver.checkElementVisibility(manageClientsLoc.weeklyReportZeroStateLabel) 
+    async isInClientPage() {
+        await this.actionDriver.waitElementUntilVisible(manageClientsLoc.weeklyReportZeroStateLabel)
+        await this.actionDriver.checkElementVisibility(manageClientsLoc.weeklyReportZeroStateLabel)
         const cname = await this.actionDriver.getText(manageClientsLoc.clientNameLink)
         await this.actionDriver.checkInclude(clientName, cname)
         await this.actionDriver.goBackPreviousPage()
 
-     
+
     }
 
     async addEmployee(testData) {
@@ -585,25 +585,25 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.editSkills);
         await this.actionDriver.clickButton(employeePageLoc.enterSkillField);
-        for(let i=0; i<testData.length; i++) {
+        for (let i = 0; i < testData.length; i++) {
             await this.actionDriver.typeText(testData[i][0]);
             await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
             await this.actionDriver.selectFromList(testData[i][0], employeePageLoc.itemSearchSuggestion);
         }
-        for(let j=0; j<testData.length; j++) {
+        for (let j = 0; j < testData.length; j++) {
             const skill = testData[j];
-            if(!skill[1]) {
-                await this.actionDriver.clickButton(`(${employeePageLoc.showInProfileCheckbox})[${j+1}]`);
+            if (!skill[1]) {
+                await this.actionDriver.clickButton(`(${employeePageLoc.showInProfileCheckbox})[${j + 1}]`);
             }
-            if(skill[2]) {
-                await this.actionDriver.clickButton(`(${employeePageLoc.searchbleCheckbox})[${j+1}]`);
+            if (skill[2]) {
+                await this.actionDriver.clickButton(`(${employeePageLoc.searchbleCheckbox})[${j + 1}]`);
             }
         }
         await this.actionDriver.clickButton(employeePageLoc.saveSkills);
     }
 
     async validateTalentSkill(skills) {
-        for(let i=0; i<skills.length; i++) {
+        for (let i = 0; i < skills.length; i++) {
             await this.actionDriver.findText(skills[0], employeePageLoc.skillsListInProfile);
         }
     }
@@ -622,6 +622,22 @@ exports.EmployeesPage = class EmployeesPage {
 
     async validateSkill() {
         await this.actionDriver.findText(jsonData.skill, employeePageLoc.skillsListInProfile);
+    }
+
+    async removeAllClients(testData) {
+        await this.actionDriver.clickButton(employeePageLoc.editEmployeeClients);
+        await this.actionDriver.waitElementUntilEnabled(employeePageLoc.enterProjectField);
+        const projects = await this.page.locator(employeePageLoc.projectList);
+        const projectCount = await projects.count();
+        if(projectCount > 0) {
+            const removeEl = await this.page.locator(employeePageLoc.removeProject);
+            for(let i=0; i<projectCount; i++) {
+                await removeEl.nth(i).click();
+            }
+        }
+        await this.actionDriver.clickButton(employeePageLoc.saveProject);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editEmployeeClients);
+        await this.updateClient(testData);
     }
 
     async updateClient(testData) {
@@ -702,9 +718,27 @@ exports.EmployeesPage = class EmployeesPage {
     async setProjectDescription(description) {
         const frameHandle = await this.page.waitForSelector(employeePageLoc.descriptionIframe);
         const frame = await frameHandle.contentFrame();
-        if(frame) {
-                await frame.type(employeePageLoc.descriptionBody, description);
-                await this.page.waitForTimeout(1000);
+        if (frame) {
+            await frame.type(employeePageLoc.descriptionBody, description);
+            await this.page.waitForTimeout(1000);
         }
+    }
+
+    async addMultipleEmployees(employees, employeeDetails) {
+        await this.navigateToEmployeeList();
+        await this.addEmployee(employees);
+        await this.validateAddedEmployee(employees);
+        await this.updatePosition(employeeDetails.role);
+        await this.validatePostion(employeeDetails);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.editSkills);
+        await this.actionDriver.clickButton(employeePageLoc.enterSkillField);
+        await this.actionDriver.typeText(employeeDetails.skills);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
+        await this.actionDriver.selectFromList(employeeDetails.skills, employeePageLoc.itemSearchSuggestion);
+        await this.actionDriver.clickButton(employeePageLoc.searchbleCheckbox);
+        await this.actionDriver.clickButton(employeePageLoc.saveSkills);
+        await this.updateClient(employeeDetails.client);
+        await this.validateClient(employeeDetails.client);
     }
 }
