@@ -20,7 +20,7 @@ test.beforeEach(async () => {
     quickTasksPage = await new QuickTasksPage(page);
     testDataPath = 'adminData';
     testData = await readJsonFile(testDataPath);
-    await loginPage.login(process.env.HR, process.env.PASSWORD);
+    await loginPage.login(process.env.SPROJECT, process.env.PASSWORD);
 });
 
 test.afterEach(async () => {
