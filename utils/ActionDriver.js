@@ -57,8 +57,8 @@ class ActionDriver {
      * @param {*} result : boolean result from the function files.
      */
     async expectFalse(result) {
-        await expect(result).toBeFalsy();
         await this.takeScreenshot();
+        await expect(result).toBeFalsy();
     }
 
     /**
@@ -67,8 +67,8 @@ class ActionDriver {
      * @param {*} result : boolean result from the function files
      */
     async expectTrue(result) {
-        await expect(result).toBeTruthy();
         await this.takeScreenshot();
+        await expect(result).toBeTruthy();
     }
 
     /**
@@ -77,8 +77,8 @@ class ActionDriver {
      */
     async expectDisabled(element) {
         const locator = this.page.locator(element);
-        await expect(locator).toBeDisabled();
         await this.takeScreenshot();
+        await expect(locator).toBeDisabled();
     }
 
     /**
@@ -87,8 +87,8 @@ class ActionDriver {
      */
     async expectEnabled(element) {
         const locator = this.page.locator(element);
-        await expect(locator).toBeEnabled();
         await this.takeScreenshot();
+        await expect(locator).toBeEnabled();
     }
 
     /**
@@ -111,15 +111,16 @@ class ActionDriver {
             return await el.isVisible();
         }));
 
+        await this.takeScreenshot();
+
         visibilityResults.forEach(async (isVisible, index) => {
             await expect(isVisible).toBeTruthy();
-            await this.takeScreenshot();
         })
     }
 
     async checkHiddenElement(element) {
-        await expect(this.page.locator(element)).toBeHidden({ timeout: 60000 });
         await this.takeScreenshot();
+        await expect(this.page.locator(element)).toBeHidden({ timeout: 60000 });
     }
 
     /**
@@ -155,8 +156,8 @@ class ActionDriver {
      */
     async expectEquals(text, element) {
         const received = await this.getText(element);
-        await expect(received).toEqual(text);
         await this.takeScreenshot();
+        await expect(received).toEqual(text);
     }
 
     /**
@@ -166,9 +167,8 @@ class ActionDriver {
      * @param {*} number : expected number to display
      */
     async expectToHaveCount(element, number) {
-        await expect(this.page.locator(element)).toHaveCount(number);
         await this.takeScreenshot();
-
+        await expect(this.page.locator(element)).toHaveCount(number);
     }
 
     /**
@@ -178,8 +178,8 @@ class ActionDriver {
      * @param {*} expected : expected word or sentence.
      */
     async checkInclude(actual, expected) {
-        await expect(expected).toContain(actual)
         await this.takeScreenshot();
+        await expect(expected).toContain(actual)
     }
 
     /**
@@ -232,9 +232,8 @@ class ActionDriver {
         const pageTextContents = extractedTexts.map(name => name.trim().toLowerCase());
 
         const isIncluded = pageTextContents.includes(text);
-
-        await expect(isIncluded).toBeFalsy();
         await this.takeScreenshot();
+        await expect(isIncluded).toBeFalsy();
     }
 
     /**
@@ -250,8 +249,8 @@ class ActionDriver {
             const textContent = await el.textContent();
             const trimmedText = textContent.trim();
             if (trimmedText.toLowerCase() === text.toLowerCase()) {
-                await expect(trimmedText).toBe(text);
                 await this.takeScreenshot();
+                await expect(trimmedText).toBe(text);
                 break;
             }
         }
@@ -294,8 +293,8 @@ class ActionDriver {
         const pageTexts = await this.page.locator(element).allTextContents();
         const pageTextContent = pageTexts.join(' ');
         for (const text of texts) {
-            await expect(pageTextContent).toContain(text);
             await this.takeScreenshot();
+            await expect(pageTextContent).toContain(text);
         }
     }
 
@@ -595,8 +594,8 @@ class ActionDriver {
      * @param {*} text    : text data value to assert if it exist inside the specified element
      */
     async ExpectElementValue(element, text) {
-        await expect(this.page.locator(element)).toHaveValue(text);
         await this.takeScreenshot();
+        await expect(this.page.locator(element)).toHaveValue(text);
     }
 
      /**
@@ -604,8 +603,8 @@ class ActionDriver {
      * @param {*} text    : text data value to assert if it exist within the page
      */
     async checkVisibility(text) {
-        await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
         await this.takeScreenshot();
+        await expect(this.page.getByText(text)).toBeVisible({ timeout : 120000 });
     }
 
     /**
