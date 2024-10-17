@@ -16,7 +16,6 @@ module.exports = {
     // Employee Profile Locators > Add Interview
 
     talentName : "//span[contains(@class, 'talent-name')]",
-    profileName : "//h2[contains(@class, 'profile-name')]",
     publicProfileLink : "//a[contains(text(), 'Public Profile')]",
     
 
@@ -211,12 +210,17 @@ module.exports = {
     projectNameInList : "//span[@class='w-100 d-inline-block font-16 font-weight-bold']",
     projectDescriptionInList : "//*[@id='profile']/div/div/div[5]/div/div[2]/div/div[2]/div/div/div/div[2]/p",
     companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
+    copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
+    copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
 
     // employee public profile
+    profileName : "//h2[contains(@class, 'profile-name')]",
     jobPositionInListPublicProfile : "//h4[@class='mb-6 fw-semibold font-16 text-gray-100']",
     projectNameInListPublicProfile : "//h3[@class='mb-1 fw-semibold font-16 text-gray-100']",
     companyNameInListPublicProfile : "//*[@id='portfolio']/main/div/div/div[2]/div[2]/div/div/div/div[1]/div/div/span/preceding-sibling::div",
     projectDescriptionInListPublicProfile : "//p[@class='font-16 whitespace-pre-line text-gray-100']",
+    profileAvatar : "//img[@class='mb-6 w-100 avatar']",
+    bookACallBtn : "//div[@class='w-100 text-center btn-book-a-call']",
 
     // Work Experience Actions
     editWorkExpBtn : "//*[@id='profile']/div/div/div[5]/div/div[2]/div/div[1]/div[2]/a[2]/span",
