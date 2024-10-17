@@ -1,0 +1,31 @@
+{
+  "msa": {
+    "name": "Client MSA - Automation",
+    "contact": "Automation MSA",
+    "msapath": "../testdata/files/msa.pdf",
+    "signedBy": "Sample Automation MSA Test",
+    "title": "Automation Tester",
+    "type": "msa",
+    "employee": {
+      "firstName": "Hazle",
+      "lastName": "Nicolas"
+    }
+  },
+  "nomsa": {
+    "name": "Client NO MSA - Automation",
+    "contact": "Automation NO MSA",
+    "signedBy": "Sample Automation NO MSA Test",
+    "title": "Automation Tester",
+    "type": "nomsa",
+    "employee": {
+      "firstName": "Johnpaul",
+      "lastName": "Durgan"
+    }
+  },
+  "employeeDetails": {
+    "position": "Senior Full Stack",
+    "role": "Developer",
+    "client": "Override",
+    "skills": "Php"
+  }
+}

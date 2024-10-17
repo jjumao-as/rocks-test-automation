@@ -18,7 +18,9 @@ exports.FindTalentPage = class FindTalentPage {
         await this.actionDriver.waitElementUntilHidden(findTalentLocators.searchingLabel);
         await this.actionDriver.clickButton(findTalentLocators.enterSkillField);
         await this.actionDriver.typeText(data);
-        await this.actionDriver.selectFromList(data, findTalentLocators.searchItems);
+        await this.actionDriver.keyboardPress('Enter')
+        // await this.actionDriver.selectFromList(data, findTalentLocators.searchItems);
+        await this.actionDriver.waitElementUntilVisible(findTalentLocators.searchingLabel);
         await this.actionDriver.waitElementUntilHidden(findTalentLocators.searchingLabel);
     }
 

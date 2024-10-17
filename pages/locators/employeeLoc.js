@@ -130,6 +130,9 @@ module.exports = {
     clientList : "//span[contains(@class,'tag-name')]",
     manageProjectTitle : "//h4[text()='Manage Project']",
 
+    projectList : "//div[@id='projectsSelection']//li[contains(@class,'tag valid')]//span",
+    removeProject : "//div[@id='projectsSelection']//li[contains(@class,'tag valid')]/div/i[@class='icon-close']",
+
     editSkills : "//div[contains(@class,'skills-and-proficiencies')]/div/a",
     enterSkillField : "//input[@id='skills-selection']",
     skillsList : "//div[@id='skill']//div[contains(@class,'draggable-row')]/div[2]/span",
