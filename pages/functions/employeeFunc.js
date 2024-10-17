@@ -545,8 +545,8 @@ exports.EmployeesPage = class EmployeesPage {
         const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.editEmployeeClients)
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
-        await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
-        await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
+        await this.actionDriver.ElemetType(employeePageLoc.searchEmployee, employeeName);
+        await this.actionDriver.keyboardPress('Enter')
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.findText(employeeName, employeePageLoc.employeeNameList);
         await this.actionDriver.selectDataFromText(employeeName, employeePageLoc.employeeNameList, employeePageLoc.employeeNameList);
@@ -555,8 +555,8 @@ exports.EmployeesPage = class EmployeesPage {
     async searchEmployee(testData) {
         const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
-        await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
-        await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
+        await this.actionDriver.ElemetType(employeePageLoc.searchEmployee, employeeName);
+        await this.actionDriver.keyboardPress('Enter')
     }
 
     async updatePosition(testData) {
@@ -674,8 +674,8 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.confirmDeletion);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletionProgress);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
-        await this.actionDriver.setText(employeePageLoc.searchEmployee, employeeName);
-        await this.actionDriver.clickButton(employeePageLoc.searchEmployeeBtn);
+        await this.actionDriver.ElemetType(employeePageLoc.searchEmployee, employeeName);
+        await this.actionDriver.keyboardPress('Enter')
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.compareFromList(employeeName, employeePageLoc.employeeNameList);
     }
