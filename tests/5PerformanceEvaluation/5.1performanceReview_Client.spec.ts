@@ -35,7 +35,6 @@ test.describe('Test Script for adding talent to the team', async () => {
 
     test('Add Employee to evaluate', async() => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
-        await employeePage.navigateToEmployeeList();
         await employeePage.addEmployee(testData.employeeName);
         await employeePage.validateAddedEmployee(testData.employeeName);
         await employeePage.updatePosition(testData.employeeDetails.role);
