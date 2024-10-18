@@ -534,7 +534,6 @@ exports.EmployeesPage = class EmployeesPage {
         await this.searchEmployee(testData);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         const contain = await this.actionDriver.getTextArray(employeePageLoc.employeeNameList);
-        console.log(contain.length);
         if(contain.length > 0) {
             await this.deleteEmployee(testData);
         }
@@ -562,6 +561,7 @@ exports.EmployeesPage = class EmployeesPage {
     async searchEmployee(testData) {
         const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.searchEmployee)
         await this.actionDriver.ElemetType(employeePageLoc.searchEmployee, employeeName);
         await this.actionDriver.keyboardPress('Enter')
     }
