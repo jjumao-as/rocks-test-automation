@@ -104,7 +104,6 @@ test.describe('Test Script for adding talent to the team', async () => {
 
     test('Delete Employee', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
-        await employeePage.navigateToEmployeeList();
         await employeePage.searchEmployee(testData.employeeName);
         await employeePage.deleteEmployee(testData.employeeName);
     });
