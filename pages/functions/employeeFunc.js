@@ -531,6 +531,13 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async addEmployee(testData) {
+        await this.searchEmployee(testData);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+        const contain = await this.actionDriver.getTextArray(employeePageLoc.employeeNameList);
+        console.log(contain.length);
+        if(contain.length > 0) {
+            await this.deleteEmployee(testData);
+        }
         await this.actionDriver.clickButton(employeePageLoc.addNewEmployeeButton);
         await this.actionDriver.clickButton(employeePageLoc.startDate);
         await this.actionDriver.clickButton(employeePageLoc.dateToday);
