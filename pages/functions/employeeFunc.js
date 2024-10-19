@@ -531,6 +531,12 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async addEmployee(testData) {
+        await this.searchEmployee(testData);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+        const contain = await this.actionDriver.getTextArray(employeePageLoc.employeeNameList);
+        if(contain.length > 0) {
+            await this.deleteEmployee(testData);
+        }
         await this.actionDriver.clickButton(employeePageLoc.addNewEmployeeButton);
         await this.actionDriver.clickButton(employeePageLoc.startDate);
         await this.actionDriver.clickButton(employeePageLoc.dateToday);
@@ -555,6 +561,7 @@ exports.EmployeesPage = class EmployeesPage {
     async searchEmployee(testData) {
         const employeeName = testData.lastName + ', ' + testData.firstName;
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.searchEmployee)
         await this.actionDriver.ElemetType(employeePageLoc.searchEmployee, employeeName);
         await this.actionDriver.keyboardPress('Enter')
     }
@@ -651,7 +658,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async validateClient(testData) {
-        await this.actionDriver.waitElementUntilHidden(employeePageLoc.manageProjectTitle);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editEmployeeClients);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.clientList);
         await this.actionDriver.findText(testData, employeePageLoc.clientList);
     }
