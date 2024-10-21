@@ -1,5 +1,6 @@
 const clientPageLoc = require('../locators/clientLoc');
 const ActionDriver = require('../../utils/ActionDriver');
+const loginLocators = require('../locators/loginLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
 const { googleAPI } = require('../../utils/googleDriver');
 const { getLatestEmail } = require('../../utils/zohoDriver');
@@ -223,5 +224,20 @@ exports.ClientsPage = class ClientsPage {
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;
+    }
+
+    async validateClientPage() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.dashboard);
+        await this.actionDriver.checkElementVisibility(clientPageLoc.maleAvatar);
+        await this.actionDriver.checkElementVisibility(clientPageLoc.eventsHoliday);
+    }
+
+    async logout() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.clientTopDropdown)
+
+        await this.actionDriver.clickButton(clientPageLoc.clientTopDropdown)
+        await this.actionDriver.clickButton(clientPageLoc.clientLogout)
+
+        await this.actionDriver.checkElementVisibility(loginLocators.email)
     }
 }

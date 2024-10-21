@@ -10,6 +10,8 @@ module.exports = {
     contactActionColumnList : "//button[contains(@id,'fsButtonDropdown-contact')]",
     contactDeleteList : "//a[contains(text(),'Delete')]",
     dashboard : "//h2[text()='Dashboard']",
+    maleAvatar : "//img[contains(@src,'/male.png')]",
+    eventsHoliday : "//div[contains(text(),'Events and Holidays (PH)')]",
     clientPass : "//input[@id='pass1']",
     clientConfirmPass : "//input[@id='pass2']",
     clientSignIn : "//button[@id='changePassBtn']",
@@ -30,4 +32,8 @@ module.exports = {
     loadingRecords : "//span[contains(text(),'Loading records')]",
     showDropdown : "//span[text()='Show']/following-sibling::span",
     showHundred : "//li[text()='100']",
+
+
+    clientTopDropdown : "//*[@id='main-wrapper']/nav/div[2]/nav/div[2]/div/a",
+    clientLogout : "//span[contains(text(),'Logout')]",
 }

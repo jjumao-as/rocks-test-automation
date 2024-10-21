@@ -1,16 +1,21 @@
 const manageClientsocators = require('../locators/manageClientsLoc');
+const clientPageLoc = require('../locators/clientLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { EmployeesPage }= require('../functions/employeeFunc');
+const { EmployeesPage } = require('../functions/employeeFunc');
+const { ClientsPage } = require('../functions/clientFunc');
 const { expect } = require('@playwright/test');
-const { readJsonFile } = require('../../utils/jsonReader')
+const { getLatestEmail } = require('../../utils/zohoDriver');
+const { updateJsonData } = require('../../utils/jsonReader');
 
 let updatedJson;
+let newEmail;
 
 exports.ManageClientsPage = class ManageClientsPage {
     constructor(page) {
         this.page = page;
         this.actionDriver = new ActionDriver(page);
         this.employeePage = new EmployeesPage(page);
+        this.clientPage = new ClientsPage(page);
     }
 
     async navigateRecentlySignedUpClients() {
@@ -537,10 +542,18 @@ exports.ManageClientsPage = class ManageClientsPage {
             await this.AddClientName(testData.name);
             await this.NavigateContactTab();
             await this.AddContact();
-            await this.name(testData.contact);
-            await this.email(email);
-            await this.ClickCreateClientButton();
+            await this.addClientDefaultContact(testData, email);
         }
+    }
+
+    async addClientDefaultContact(testData, email) {
+        const emailAdd = email.split('@');
+        const randomNumber = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
+        newEmail = emailAdd[0] + '+' + testData.type + randomNumber + '@' + emailAdd[1];
+        updateJsonData('createClient', `${testData.type}>email`, newEmail);
+        await this.name(testData.contact);
+        await this.email(newEmail);
+        await this.ClickCreateClientButton();
     }
 
     async addMSA(testData) {
@@ -638,34 +651,52 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.actionDriver.clickButton(manageClientsocators.teamMembersTab);
     }
 
-    async checkClientExists(testData, testDetails, email) {
+    async checkClientExists(testData, testDetails, emailDetails, email, password) {
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-        const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
-        if (contain.length > 0) {
-            await this.ClickCreatedClient();
-            await this.actionDriver.waitElementUntilVisible(manageClientsocators.teamMembersTab);
-            await this.navigateToTeamMembers();
-            await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-            const talents = await this.actionDriver.getTextArray(manageClientsocators.employeeAddedName);
-            if (talents.length === 0) {
-                await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
-                await this.navigateClientListing();
-                await this.searchExistingClient(testData.name);
-                await this.ClickCreatedClient();
-                await this.addTalent(testData.employee);
+        const visible = this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
+        if (visible) {
+            const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
+            if (contain.length > 0) {
+                const include = await this.actionDriver.checkIfIncludesInArray(contain, testData.name);
+                if (include) {
+                    await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+                    await this.actionDriver.waitElementUntilVisible(manageClientsocators.teamMembersTab);
+                    await this.navigateToTeamMembers();
+                    await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+                    const talents = await this.actionDriver.getTextArray(manageClientsocators.employeeAddedName);
+                    if (talents.length === 0) {
+                        await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
+                        await this.navigateClientListing();
+                        await this.searchExistingClient(testData.name);
+                        await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+                        await this.addTalent(testData.employee);
+                    }
+                }
+            } else {
+               await this.createNewClient(testData, testDetails, emailDetails, email, password);
             }
         } else {
-            await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
-            await this.navigateClientListing();
-            await this.addClients(testData, email);
-            await this.searchExistingClient(testData.name);
-            await this.ClickCreatedClient();
-            if(testData.type === 'msa') {
-                await this.addMSA(testData);
-            }
-            await this.addTalent(testData.employee); 
+            await this.createNewClient(testData, testDetails, emailDetails, email, password);
         }
+    }
+
+    async createNewClient(testData, testDetails, emailDetails, email, password) {
+        await this.navigateClientListing();
+        await this.addClients(testData, email);
+        await this.searchExistingClient(testData.name);
+        if (testData.type === 'msa') {
+            await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+            await this.addMSA(testData);
+        }
+        await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
+        await this.navigateClientListing();
+        await this.searchExistingClient(testData.name);
+        await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+        await this.addTalent(testData.employee);
+        await this.clientPage.validateZohoEmail(emailDetails.welcomeEmail, emailDetails.emailFrom);
+        await this.clientPage.submitPassword(password);
+        await this.clientPage.validateLogin();
     }
 }
