@@ -23,7 +23,7 @@ roleToTest.forEach(role => {
 
     const {username, password} = roles[role]
 
-    test.describe.parallel('Client Interview Management', () => {
+    test.describe.parallel('View Employee Public Profile', () => {
 
         test.beforeEach(async ({browser}) =>{
             context = await browser.newContext({
@@ -32,7 +32,7 @@ roleToTest.forEach(role => {
 
             page = await context.newPage()
 
-            testDataPath = 'clientInterview'
+            testDataPath = 'employee'
             testData = await readJsonFile(testDataPath)
         
             loginPage = new LoginPage(page);
