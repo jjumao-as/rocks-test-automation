@@ -165,18 +165,65 @@ module.exports = {
     saveAboutMeBtn : "//h4[text()='About Me']/following-sibling::div//span[text()='Save']",
     aboutMeDetails : "//div[contains(@class,'about-me')]//blockquote",
 
+    // Add Work Experience 
     addWorkExpBtn : "//span[text()='Work Experience']/following-sibling::a//span[text()='Add']",
+    addWorkExperienceHeading : "//h4[text()='Add Work Experience']",
     jobTitle : "//input[@id='text-job_title']",
+    fullScaleCompanyRadioBtn : "//input[@id='radio-company_name_BV_option_0']",
     otherCompany : "//span[text()='Other (Specify company)']",
     otherCompanyName : "//input[@id='text-other_company_name']",
+    currentlyEmployedCheckbox : "//*[@id='checkbox-current']/div/label/span",
+    endDate : "//label[contains(text(),'End Date')]/following-sibling::input[2]",
+    reasonForLeaving : "//textarea[@id='textarea-reason_for_leaving']",
+
+    // Add Other Project
     addProject : "//span[text()='Add Project']",
     modalprojectName : "//span[text()='Project Display Name']/parent::label/following-sibling::div/input",
     descriptionIframe : "//iframe[@class='tox-edit-area__iframe']",
     descriptionBody: "//body[@id='tinymce']",
+
+    durationInMonthsSpinner : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[1]/div/fieldset/div/input",
+    numTeamMembersSpinner : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[2]/div/fieldset/div/input",
+    techStackDropdown : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[3]/div/div/div/div/div[2]",
+
     addProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Add Project']",
+    editProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Edit Project']",
+    
+    // Add Fullscale Project
+    addFullScaleProjectModal : "//h4[text()='Add Full Scale Project']",
+    fullscaleProjectList : "//div[contains(@class, 'select-project-list')]",
+    fullscaleProjectOptions : "//div[contains(@class, 'list-group-item')]",
     saveWorkExp : "//span[text()='Save Work Experience']",
     addedJobTitle : "//div[contains(@class,'job-position')][1]//div[@class='left-section']/span[1]",
     projectName : "(//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//span[1]",
     projectDesc: "((//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//p)[2]",
+    projectDescriptionTextArea : "//*[@id='projectComment']/div/div[1]/div[2]/div[1]",
+
+
+    // Edit Work Experience
+    editFullscaleProjectModal : "//*[@id='modalTitle']",
+    notSelectedFullscaleProjectOptions : "//div[contains(@class, 'list-group-item') and not(@class='list-group-item active')]",
+    editProjectBtn : "//span[contains(text(), 'Edit')]",
+
+   
+    // employee internal profile
+    jobPositionInList : "//span[@class='w-100 d-inline-block font-weight-bold']",
+    projectNameInList : "//span[@class='w-100 d-inline-block font-16 font-weight-bold']",
+    projectDescriptionInList : "//*[@id='profile']/div/div/div[5]/div/div[2]/div/div[2]/div/div/div/div[2]/p",
+    companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
+
+    // employee public profile
+    jobPositionInListPublicProfile : "//h4[@class='mb-6 fw-semibold font-16 text-gray-100']",
+    projectNameInListPublicProfile : "//h3[@class='mb-1 fw-semibold font-16 text-gray-100']",
+    companyNameInListPublicProfile : "//*[@id='portfolio']/main/div/div/div[2]/div[2]/div/div/div/div[1]/div/div/span/preceding-sibling::div",
+    projectDescriptionInListPublicProfile : "//p[@class='font-16 whitespace-pre-line text-gray-100']",
+
+    // Work Experience Actions
+    editWorkExpBtn : "//*[@id='profile']/div/div/div[5]/div/div[2]/div/div[1]/div[2]/a[2]/span",
+    deleteWorkExpBtn : "//span[contains(text(),'Delete')]",
+    deleteWorkExpDialog : "//div[contains(text(), 'Are you sure you want to delete this project?')]",
+    yesDeleteButton : "//button[contains(text(), 'Yes')]",
+    deletingInProgress : "//*[@id='swal2-content']",
+    deleteNotification : "//*[@id='swal2-title']"
 
 }

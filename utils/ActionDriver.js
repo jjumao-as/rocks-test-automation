@@ -690,5 +690,26 @@ class ActionDriver {
         return newPage;
     }
 
+  
+    /**
+     * Function that determines if a radioButton or a checkBox is selected
+     * @param {*} element : an element radioButton or a checkBox
+     */
+
+    async isElementChecked(element){
+        await expect(this.page.locator(element)).toBeChecked()
+    }
+
+    /**
+     * Method to clear input textfield and textarea simulating keyboard actions
+     * @param {*} element : either a textfield or textarea locator
+     */
+    async clearInputElement(element){
+        await this.page.click(element)
+        await this.page.keyboard.press('Control+A');
+        await this.page.keyboard.press('Backspace');
+  
+    }
+
 }
 module.exports = ActionDriver;

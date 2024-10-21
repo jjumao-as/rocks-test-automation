@@ -1,0 +1,144 @@
+{
+    "SUPERADMIN": {
+        "employee": "Delfino, Mario Niño Briones"
+    },
+    "ADMIN": {
+        "employee": "Lagaras, Jerreyme"
+    },
+    "HR": {
+        "employee": "Dilidili, Warren"
+    },
+    "FLOOR": {
+        "employee": "Pastoriza, Juhnie Ann"
+    },
+
+    "workExperience": {
+
+        "jobPosition" : {
+            "position1" : "Android Developer",
+            "position2" : "iOS Developer",
+            "position3" : "Test Automation Engineer",
+            "position4" : "UI/UX Designer",
+            "position5" : ".NET Developer",
+            "position6" : "Vue.js Developer",
+            "position7" : "Junior PHP Developer",
+            "position8" : "Principal Software Developer",
+            "position9" : "Software Developer Engineer in Test",
+            "position10" : "React Native Mobile Developer",
+            "position11" : "DevOps Engineer",
+            "position12" : "Database Administrator",
+            "position13" : "Business Analyst",
+            "position14" : "Flutter Developer",
+            "position15" : "MERN Full Stack Developer"
+        },
+
+        "startDate" : {
+            "date1": "Aug 01, 2015",
+            "date2": "Jul 31, 2015",
+            "date3": "Jan 13, 2017",
+            "date4": "Aug 30, 2018",
+            "date5": "Jan 15, 2018",
+            "date6": "Nov 18, 2019",
+            "date7": "Dec 16, 2019",
+            "date8": "Oct 07, 2020",
+            "date9": "Oct 25, 2020",
+            "date10": "Nov 11, 2020"
+           
+        },
+
+        "endDate" : {
+            "date1": "Aug 01, 2021",
+            "date2": "Jul 31, 2021",
+            "date3": "Jan 13, 2022",
+            "date4": "Aug 30, 2022",
+            "date5": "Jan 15, 2022",
+            "date6": "Nov 18, 2023",
+            "date7": "Dec 16, 2023",
+            "date8": "Oct 07, 2024",
+            "date9": "Oct 25, 2024",
+            "date10": "Nov 11, 2024"
+            
+        },
+
+        "otherEmployer" : [
+            "Software Tech 101",
+            "Codify Inc.",
+            "Coding Things LLC"
+        ],
+
+        "reasonForLeaving" : [
+            "Health Issues",
+            "Relocation",
+            "Dissatisfaction",
+            "Lack of work-life balance",
+            "Schedule",
+            "Other Opportunities"
+        ]
+    },
+
+    "projects" : {
+        "projectName" : [
+            "TestMe Academy",
+            "WeCare Donor Management",
+            "Alias X Mobile",
+            "FTP client",
+            "Unified Society",
+            "Open Tracker",
+            "Safe Zone App",
+            "Urban Charm",
+            "Tranquil Trails",
+            "Neighborly Nexus",
+            "Smart Style",
+            "EcoPower"
+        ],
+
+        "projectDescription" : [
+            "A collaborative todo platform",
+            "E-Commerce store for all",
+            "Wearable app for ages",
+            "Your online marketing eloquent experience",
+            "All-in-one, one tap product for iOS and Android",
+            "Car Dealership Management with Marketing Automation"
+
+        ],
+
+        "durationInMonths" : [
+            "6",
+            "12",
+            "15",
+            "18",
+            "24",
+            "30",
+            "36"
+        ],
+
+        "numberOfTeamMembers" : [
+            "3",
+            "5",
+            "7",
+            "10",
+            "15",
+            "30"
+        ],
+
+        "techStack" : [
+            ".NET Core",
+            "Laravel",
+            "Java Spring",
+            "NodeJS",
+            "Ruby on Rails",
+            "ASP.NET",
+            "React Native",
+            "Django",
+            "Playwright",
+            "Symfony"
+            
+        ]
+
+
+
+
+    }
+
+   
+}

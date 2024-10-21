@@ -19,6 +19,17 @@ let clientFeedback;
 let jsonData;
 let newSchedule;
 
+let jobPosition;
+let startDate;
+let otherEmployer;
+let endDate;
+let reasonForLeaving;
+let projectName;
+let projectDescription;
+let durationInMonths;
+let numOfMembers;
+let techStack;
+
 exports.EmployeesPage = class EmployeesPage {
 
     constructor(page) {
@@ -698,6 +709,8 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.checkInclude(text, testData);
     }
 
+    /* Add Work Experience */
+
     async addWorkExperience(testData) {
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
@@ -721,6 +734,313 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.expectEquals(testData.projectName, employeePageLoc.projectName);
         await this.actionDriver.expectEquals(testData.description, employeePageLoc.projectDesc);
     }
+
+    async addNewWorkExperience(){
+
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn)
+        await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
+        await this.actionDriver.clickButton(employeePageLoc.jobTitle)
+        jobPosition = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'jobPosition')
+        await this.actionDriver.typeText(jobPosition)
+
+        await this.actionDriver.clickButton(employeePageLoc.startDate)
+        startDate = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'startDate')
+        await this.actionDriver.typeText(startDate)
+        await this.actionDriver.keyboardPress('Enter')
+        await this.actionDriver.keyboardPress('Escape')
+
+
+    }
+
+
+    async companyIsFullscale(){
+        await this.actionDriver.isElementChecked(employeePageLoc.fullScaleCompanyRadioBtn)
+
+    }
+
+    async companyIsOther(){
+        jsonData = await readJsonFile('employee')
+        otherEmployer = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'otherEmployer')
+
+        await this.actionDriver.clickButton(employeePageLoc.otherCompany);
+        await this.actionDriver.clickButton(employeePageLoc.otherCompanyName);
+        await this.actionDriver.typeText(otherEmployer);
+
+
+    }
+
+    async isNotCurrentlyEmployed(){
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.clickButton(employeePageLoc.currentlyEmployedCheckbox)
+
+        await this.actionDriver.clickButton(employeePageLoc.endDate)
+        endDate = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'endDate')
+        await this.actionDriver.typeText(endDate)
+        await this.actionDriver.keyboardPress('Enter')
+
+
+        await this.actionDriver.clickButton(employeePageLoc.reasonForLeaving)
+        reasonForLeaving = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'reasonForLeaving')
+        await this.actionDriver.typeText(reasonForLeaving)
+
+    }
+
+
+    async isCurrentlyEmployed(){
+        await this.actionDriver.isElementChecked(employeePageLoc.currentlyEmployedCheckbox)
+
+    }
+
+ 
+    /** Add Project */
+
+    async addOtherProject(){
+
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProject);
+
+        projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
+        await this.actionDriver.clickButton(employeePageLoc.modalprojectName);
+        await this.actionDriver.typeText(projectName)
+
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
+
+    }
+
+
+    async addFullScaleProject(){
+
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProject);
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addFullScaleProjectModal)
+
+        // Add Fullscale ProjectName
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fullscaleProjectList)
+        const fsProjectCount = await this.actionDriver.elementCount(employeePageLoc.fullscaleProjectOptions)
+        const randomIndexFsProject = Math.floor(Math.random() * (fsProjectCount - 1 + 1)) + 1
+        projectName = await this.actionDriver.getText(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.clickButton(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+
+        // Add Fullscale Project Description
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+
+
+        // Add Fullscale Project Duration
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        // Add Fullscale Project - Number of Team Members
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        // Add Fullscale Project - Tech Stack
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
+
+    }
+
+    async saveWorkExperience(){
+        await this.actionDriver.clickButton(employeePageLoc.saveWorkExp)
+
+    }
+
+    
+    async isWorkExperienceAdded() {
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInList);
+
+        const jobPositionList = await this.actionDriver.getTextArray(employeePageLoc.jobPositionInList);
+        await this.actionDriver.checkIfIncludesInArray(jobPositionList, jobPosition)
+
+        const projectNameList = await this.actionDriver.getTextArray(employeePageLoc.projectNameInList);
+        await this.actionDriver.checkIfIncludesInArray(projectNameList, projectName)
+
+        const projectDescriptionList = await this.actionDriver.getTextArray(employeePageLoc.projectDescriptionInList);
+        await this.actionDriver.checkIfIncludesInArray(projectDescriptionList, projectDescription)
+        
+    }
+
+    async isWorkExperienceAddedInPublicProfile(newPage){
+
+        const actionDriverNewPage = new ActionDriver(newPage)
+
+        const jobPositionInPublicProfile = await actionDriverNewPage.getTextArray(employeePageLoc.jobPositionInListPublicProfile)
+        await actionDriverNewPage.checkIfIncludesInArray(jobPositionInPublicProfile, jobPosition)
+
+        const projectNameInPublicProfile = await actionDriverNewPage.getTextArray(employeePageLoc.projectNameInListPublicProfile)
+        await actionDriverNewPage.checkIfIncludesInArray(projectNameInPublicProfile, projectName)
+
+        const projectDescrptionInPublicProfile = await actionDriverNewPage.getTextArray(employeePageLoc.projectDescriptionInListPublicProfile)
+        await actionDriverNewPage.checkIfIncludesInArray(projectDescrptionInPublicProfile, projectDescription)
+
+    }
+
+   
+    /** Deleting Work Experience */
+
+    async deleteWorkExperience(){
+        await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.deleteWorkExpBtn)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.deleteWorkExpDialog);
+        
+        await this.actionDriver.clickButton(employeePageLoc.yesDeleteButton)
+
+        const confirmJobDeletionText = await this.actionDriver.getText(employeePageLoc.deletingInProgress)
+        await this.actionDriver.checkInclude(jobPosition, confirmJobDeletionText)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletingInProgress);
+        
+
+    }
+
+    async isWorkExperienceDeleted(){
+        
+        await this.actionDriver.checkElementVisibility(employeePageLoc.deleteNotification)
+        const jobDeleted = await this.actionDriver.getText(employeePageLoc.deleteNotification)
+        await this.actionDriver.checkInclude(jobPosition, jobDeleted)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deleteNotification)
+    }
+
+
+    /** Update Work Experience */
+
+    async updateWorkExperience(){
+        
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.editWorkExpBtn)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
+
+        await this.actionDriver.clearInputElement(employeePageLoc.startDate)
+        startDate = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'startDate')
+
+        await this.actionDriver.typeText(startDate)
+        await this.actionDriver.keyboardPress('Enter')
+        await this.actionDriver.keyboardPress('Escape') // this is to dismiss the datePicker
+
+    
+    }
+
+    async updateFullscaleProject(){
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtn);
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editFullscaleProjectModal)
+
+
+        // Update and select another Fullscale project
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fullscaleProjectList)
+        const fsProjectCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedFullscaleProjectOptions)
+        const randomIndexFsProject = Math.floor(Math.random() * (fsProjectCount - 1 + 1)) + 1
+        projectName = await this.actionDriver.getText(`(${employeePageLoc.notSelectedFullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedFullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+
+        // Update Fullscale project-description
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+        
+        
+        // Update Fullscale project duration
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        // Update Fullscale project number of team members
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        // Update Fullscale project tech stack
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.keyboardPress('Backspace')
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
+    }
+
+    async updateOtherProject(){
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtn);
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editFullscaleProjectModal)
+
+        // Update Other project-name
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+        await this.actionDriver.clearInputElement(employeePageLoc.modalprojectName)
+        projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
+        await this.actionDriver.typeText(projectName)
+
+
+        // Update OTHER project-description
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+        
+        
+        // Update OTHER project duration
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        // Update OTHER project number of team members
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        
+        // Update OTHER project number of team members
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.keyboardPress('Backspace')
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
+    }
+
 
     async setProjectDescription(description) {
         const frameHandle = await this.page.waitForSelector(employeePageLoc.descriptionIframe);
