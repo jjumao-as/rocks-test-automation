@@ -706,7 +706,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async validateClient(testData) {
-        await this.actionDriver.waitElementUntilHidden(employeePageLoc.manageProjectTitle);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editEmployeeClients);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.clientList);
         await this.actionDriver.findText(testData, employeePageLoc.clientList);
     }
