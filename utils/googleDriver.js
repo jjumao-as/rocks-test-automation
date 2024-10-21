@@ -3,7 +3,7 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 
-const CREDENTIALS_PATH = path.resolve(__dirname, '../testdata/credentials.json'); // credentials path
+const CREDENTIALS_PATH = path.resolve(__dirname, process.env.CREDENTIALS_JSON);
 const TOKEN_PATH = path.join(__dirname, '../testdata/token.json');
 
 async function googleAPI(mailSubject, mailfrom, mailTo, timeout = 60000) {
