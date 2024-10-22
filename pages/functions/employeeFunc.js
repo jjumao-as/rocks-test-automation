@@ -8,6 +8,7 @@ const { stat } = require('fs');
 
 
 let empName;
+let publicProfileLink;
 let clientName;
 let interviewDate;
 let interviewTime;
@@ -119,6 +120,42 @@ exports.EmployeesPage = class EmployeesPage {
         await actionDriverNewPage.checkInclude(profileName, empName)
 
     }
+
+    async copyPublicProfileLink(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.talentName)
+        empName = await this.actionDriver.getText(employeePageLoc.talentName)
+
+        await this.actionDriver.clickButton(employeePageLoc.copyProfileUrlBtn)
+        publicProfileLink = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.copiedToClipboardText)   
+        
+    }
+
+    async goToPublicProfile(){
+        await this.actionDriver.goToUrl(publicProfileLink)
+    }
+
+
+    async isInLoggedOutPublicProfile(){
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.profileName)
+        const loggedOutProfileName = await this.actionDriver.getText(employeePageLoc.profileName)
+        const newProfileName = loggedOutProfileName.split(" ")[0]
+        await this.actionDriver.checkInclude(newProfileName, empName)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.profileAvatar)
+
+        const isBookACallBtnPresent = await this.actionDriver.elementVisible(employeePageLoc.bookACallBtn)
+        await this.actionDriver.expectFalse(isBookACallBtnPresent)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInListPublicProfile)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.companyNameInListPublicProfile)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.projectDescriptionInListPublicProfile)
+
+    }
+
+
 
 
     /* Add Client Interview */

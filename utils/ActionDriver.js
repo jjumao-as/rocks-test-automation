@@ -711,5 +711,13 @@ class ActionDriver {
   
     }
 
+    /**
+     * Function to let navigate manually to any give url
+     * @param {*} url : the full url to be visited
+     */
+    async goToUrl(url){
+        await this.page.goto(url)
+    }
+
 }
 module.exports = ActionDriver;
