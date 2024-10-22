@@ -25,18 +25,10 @@ exports.QuickTasksPage = class QuickTasksPage {
     async enterTextWithImageFeedback(textFeedback){
         await this.actionDriver.setText(quickTasksLocators.feedback, textFeedback)
         try {
-            const fileChooserPromise = this.page.waitForEvent('filechooser')
-
+            await this.actionDriver.waitElementUntilClickable(quickTasksLocators.imagePickerBtn);
             await this.actionDriver.clickButton(quickTasksLocators.imagePickerBtn)
-            await this.actionDriver.clickButton(quickTasksLocators.clickToUploadBtn)
 
-            const fileChooser = await fileChooserPromise;
-            const path = require('path')
-    
-            const imgPath = path.resolve('./testdata/playwright.png')
-    
-            await fileChooser.setFiles(imgPath);
-    
+            await this.actionDriver.fileUpload('./testdata/images/playwright.png', quickTasksLocators.clickToUploadBtn);
             await this.actionDriver.checkElementVisibility(quickTasksLocators.previewImage)
         } catch (error) {
             console.log("FAILED UPLOADING IMAGE : " + error)
