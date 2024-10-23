@@ -3,7 +3,7 @@ const dashboardLocators = require('../locators/dashboardLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const { EmployeesPage } = require('../functions/employeeFunc');
 const { ClientsPage } = require('../functions/clientFunc');
-const { expect } = require('@playwright/test');\
+const { expect } = require('@playwright/test');
 const { updateJsonData } = require('../../utils/jsonReader');
 
 let updatedJson;
