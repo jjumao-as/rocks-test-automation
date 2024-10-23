@@ -1,5 +1,6 @@
 const quickTasksLocators = require('../locators/quickTasksLoc');
 const ActionDriver = require('../../utils/ActionDriver');
+const dashboardLocators = require('../locators/dashboardLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
 let emailSubject;
 
@@ -158,6 +159,10 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateToCreateExpenseReport() {
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.createExpenseReport);
     }
 

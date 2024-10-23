@@ -81,6 +81,10 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async navigateToUsers(){
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
         await this.actionDriver.clickButton(dashboardLocators.users);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.searchUser);
     }

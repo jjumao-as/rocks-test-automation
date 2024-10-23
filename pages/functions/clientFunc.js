@@ -240,4 +240,52 @@ exports.ClientsPage = class ClientsPage {
 
         await this.actionDriver.checkElementVisibility(loginLocators.email)
     }
+
+    async validateTooltip() {
+        const visible = await this.actionDriver.elementVisible(clientPageLoc.tooltip);
+        await this.actionDriver.expectTrue(visible);
+    }
+
+    async hoverMyProfile() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.myProfile);
+        await this.actionDriver.hoverElement(clientPageLoc.myProfile);
+        await this.validateTooltip();
+    }
+
+    async hoverMyContacts() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.myContacts);
+        await this.actionDriver.hoverElement(clientPageLoc.myContacts);
+        await this.validateTooltip();
+    }
+
+    async hoverFindTalent() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.findTalent);
+        await this.actionDriver.hoverElement(clientPageLoc.findTalent);
+        await this.validateTooltip();
+    }
+
+    async hoverDocumentsAgreements() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.docsandAgreements);
+        await this.actionDriver.hoverElement(clientPageLoc.docsandAgreements);
+        await this.validateTooltip();
+    }
+
+    async hoverManageTeam() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.manageTeam);
+        await this.actionDriver.hoverElement(clientPageLoc.manageTeam);
+        await this.validateTooltip();
+    }
+
+    async hoverPerformanceReview() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.performanceReview);
+        await this.actionDriver.hoverElement(clientPageLoc.performanceReview);
+        await this.validateTooltip();
+    }
+
+    async hoverNeedHelp() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.needHelp);
+        await this.actionDriver.hoverElement(clientPageLoc.needHelp);
+        await this.validateTooltip();
+    }
+
 }

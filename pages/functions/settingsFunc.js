@@ -1,5 +1,6 @@
 const settingsLocators = require('../locators/settingsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
+const dashboardLocators = require('../locators/dashboardLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
 const { googleAPI } = require('../../utils/googleDriver');
 const { getLatestEmail } = require('../../utils/zohoDriver');
@@ -92,6 +93,10 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateToSkills() {
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
         await this.actionDriver.clickButton(settingsLocators.skillsTab);
     }
     
@@ -133,6 +138,10 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateToExpenseReportSettings () {
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
         await this.actionDriver.clickButton(settingsLocators.expenseReportTab);
     }
 

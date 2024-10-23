@@ -36,4 +36,19 @@ module.exports = {
 
     clientTopDropdown : "//*[@id='main-wrapper']/nav/div[2]/nav/div[2]/div/a",
     clientLogout : "//span[contains(text(),'Logout')]",
+
+    //Client Portal Dashboard
+    tooltip : "//div[@class='tooltip-inner']",
+    myProfile : "//span[text()='My Profile']",
+    myContacts : "//span[text()='My Contacts']",
+    findTalent : "//span[text()='Find Talent']",
+    docsandAgreements : "//span[text()='Documents & Agreements']",
+    manageTeam : "//span[text()='Manage Team']",
+    performanceReview : "//span[text()='Performance Review']",
+    reporting : "//span[text()='Reporting']",
+    dailyStatusReport : "//span[text()='Daily Status Reports']",
+    dailyTimeClockReport : "//span[text()='Daily Time Clock Reports']",
+    weeklyTimeClockReport : "//span[text()='Weekly Time Clock Reports']",
+    timeClockSummaryReport : "//span[text()='Time Clock Summary Reports']",
+    needHelp : "//h4[contains(text(),'Need Help')]",
 }

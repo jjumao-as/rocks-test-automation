@@ -86,4 +86,13 @@ module.exports = {
     expenseReport : "(//span[text()='Expense Report'])[1]",
     processWorkflow : "(//span[text()='Process Workflow'])[1]",
     documentTemplates : "(//span[text()='Document Templates'])[1]",
+
+    //Side Panel
+    collapseQuickTasks : "//span[text()='Quick Tasks']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    collapseClients : "//span[text()='Clients']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    collapseApplicants : "//span[text()='Applicants']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    collapseEmployees : "//span[text()='Employees']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    collapseMentorship : "//span[text()='Mentorship']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    collapseReports : "//span[text()=' Reports']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    collapseSettings : "//span[text()='Settings']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",   
 }
