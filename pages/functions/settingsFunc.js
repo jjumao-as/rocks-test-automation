@@ -232,6 +232,11 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async validateExpenseReports() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.reportsSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseReports);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseReports);
+        }
         await this.actionDriver.clickButton(settingsLocators.expenseReportsTab);
         await this.actionDriver.waitElementUntilHidden(settingsLocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(settingsLocators.tableMask);
@@ -247,10 +252,10 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateWeeklyFloorReport() {
-        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
-        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.reportsSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseReports);
         if(visible) {
-            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+            await this.actionDriver.clickButton(dashboardLocators.collapseReports);
         }
         await this.actionDriver.clickButton(settingsLocators.weeklyFloorReports);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.reportRow);
