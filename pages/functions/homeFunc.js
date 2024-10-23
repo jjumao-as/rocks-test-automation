@@ -72,6 +72,7 @@ exports.HomePage = class HomePage {
     }
 
     async navigateToSubmitFeedback(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -81,6 +82,7 @@ exports.HomePage = class HomePage {
     }
 
     async navigateToFeedbackList(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
@@ -91,6 +93,7 @@ exports.HomePage = class HomePage {
     }
 
     async navigateToEmployeeList(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);

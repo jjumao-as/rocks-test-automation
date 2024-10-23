@@ -93,6 +93,7 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateToSkills() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.settingsSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
@@ -138,6 +139,7 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateToExpenseReportSettings () {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.settingsSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
@@ -245,6 +247,7 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateWeeklyFloorReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);

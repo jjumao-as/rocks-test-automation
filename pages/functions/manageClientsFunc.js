@@ -26,6 +26,7 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async navigateClientListing() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);

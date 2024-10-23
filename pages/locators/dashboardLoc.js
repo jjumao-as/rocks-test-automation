@@ -88,11 +88,18 @@ module.exports = {
     documentTemplates : "(//span[text()='Document Templates'])[1]",
 
     //Side Panel
+    quickTasksSide : "//span[text()='Quick Tasks']",
     collapseQuickTasks : "//span[text()='Quick Tasks']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    clientsSide : "//span[text()='Clients']",
     collapseClients : "//span[text()='Clients']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    applicantsSide : "//span[text()='Applicants']",
     collapseApplicants : "//span[text()='Applicants']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    employeesSide : "//span[text()='Employees']",
     collapseEmployees : "//span[text()='Employees']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    mentorshipSide : "//span[text()='Mentorship']",
     collapseMentorship : "//span[text()='Mentorship']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    reportsSide : "//span[text()=' Reports']",
     collapseReports : "//span[text()=' Reports']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
+    settingsSide : "//span[text()='Settings']",
     collapseSettings : "//span[text()='Settings']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",   
 }

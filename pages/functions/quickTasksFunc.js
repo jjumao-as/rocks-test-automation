@@ -45,6 +45,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateCreateDailyReport(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -60,6 +61,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateExpenseReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -81,6 +83,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateCreateWeeklyFloorReport(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -97,6 +100,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateSelfPerfEval(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -114,6 +118,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateManagerPerfEval(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -129,6 +134,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateSubmitFeedback() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -183,6 +189,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateToCreateExpenseReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
@@ -234,6 +241,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateWeeklyFloorReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);

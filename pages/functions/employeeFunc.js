@@ -712,6 +712,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async navigateToEmployeeList() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
         const visible = await this.actionDriver.elementVisible(dashboardLoc.collapseEmployees);
         if(visible) {
             await this.actionDriver.clickButton(dashboardLoc.collapseEmployees);
