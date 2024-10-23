@@ -42,6 +42,10 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async navigateFindTalent() {
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
+        }
         await this.actionDriver.clickButton(dashboardLocators.findTalents);
     }
 
@@ -90,6 +94,10 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async navigateProcessWorkFlow(){
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
         await this.actionDriver.clickButton(dashboardLocators.processWorkflow);
     }
 

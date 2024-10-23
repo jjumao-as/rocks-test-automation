@@ -1,10 +1,9 @@
 const manageClientsocators = require('../locators/manageClientsLoc');
-const clientPageLoc = require('../locators/clientLoc');
+const dashboardLocators = require('../locators/dashboardLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const { EmployeesPage } = require('../functions/employeeFunc');
 const { ClientsPage } = require('../functions/clientFunc');
-const { expect } = require('@playwright/test');
-const { getLatestEmail } = require('../../utils/zohoDriver');
+const { expect } = require('@playwright/test');\
 const { updateJsonData } = require('../../utils/jsonReader');
 
 let updatedJson;
@@ -27,6 +26,10 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async navigateClientListing() {
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
+        }
         await this.actionDriver.clickButton(manageClientsocators.clientListing);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);

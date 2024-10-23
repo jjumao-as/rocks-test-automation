@@ -245,6 +245,10 @@ exports.SettingsPage = class SettingsPage {
     }
 
     async navigateWeeklyFloorReport() {
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(settingsLocators.weeklyFloorReports);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.reportRow);
     }

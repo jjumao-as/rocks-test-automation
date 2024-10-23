@@ -217,7 +217,7 @@ module.exports = {
     profileName : "//h2[contains(@class, 'profile-name')]",
     jobPositionInListPublicProfile : "//h4[@class='mb-6 fw-semibold font-16 text-gray-100']",
     projectNameInListPublicProfile : "//h3[@class='mb-1 fw-semibold font-16 text-gray-100']",
-    companyNameInListPublicProfile : "//*[@id='portfolio']/main/div/div/div[2]/div[2]/div/div/div/div[1]/div/div/span/preceding-sibling::div",
+    companyNameInListPublicProfile : "//div[@class='experience-item']//h4/following-sibling::div/div",
     projectDescriptionInListPublicProfile : "//p[@class='font-16 whitespace-pre-line text-gray-100']",
     profileAvatar : "//img[@class='mb-6 w-100 avatar']",
     bookACallBtn : "//div[@class='w-100 text-center btn-book-a-call']",
