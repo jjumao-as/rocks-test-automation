@@ -1110,4 +1110,234 @@ exports.EmployeesPage = class EmployeesPage {
         await this.updateClient(employeeDetails.client);
         await this.validateClient(employeeDetails.client);
     }
+
+    /* Add Client Spotlight */
+
+    async addClientSpotlight(clientSpotlightData){
+
+        /**
+         * Checks if zero-state message is present under Client Spotlight section
+         */
+        const noClientReview = await this.actionDriver.elementVisible(employeePageLoc.zeroStateClientReview)
+
+        /**
+         * When zero-state message is present, that means there are no existing client review / spotlight added
+         * This proceeds clicking the selectButtonA - that triggers Add Client Spotlight / Review modal
+         */
+        if(await noClientReview === true){
+            await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectNewButton)
+            await this.actionDriver.clickButton(employeePageLoc.selectNewButton)
+        }
+        /**
+         * When zero-state message is NOT present, means there is already existing client review in the Client Spotlight section
+         * This proceeds clicking to the other selectButtonB - that also triggers the Add Client Spotlight / Review modal
+         */
+        else{
+            await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectExistingButton)
+            await this.actionDriver.clickButton(employeePageLoc.selectExistingButton)
+        }
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.selectSpotlightModal)
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.addClientReviewButton)
+        await this.actionDriver.clickButton(employeePageLoc.addClientReviewButton)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewerNameTextfield)
+        
+        const reviewerName = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerName')
+        await this.actionDriver.setText(employeePageLoc.reviewerNameTextfield, reviewerName)
+
+        const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerTitle')
+        await this.actionDriver.setText(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
+
+        const randomRating = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.ratingOptionsRadiobutton)
+        const rating = await this.actionDriver.getText(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+
+        await this.actionDriver.clickButton(employeePageLoc.dateField)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.yearDropdown)
+        const randomMonth = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.activeAndDefaultMonths)
+        const reviewMonth = await this.actionDriver.getText(`${employeePageLoc.activeAndDefaultMonths}[${randomMonth}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.activeAndDefaultMonths}[${randomMonth}]`)
+
+        /**
+         * We simulate the actual user keyboard interaction here
+         * To get the month-year value, we click once on the dateField
+         * Clicked Control + A keys to select all
+         * Control + C to copy the dateValue to clipboard
+         */
+        await this.actionDriver.clickButton(employeePageLoc.dateField)
+        await this.actionDriver.keyboardPress('Control+A')
+        await this.actionDriver.keyboardPress('Control+C')
+        /**
+        * copied to clipboard dateValue is now stored in the reviewDate variable
+        */
+        const reviewDate = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.clickButton(employeePageLoc.addClientReviewModal)
+
+        const reviewerComment = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerComment')
+        await this.actionDriver.clickButton(employeePageLoc.reviewerCommentTextarea)
+        await this.actionDriver.typeText(reviewerComment)
+        
+        const newClientSpotlight = {reviewerName, reviewerTitle, rating, reviewDate, reviewerComment}
+
+        await this.actionDriver.clickButton(employeePageLoc.selectSpotlightButton)
+
+        return newClientSpotlight
+
+     
+    }
+
+    async isClientSpotlightSaved(savedClientSpotlight){
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewTitleTextDisplay)
+    
+        /** View Saved Title */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewTitleTextDisplay)
+        const savedTitle = await this.actionDriver.getText(employeePageLoc.reviewTitleTextDisplay)
+
+        await this.actionDriver.checkInclude(savedClientSpotlight.reviewerTitle, savedTitle)
+
+
+        /** View Saved Rating */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewRatingTextDisplay)
+
+        /**
+         * addedRating - the rating returned from addClientSpotlight()
+         * savedRating - the text display for rating in Client Spotlight (text extracted via getText())
+         */
+        let addedRating = savedClientSpotlight.rating
+        const savedRating = await this.actionDriver.getText(employeePageLoc.reviewRatingTextDisplay)
+
+    
+        /**
+         * when adding client review rating from Add Client Review modal, options are "1 - Needs Improvement" , "2 - Meets Expectations" or "3 - Exceeds Expections"
+         * code below trims the trailing digits and '-' so it now reads as - "Meets Expectations" and "Exceeds Expectations"
+         * However, Client Spotlight displays for options 2 & 3 are "Meets expectations" and "Exceeds expectations" respectively
+         * 'expectations' is in lowerCase
+        */
+        addedRating = addedRating.replace(/^\d+\s-\s/, '');
+
+        /**
+         * Both strings are converted to lowerCases so they would match
+         */
+        const newAddedRating = addedRating.toLowerCase()
+        const newSavedRating = savedRating.toLowerCase()
+
+        if (newAddedRating === newSavedRating) {
+            await this.actionDriver.checkInclude(newAddedRating, newSavedRating)
+
+        } else {
+            /**
+             * when option '1 - Needs Improvement' is selected in Add Client Review modal, it will read as 'Below expectations' in the Client Spotlight section
+             * To avoid adding more logic, log info is added below that says "1 - Needs Improvement" and "Below expectations" are of the same option
+             */
+        }
+        
+        /** View Saved Comment */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewCommentTextDisplay)
+        const savedComment = await this.actionDriver.getText(employeePageLoc.reviewCommentTextDisplay)
+        await this.actionDriver.checkInclude(savedComment, savedClientSpotlight.reviewerComment)
+
+        return true
+    }
+
+    async editClientSpotlight(oldClientSpotlight, clientSpotlightJsonData){
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editButton)
+        await this.actionDriver.clickButton(employeePageLoc.editButton)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editClientReviewModal)
+        
+        /** Edit Reviewer name */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewerNameTextfield)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerNameTextfield, oldClientSpotlight.reviewerName)
+
+        const reviewerName = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerName')
+        await this.actionDriver.clearInputElement(employeePageLoc.reviewerNameTextfield)
+        await this.actionDriver.typeText(reviewerName)
+
+
+        /** Edit Reviewer Title */
+        await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle)
+        const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerTitle')
+        await this.actionDriver.clearInputElement(employeePageLoc.reviewerTitleTextfield)
+        await this.actionDriver.typeText(reviewerTitle)
+
+
+        /** Edit Rating */
+        const randomRating = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.ratingOptionsRadiobutton)
+        const rating = await this.actionDriver.getText(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+
+        /** Edit Date */
+        await this.actionDriver.clickButton(employeePageLoc.editDateField)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.yearDropdown)
+        const randomMonth = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.activeNotSelectedMonths)
+        const updatedReviewMonth = await this.actionDriver.getText(`${employeePageLoc.activeNotSelectedMonths}[${randomMonth}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.activeNotSelectedMonths}[${randomMonth}]`)
+
+        await this.actionDriver.clickButton(employeePageLoc.editDateField)
+        await this.actionDriver.keyboardPress('Control+A')
+        await this.actionDriver.keyboardPress('Control+C')
+        const reviewDate = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.clickButton(employeePageLoc.editClientReviewModal)
+
+
+         /** Edit Comment */
+
+        /**
+         *  Don't see other way to getText of textarea so keyboard controlA (selectAll) and controlC (copy) is simulated 
+         *  to get the existing value of the textArea
+        */
+        await this.actionDriver.clickButton(employeePageLoc.reviewerCommentTextarea)
+        await this.actionDriver.keyboardPress('Control+A')
+        await this.actionDriver.keyboardPress('Control+C')
+
+        /** then, the copied value is assigned to <existingReviewComment> variable */
+        const existingReviewComment = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.checkInclude(existingReviewComment, oldClientSpotlight.reviewerComment)
+
+        /** Generated to new random value and typed it in the text area */
+        const reviewerComment = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerComment')
+        await this.actionDriver.clearInputElement(employeePageLoc.reviewerCommentTextarea)
+        await this.actionDriver.typeText(reviewerComment)
+        await this.actionDriver.clickButton(employeePageLoc.editClientReviewModal)
+
+        const updatedClientSpotlight = {reviewerName, reviewerTitle, rating, reviewDate, reviewerComment}
+
+        await this.actionDriver.hoverElement(employeePageLoc.updateReviewButton)
+        await this.actionDriver.clickButton(employeePageLoc.updateReviewButton)
+
+        return updatedClientSpotlight;
+        
+    }
+    
+    async deleteClientSpotlight(){
+
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.clearButton)
+        await this.actionDriver.clickButton(employeePageLoc.clearButton)
+
+        await this.actionDriver.checkElementVisibility(employeePageLoc.deleteSpotlightDialog)
+        await this.actionDriver.takeScreenshot()
+        
+        await this.actionDriver.clickButton(employeePageLoc.yesDeleteButton)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.deletingProgressSpotlightDialog)
+        await this.actionDriver.takeScreenshot()
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletingProgressSpotlightDialog)
+
+    }
+
+    async isClientSpotlightDeleted(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.deletedSpotlightNotification)
+        await this.actionDriver.takeScreenshot()
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletedSpotlightNotification)
+        
+        await this.actionDriver.elementVisible(employeePageLoc.zeroStateClientReview)
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectNewButton)
+        await this.actionDriver.takeScreenshot()
+
+        return true
+
+    }
 }

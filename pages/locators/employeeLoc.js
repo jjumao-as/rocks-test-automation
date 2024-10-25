@@ -198,7 +198,6 @@ module.exports = {
     projectDesc: "((//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//p)[2]",
     projectDescriptionTextArea : "//*[@id='projectComment']/div/div[1]/div[2]/div[1]",
 
-
     // Edit Work Experience
     editFullscaleProjectModal : "//*[@id='modalTitle']",
     notSelectedFullscaleProjectOptions : "//div[contains(@class, 'list-group-item') and not(@class='list-group-item active')]",
@@ -228,6 +227,57 @@ module.exports = {
     deleteWorkExpDialog : "//div[contains(text(), 'Are you sure you want to delete this project?')]",
     yesDeleteButton : "//button[contains(text(), 'Yes')]",
     deletingInProgress : "//*[@id='swal2-content']",
-    deleteNotification : "//*[@id='swal2-title']"
+    deleteNotification : "//*[@id='swal2-title']",
+
+    /** Add Employee Spotlight */
+    zeroStateClientReview : "//div[contains(text(), 'No client review selected')]",
+    selectNewButton :   "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a/span",           
+    selectExistingButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[3]/span",
+    selectSpotlightModal : "//h4[contains(text(), 'Select Client Spotlight')]",
+    addClientReviewButton : "//span[contains(text(), 'Add Client Review')]",
+    addClientReviewModal : "//h4[contains(text(), 'Add Client Review')]",
+    reviewerNameTextfield : "//input[@id='text-reviewer_name']",
+    reviewerTitleTextfield : "//input[@id='text-reviewer_title']",
+    ratingOptionsRadiobutton : "//div[@class='custom-control custom-control-inline custom-radio']",
+    dateField : "//*[@id='modalDescription']/div[2]/div/div[1]/div[4]/div/input[2]",
+    yearDropdown : "//input[@class='numInput cur-year']",
+    arrowDown : "//span[@class='arrowDown']",
+    activeAndDefaultMonths : "//span[contains(@class, 'flatpickr-monthSelect-month') and not(@class='flatpickr-monthSelect-month disabled')]",
+    activeNotSelectedMonths : "//span[contains(@class, 'flatpickr-monthSelect-month') and not(@class='flatpickr-monthSelect-month disabled') and not(@class='flatpickr-monthSelect-month selected')]",
+    reviewerCommentTextarea : "//*[@id='reviewerComment']/div/div[1]/div[2]/div[1]",
+    selectSpotlightButton : "//*[@id='modal']//span[text()='Select Spotlight']",
+    
+
+    // View Spotlight
+    reviewerNameTextDisplay : "//p[@class='w-100 d-inline-block mb-0 font-weight-bold']/text()[normalize-space()]",
+    reviewTitleTextDisplay : "//span[@class='font-weight-normal' and normalize-space()]",
+    reviewRatingTextDisplay : "//*[@id='profile']/div/div/div[2]/div/div[2]/div/div/div/div/div/div/div[2]/div[1]/div/span",
+    reviewCommentTextDisplay : "//*[@id='profile']/div/div/div[2]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/p",
+    reviewDateTextDisplay : "//span[@class='review-date']",
+
+    // Edit Spotlight
+    editButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[2]/span",
+    editClientReviewModal : "//h4[contains(text(), 'Edit Client Review')]",
+    editDateField : "//*[@id='modalDescription']/div/div/div[1]/div[4]/div/input[2]",
+    updateReviewButton : "//*[@id='modal']//span[text()='Update Review']",
+    
+
+    // Delete Spotlight
+    clearButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[1]/span",
+    deleteSpotlightDialog : "//div[contains(text(), 'Are you sure you want to delete this review?')]",
+    yesDeleteButton : "//button[contains(text(), 'Yes')]",
+    deletingProgressSpotlightDialog : "//*[@id='swal2-content']",
+    deletedSpotlightNotification : "//*[@id='swal2-title']",
+
+
+
+
+
+
+
+
+
+
+
 
 }

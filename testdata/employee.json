@@ -138,6 +138,48 @@
 
 
 
+    },
+
+    "clientSpotlight" : {
+        "reviewerName" : [
+            "Jonas Cage",
+            "Lando Vanatta",
+            "Kristine Simpson",
+            "Patricia Nguyen",
+            "Antonio Adelante",
+            "Gregorio Chumandante",
+            "Carolina Adams",
+            "Kristap Stolyanov",
+            "Charlotte Benhissi",
+            "Jestoni Gerardo",
+            "Naru Smith"
+        ],
+
+        "reviewerTitle" : [
+            "Meetings and Punctuality",
+            "Proactivity in Tasks",
+            "Overall QA process understanding",
+            "Scrum Effeciency",
+            "Devops Knowledge",
+            "Incident Report during Sprint Review",
+            "Quarterly Dev Resource Report",
+            "Feedback on recent 1-on-1",
+            "Project Management Effectivity",
+            "Waterfall to Agile Transition"
+        ],
+
+        "reviewerComment" : [
+            "Your recent code refactor improved our application's performance and readability significantly. Great job making it both efficient and elegant.",
+            "Excellent problem-solving skills during the last sprint! You handled complex issues with ease and collaborated well with the team.",
+            "Your code often lacks comments and documentation. Improving this would make it easier for others to understand and maintain.",
+            "There were some avoidable bugs in the latest release. Thoroughly testing your code before submission could help prevent these.",
+            "Your attention to detail is outstanding. The thorough test cases you created caught critical issues before deployment.",
+            "Fantastic job on automating our testing processes. It's saved us a lot of time and increased our test coverage.",
+            "Some test cases were missing from the recent module testing. Ensuring all edge cases are covered is crucial for our quality assurance.",
+            "The communication around test results needs improvement. Clear and timely reports help us address issues faster."
+        ]
+
+ 
     }
 
    
