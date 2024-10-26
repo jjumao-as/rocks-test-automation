@@ -1230,6 +1230,7 @@ exports.EmployeesPage = class EmployeesPage {
              * when option '1 - Needs Improvement' is selected in Add Client Review modal, it will read as 'Below expectations' in the Client Spotlight section
              * To avoid adding more logic, log info is added below that says "1 - Needs Improvement" and "Below expectations" are of the same option
              */
+            console.log(`${addedRating} rating is selected in add/edit review modal, so the value displayed in Client Spotlight is ${savedRating}`)
         }
         
         /** View Saved Comment */
