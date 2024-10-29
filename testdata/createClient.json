@@ -6,10 +6,10 @@
     "signedBy": "Sample Automation MSA Test",
     "title": "Automation Tester",
     "type": "msa",
-    "email": "wdilidili+msa5418@fullscale.ph",
+    "email": "wdilidili+msa001@fullscale.ph",
     "employee": {
-      "firstName": "Katelyn",
-      "lastName": "McGlynn"
+      "firstName": "Robb",
+      "lastName": "Connelly"
     }
   },
   "nomsa": {
@@ -18,10 +18,10 @@
     "signedBy": "Sample Automation NO MSA Test",
     "title": "Automation Tester",
     "type": "nomsa",
-    "email": "wdilidili+nomsa4250@fullscale.ph",
+    "email": "wdilidili+nomsa001@fullscale.ph",
     "employee": {
-      "firstName": "Asa",
-      "lastName": "Zulauf"
+      "firstName": "Ellen",
+      "lastName": "Daugherty-Gusikowski"
     }
   },
   "employeeDetails": {

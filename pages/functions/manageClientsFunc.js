@@ -551,12 +551,8 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async addClientDefaultContact(testData, email) {
-        const emailAdd = email.split('@');
-        const randomNumber = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
-        newEmail = emailAdd[0] + '+' + testData.type + randomNumber + '@' + emailAdd[1];
-        updateJsonData('createClient', `${testData.type}>email`, newEmail);
         await this.name(testData.contact);
-        await this.email(newEmail);
+        await this.email(email);
         await this.ClickCreateClientButton();
     }
 
@@ -656,7 +652,7 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async checkClientExists(testData, testDetails, emailDetails, email, password) {
-        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
