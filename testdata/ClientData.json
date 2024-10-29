@@ -48,5 +48,18 @@
             "msaStatus" : "Complete",
             "source" : "LinkedIn"
         }
+    },
+    "urls" : {
+        "myProfileURL" : "/my-profile",
+        "myContactsURL" : "/my-contacts",
+        "findTalentURL" : "/find-talent",
+        "docsAgreementsURL" : "/documents",
+        "manageTeamURL" : "/manage-team",
+        "manageTeamRedirectedUrl": "/find-add-talent?ref=manage-team",
+        "perfReviewURL":  "/performance-review",
+        "dailyStatusURL": "/worklogs/daily-report",
+        "dailyTimeClockURL": "/worklogs/daily",
+        "weeklyTimeClockURL": "/worklogs/weekly",
+        "timeClockSummaryURL": "/worklogs/monthly"
     }
 }

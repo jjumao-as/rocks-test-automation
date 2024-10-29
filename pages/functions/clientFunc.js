@@ -4,6 +4,7 @@ const loginLocators = require('../locators/loginLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
 const { googleAPI } = require('../../utils/googleDriver');
 const { getLatestEmail } = require('../../utils/zohoDriver');
+const dashboardLoc = require('../locators/dashboardLoc');
 
 let newEmail;
 
@@ -246,6 +247,11 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.expectTrue(visible);
     }
 
+    async validateNoTooltip() {
+        const visible = await this.actionDriver.elementVisible(clientPageLoc.tooltip);
+        await this.actionDriver.expectFalse(visible);
+    }
+
     async hoverMyProfile() {
         await this.actionDriver.checkElementVisibility(clientPageLoc.myProfile);
         await this.actionDriver.hoverElement(clientPageLoc.myProfile);
@@ -286,6 +292,43 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.checkElementVisibility(clientPageLoc.needHelp);
         await this.actionDriver.hoverElement(clientPageLoc.needHelp);
         await this.validateTooltip();
+    }
+
+    async hoverReports() {
+        await this.actionDriver.checkElementVisibility(clientPageLoc.dailyStatusReport);
+        await this.actionDriver.hoverElement(clientPageLoc.dailyStatusReport);
+        await this.validateNoTooltip();
+        await this.actionDriver.hoverElement(clientPageLoc.dailyTimeClockReport);
+        await this.validateNoTooltip();
+        await this.actionDriver.hoverElement(clientPageLoc.weeklyTimeClockReport);
+        await this.validateNoTooltip();
+        await this.actionDriver.hoverElement(clientPageLoc.timeClockSummaryReport);
+        await this.validateNoTooltip();
+    }
+
+    async navigateToMyProfile() {
+        await this.actionDriver.waitElementUntilClickable(clientPageLoc.myProfile);
+        await this.actionDriver.clickButton(clientPageLoc.myProfile);
+    }
+
+    async navigateToMyContacts() {
+        await this.actionDriver.waitElementUntilClickable(clientPageLoc.myContacts);
+        await this.actionDriver.clickButton(clientPageLoc.myContacts);
+    }
+
+    async navigateToFindTalents() {
+        await this.actionDriver.waitElementUntilClickable(clientPageLoc.findTalent);
+        await this.actionDriver.clickButton(clientPageLoc.findTalent);
+    }
+
+    async navigateToDocuments() {
+        await this.actionDriver.waitElementUntilClickable(clientPageLoc.docsandAgreements);
+        await this.actionDriver.clickButton(clientPageLoc.docsandAgreements);
+    }
+
+    async navigateToManageTeam() {
+        await this.actionDriver.waitElementUntilClickable(clientPageLoc.docsandAgreements);
+        await this.actionDriver.clickButton(clientPageLoc.docsandAgreements);
     }
 
 }

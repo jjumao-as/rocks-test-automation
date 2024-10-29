@@ -656,6 +656,7 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async checkClientExists(testData, testDetails, emailDetails, email, password) {
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);

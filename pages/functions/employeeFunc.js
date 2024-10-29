@@ -696,6 +696,8 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async updateClient(testData) {
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editEmployeeClients);
         await this.actionDriver.clickButton(employeePageLoc.editEmployeeClients);
         await this.actionDriver.waitElementUntilEnabled(employeePageLoc.enterProjectField);
         await this.actionDriver.clickButton(employeePageLoc.enterProjectField);
@@ -703,6 +705,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.clickButton(employeePageLoc.saveProject);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.enterProjectField);
     }
 
     async validateClient(testData) {

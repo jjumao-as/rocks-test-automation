@@ -36,6 +36,7 @@ test('Validate Tooltip as Client with MSA', async() => {
     await clientPage.hoverDocumentsAgreements();
     await clientPage.hoverManageTeam();
     await clientPage.hoverPerformanceReview();
+    await clientPage.hoverReports();
     await clientPage.hoverNeedHelp();
 });
 
@@ -47,6 +48,7 @@ test('Login as Client without MSA', async() => {
     await clientPage.hoverDocumentsAgreements();
     await clientPage.hoverManageTeam();
     await clientPage.hoverPerformanceReview();
+    await clientPage.hoverReports();
     await clientPage.hoverNeedHelp();
 })
 

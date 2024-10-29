@@ -22,6 +22,9 @@ switch(process.env.TEST_ENV){
   case "dev":
     url = process.env.DEV
     break;
+  case "new":
+    url = process.env.NEW
+    break;
 }
 module.exports = defineConfig({
   testDir: './tests',

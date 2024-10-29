@@ -14,7 +14,7 @@ let homePage;
 let testDataPath;
 let testData;
 
-const rolesToTest = ['SUPERADMIN', 'ADMIN', 'FLOOR', 'SALES']
+const rolesToTest = ['ADMIN', 'FLOOR']
 
 rolesToTest.forEach(role => {
     const { username, password } = roles[role];

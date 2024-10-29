@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-const { LoginPage, HomePage, FindTalentPage, ManageClientsPage, EmployeesPage, DashboardPage } = require('../../pages/functions/index');
+const { LoginPage, HomePage, FindTalentPage, SettingsPage, ManageClientsPage, EmployeesPage, DashboardPage } = require('../../pages/functions/index');
 const { readJsonFile, updateJsonData } = require('../../utils/jsonReader');
 const { firstAndLastName } = require('../../utils/randomData');
 
@@ -17,6 +17,7 @@ let msaEmpName;
 let manageClientsPage;
 let employeePage;
 let dashboardPage;
+let settingsPage;
 
 test.beforeAll(async ({ browser: b }) => {
     browser = b;
@@ -31,6 +32,7 @@ test.beforeEach(async () => {
     findTalentPage = await new FindTalentPage(page);
     manageClientsPage = new ManageClientsPage(page);
     employeePage = new EmployeesPage(page);
+    settingsPage = new SettingsPage(page);
     dashboardPage = new DashboardPage(page);
     testDataPath = 'rocksTalent';
     testData = await readJsonFile(testDataPath);
@@ -40,6 +42,13 @@ test.beforeEach(async () => {
 
 test.afterEach(async () => {
     await context.close();
+});
+
+test('Edit Workflows', async () => {
+    await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+    await dashboardPage.navigateProcessWorkFlow();
+    await settingsPage.editWorkFlow(testDataClient.emailDetails.clientEnabledAccess);
+    await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
 });
 
 test('Create MSA Client', async () => {
