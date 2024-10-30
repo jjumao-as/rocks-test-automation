@@ -1124,7 +1124,7 @@ exports.EmployeesPage = class EmployeesPage {
          * When zero-state message is present, that means there are no existing client review / spotlight added
          * This proceeds clicking the selectButtonA - that triggers Add Client Spotlight / Review modal
          */
-        if(await noClientReview === true){
+        if(noClientReview === true){
             await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectNewButton)
             await this.actionDriver.clickButton(employeePageLoc.selectNewButton)
         }
@@ -1143,10 +1143,10 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewerNameTextfield)
         
         const reviewerName = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerName')
-        await this.actionDriver.setText(employeePageLoc.reviewerNameTextfield, reviewerName)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerNameTextfield, reviewerName)
 
         const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerTitle')
-        await this.actionDriver.setText(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
 
         const randomRating = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.ratingOptionsRadiobutton)
         const rating = await this.actionDriver.getText(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
@@ -1175,8 +1175,8 @@ exports.EmployeesPage = class EmployeesPage {
 
         const reviewerComment = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerComment')
         await this.actionDriver.clickButton(employeePageLoc.reviewerCommentTextarea)
-        await this.actionDriver.typeText(reviewerComment)
-        
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerCommentTextarea, reviewerComment)
+
         const newClientSpotlight = {reviewerName, reviewerTitle, rating, reviewDate, reviewerComment}
 
         await this.actionDriver.clickButton(employeePageLoc.selectSpotlightButton)
@@ -1253,15 +1253,14 @@ exports.EmployeesPage = class EmployeesPage {
 
         const reviewerName = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerName')
         await this.actionDriver.clearInputElement(employeePageLoc.reviewerNameTextfield)
-        await this.actionDriver.typeText(reviewerName)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerNameTextfield, reviewerName)
 
 
         /** Edit Reviewer Title */
         await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle)
         const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerTitle')
         await this.actionDriver.clearInputElement(employeePageLoc.reviewerTitleTextfield)
-        await this.actionDriver.typeText(reviewerTitle)
-
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
 
         /** Edit Rating */
         const randomRating = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.ratingOptionsRadiobutton)
@@ -1299,7 +1298,7 @@ exports.EmployeesPage = class EmployeesPage {
         /** Generated to new random value and typed it in the text area */
         const reviewerComment = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerComment')
         await this.actionDriver.clearInputElement(employeePageLoc.reviewerCommentTextarea)
-        await this.actionDriver.typeText(reviewerComment)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerCommentTextarea, reviewerComment)
         await this.actionDriver.clickButton(employeePageLoc.editClientReviewModal)
 
         const updatedClientSpotlight = {reviewerName, reviewerTitle, rating, reviewDate, reviewerComment}
