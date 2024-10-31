@@ -9,6 +9,16 @@
   "welcomeEmail": "Welcome to Full Scale!",
   "salesEmailAddToTeam": "Add to Team Request: EmployeeDB",
   "clientEmailAddToTeam": "Full Scale Add to Team Request Received",
+  "dropRequestClient" : "Drop Request for Clients",
+  "dropRequestSales" : "Drop Request for Sales",
+  "cancelDropRequestSales" : "Cancel Drop Request for Sales",
+
+  "subject" : {
+    "dropRequestClient" : "Full Scale Team Change Request Received",
+    "dropRequestSales" : "Drop Request: EmployeeDB",
+    "cancelDropRequestSales" : "Cancel Drop Request: EmployeeDB"
+  },
+
   "emailFrom": "noreply@fullscale.io",
   "contacts": {
     "firstName": "Monty",

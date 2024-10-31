@@ -12,6 +12,7 @@ module.exports = {
     cancelDropRequest: "//a[text()='Cancel Drop Request']",
     cancelForRevertDropNameList : "//a[contains(text(),'Cancel Drop Request')]/ancestor::td/preceding-sibling::td/child::a",
     cancelForRevertDropActionList : "//a[contains(text(),'Cancel Drop Request')]/ancestor::td//i",
+    cancelDropRequestName : "//*[@id='modalDescription']/h3",
     confirmCancelDrop: "//button[contains(text(),'OK')]",
     confirmCancel : "//button[contains(@class,'swal2-confirm')]",
     verificationMessage: "//div[contains(text(),'You will receive an email')]",
@@ -23,7 +24,7 @@ module.exports = {
     dropRequestedTalentName : "//div[@class='reason-section']/preceding-sibling::a",  //talent with drop tag
     talentNameDropTag : "(//div[@class='reason-section']/preceding-sibling::a)[1]",   //talent with drop tag with xpath indexed to 1
     talentNameConfirmed : "//a[contains(text(),'", 
-    DropRequestReason : "//span[contains(@class,'reason-category')]",
+    DropRequestReason : "//*[@id='resource-manage-team-assigned']/tbody/tr[1]/td[2]/div[1]/div/span[1]",
     
     //Drop From My Team Request Modal
     dropFromMyTeamRequestModalHeader : "//h4[contains(text(),'Drop from my Team Request')]",

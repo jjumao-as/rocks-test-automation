@@ -103,6 +103,7 @@ module.exports = {
 
     //Client Profile Team Requests Table
     dropRequestedLink : "(//div[contains(@class,'action-dropdowns')]//button[contains(text(),'Drop Requested')])[1]",
+    cancelDropRequestLink : "(//div[contains(@class,'action-dropdowns')]//button[contains(text(),'Cancel Drop Request')])[1]",
     dropRequestTalent : "(//div[contains(@class,'photo position-relative')]/a)[1]",
     dropRequestType : "(//div[contains(@class,'align-items-center')]//span[text()='Drop'])[1]",
     loadingRecords : "//span[contains(text(),'Loading records')]",
