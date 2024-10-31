@@ -598,6 +598,10 @@ class ActionDriver {
         await expect(this.page.locator(element)).toHaveValue(text);
     }
 
+    async expectElementNotToBeEmpty(element) {
+        const textContent = await this.getText(element);
+        expect(textContent).not.toBe('');
+    }
      /**
      * This function is use to asserts if the specific text value exist inside the current open page
      * @param {*} text    : text data value to assert if it exist within the page
