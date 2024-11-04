@@ -1,5 +1,6 @@
 const quickTasksLocators = require('../locators/quickTasksLoc');
 const ActionDriver = require('../../utils/ActionDriver');
+const dashboardLocators = require('../locators/dashboardLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
 let emailSubject;
 
@@ -25,18 +26,10 @@ exports.QuickTasksPage = class QuickTasksPage {
     async enterTextWithImageFeedback(textFeedback){
         await this.actionDriver.setText(quickTasksLocators.feedback, textFeedback)
         try {
-            const fileChooserPromise = this.page.waitForEvent('filechooser')
-
+            await this.actionDriver.waitElementUntilClickable(quickTasksLocators.imagePickerBtn);
             await this.actionDriver.clickButton(quickTasksLocators.imagePickerBtn)
-            await this.actionDriver.clickButton(quickTasksLocators.clickToUploadBtn)
 
-            const fileChooser = await fileChooserPromise;
-            const path = require('path')
-    
-            const imgPath = path.resolve('./testdata/playwright.png')
-    
-            await fileChooser.setFiles(imgPath);
-    
+            await this.actionDriver.fileUpload('./testdata/images/playwright.png', quickTasksLocators.clickToUploadBtn);
             await this.actionDriver.checkElementVisibility(quickTasksLocators.previewImage)
         } catch (error) {
             console.log("FAILED UPLOADING IMAGE : " + error)
@@ -52,6 +45,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateCreateDailyReport(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.createDailyReport);
     }
 
@@ -63,6 +61,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateExpenseReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.createExpenseReport);
     }
 
@@ -80,6 +83,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateCreateWeeklyFloorReport(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.createWeeklyReport);
     }
 
@@ -92,6 +100,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateSelfPerfEval(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.submitSelfPerformanceReview);
     }
 
@@ -105,6 +118,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateManagerPerfEval(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.managerPerformanceReviewTab);
     }
 
@@ -116,6 +134,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateSubmitFeedback() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.submitFeedback);
     }
 
@@ -166,6 +189,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateToCreateExpenseReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.createExpenseReport);
     }
 
@@ -213,6 +241,11 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async navigateWeeklyFloorReport() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.clickButton(quickTasksLocators.createWeeklyReport);
         await this.actionDriver.waitElementUntilVisible(quickTasksLocators.createWeeklyFloorReportModal);
     }

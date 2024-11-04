@@ -72,17 +72,32 @@ exports.HomePage = class HomePage {
     }
 
     async navigateToSubmitFeedback(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseQuickTasks);
+        }
         await this.actionDriver.checkElementVisibility(homeLocators.submitFeedback)
         await this.actionDriver.clickButton(homeLocators.submitFeedback)
     }
 
     async navigateToFeedbackList(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
+        }
         await this.actionDriver.checkElementVisibility(homeLocators.feedbackList)
         await this.actionDriver.clickButton(homeLocators.feedbackList)
 
     }
 
     async navigateToEmployeeList(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
+        }
         await this.actionDriver.checkElementVisibility(dashboardLocators.employeeList)
         await this.actionDriver.clickButton(dashboardLocators.employeeList)
     }

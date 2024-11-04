@@ -48,5 +48,35 @@
             "msaStatus" : "Complete",
             "source" : "LinkedIn"
         }
-    }
+    },
+    "activeClientPages": [
+        "My Profile",
+        "My Contacts",
+        "Find Talent",
+        "Documents & Agreements",
+        "Manage Team",
+        "Performance Review",
+        "Daily Status Reports",
+        "Daily Time Clock Reports",
+        "Weekly Time Clock Reports",
+        "Time Clock Summary Reports"
+    ],
+    "urls": {
+        "myProfile" : "/my-profile",
+        "myContacts" : "/my-contacts",
+        "findTalent" : "/find-add-talent",
+        "documents" : "/documents",
+        "manageTeam" : "/manage-team",
+        "performanceReview" : "/performance-review",
+        "dailyStatusReport" : "/worklogs/daily-report",
+        "dailyTimeClock" : "/worklogs/daily",
+        "weeklyTimeClock" : "/worklogs/weekly",
+        "timeClockSummary" : "/worklogs/monthly",
+        "findAddTalent" : "/find-add-talent?ref=manage-team"
+    },
+    "saved" : "Click to unsave",
+    "exportType" : [
+        "csv",
+        "xlsx"
+    ]
 }

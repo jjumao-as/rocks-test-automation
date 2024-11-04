@@ -8,6 +8,7 @@ const { stat } = require('fs');
 
 
 let empName;
+let publicProfileLink;
 let clientName;
 let interviewDate;
 let interviewTime;
@@ -18,6 +19,17 @@ let grade;
 let clientFeedback;
 let jsonData;
 let newSchedule;
+
+let jobPosition;
+let startDate;
+let otherEmployer;
+let endDate;
+let reasonForLeaving;
+let projectName;
+let projectDescription;
+let durationInMonths;
+let numOfMembers;
+let techStack;
 
 exports.EmployeesPage = class EmployeesPage {
 
@@ -108,6 +120,42 @@ exports.EmployeesPage = class EmployeesPage {
         await actionDriverNewPage.checkInclude(profileName, empName)
 
     }
+
+    async copyPublicProfileLink(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.talentName)
+        empName = await this.actionDriver.getText(employeePageLoc.talentName)
+
+        await this.actionDriver.clickButton(employeePageLoc.copyProfileUrlBtn)
+        publicProfileLink = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.copiedToClipboardText)   
+        
+    }
+
+    async goToPublicProfile(){
+        await this.actionDriver.goToUrl(publicProfileLink)
+    }
+
+
+    async isInLoggedOutPublicProfile(){
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.profileName)
+        const loggedOutProfileName = await this.actionDriver.getText(employeePageLoc.profileName)
+        const newProfileName = loggedOutProfileName.split(" ")[0]
+        await this.actionDriver.checkInclude(newProfileName, empName)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.profileAvatar)
+
+        const isBookACallBtnPresent = await this.actionDriver.elementVisible(employeePageLoc.bookACallBtn)
+        await this.actionDriver.expectFalse(isBookACallBtnPresent)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInListPublicProfile)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.companyNameInListPublicProfile)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.projectDescriptionInListPublicProfile)
+
+    }
+
+
 
 
     /* Add Client Interview */
@@ -648,6 +696,8 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async updateClient(testData) {
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editEmployeeClients);
         await this.actionDriver.clickButton(employeePageLoc.editEmployeeClients);
         await this.actionDriver.waitElementUntilEnabled(employeePageLoc.enterProjectField);
         await this.actionDriver.clickButton(employeePageLoc.enterProjectField);
@@ -655,6 +705,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.clickButton(employeePageLoc.saveProject);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.enterProjectField);
     }
 
     async validateClient(testData) {
@@ -664,6 +715,11 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async navigateToEmployeeList() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLoc.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLoc.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLoc.collapseEmployees);
+        }
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.employeeListTab);
         await this.actionDriver.clickButton(employeePageLoc.employeeListTab)
     }
@@ -698,6 +754,8 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.checkInclude(text, testData);
     }
 
+    /* Add Work Experience */
+
     async addWorkExperience(testData) {
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
@@ -721,6 +779,313 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.expectEquals(testData.projectName, employeePageLoc.projectName);
         await this.actionDriver.expectEquals(testData.description, employeePageLoc.projectDesc);
     }
+
+    async addNewWorkExperience(){
+
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn)
+        await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
+        await this.actionDriver.clickButton(employeePageLoc.jobTitle)
+        jobPosition = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'jobPosition')
+        await this.actionDriver.typeText(jobPosition)
+
+        await this.actionDriver.clickButton(employeePageLoc.startDate)
+        startDate = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'startDate')
+        await this.actionDriver.typeText(startDate)
+        await this.actionDriver.keyboardPress('Enter')
+        await this.actionDriver.keyboardPress('Escape')
+
+
+    }
+
+
+    async companyIsFullscale(){
+        await this.actionDriver.isElementChecked(employeePageLoc.fullScaleCompanyRadioBtn)
+
+    }
+
+    async companyIsOther(){
+        jsonData = await readJsonFile('employee')
+        otherEmployer = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'otherEmployer')
+
+        await this.actionDriver.clickButton(employeePageLoc.otherCompany);
+        await this.actionDriver.clickButton(employeePageLoc.otherCompanyName);
+        await this.actionDriver.typeText(otherEmployer);
+
+
+    }
+
+    async isNotCurrentlyEmployed(){
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.clickButton(employeePageLoc.currentlyEmployedCheckbox)
+
+        await this.actionDriver.clickButton(employeePageLoc.endDate)
+        endDate = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'endDate')
+        await this.actionDriver.typeText(endDate)
+        await this.actionDriver.keyboardPress('Enter')
+
+
+        await this.actionDriver.clickButton(employeePageLoc.reasonForLeaving)
+        reasonForLeaving = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'reasonForLeaving')
+        await this.actionDriver.typeText(reasonForLeaving)
+
+    }
+
+
+    async isCurrentlyEmployed(){
+        await this.actionDriver.isElementChecked(employeePageLoc.currentlyEmployedCheckbox)
+
+    }
+
+ 
+    /** Add Project */
+
+    async addOtherProject(){
+
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProject);
+
+        projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
+        await this.actionDriver.clickButton(employeePageLoc.modalprojectName);
+        await this.actionDriver.typeText(projectName)
+
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
+
+    }
+
+
+    async addFullScaleProject(){
+
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProject);
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addFullScaleProjectModal)
+
+        // Add Fullscale ProjectName
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fullscaleProjectList)
+        const fsProjectCount = await this.actionDriver.elementCount(employeePageLoc.fullscaleProjectOptions)
+        const randomIndexFsProject = Math.floor(Math.random() * (fsProjectCount - 1 + 1)) + 1
+        projectName = await this.actionDriver.getText(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.clickButton(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+
+        // Add Fullscale Project Description
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+
+
+        // Add Fullscale Project Duration
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        // Add Fullscale Project - Number of Team Members
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        // Add Fullscale Project - Tech Stack
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
+
+    }
+
+    async saveWorkExperience(){
+        await this.actionDriver.clickButton(employeePageLoc.saveWorkExp)
+
+    }
+
+    
+    async isWorkExperienceAdded() {
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInList);
+
+        const jobPositionList = await this.actionDriver.getTextArray(employeePageLoc.jobPositionInList);
+        await this.actionDriver.checkIfIncludesInArray(jobPositionList, jobPosition)
+
+        const projectNameList = await this.actionDriver.getTextArray(employeePageLoc.projectNameInList);
+        await this.actionDriver.checkIfIncludesInArray(projectNameList, projectName)
+
+        const projectDescriptionList = await this.actionDriver.getTextArray(employeePageLoc.projectDescriptionInList);
+        await this.actionDriver.checkIfIncludesInArray(projectDescriptionList, projectDescription)
+        
+    }
+
+    async isWorkExperienceAddedInPublicProfile(newPage){
+
+        const actionDriverNewPage = new ActionDriver(newPage)
+
+        const jobPositionInPublicProfile = await actionDriverNewPage.getTextArray(employeePageLoc.jobPositionInListPublicProfile)
+        await actionDriverNewPage.checkIfIncludesInArray(jobPositionInPublicProfile, jobPosition)
+
+        const projectNameInPublicProfile = await actionDriverNewPage.getTextArray(employeePageLoc.projectNameInListPublicProfile)
+        await actionDriverNewPage.checkIfIncludesInArray(projectNameInPublicProfile, projectName)
+
+        const projectDescrptionInPublicProfile = await actionDriverNewPage.getTextArray(employeePageLoc.projectDescriptionInListPublicProfile)
+        await actionDriverNewPage.checkIfIncludesInArray(projectDescrptionInPublicProfile, projectDescription)
+
+    }
+
+   
+    /** Deleting Work Experience */
+
+    async deleteWorkExperience(){
+        await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.deleteWorkExpBtn)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.deleteWorkExpDialog);
+        
+        await this.actionDriver.clickButton(employeePageLoc.yesDeleteButton)
+
+        const confirmJobDeletionText = await this.actionDriver.getText(employeePageLoc.deletingInProgress)
+        await this.actionDriver.checkInclude(jobPosition, confirmJobDeletionText)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletingInProgress);
+        
+
+    }
+
+    async isWorkExperienceDeleted(){
+        
+        await this.actionDriver.checkElementVisibility(employeePageLoc.deleteNotification)
+        const jobDeleted = await this.actionDriver.getText(employeePageLoc.deleteNotification)
+        await this.actionDriver.checkInclude(jobPosition, jobDeleted)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deleteNotification)
+    }
+
+
+    /** Update Work Experience */
+
+    async updateWorkExperience(){
+        
+        jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.editWorkExpBtn)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
+
+        await this.actionDriver.clearInputElement(employeePageLoc.startDate)
+        startDate = await this.actionDriver.getRandomJsonItem(jsonData['workExperience'], 'startDate')
+
+        await this.actionDriver.typeText(startDate)
+        await this.actionDriver.keyboardPress('Enter')
+        await this.actionDriver.keyboardPress('Escape') // this is to dismiss the datePicker
+
+    
+    }
+
+    async updateFullscaleProject(){
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtn);
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editFullscaleProjectModal)
+
+
+        // Update and select another Fullscale project
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fullscaleProjectList)
+        const fsProjectCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedFullscaleProjectOptions)
+        const randomIndexFsProject = Math.floor(Math.random() * (fsProjectCount - 1 + 1)) + 1
+        projectName = await this.actionDriver.getText(`(${employeePageLoc.notSelectedFullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedFullscaleProjectOptions})[${randomIndexFsProject}]`)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+
+        // Update Fullscale project-description
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+        
+        
+        // Update Fullscale project duration
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        // Update Fullscale project number of team members
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        // Update Fullscale project tech stack
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.keyboardPress('Backspace')
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
+    }
+
+    async updateOtherProject(){
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtn);
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingDots)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editFullscaleProjectModal)
+
+        // Update Other project-name
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+        await this.actionDriver.clearInputElement(employeePageLoc.modalprojectName)
+        projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
+        await this.actionDriver.typeText(projectName)
+
+
+        // Update OTHER project-description
+        projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
+        await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
+        await this.actionDriver.typeText(projectDescription)
+        
+        
+        // Update OTHER project duration
+        durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
+        await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
+        await this.actionDriver.typeText(durationInMonths)
+
+        // Update OTHER project number of team members
+        numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
+        await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
+        await this.actionDriver.typeText(numOfMembers)
+
+        
+        // Update OTHER project number of team members
+        techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
+        await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
+        await this.actionDriver.keyboardPress('Backspace')
+        await this.actionDriver.typeText(techStack)
+        await this.actionDriver.keyboardPress('Enter')
+
+        await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
+    }
+
 
     async setProjectDescription(description) {
         const frameHandle = await this.page.waitForSelector(employeePageLoc.descriptionIframe);
@@ -747,5 +1112,235 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.saveSkills);
         await this.updateClient(employeeDetails.client);
         await this.validateClient(employeeDetails.client);
+    }
+
+    /* Add Client Spotlight */
+
+    async addClientSpotlight(clientSpotlightData){
+
+        /**
+         * Checks if zero-state message is present under Client Spotlight section
+         */
+        const noClientReview = await this.actionDriver.elementVisible(employeePageLoc.zeroStateClientReview)
+
+        /**
+         * When zero-state message is present, that means there are no existing client review / spotlight added
+         * This proceeds clicking the selectButtonA - that triggers Add Client Spotlight / Review modal
+         */
+        if(noClientReview === true){
+            await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectNewButton)
+            await this.actionDriver.clickButton(employeePageLoc.selectNewButton)
+        }
+        /**
+         * When zero-state message is NOT present, means there is already existing client review in the Client Spotlight section
+         * This proceeds clicking to the other selectButtonB - that also triggers the Add Client Spotlight / Review modal
+         */
+        else{
+            await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectExistingButton)
+            await this.actionDriver.clickButton(employeePageLoc.selectExistingButton)
+        }
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.selectSpotlightModal)
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.addClientReviewButton)
+        await this.actionDriver.clickButton(employeePageLoc.addClientReviewButton)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewerNameTextfield)
+        
+        const reviewerName = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerName')
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerNameTextfield, reviewerName)
+
+        const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerTitle')
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
+
+        const randomRating = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.ratingOptionsRadiobutton)
+        const rating = await this.actionDriver.getText(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+
+        await this.actionDriver.clickButton(employeePageLoc.dateField)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.yearDropdown)
+        const randomMonth = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.activeAndDefaultMonths)
+        const reviewMonth = await this.actionDriver.getText(`${employeePageLoc.activeAndDefaultMonths}[${randomMonth}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.activeAndDefaultMonths}[${randomMonth}]`)
+
+        /**
+         * We simulate the actual user keyboard interaction here
+         * To get the month-year value, we click once on the dateField
+         * Clicked Control + A keys to select all
+         * Control + C to copy the dateValue to clipboard
+         */
+        await this.actionDriver.clickButton(employeePageLoc.dateField)
+        await this.actionDriver.keyboardPress('Control+A')
+        await this.actionDriver.keyboardPress('Control+C')
+        /**
+        * copied to clipboard dateValue is now stored in the reviewDate variable
+        */
+        const reviewDate = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.clickButton(employeePageLoc.addClientReviewModal)
+
+        const reviewerComment = await this.actionDriver.getRandomJsonItem(clientSpotlightData, 'reviewerComment')
+        await this.actionDriver.clickButton(employeePageLoc.reviewerCommentTextarea)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerCommentTextarea, reviewerComment)
+
+        const newClientSpotlight = {reviewerName, reviewerTitle, rating, reviewDate, reviewerComment}
+
+        await this.actionDriver.clickButton(employeePageLoc.selectSpotlightButton)
+
+        return newClientSpotlight
+
+     
+    }
+
+    async isClientSpotlightSaved(savedClientSpotlight){
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewTitleTextDisplay)
+    
+        /** View Saved Title */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewTitleTextDisplay)
+        const savedTitle = await this.actionDriver.getText(employeePageLoc.reviewTitleTextDisplay)
+
+        await this.actionDriver.checkInclude(savedClientSpotlight.reviewerTitle, savedTitle)
+
+
+        /** View Saved Rating */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewRatingTextDisplay)
+
+        /**
+         * addedRating - the rating returned from addClientSpotlight()
+         * savedRating - the text display for rating in Client Spotlight (text extracted via getText())
+         */
+        let addedRating = savedClientSpotlight.rating
+        const savedRating = await this.actionDriver.getText(employeePageLoc.reviewRatingTextDisplay)
+
+    
+        /**
+         * when adding client review rating from Add Client Review modal, options are "1 - Needs Improvement" , "2 - Meets Expectations" or "3 - Exceeds Expections"
+         * code below trims the trailing digits and '-' so it now reads as - "Meets Expectations" and "Exceeds Expectations"
+         * However, Client Spotlight displays for options 2 & 3 are "Meets expectations" and "Exceeds expectations" respectively
+         * 'expectations' is in lowerCase
+        */
+        addedRating = addedRating.replace(/^\d+\s-\s/, '');
+
+        /**
+         * Both strings are converted to lowerCases so they would match
+         */
+        const newAddedRating = addedRating.toLowerCase()
+        const newSavedRating = savedRating.toLowerCase()
+
+        if (newAddedRating === newSavedRating) {
+            await this.actionDriver.checkInclude(newAddedRating, newSavedRating)
+
+        } else {
+            /**
+             * when option '1 - Needs Improvement' is selected in Add Client Review modal, it will read as 'Below expectations' in the Client Spotlight section
+             * To avoid adding more logic, log info is added below that says "1 - Needs Improvement" and "Below expectations" are of the same option
+             */
+            console.log(`${addedRating} rating is selected in add/edit review modal, so the value displayed in Client Spotlight is ${savedRating}`)
+        }
+        
+        /** View Saved Comment */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewCommentTextDisplay)
+        const savedComment = await this.actionDriver.getText(employeePageLoc.reviewCommentTextDisplay)
+        await this.actionDriver.checkInclude(savedComment, savedClientSpotlight.reviewerComment)
+
+        return true
+    }
+
+    async editClientSpotlight(oldClientSpotlight, clientSpotlightJsonData){
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editButton)
+        await this.actionDriver.clickButton(employeePageLoc.editButton)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.editClientReviewModal)
+        
+        /** Edit Reviewer name */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewerNameTextfield)
+        await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerNameTextfield, oldClientSpotlight.reviewerName)
+
+        const reviewerName = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerName')
+        await this.actionDriver.clearInputElement(employeePageLoc.reviewerNameTextfield)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerNameTextfield, reviewerName)
+
+
+        /** Edit Reviewer Title */
+        await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle)
+        const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerTitle')
+        await this.actionDriver.clearInputElement(employeePageLoc.reviewerTitleTextfield)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
+
+        /** Edit Rating */
+        const randomRating = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.ratingOptionsRadiobutton)
+        const rating = await this.actionDriver.getText(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.ratingOptionsRadiobutton}[${randomRating}]`)
+
+        /** Edit Date */
+        await this.actionDriver.clickButton(employeePageLoc.editDateField)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.yearDropdown)
+        const randomMonth = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.activeNotSelectedMonths)
+        const updatedReviewMonth = await this.actionDriver.getText(`${employeePageLoc.activeNotSelectedMonths}[${randomMonth}]`)
+        await this.actionDriver.clickButton(`${employeePageLoc.activeNotSelectedMonths}[${randomMonth}]`)
+
+        await this.actionDriver.clickButton(employeePageLoc.editDateField)
+        await this.actionDriver.keyboardPress('Control+A')
+        await this.actionDriver.keyboardPress('Control+C')
+        const reviewDate = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.clickButton(employeePageLoc.editClientReviewModal)
+
+
+         /** Edit Comment */
+
+        /**
+         *  Don't see other way to getText of textarea so keyboard controlA (selectAll) and controlC (copy) is simulated 
+         *  to get the existing value of the textArea
+        */
+        await this.actionDriver.clickButton(employeePageLoc.reviewerCommentTextarea)
+        await this.actionDriver.keyboardPress('Control+A')
+        await this.actionDriver.keyboardPress('Control+C')
+
+        /** then, the copied value is assigned to <existingReviewComment> variable */
+        const existingReviewComment = await this.page.evaluate(() => navigator.clipboard.readText());
+        await this.actionDriver.checkInclude(existingReviewComment, oldClientSpotlight.reviewerComment)
+
+        /** Generated to new random value and typed it in the text area */
+        const reviewerComment = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerComment')
+        await this.actionDriver.clearInputElement(employeePageLoc.reviewerCommentTextarea)
+        await this.actionDriver.ElemetType(employeePageLoc.reviewerCommentTextarea, reviewerComment)
+        await this.actionDriver.clickButton(employeePageLoc.editClientReviewModal)
+
+        const updatedClientSpotlight = {reviewerName, reviewerTitle, rating, reviewDate, reviewerComment}
+
+        await this.actionDriver.hoverElement(employeePageLoc.updateReviewButton)
+        await this.actionDriver.clickButton(employeePageLoc.updateReviewButton)
+
+        return updatedClientSpotlight;
+        
+    }
+    
+    async deleteClientSpotlight(){
+
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.clearButton)
+        await this.actionDriver.clickButton(employeePageLoc.clearButton)
+
+        await this.actionDriver.checkElementVisibility(employeePageLoc.deleteSpotlightDialog)
+        await this.actionDriver.takeScreenshot()
+        
+        await this.actionDriver.clickButton(employeePageLoc.yesDeleteButton)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.deletingProgressSpotlightDialog)
+        await this.actionDriver.takeScreenshot()
+
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletingProgressSpotlightDialog)
+
+    }
+
+    async isClientSpotlightDeleted(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.deletedSpotlightNotification)
+        await this.actionDriver.takeScreenshot()
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletedSpotlightNotification)
+        
+        await this.actionDriver.elementVisible(employeePageLoc.zeroStateClientReview)
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.selectNewButton)
+        await this.actionDriver.takeScreenshot()
+
+        return true
+
     }
 }

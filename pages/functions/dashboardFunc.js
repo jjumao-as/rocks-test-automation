@@ -42,6 +42,11 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async navigateFindTalent() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
+        }
         await this.actionDriver.clickButton(dashboardLocators.findTalents);
     }
 
@@ -81,11 +86,21 @@ exports.DashboardPage = class DashboardPage {
     }
 
     async navigateToUsers(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.settingsSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
         await this.actionDriver.clickButton(dashboardLocators.users);
         await this.actionDriver.waitElementUntilVisible(settingsLocators.searchUser);
     }
 
     async navigateProcessWorkFlow(){
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.settingsSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
         await this.actionDriver.clickButton(dashboardLocators.processWorkflow);
     }
 

@@ -598,6 +598,10 @@ class ActionDriver {
         await expect(this.page.locator(element)).toHaveValue(text);
     }
 
+    async expectElementNotToBeEmpty(element) {
+        const textContent = await this.getText(element);
+        expect(textContent).not.toBe('');
+    }
      /**
      * This function is use to asserts if the specific text value exist inside the current open page
      * @param {*} text    : text data value to assert if it exist within the page
@@ -688,6 +692,35 @@ class ActionDriver {
         await newPage.waitForLoadState('domcontentloaded');
     
         return newPage;
+    }
+
+  
+    /**
+     * Function that determines if a radioButton or a checkBox is selected
+     * @param {*} element : an element radioButton or a checkBox
+     */
+
+    async isElementChecked(element){
+        await expect(this.page.locator(element)).toBeChecked()
+    }
+
+    /**
+     * Method to clear input textfield and textarea simulating keyboard actions
+     * @param {*} element : either a textfield or textarea locator
+     */
+    async clearInputElement(element){
+        await this.page.click(element)
+        await this.page.keyboard.press('Control+A');
+        await this.page.keyboard.press('Backspace');
+  
+    }
+
+    /**
+     * Function to let navigate manually to any give url
+     * @param {*} url : the full url to be visited
+     */
+    async goToUrl(url){
+        await this.page.goto(url)
     }
 
 }

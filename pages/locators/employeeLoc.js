@@ -16,7 +16,6 @@ module.exports = {
     // Employee Profile Locators > Add Interview
 
     talentName : "//span[contains(@class, 'talent-name')]",
-    profileName : "//h2[contains(@class, 'profile-name')]",
     publicProfileLink : "//a[contains(text(), 'Public Profile')]",
     
 
@@ -165,18 +164,120 @@ module.exports = {
     saveAboutMeBtn : "//h4[text()='About Me']/following-sibling::div//span[text()='Save']",
     aboutMeDetails : "//div[contains(@class,'about-me')]//blockquote",
 
+    // Add Work Experience 
     addWorkExpBtn : "//span[text()='Work Experience']/following-sibling::a//span[text()='Add']",
+    addWorkExperienceHeading : "//h4[text()='Add Work Experience']",
     jobTitle : "//input[@id='text-job_title']",
+    fullScaleCompanyRadioBtn : "//input[@id='radio-company_name_BV_option_0']",
     otherCompany : "//span[text()='Other (Specify company)']",
     otherCompanyName : "//input[@id='text-other_company_name']",
+    currentlyEmployedCheckbox : "//*[@id='checkbox-current']/div/label/span",
+    endDate : "//label[contains(text(),'End Date')]/following-sibling::input[2]",
+    reasonForLeaving : "//textarea[@id='textarea-reason_for_leaving']",
+
+    // Add Other Project
     addProject : "//span[text()='Add Project']",
     modalprojectName : "//span[text()='Project Display Name']/parent::label/following-sibling::div/input",
     descriptionIframe : "//iframe[@class='tox-edit-area__iframe']",
     descriptionBody: "//body[@id='tinymce']",
+
+    durationInMonthsSpinner : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[1]/div/fieldset/div/input",
+    numTeamMembersSpinner : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[2]/div/fieldset/div/input",
+    techStackDropdown : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[3]/div/div/div/div/div[2]",
+
     addProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Add Project']",
+    editProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Edit Project']",
+    
+    // Add Fullscale Project
+    addFullScaleProjectModal : "//h4[text()='Add Full Scale Project']",
+    fullscaleProjectList : "//div[contains(@class, 'select-project-list')]",
+    fullscaleProjectOptions : "//div[contains(@class, 'list-group-item')]",
     saveWorkExp : "//span[text()='Save Work Experience']",
     addedJobTitle : "//div[contains(@class,'job-position')][1]//div[@class='left-section']/span[1]",
     projectName : "(//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//span[1]",
     projectDesc: "((//div[contains(@class,'project')])[1]/div[contains(@class,'main-content')]//p)[2]",
+    projectDescriptionTextArea : "//*[@id='projectComment']/div/div[1]/div[2]/div[1]",
+
+    // Edit Work Experience
+    editFullscaleProjectModal : "//*[@id='modalTitle']",
+    notSelectedFullscaleProjectOptions : "//div[contains(@class, 'list-group-item') and not(@class='list-group-item active')]",
+    editProjectBtn : "//span[contains(text(), 'Edit')]",
+
+   
+    // employee internal profile
+    jobPositionInList : "//span[@class='w-100 d-inline-block font-weight-bold']",
+    projectNameInList : "//span[@class='w-100 d-inline-block font-16 font-weight-bold']",
+    projectDescriptionInList : "//*[@id='profile']/div/div/div[5]/div/div[2]/div/div[2]/div/div/div/div[2]/p",
+    companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
+    copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
+    copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
+
+    // employee public profile
+    profileName : "//h2[contains(@class, 'profile-name')]",
+    jobPositionInListPublicProfile : "//h4[@class='mb-6 fw-semibold font-16 text-gray-100']",
+    projectNameInListPublicProfile : "//h3[@class='mb-1 fw-semibold font-16 text-gray-100']",
+    companyNameInListPublicProfile : "//div[@class='experience-item']//h4/following-sibling::div/div",
+    projectDescriptionInListPublicProfile : "//p[@class='font-16 whitespace-pre-line text-gray-100']",
+    profileAvatar : "//img[@class='mb-6 w-100 avatar']",
+    bookACallBtn : "//div[@class='w-100 text-center btn-book-a-call']",
+
+    // Work Experience Actions
+    editWorkExpBtn : "//*[@id='profile']/div/div/div[5]/div/div[2]/div/div[1]/div[2]/a[2]/span",
+    deleteWorkExpBtn : "//span[contains(text(),'Delete')]",
+    deleteWorkExpDialog : "//div[contains(text(), 'Are you sure you want to delete this project?')]",
+    yesDeleteButton : "//button[contains(text(), 'Yes')]",
+    deletingInProgress : "//*[@id='swal2-content']",
+    deleteNotification : "//*[@id='swal2-title']",
+
+    /** Add Employee Spotlight */
+    zeroStateClientReview : "//div[contains(text(), 'No client review selected')]",
+    selectNewButton :   "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a/span",           
+    selectExistingButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[3]/span",
+    selectSpotlightModal : "//h4[contains(text(), 'Select Client Spotlight')]",
+    addClientReviewButton : "//span[contains(text(), 'Add Client Review')]",
+    addClientReviewModal : "//h4[contains(text(), 'Add Client Review')]",
+    reviewerNameTextfield : "//input[@id='text-reviewer_name']",
+    reviewerTitleTextfield : "//input[@id='text-reviewer_title']",
+    ratingOptionsRadiobutton : "//div[@class='custom-control custom-control-inline custom-radio']",
+    dateField : "//*[@id='modalDescription']/div[2]/div/div[1]/div[4]/div/input[2]",
+    yearDropdown : "//input[@class='numInput cur-year']",
+    arrowDown : "//span[@class='arrowDown']",
+    activeAndDefaultMonths : "//span[contains(@class, 'flatpickr-monthSelect-month') and not(@class='flatpickr-monthSelect-month disabled')]",
+    activeNotSelectedMonths : "//span[contains(@class, 'flatpickr-monthSelect-month') and not(@class='flatpickr-monthSelect-month disabled') and not(@class='flatpickr-monthSelect-month selected')]",
+    reviewerCommentTextarea : "//*[@id='reviewerComment']/div/div[1]/div[2]/div[1]",
+    selectSpotlightButton : "//*[@id='modal']//span[text()='Select Spotlight']",
+    
+
+    // View Spotlight
+    reviewerNameTextDisplay : "//p[@class='w-100 d-inline-block mb-0 font-weight-bold']/text()[normalize-space()]",
+    reviewTitleTextDisplay : "//span[@class='font-weight-normal' and normalize-space()]",
+    reviewRatingTextDisplay : "//*[@id='profile']/div/div/div[2]/div/div[2]/div/div/div/div/div/div/div[2]/div[1]/div/span",
+    reviewCommentTextDisplay : "//*[@id='profile']/div/div/div[2]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/p",
+    reviewDateTextDisplay : "//span[@class='review-date']",
+
+    // Edit Spotlight
+    editButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[2]/span",
+    editClientReviewModal : "//h4[contains(text(), 'Edit Client Review')]",
+    editDateField : "//*[@id='modalDescription']/div/div/div[1]/div[4]/div/input[2]",
+    updateReviewButton : "//*[@id='modal']//span[text()='Update Review']",
+    
+
+    // Delete Spotlight
+    clearButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[1]/span",
+    deleteSpotlightDialog : "//div[contains(text(), 'Are you sure you want to delete this review?')]",
+    yesDeleteButton : "//button[contains(text(), 'Yes')]",
+    deletingProgressSpotlightDialog : "//*[@id='swal2-content']",
+    deletedSpotlightNotification : "//*[@id='swal2-title']",
+
+
+
+
+
+
+
+
+
+
+
 
 }

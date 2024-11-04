@@ -1,16 +1,20 @@
 const manageClientsocators = require('../locators/manageClientsLoc');
+const dashboardLocators = require('../locators/dashboardLoc');
 const ActionDriver = require('../../utils/ActionDriver');
-const { EmployeesPage }= require('../functions/employeeFunc');
+const { EmployeesPage } = require('../functions/employeeFunc');
+const { ClientsPage } = require('../functions/clientFunc');
 const { expect } = require('@playwright/test');
-const { readJsonFile } = require('../../utils/jsonReader')
+const { updateJsonData } = require('../../utils/jsonReader');
 
 let updatedJson;
+let newEmail;
 
 exports.ManageClientsPage = class ManageClientsPage {
     constructor(page) {
         this.page = page;
         this.actionDriver = new ActionDriver(page);
         this.employeePage = new EmployeesPage(page);
+        this.clientPage = new ClientsPage(page);
     }
 
     async navigateRecentlySignedUpClients() {
@@ -22,6 +26,11 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async navigateClientListing() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
+        }
         await this.actionDriver.clickButton(manageClientsocators.clientListing);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);
@@ -537,10 +546,14 @@ exports.ManageClientsPage = class ManageClientsPage {
             await this.AddClientName(testData.name);
             await this.NavigateContactTab();
             await this.AddContact();
-            await this.name(testData.contact);
-            await this.email(email);
-            await this.ClickCreateClientButton();
+            await this.addClientDefaultContact(testData, email);
         }
+    }
+
+    async addClientDefaultContact(testData, email) {
+        await this.name(testData.contact);
+        await this.email(email);
+        await this.ClickCreateClientButton();
     }
 
     async addMSA(testData) {
@@ -638,34 +651,53 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.actionDriver.clickButton(manageClientsocators.teamMembersTab);
     }
 
-    async checkClientExists(testData, testDetails, email) {
+    async checkClientExists(testData, testDetails, emailDetails, email, password) {
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-        const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
-        if (contain.length > 0) {
-            await this.ClickCreatedClient();
-            await this.actionDriver.waitElementUntilVisible(manageClientsocators.teamMembersTab);
-            await this.navigateToTeamMembers();
-            await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-            const talents = await this.actionDriver.getTextArray(manageClientsocators.employeeAddedName);
-            if (talents.length === 0) {
-                await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
-                await this.navigateClientListing();
-                await this.searchExistingClient(testData.name);
-                await this.ClickCreatedClient();
-                await this.addTalent(testData.employee);
+        const visible = this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
+        if (visible) {
+            const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
+            if (contain.length > 0) {
+                const include = await this.actionDriver.checkIfIncludesInArray(contain, testData.name);
+                if (include) {
+                    await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+                    await this.actionDriver.waitElementUntilVisible(manageClientsocators.teamMembersTab);
+                    await this.navigateToTeamMembers();
+                    await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+                    const talents = await this.actionDriver.getTextArray(manageClientsocators.employeeAddedName);
+                    if (talents.length === 0) {
+                        await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
+                        await this.navigateClientListing();
+                        await this.searchExistingClient(testData.name);
+                        await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+                        await this.addTalent(testData.employee);
+                    }
+                }
+            } else {
+               await this.createNewClient(testData, testDetails, emailDetails, email, password);
             }
         } else {
-            await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
-            await this.navigateClientListing();
-            await this.addClients(testData, email);
-            await this.searchExistingClient(testData.name);
-            await this.ClickCreatedClient();
-            if(testData.type === 'msa') {
-                await this.addMSA(testData);
-            }
-            await this.addTalent(testData.employee); 
+            await this.createNewClient(testData, testDetails, emailDetails, email, password);
         }
+    }
+
+    async createNewClient(testData, testDetails, emailDetails, email, password) {
+        await this.navigateClientListing();
+        await this.addClients(testData, email);
+        await this.searchExistingClient(testData.name);
+        if (testData.type === 'msa') {
+            await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+            await this.addMSA(testData);
+        }
+        await this.employeePage.addMultipleEmployees(testData.employee, testDetails);
+        await this.navigateClientListing();
+        await this.searchExistingClient(testData.name);
+        await this.actionDriver.selectDataFromText(testData.name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+        await this.addTalent(testData.employee);
+        await this.clientPage.validateZohoEmail(emailDetails.welcomeEmail, emailDetails.emailFrom);
+        await this.clientPage.submitPassword(password);
+        await this.clientPage.validateLogin();
     }
 }

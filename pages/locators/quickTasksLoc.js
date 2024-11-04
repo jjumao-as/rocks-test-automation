@@ -6,7 +6,7 @@ module.exports = {
     feedback : '.bv-no-focus-ring > div > div.editr--content',
     sendBtn : '//*[@id="fs-page-holder-container"]/div/div[2]/div/div/div/div/div[3]/button',                         
 
-    imagePickerBtn : '.vw-btn-image > svg > path',
+    imagePickerBtn : "//a[@class='vw-btn-image']",
     clickToUploadBtn : "//span[text()='Click here to upload...']" ,
     previewImage : '.editr--content > img', 
 

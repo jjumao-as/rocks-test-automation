@@ -22,6 +22,9 @@ switch(process.env.TEST_ENV){
   case "dev":
     url = process.env.DEV
     break;
+  case "new":
+    url = process.env.NEW
+    break;
 }
 module.exports = defineConfig({
   testDir: './tests',
@@ -65,7 +68,7 @@ module.exports = defineConfig({
       testIgnore : [
         '**/4FindTalents/**',
         '8Feedback/8.1submitFeedback.spec.ts',
-        '10EmployeeProfile/10.2addInterview.spec.ts',
+        '10EmployeeProfile/10.2addInterview.spec.ts'
       ]
     },
     {
@@ -77,7 +80,8 @@ module.exports = defineConfig({
       testMatch : [
         '**/4FindTalents/**',
         '8Feedback/8.1submitFeedback.spec.ts',
-        '10EmployeeProfile/10.2addInterview.spec.ts',
+        '10EmployeeProfile/10.2addInterview.spec.ts'
+
       ]
     },
 
