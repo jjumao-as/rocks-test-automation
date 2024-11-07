@@ -686,7 +686,7 @@ exports.EmployeesPage = class EmployeesPage {
         const projectCount = await projects.count();
         if(projectCount > 0) {
             const removeEl = await this.page.locator(employeePageLoc.removeProject);
-            for(let i=0; i<projectCount; i++) {
+            for(let i=projectCount-1; i>=0; i--) {
                 await removeEl.nth(i).click();
             }
         }
