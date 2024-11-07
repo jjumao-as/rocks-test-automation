@@ -4,7 +4,6 @@ const ActionDriver = require('../../utils/ActionDriver');
 const { EmployeesPage } = require('../functions/employeeFunc');
 const { ClientsPage } = require('../functions/clientFunc');
 const { expect } = require('@playwright/test');
-const { updateJsonData } = require('../../utils/jsonReader');
 
 let updatedJson;
 let newEmail;
@@ -32,8 +31,9 @@ exports.ManageClientsPage = class ManageClientsPage {
             await this.actionDriver.clickButton(dashboardLocators.collapseEmployees);
         }
         await this.actionDriver.clickButton(manageClientsocators.clientListing);
-        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingOverlay);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.checkElementVisibility(manageClientsocators.exportCurrentRecordsBtn);
     }
 
@@ -451,7 +451,7 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingOverlay);
         await this.actionDriver.waitElementUntilVisible(manageClientsocators.clientTableBody);
-        await this.actionDriver.setText(manageClientsocators.search, client.clientName);
+        await this.actionDriver.ElemetType(manageClientsocators.search, client.clientName);
         await this.actionDriver.keyboardPress('Enter');
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.clientTableBody);
@@ -461,8 +461,9 @@ exports.ManageClientsPage = class ManageClientsPage {
     async searchExistingClient(client) {
         await this.actionDriver.setText(manageClientsocators.search, client);
         await this.actionDriver.keyboardPress('Enter');
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-        await this.actionDriver.waitElementUntilVisible(manageClientsocators.clientTableBody);
+        // await this.actionDriver.waitElementUntilVisible(manageClientsocators.clientTableBody);
         const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
         const number = await contain.length > 0 ? true : false;
         await this.actionDriver.expectTrue(number);
@@ -649,12 +650,14 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async navigateToTeamMembers() {
         await this.actionDriver.clickButton(manageClientsocators.teamMembersTab);
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
     }
 
     async checkClientExists(testData, testDetails, emailDetails, email, password) {
         await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         const visible = this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
         if (visible) {
@@ -699,5 +702,93 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.clientPage.validateZohoEmail(emailDetails.welcomeEmail, emailDetails.emailFrom);
         await this.clientPage.submitPassword(password);
         await this.clientPage.validateLogin();
+    }
+
+    async validateAddNewClientFields() {
+        await this.actionDriver.checkElementVisibility(manageClientsocators.companyNameField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.isHighGrowthField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.countryField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.stateRegionField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.addressField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.timezoneField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.companyField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.startDateField);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.endDataField);
+    }
+
+    async setStatus(status) {
+        await this.actionDriver.clickButton(manageClientsocators.companyField);
+        await this.actionDriver.selectFromList(status, manageClientsocators.clientDropdownOptions);
+    }
+
+    async setCountry(country) {
+        await this.actionDriver.clickButton(manageClientsocators.countryField);
+        await this.actionDriver.ElemetType(manageClientsocators.countryInput, country);
+        await this.actionDriver.selectFromList(country, manageClientsocators.countryOptions);
+    }
+
+    async setRegion(region) {
+        await this.actionDriver.clickButton(manageClientsocators.stateRegionField);
+        await this.actionDriver.ElemetType(manageClientsocators.stateInput, region);
+        await this.actionDriver.selectFromList(region, manageClientsocators.stateOptions);
+    }
+
+    async disableLogin(email) {
+        const emailAdd = email.split('@');
+        if (emailAdd[1].includes('fullscale')) {
+            await this.actionDriver.waitElementUntilEnabled(manageClientsocators.enableLoginToggle);
+            await this.changeStyle();
+            await this.actionDriver.clickButton(manageClientsocators.enableLoginToggle);
+        }
+    }
+
+    async changeStyle() {
+        await this.page.evaluate(() => {
+            const style = document.createElement('style');
+            style.textContent = `
+                    label.custom-control-label {
+                        width: 20px;
+                        height: 20px;
+                        display: inline-block;
+                    }
+                `;
+            document.head.appendChild(style);
+        });
+    }
+
+    async viewClient(name) {
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+        await this.actionDriver.selectDataFromText(name, manageClientsocators.sortedClientName, manageClientsocators.sortedClientName);
+    }
+
+    async navigateToContacts() {
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.clientContacts);
+        await this.actionDriver.clickButton(manageClientsocators.clientContacts);
+    }
+
+    async enableLogin(email) {
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.enableLogin);
+        await this.actionDriver.selectDataFromTextwithNode(email, manageClientsocators.emailColumn, manageClientsocators.enableLogin);
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loginEnabled);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loginEnabled);
+    }
+
+    async generateUnsignedMSA() {
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.generateAgreement);
+        await this.actionDriver.clickButton(manageClientsocators.generateAgreement);
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.generateBtn);
+        await this.actionDriver.clickButton(manageClientsocators.generateBtn);
+    }
+
+    async validateUnsignedMSA() {
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.unsigned);
+    }
+
+    async validateProspectClient(testData) {
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
+        await this.actionDriver.expectEquals(testData.status, manageClientsocators.clientStatusList);
+        await this.actionDriver.expectEquals(testData.msaStatus, manageClientsocators.clientMSAStatusList);
+        await this.actionDriver.checkElementVisibility(manageClientsocators.viewMSALinkList);
     }
 }

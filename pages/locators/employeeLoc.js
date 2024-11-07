@@ -1,7 +1,7 @@
 module.exports = {
 
     // Feedback Listing locators
-    feedbackResponsesHeader : '//*[@id="fs-page-holder-container"]/div/div[1]/div[1]/div/div[1]/h4',
+    feedbackResponsesHeader : "//h4[text()='Feedback Responses']",
     topRow : '//*[@id="feedback-list"]/div/div/div/div[2]/div/table/tbody/tr[1]',
     feedbackDetailsBtn : '//*[@id="feedback-list"]/div/div/div/div[2]/div/table/tbody/tr[1]/td[5]/a',
     feedbackResponseModalHeading : '//*[@id="modalTitle"]/h4',

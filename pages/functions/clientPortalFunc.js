@@ -20,11 +20,13 @@ exports.ClientPortalPage = class ClientPortalPage {
 
     //To assert that the first Acttive talent's context menu are already loaded 
     async checkMyTeamTableVisibility() {
+        await this.actionDriver.waitElementUntilVisible(clientPortalLocators.talentNameSelectedRow);
         await this.actionDriver.checkElementVisibility(clientPortalLocators.contextMenuActiveTalent);
     }
 
     //Get the first Active talent name 
     async dropTalentName() {
+        await this.actionDriver.waitElementUntilVisible(clientPortalLocators.talentNameSelectedRow);
         const name = await this.actionDriver.getText(clientPortalLocators.talentNameSelectedRow);  
         return name;        
     }
