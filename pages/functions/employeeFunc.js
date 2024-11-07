@@ -1197,7 +1197,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewTitleTextDisplay)
         const savedTitle = await this.actionDriver.getText(employeePageLoc.reviewTitleTextDisplay)
         const formattedSavedTitle = savedTitle.replace(/^, /, '');
-        await this.actionDriver.checkInclude(savedClientSpotlight.reviewerTitle.trim(), formattedSavedTitle)
+        await this.actionDriver.checkInclude(savedClientSpotlight.reviewerTitle.trim(), formattedSavedTitle.trim())
 
 
         /** View Saved Rating */
@@ -1233,7 +1233,6 @@ exports.EmployeesPage = class EmployeesPage {
              * when option '1 - Needs Improvement' is selected in Add Client Review modal, it will read as 'Below expectations' in the Client Spotlight section
              * To avoid adding more logic, log info is added below that says "1 - Needs Improvement" and "Below expectations" are of the same option
              */
-            console.log(`${addedRating} rating is selected in add/edit review modal, so the value displayed in Client Spotlight is ${savedRating}`)
         }
         
         /** View Saved Comment */
