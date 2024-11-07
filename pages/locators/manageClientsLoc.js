@@ -12,16 +12,12 @@ module.exports = {
     clients : "//h4[text()='Clients']",
     paginationBar : "//ul[@class='pagination']",
     addNewClientButton : "//button[text()='Add New Client']",
-    companyNameField : "//label[text()='Company Name']/following-sibling::input",
-    companyField : "//label[text()='Company Status']/following-sibling::span[contains(@class,'select2')]",
-    companyStatusOptions : "//span[contains(@class,'select2-result')]//li",
-    isHighGrowthField : "//label[text()='Is High Growth Client?']/following-sibling::span[contains(@class,'select2')]",
-    isHighGrowthOptions : "//span[contains(@class,'select2-result')]//li",
-    startDateField : "//input[@name='start_date']/following-sibling::input",
-    dateTodayPicker : "//span[contains(@class,'today')]",
+    
+    
+   
     endDataField : "//input[@name='contract_end_date']/following-sibling::input",
     endDateYearArrowUp : "(//input[contains(@class,'cur-year')]/following-sibling::span[@class='arrowUp'])[4]",
-    countryField: "//label[text()='Country']/following-sibling::div[contains(@class,'country-select')]",
+    
     exportCurrentRecordsBtn: "//button[normalize-space()='Export current records']",
     SelectCurrentDateforStartdate : '(//span[contains(@class,"flatpickr-day today")])[3]',  
     SelectNextMonthDateforEnddate : '(//span[contains(@class,"flatpickr-day nextMonthDay") and text()="3"])[4]', 
@@ -72,6 +68,38 @@ module.exports = {
     companySearchResult : "//a[contains(@class,'client-profile')]",
 
     showingResult: "//div[contains(text(),'Showing')]",
+
+
+    //New Client
+    companyNameField : "//label[text()='Company Name']/following-sibling::input",
+    companyField : "//label[text()='Company Status']/following-sibling::span[contains(@class,'select2')]",
+    clientDropdownOptions : "//span[contains(@class,'select2-result')]//li",
+    isHighGrowthField : "//label[text()='Is High Growth Client?']/following-sibling::span[contains(@class,'select2')]",
+    isHighGrowthOptions : "//span[contains(@class,'select2-result')]//li",
+    startDateField : "//input[@name='start_date']/following-sibling::input",
+    dateTodayPicker : "//span[contains(@class,'today')]",
+    countryField: "//label[text()='Country']/following-sibling::div[contains(@class,'country-select')]",
+    countryInput : "//input[@id='country-select']",
+    countryOptions : "//div[contains(@class,'country-select')]//ul/li/span/span",
+    stateRegionField : "//label[text()='State / Region']/following-sibling::div[contains(@class,'state-select')]",
+    stateInput : "//input[@id='state-select']",
+    stateOptions : "//div[contains(@class,'state-select')]//ul/li/span/span",
+    cityField: "//label[text()='City']/following-sibling::div[contains(@class,'city-select')]",
+    cityOptions : "//div[contains(@class,'city-select')]//ul/li/span/span",
+    addressField : "//label[text()='Address']/following-sibling::input",
+    zipCodeField : "//label[text()='ZIP Code']/following-sibling::input",
+    timezoneField : "//label[text()='Time Zone']/following-sibling::span/span[@class='selection']",
+    enableLoginToggle : "//input[@name='form-checkbox-can_login']/following-sibling::label",
+    clientContacts : "//a[contains(text(),'Contacts')]",
+    emailColumn : "//td[@class='email-column']",
+    enableLogin : "//p[contains(text(),'Enable Login')]/following-sibling::div//span[@class='ks-off']",
+    loginEnabled : "//h2[contains(text(),'Contact login is enable')]",
+    generateAgreement : "//a[contains(@class,'generate-doc')]",
+    generateBtn : "//button[contains(@class,'generate-button')]",
+    unsigned : "//span[text()='unsigned']",
+    clientStatusList : "//p[text()='Status']/following-sibling::span",
+    clientMSAStatusList : "//p[text()='MSA Status']/following-sibling::div//div[contains(@class,'status')]",
+    viewMSALinkList : "//p[text()='MSA Status']/following-sibling::div//div[contains(@class,'btn-view-document')]/u",
 
     //Client Filters
     thead: "//thead",

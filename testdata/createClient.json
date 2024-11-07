@@ -8,8 +8,8 @@
     "type": "msa",
     "email": "wdilidili+msa001@fullscale.ph",
     "employee": {
-      "firstName": "Robb",
-      "lastName": "Connelly"
+      "firstName": "Craig",
+      "lastName": "Weber-Reichert"
     }
   },
   "nomsa": {
@@ -20,8 +20,8 @@
     "type": "nomsa",
     "email": "wdilidili+nomsa001@fullscale.ph",
     "employee": {
-      "firstName": "Ellen",
-      "lastName": "Daugherty-Gusikowski"
+      "firstName": "Chelsey",
+      "lastName": "Macejkovic"
     }
   },
   "employeeDetails": {
@@ -34,5 +34,14 @@
     "clientEnabledAccess": "Client Enable Access - Client",
     "welcomeEmail": "Welcome to Full Scale!",
     "emailFrom": "noreply@fullscale.io"
+  },
+  "prospect": {
+    "name": "testcompany1234",
+    "contact": "Automation Prospect with MSA",
+    "country": "Philippines",
+    "region": "Cebu",
+    "status": "Prospect with MSA",
+    "msaStatus": "Unsigned",
+    "email": "wdilidili+prospectmsa001@gmail.com"
   }
 }

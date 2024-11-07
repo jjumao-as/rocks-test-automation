@@ -400,7 +400,7 @@ exports.ClientsPage = class ClientsPage {
     }
 
     async validateAvailableTalentButtons() {
-        await this.actionDriver.clickButton(clientPageLoc.firstTalent);
+        await this.actionDriver.clickButton(clientPageLoc.firstActualTalent);
         await this.actionDriver.waitElementUntilVisible(clientPageLoc.saveSelectedProfile);
         await this.actionDriver.checkElementVisibility(clientPageLoc.saveSelectedProfile);
         await this.actionDriver.checkElementVisibility(clientPageLoc.bookaCall);

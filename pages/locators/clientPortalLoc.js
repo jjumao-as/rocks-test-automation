@@ -24,7 +24,7 @@ module.exports = {
     dropRequestedTalentName : "//div[@class='reason-section']/preceding-sibling::a",  //talent with drop tag
     talentNameDropTag : "(//div[@class='reason-section']/preceding-sibling::a)[1]",   //talent with drop tag with xpath indexed to 1
     talentNameConfirmed : "//a[contains(text(),'", 
-    DropRequestReason : "//*[@id='resource-manage-team-assigned']/tbody/tr[1]/td[2]/div[1]/div/span[1]",
+    DropRequestReason : "(//span[@class='reason-category'])[1]",
     
     //Drop From My Team Request Modal
     dropFromMyTeamRequestModalHeader : "//h4[contains(text(),'Drop from my Team Request')]",

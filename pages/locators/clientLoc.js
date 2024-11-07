@@ -71,6 +71,7 @@ module.exports = {
     noMoreRecords : "//div[text()='No more records']",
     nameList : "//a[contains(@class,'photo-card-user-name')]/div",
     firstTalent : "(//span[text()='VIEW PROFILE'])[1]",
+    firstActualTalent : "(//div[contains(@class,'talent-info')]//img[not(contains(@src,'coming-soon.png'))]/ancestor::div[contains(@class,'profile-card')]/div[contains(@class,'card-footer')]//div[contains(text(),'Now')]/ancestor::div[contains(@class,'resource-availability')]/following-sibling::a/span[text()='VIEW PROFILE'])[1]",
     saveSelectedProfile : "(//a[@title='Click to save'])[1]",
     bookaCall: "//span[text()='Book a Call']/parent::a",
     addToTeam : "//span[text()='Add to team']/parent::a",

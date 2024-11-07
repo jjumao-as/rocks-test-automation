@@ -29,7 +29,7 @@ exports.QuickTasksPage = class QuickTasksPage {
             await this.actionDriver.waitElementUntilClickable(quickTasksLocators.imagePickerBtn);
             await this.actionDriver.clickButton(quickTasksLocators.imagePickerBtn)
 
-            await this.actionDriver.fileUpload('./testdata/images/playwright.png', quickTasksLocators.clickToUploadBtn);
+            await this.actionDriver.fileUpload('../testdata/images/playwright.png', quickTasksLocators.clickToUploadBtn);
             await this.actionDriver.checkElementVisibility(quickTasksLocators.previewImage)
         } catch (error) {
             console.log("FAILED UPLOADING IMAGE : " + error)
