@@ -9,6 +9,10 @@ exports.MyProfileIntPage = class MyProfileIntPage {
     }
 
     async navigateEmployeeProfile() {
+        const visible = await this.actionDriver.elementVisible(MyProfileIntLocators.clientSalesDashboard);
+        if(visible) {
+            await this.actionDriver.clickButton(MyProfileIntLocators.clientSalesDashboard);
+        }
         await this.actionDriver.waitElementUntilVisible(MyProfileIntLocators.chart);
         await this.actionDriver.clickButton(MyProfileIntLocators.superAdminAvatar);
         await this.actionDriver.clickButton(MyProfileIntLocators.selectMyProfileOption);

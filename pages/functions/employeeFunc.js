@@ -1196,8 +1196,8 @@ exports.EmployeesPage = class EmployeesPage {
         /** View Saved Title */
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.reviewTitleTextDisplay)
         const savedTitle = await this.actionDriver.getText(employeePageLoc.reviewTitleTextDisplay)
-
-        await this.actionDriver.checkInclude(savedClientSpotlight.reviewerTitle, savedTitle)
+        const formattedSavedTitle = savedTitle.replace(/^, /, '');
+        await this.actionDriver.checkInclude(savedClientSpotlight.reviewerTitle, formattedSavedTitle)
 
 
         /** View Saved Rating */

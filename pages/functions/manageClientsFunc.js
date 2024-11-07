@@ -650,12 +650,14 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async navigateToTeamMembers() {
         await this.actionDriver.clickButton(manageClientsocators.teamMembersTab);
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
     }
 
     async checkClientExists(testData, testDetails, emailDetails, email, password) {
         await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         const visible = this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
         if (visible) {
