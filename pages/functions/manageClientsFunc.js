@@ -788,10 +788,10 @@ exports.ManageClientsPage = class ManageClientsPage {
     async validateProspectClient(testData) {
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
-        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-        await this.actionDriver.expectEquals(testData.status, manageClientsocators.clientStatusList);
-        await this.actionDriver.expectEquals(testData.msaStatus, manageClientsocators.clientMSAStatusList);
-        await this.actionDriver.checkElementVisibility(manageClientsocators.viewMSALinkList);
+        await this.actionDriver.waitElementUntilClickable(manageClientsocators.sortedClientName);
+        await this.actionDriver.expectEquals(testData.status, `(${manageClientsocators.clientStatusList})[1]`);
+        await this.actionDriver.expectEquals(testData.msaStatus, `(${manageClientsocators.clientMSAStatusList})[1]`);
+        await this.actionDriver.checkElementVisibility(`(${manageClientsocators.viewMSALinkList})[1]`);
     }
 }
