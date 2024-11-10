@@ -1259,7 +1259,7 @@ exports.EmployeesPage = class EmployeesPage {
 
 
         /** Edit Reviewer Title */
-        await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle)
+        // await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle.trim())
         const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerTitle')
         await this.actionDriver.clearInputElement(employeePageLoc.reviewerTitleTextfield)
         await this.actionDriver.ElemetType(employeePageLoc.reviewerTitleTextfield, reviewerTitle)

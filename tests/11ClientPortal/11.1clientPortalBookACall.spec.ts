@@ -44,14 +44,13 @@ test.afterEach(async () => {
     await context.close();
 });
 
-test('Edit Workflows', async () => {
+test('Create MSA Client', async () => {
     await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
     await dashboardPage.navigateProcessWorkFlow();
     await settingsPage.editWorkFlow(testDataClient.emailDetails.clientEnabledAccess);
     await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
-});
+    await homePage.logout();
 
-test('Create MSA Client', async () => {
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
     await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);

@@ -41,11 +41,11 @@ test.describe('Test Script for adding talent to the team', async () => {
         await context.close();
     });
 
-    test('Preparing data...', async() => {
+    test('Prepare data..', async() => {
         await savedContact(testDataPath);
     })
 
-    test('Edit Workflows', async () => {
+    test('Create Contacts for EmployeeDB', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.clientEnabledAccess);
@@ -56,10 +56,8 @@ test.describe('Test Script for adding talent to the team', async () => {
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.addToTeamSales);
         await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
+        await homePage.logout();
 
-    });
-
-    test('Create Contacts for EmployeeDB', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.client);
         await dashboardPage.checkValidSearchResult();
@@ -160,7 +158,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await clientPage.deleteContact(testData.contacts.email);
     });
 
-    test('Remove changes in workflow', async() => {
+    test('Validate Client and Sales Email - Add to team', async() => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.clientEnabledAccess);
@@ -172,9 +170,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await settingsPage.editWorkFlow(testData.addToTeamSales);
         await settingsPage.revertEmailTo(process.env.ZOHO_EMAIL);
         await dashboardPage.navigateProcessWorkFlow();
-    });
 
-    test('Validate Client and Sales Email - Add to team', async() => {
         await clientPage.validateZohoEmail(testData.salesEmailAddToTeam, testData.emailFrom);
         await clientPage.validateZohoEmail(testData.clientEmailAddToTeam, testData.emailFrom);
     });

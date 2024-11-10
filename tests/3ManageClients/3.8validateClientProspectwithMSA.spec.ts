@@ -65,7 +65,11 @@ test('Add Prospect Client with MSA', async() => {
     await manageClientsPage.generateUnsignedMSA();
     await manageClientsPage.validateUnsignedMSA();
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.searchExistingClient(testData.prospect.name);
     await manageClientsPage.validateProspectClient(testData.prospect);
-    await manageClientsPage.removeClientIfExisting(testData.prospect.name);
 });
+
+test('Delete Client Prospect with MSA', async() => {
+    await manageClientsPage.navigateClientListing();
+    await manageClientsPage.searchExistingClient(testData.prospect.name);
+    await manageClientsPage.removeClientIfExisting(testData.prospect.name);
+})
