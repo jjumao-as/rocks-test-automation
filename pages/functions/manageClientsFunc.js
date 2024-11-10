@@ -461,9 +461,9 @@ exports.ManageClientsPage = class ManageClientsPage {
     async searchExistingClient(client) {
         await this.actionDriver.setText(manageClientsocators.search, client);
         await this.actionDriver.keyboardPress('Enter');
-        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
+        // await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
-        // await this.actionDriver.waitElementUntilVisible(manageClientsocators.clientTableBody);
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.clientTableBody);
         const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
         const number = await contain.length > 0 ? true : false;
         await this.actionDriver.expectTrue(number);
@@ -786,7 +786,10 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async validateProspectClient(testData) {
-        await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
+        await this.actionDriver.setText(manageClientsocators.search, testData.name);
+        await this.actionDriver.keyboardPress('Enter');
+        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
+        await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.expectEquals(testData.status, manageClientsocators.clientStatusList);
         await this.actionDriver.expectEquals(testData.msaStatus, manageClientsocators.clientMSAStatusList);
         await this.actionDriver.checkElementVisibility(manageClientsocators.viewMSALinkList);
