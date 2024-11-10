@@ -657,7 +657,6 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.actionDriver.waitElementUntilClickable(manageClientsocators.exportCurrentRecordsBtn);
         await this.actionDriver.setText(manageClientsocators.search, testData.name);
         await this.actionDriver.keyboardPress('Enter');
-        await this.actionDriver.waitElementUntilVisible(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         const visible = this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
         if (visible) {
