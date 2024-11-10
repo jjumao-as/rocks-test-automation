@@ -35,11 +35,9 @@ test.describe('Test Script for adding talent to the team', async () => {
         await context.close();
     });
 
-    test('Save Details', async () => {
-        await savedContact(testDataPath);
-    })
-
     test('Add Employee', async () => {
+        await savedContact(testDataPath);
+
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await employeePage.addEmployee(testData.employeeName);
         await employeePage.validateAddedEmployee(testData.employeeName);

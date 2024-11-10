@@ -42,14 +42,12 @@ test.afterEach(async () => {
     await context.close();
 });
 
-test('Prepare Data...', async() => {
+test('Create Client with MSA', async() => {
     msaEmpName = await firstAndLastName();
     noMsaEmpName = await firstAndLastName();
     updateJsonData('createClient', 'msa>employee', msaEmpName);
     updateJsonData('createClient', 'nomsa>employee', noMsaEmpName);
-})
-
-test('Create Client with MSA', async() => {
+    
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
     await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
