@@ -41,8 +41,11 @@ test.describe('Test Script for adding talent to the team', async () => {
         await context.close();
     });
 
-    test('Create Contacts for EmployeeDB', async () => {
+    test('Prepare data..', async() => {
         await savedContact(testDataPath);
+    })
+
+    test('Create Contacts for EmployeeDB', async () => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.clientEnabledAccess);

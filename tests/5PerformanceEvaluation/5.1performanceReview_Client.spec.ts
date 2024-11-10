@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage } = require('../../pages/functions/index.js');
+const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, HomePage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 const { savedContact } = require('../../utils/randomData.js');
 
@@ -7,6 +7,7 @@ let browser;
 let context;
 let page;
 let loginPage;
+let homePage;
 let dashboardPage;
 let manageClientPage;
 let employeePage;
@@ -27,11 +28,14 @@ test.describe('Test Script for adding talent to the team', async () => {
         dashboardPage = await new DashboardPage(page);
         manageClientPage = await new ManageClientsPage(page);
         employeePage = await new EmployeesPage(page);
+        homePage = await new HomePage(page);
     });
-    
-    test('Add Employee to evaluate', async() => {
-        await savedContact(testDataPath);
 
+    test('Prepare data..', async() => {
+        await savedContact(testDataPath);
+    })
+
+    test('Evaluate using client portal - Cancel', async() => {
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await employeePage.addEmployee(testData.employeeName);
         await employeePage.validateAddedEmployee(testData.employeeName);
@@ -39,9 +43,9 @@ test.describe('Test Script for adding talent to the team', async () => {
         await employeePage.validatePostion(testData.employeeDetails);
         await employeePage.updateClient(testData.employeeDetails.client);
         await employeePage.validateClient(testData.employeeDetails.displayClientName);
-    });
 
-    test('Evaluate using client portal - Cancel', async() => {
+        await homePage.logout();
+
         await loginPage.login(process.env.CLIENT, process.env.PASSWORD);
         await manageClientPage.navigateToPerformanceReview();
         await manageClientPage.selectEmployee(testData.employeeName);
@@ -69,9 +73,9 @@ test.describe('Test Script for adding talent to the team', async () => {
         await manageClientPage.validateSubmitEnabled();
         await manageClientPage.submitPerfEval();
         await manageClientPage.validateEvaluation(testData.employeeName);
-    });
 
-    test('Delete Employee', async () => {
+        await homePage.logout();
+
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await employeePage.navigateToEmployeeList();
         await employeePage.searchEmployee(testData.employeeName);
