@@ -659,7 +659,7 @@ exports.ManageClientsPage = class ManageClientsPage {
         await this.actionDriver.keyboardPress('Enter');
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loadingRecords);
         await this.actionDriver.waitElementUntilClickable(manageClientsocators.sortedClientName);
-        const visible = this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
+        const visible = await this.actionDriver.elementVisible(manageClientsocators.clientTableBody);
         if (visible) {
             const contain = await this.actionDriver.getTextArray(manageClientsocators.sortedClientName);
             if (contain.length > 0) {
