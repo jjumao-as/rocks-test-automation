@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, HomePage } = require('../../pages/functions/index.js');
+const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, HomePage, ClientsPage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 const { savedContact } = require('../../utils/randomData.js');
 
@@ -8,6 +8,7 @@ let context;
 let page;
 let loginPage;
 let homePage;
+let clientPage;
 let dashboardPage;
 let manageClientPage;
 let employeePage;
@@ -29,6 +30,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         manageClientPage = await new ManageClientsPage(page);
         employeePage = await new EmployeesPage(page);
         homePage = await new HomePage(page);
+        clientPage = await new ClientsPage(page);
     });
 
     test('Prepare data..', async() => {
@@ -74,7 +76,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await manageClientPage.submitPerfEval();
         await manageClientPage.validateEvaluation(testData.employeeName);
 
-        await homePage.logout();
+        await clientPage.logout();
 
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
         await employeePage.navigateToEmployeeList();

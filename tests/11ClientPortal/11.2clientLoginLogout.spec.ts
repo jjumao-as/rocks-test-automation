@@ -47,7 +47,7 @@ test('Create Client with MSA', async() => {
     noMsaEmpName = await firstAndLastName();
     updateJsonData('createClient', 'msa>employee', msaEmpName);
     updateJsonData('createClient', 'nomsa>employee', noMsaEmpName);
-    
+
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
     await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
