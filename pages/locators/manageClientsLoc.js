@@ -184,7 +184,6 @@ module.exports = {
     signedByTitle : "//input[@id='signed_by_title']",
     saveMSA : "//span[text()='Save']",
     completeStatus : "//span[contains(@class,'status-complete')]",
-    teamMembersTab : "//a[contains(text(),'Team Members')]",
     addTalent : "//span[text()='Add Talent']",
     addTalentList : "//table[@id='add-talent-modal']/tbody/tr",
     addTalentNameList: "//table[@id='add-talent-modal']/tbody/tr/td[3]/p[1]",

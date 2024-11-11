@@ -35,7 +35,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await context.close();
     });
 
-    test('Save Details', async () => {
+    test('Prepare Data', async() => {
         await savedContact(testDataPath);
     })
 

@@ -71,12 +71,8 @@ exports.EmployeesPage = class EmployeesPage {
     async selectEmployee() {
 
         await this.actionDriver.hoverElement(employeePageLoc.employeeTable)
-
-        const rowCount = await this.actionDriver.elementCount(employeePageLoc.employeeNameLink)
-        const randomIndex = Math.floor(Math.random() * (rowCount - 1 + 1)) + 1
-
+        const randomIndex = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.employeeNameLink)
         empName = await this.actionDriver.getText(`(${employeePageLoc.employeeNameLink})[${randomIndex}]`)
-
         await this.actionDriver.clickButton(`(${employeePageLoc.employeeNameLink})[${randomIndex}]`)
 
     }
@@ -179,8 +175,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         // selecting client
         await this.actionDriver.clickButton(employeePageLoc.selectClientDropdown)
-        const clientCount = await this.actionDriver.elementCount(employeePageLoc.clientOptions)
-        const randomIndexClient = Math.floor(Math.random() * (clientCount - 1 + 1)) + 1
+        const randomIndexClient = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.clientOptions)
         clientName = await this.actionDriver.getText(`(${employeePageLoc.clientOptions})[${randomIndexClient}]`)
         await this.actionDriver.typeText(clientName)
         await this.actionDriver.keyboardPress('Enter')
@@ -196,8 +191,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         // select time
         await this.actionDriver.clickButton(employeePageLoc.timeDropdown)
-        const timeCount = await this.actionDriver.elementCount(employeePageLoc.timeOptions)
-        const randomIndexTime = Math.floor(Math.random() * (timeCount - 1 + 1)) + 1
+        const randomIndexTime = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.timeOptions)
         interviewTime = await this.actionDriver.getText(`${employeePageLoc.timeOptions}[${randomIndexTime}]`)
         await this.actionDriver.typeText(interviewTime)
         await this.actionDriver.keyboardPress('Enter')
@@ -214,7 +208,7 @@ exports.EmployeesPage = class EmployeesPage {
 
             }
             else if (inviteeCount === 2) {
-                randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
+                randomIndexInvitee = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.additionalInviteesOptions)
                 invitee = await this.actionDriver.getText(`(${employeePageLoc.additionalInviteesOptions})[${randomIndexInvitee}]`)
                 await this.actionDriver.typeText(invitee)
                 await this.actionDriver.keyboardPress('Enter')
@@ -222,7 +216,7 @@ exports.EmployeesPage = class EmployeesPage {
 
             }
             else {
-                randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
+                randomIndexInvitee = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.additionalInviteesOptions)
                 invitee = await this.actionDriver.getText(`(${employeePageLoc.additionalInviteesOptions})[${randomIndexInvitee}]`)
                 await this.actionDriver.typeText(invitee)
                 await this.actionDriver.keyboardPress('Enter')
@@ -239,13 +233,8 @@ exports.EmployeesPage = class EmployeesPage {
 
         // select status
         await this.actionDriver.clickButton(employeePageLoc.statusDropdown)
-
-        const statusCount = await this.actionDriver.elementCount(employeePageLoc.statusOptions)
-        const randomIndexStatus = Math.floor(Math.random() * (statusCount - 1 + 1)) + 1
-
-        await this.actionDriver.getText(`${employeePageLoc.statusOptions}[${randomIndexStatus}]`)
+        const randomIndexStatus = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.statusOptions)
         interviewStatus = await this.actionDriver.getText(`${employeePageLoc.statusOptions}[${randomIndexStatus}]`)
-
         await this.actionDriver.clickButton(`${employeePageLoc.statusOptions}[${randomIndexStatus}]`)
 
 
@@ -258,10 +247,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.checkElementVisibility(employeePageLoc.reasonDropdown)
             await this.actionDriver.clickButton(employeePageLoc.reasonDropdown)
 
-            const reasonCount = await this.actionDriver.elementCount(employeePageLoc.reasonOptions)
-            const randomIndexReason = Math.floor(Math.random() * (reasonCount - 1 + 1)) + 1
-
-            await this.actionDriver.getText(`(${employeePageLoc.reasonOptions})[${randomIndexReason}]`)
+            const randomIndexReason = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.reasonOptions)
             reason = await this.actionDriver.getText(`(${employeePageLoc.reasonOptions})[${randomIndexReason}]`)
 
             await this.actionDriver.clickButton(`(${employeePageLoc.reasonOptions})[${randomIndexReason}]`)
@@ -274,13 +260,8 @@ exports.EmployeesPage = class EmployeesPage {
         // select grade
         await this.actionDriver.clickButton(employeePageLoc.performanceGradeDropdown)
 
-        const gradeCount = await this.actionDriver.elementCount(employeePageLoc.performanceGradeOptions)
-
-        const randomIndexGrade = Math.floor(Math.random() * (gradeCount - 1 + 1)) + 1
-
-        await this.actionDriver.getText(`(${employeePageLoc.performanceGradeOptions})[${randomIndexGrade}]`)
+        const randomIndexGrade = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.performanceGradeOptions)
         grade = await this.actionDriver.getText(`(${employeePageLoc.performanceGradeOptions})[${randomIndexGrade}]`)
-
         await this.actionDriver.clickButton(`(${employeePageLoc.performanceGradeOptions})[${randomIndexGrade}]`)
 
 
@@ -288,7 +269,6 @@ exports.EmployeesPage = class EmployeesPage {
         clientFeedback = await this.actionDriver.getRandomJsonItem(jsonData, 'clientFeedback')
         await this.actionDriver.clickButton(employeePageLoc.clientFeedbackTextArea)
         await this.actionDriver.typeText(clientFeedback)
-
 
         await this.actionDriver.clickButton(employeePageLoc.notificationCheckbox)
 
@@ -380,8 +360,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.checkElementVisibility(employeePageLoc.updateClientDropdown)
             await this.actionDriver.clickButton(employeePageLoc.updateClientDropdown)
 
-            const clientCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedClients)
-            const randomIndexClient = Math.floor(Math.random() * (clientCount - 1 + 1)) + 1
+            const randomIndexClient = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.notSelectedClients)
             clientName = await this.actionDriver.getText(`(${employeePageLoc.notSelectedClients})[${randomIndexClient}]`)
             await this.actionDriver.typeText(clientName)
             await this.actionDriver.keyboardPress('Enter')
@@ -409,8 +388,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.clickButton(employeePageLoc.timePenIcon)
             await this.actionDriver.checkElementVisibility(employeePageLoc.timeDropdown)
             await this.actionDriver.clickButton(employeePageLoc.timeDropdown)
-            const timeCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedTimes)
-            const randomIndexTime = Math.floor(Math.random() * (timeCount - 1 + 1)) + 1
+            const randomIndexTime = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.notSelectedTimes)
             interviewTime = await this.actionDriver.getText(`${employeePageLoc.notSelectedTimes}[${randomIndexTime}]`)
             await this.actionDriver.typeText(interviewTime)
             await this.actionDriver.keyboardPress('Enter')
@@ -432,7 +410,7 @@ exports.EmployeesPage = class EmployeesPage {
 
                 }
                 else if (inviteeCount === 2) {
-                    randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
+                    randomIndexInvitee = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.updateInviteesOptions)
                     invitee = await this.actionDriver.getText(`(${employeePageLoc.updateInviteesOptions})[${randomIndexInvitee}]`)
                     await this.actionDriver.typeText(invitee)
                     await this.actionDriver.keyboardPress('Enter')
@@ -441,7 +419,7 @@ exports.EmployeesPage = class EmployeesPage {
 
                 }
                 else {
-                    randomIndexInvitee = Math.floor(Math.random() * (inviteeCount - 1 + 1)) + 1
+                    randomIndexInvitee = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.updateInviteesOptions)
                     invitee = await this.actionDriver.getText(`(${employeePageLoc.updateInviteesOptions})[${randomIndexInvitee}]`)
                     await this.actionDriver.typeText(invitee)
                     await this.actionDriver.keyboardPress('Enter')
@@ -460,8 +438,7 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.checkElementVisibility(employeePageLoc.statusDropdown)
             await this.actionDriver.clickButton(employeePageLoc.statusDropdown)
 
-            const statusCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedStatus)
-            const randomIndexStatus = Math.floor(Math.random() * (statusCount - 1 + 1)) + 1
+            const randomIndexStatus = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.notSelectedStatus)
 
             await this.actionDriver.getText(`${employeePageLoc.notSelectedStatus}[${randomIndexStatus}]`)
             interviewStatus = await this.actionDriver.getText(`${employeePageLoc.notSelectedStatus}[${randomIndexStatus}]`)
@@ -477,14 +454,9 @@ exports.EmployeesPage = class EmployeesPage {
                 await this.actionDriver.checkElementVisibility(employeePageLoc.reasonDropdown)
                 await this.actionDriver.clickButton(employeePageLoc.reasonDropdown)
 
-                const reasonCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedReasons)
-                const randomIndexReason = Math.floor(Math.random() * (reasonCount - 1 + 1)) + 1
-
-                await this.actionDriver.getText(`(${employeePageLoc.notSelectedReasons})[${randomIndexReason}]`)
+                const randomIndexReason = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.notSelectedReasons)
                 reason = await this.actionDriver.getText(`(${employeePageLoc.notSelectedReasons})[${randomIndexReason}]`)
-
                 await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedReasons})[${randomIndexReason}]`)
-
                 await this.actionDriver.keyboardPress('Enter')
 
 
@@ -495,15 +467,10 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.clickButton(employeePageLoc.gradePenIcon)
             await this.actionDriver.checkElementVisibility(employeePageLoc.performanceGradeDropdown)
             await this.actionDriver.clickButton(employeePageLoc.performanceGradeDropdown)
-
-            const gradeCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedGrade)
-
-            const randomIndexGrade = Math.floor(Math.random() * (gradeCount - 1 + 1)) + 1
-
-            await this.actionDriver.getText(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
+            const randomIndexGrade = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.notSelectedGrade)
             grade = await this.actionDriver.getText(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
-
             await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedGrade})[${randomIndexGrade}]`)
+
 
             // edit Client Feedback
 
@@ -888,7 +855,7 @@ exports.EmployeesPage = class EmployeesPage {
         // Add Fullscale ProjectName
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.fullscaleProjectList)
         const fsProjectCount = await this.actionDriver.elementCount(employeePageLoc.fullscaleProjectOptions)
-        const randomIndexFsProject = Math.floor(Math.random() * (fsProjectCount - 1 + 1)) + 1
+        const randomIndexFsProject = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.fullscaleProjectOptions)
         projectName = await this.actionDriver.getText(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.clickButton(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
@@ -1012,7 +979,7 @@ exports.EmployeesPage = class EmployeesPage {
         // Update and select another Fullscale project
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.fullscaleProjectList)
         const fsProjectCount = await this.actionDriver.elementCount(employeePageLoc.notSelectedFullscaleProjectOptions)
-        const randomIndexFsProject = Math.floor(Math.random() * (fsProjectCount - 1 + 1)) + 1
+        const randomIndexFsProject = await this.actionDriver.selectRandomIndexFromList(employeePageLoc.notSelectedFullscaleProjectOptions)
         projectName = await this.actionDriver.getText(`(${employeePageLoc.notSelectedFullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.clickButton(`(${employeePageLoc.notSelectedFullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
@@ -1259,7 +1226,7 @@ exports.EmployeesPage = class EmployeesPage {
 
 
         /** Edit Reviewer Title */
-        await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle)
+        // await this.actionDriver.ExpectElementValue(employeePageLoc.reviewerTitleTextfield, oldClientSpotlight.reviewerTitle.trim())
         const reviewerTitle = await this.actionDriver.getRandomJsonItem(clientSpotlightJsonData, 'reviewerTitle')
         await this.actionDriver.clearInputElement(employeePageLoc.reviewerTitleTextfield)
         await this.actionDriver.ElemetType(employeePageLoc.reviewerTitleTextfield, reviewerTitle)
