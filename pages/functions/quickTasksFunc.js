@@ -1,6 +1,7 @@
 const quickTasksLocators = require('../locators/quickTasksLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const dashboardLocators = require('../locators/dashboardLoc');
+const employeePageLoc = require('../locators/employeeLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
 let emailSubject;
 
@@ -117,6 +118,8 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.checkElementVisibility(quickTasksLocators.endDate);
     }
 
+    /** Submit Manager Performance Review */
+
     async navigateManagerPerfEval(){
         await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
@@ -132,6 +135,69 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.checkElementVisibility(quickTasksLocators.managerReviewendDate);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.selectTalent);
     }
+
+   
+    async searchEmployeeToReview(employeeName){
+        await this.actionDriver.setText(quickTasksLocators.searchTalentTextbox, employeeName)
+        await this.actionDriver.keyboardPress('Enter')
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.talentName)
+        await this.actionDriver.clickButton(quickTasksLocators.talentName)
+        const toReviewTalent = await this.actionDriver.getText(quickTasksLocators.talentName)
+        await this.actionDriver.checkInclude(toReviewTalent, employeeName)
+        await this.actionDriver.waitElementUntilClickable(quickTasksLocators.nextButton)
+        await this.actionDriver.clickButton(quickTasksLocators.nextButton)
+        return toReviewTalent
+
+    }
+
+    async addPerformanceReview(empName, role, performanceReviewData){
+
+        await this.actionDriver.waitElementUntilVisible(quickTasksLocators.performanceEvaluationBanner)
+        const talentName = await this.actionDriver.getText(quickTasksLocators.employeeNameToReview)
+        // compares the empName from testData to the Employee Name text in the page
+        await this.actionDriver.checkInclude(talentName, empName)
+
+        const isClientDropdownVisible = await this.actionDriver.elementVisible(quickTasksLocators.searchClientDropdown);
+
+        /** Skips the dropdown on automation run because it appears > 5 secs. */
+        if (isClientDropdownVisible) {
+            // await this.actionDriver.waitElementUntilVisible(quickTasksLocators.searchClientDropdown)
+            await this.actionDriver.clickButton(quickTasksLocators.searchClientDropdown)
+            await this.actionDriver.typeText(performanceReviewData.client)
+            await this.actionDriver.keyboardPress('Enter')
+        }
+      
+        // If employee role is developer, It will proceed filling up DEV specific BUSINESS SPECIFIC OBJECTIVES 
+        if (role === "developer") {
+            addManagerFeedback()
+        }
+
+        // If employee role is developer, It will proceed filling up QA specific BUSINESS SPECIFIC OBJECTIVES 
+        else if(role === "qa"){
+            addManagerRating()
+        }
+
+        // ignore this for now
+        function addManagerFeedback(){
+            console.log(`1st run : ${performanceReviewData.rocksEmployee.developer}`)
+
+        }
+
+        // ignore this for now
+        function addManagerRating(){
+            console.log(`2nd run : ${performanceReviewData.rocksEmployee.qa}`)
+
+        }
+        
+       
+        await this.actionDriver.clickButton(dashboardLocators.xIcon);
+
+       
+
+
+    
+    }
+
 
     async navigateSubmitFeedback() {
         await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
@@ -298,4 +364,6 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.clickButton(quickTasksLocators.saveFlrReport);
         await this.actionDriver.waitElementUntilHidden(quickTasksLocators.createWeeklyFloorReportModal);
     }
+
+    
 }

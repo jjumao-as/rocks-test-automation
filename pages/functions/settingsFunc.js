@@ -305,4 +305,55 @@ exports.SettingsPage = class SettingsPage {
         return await element.getAttribute('class');
     }
 
+    /** Employee Management */
+
+    async navigateToEmployeeManagement() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLocators.settingsSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseSettings);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLocators.collapseSettings);
+        }
+        await this.actionDriver.clickButton(settingsLocators.employeeManagementTab);
+    }
+
+    async checkIfIsManager(newManager){
+        await this.actionDriver.waitElementUntilVisible(settingsLocators.employeeManagementHeader)
+        await this.actionDriver.waitElementUntilClickable(settingsLocators.teamTab)
+        await this.actionDriver.clickButton(settingsLocators.teamTab)
+        await this.actionDriver.waitElementUntilVisible(settingsLocators.teamManagerList)
+
+        // gets all the team manager name from the teamManagerList
+        let allManagers = await this.actionDriver.getTextArray(settingsLocators.teamManagerList)
+        // trimmed the allManagers[] array because it has extra space like ['Jane Doe ']
+        allManagers = allManagers.map(manager => manager.trim())
+        // checks if the testData manager "Ronna Nahid" exist in the allManagers[] array
+        let isInList = await this.actionDriver.checkIfIncludesInArray(allManagers, newManager)
+
+        /** if the testData "Ronna Nahid is not found in the allManagers[] list, it proceeds to if() block and adds it
+         *  else, it exits the if() block and means "Ronna Nahid" is already added on the Managers list
+        */
+        if (isInList === false) {
+            await this.actionDriver.clickButton(settingsLocators.addManagerPenIcon)
+            await this.actionDriver.clickButton(settingsLocators.searchUsersTextbox)
+            await this.actionDriver.typeText(newManager)
+            await this.actionDriver.keyboardPress('Enter')
+            await this.actionDriver.clickButton(settingsLocators.saveButton)
+            await this.actionDriver.waitElementUntilVisible(settingsLocators.notificationBanner)
+            await this.actionDriver.waitElementUntilHidden(settingsLocators.notificationBanner)
+
+            allManagers = await this.actionDriver.getTextArray(settingsLocators.teamManagerList)
+            allManagers = allManagers.map(manager => manager.trim())
+            isInList = await this.actionDriver.checkIfIncludesInArray(allManagers, newManager)
+
+            return isInList
+        }
+
+        await this.actionDriver.expectTrue(isInList)
+
+        return true
+       
+    }
+
+
+
 }

@@ -211,6 +211,15 @@ module.exports = {
     companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
     copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
     copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
+    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[1]",
+    addTeamManagerButton : "//span[contains(text(), 'Add Team Manager')]",
+    managerEditButton : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[2]/a",
+    selectManagerInput : "//input[@class='multiselect__input']",
+    managerListItem : "//li[@class='multiselect__element']",
+    selectedManager : "//span[@class='multiselect__option multiselect__option--selected']",
+    loadingSpinner : "//i[@class='mt-1 fa fa-spinner fa-spin']",
+    successNotification : "//h2[contains(text(), 'Successfully saved changes')]",
+
 
     // employee public profile
     profileName : "//h2[contains(@class, 'profile-name')]",

@@ -1,12 +1,12 @@
 {
   "contacts": {
-    "firstName": "Lyric",
-    "lastName": "Walsh",
-    "phoneNumber": "j91A843610"
+    "firstName": "Paul",
+    "lastName": "Towne",
+    "phoneNumber": "L60r076165"
   },
   "employeeName": {
-    "firstName": "Rasheed",
-    "lastName": "Murphy"
+    "firstName": "Creola",
+    "lastName": "Kutch"
   },
   "employeeDetails": {
     "position": "Senior Full Stack",
@@ -29,5 +29,27 @@
     ],
     "overallrating": 3,
     "comments": "This is a sample overall rating comment."
+  },
+
+
+  "managerPerformanceReview" : {
+
+      "rocksEmployee" : {
+          "developer" : "Sutana, Ryan Elandag",
+          "qa" : "Dilidili, Warren"
+      
+       },
+
+      "newManager" : "Ronna Nahid",
+
+      "client" : "EmployeeDB",
+      
+      "managerFeedback" : [
+          "Feedback 1",
+          "Feedback 2",
+          "Feedback 3",
+          "Feedback 4",
+          "Feedback 5"
+      ]
   }
 }

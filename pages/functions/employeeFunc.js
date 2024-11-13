@@ -94,6 +94,66 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
+    async updateEmployeeManager(newManager){
+
+        // gets the current managerName of rocks employee in the Employee Internal profile
+        const existingMgrName = await this.actionDriver.getText(employeePageLoc.managerName) 
+
+        /**
+         * if the testData "Ronna Nahid" is not equal to the existing TeamManager text, it proceeds if() block
+         * if employee's team manager is already "Ronna Nahid", it exits the if() block
+        */
+        if (existingMgrName !== newManager) {
+
+            let newSelectedManager
+            const addTeamManagerButtonVisible = await this.actionDriver.elementVisible(employeePageLoc.addTeamManagerButton)
+            const editManagerButtonVisible = await this.actionDriver.elementVisible(employeePageLoc.managerEditButton)
+            
+            // if it sees the Add Team Manager button, means no existing manager is added and adds "Ronna Nahid"
+            if(addTeamManagerButtonVisible === true){
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.addTeamManagerButton)
+                await this.actionDriver.clickButton(employeePageLoc.addTeamManagerButton)
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.managerListItem)
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.selectManagerInput)
+                await this.actionDriver.setText(employeePageLoc.selectManagerInput, newManager)
+                await this.actionDriver.keyboardPress('Enter')
+                newSelectedManager = await this.actionDriver.getText(employeePageLoc.selectedManager)
+                await this.actionDriver.checkInclude(newSelectedManager, newManager)
+                
+            }
+            // if it sees EDIT button, meaning there's already existing Team Manager and need to be edited to "Ronna Nahid"
+            else if (editManagerButtonVisible === true){
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.managerEditButton)
+                await this.actionDriver.clickButton(employeePageLoc.managerEditButton)
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.managerListItem)
+                // this means to unselect the existing manager
+                await this.actionDriver.clickButton(employeePageLoc.selectedManager)
+        
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.selectManagerInput)
+                // enter the newManager "Ronna Nahid"
+                await this.actionDriver.setText(employeePageLoc.selectManagerInput, newManager)
+                await this.actionDriver.keyboardPress('Enter')
+                newSelectedManager = await this.actionDriver.getText(employeePageLoc.selectedManager)
+                await this.actionDriver.checkInclude(newSelectedManager, newManager)
+
+            }
+    
+            else{
+                console.log("Error adding employee Manager")
+            }
+    
+            await this.actionDriver.clickButton(employeePageLoc.zeroStateClientReview)
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingSpinner)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.successNotification)
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.successNotification)
+    
+    
+        }
+
+       
+
+    }
+
     /**
      * View public profile
      */

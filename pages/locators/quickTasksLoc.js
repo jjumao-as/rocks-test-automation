@@ -104,6 +104,16 @@ module.exports = {
     managerReviewstartDate : "//label[text()='Start date']",
     managerReviewendDate : "//label[text()='End date']",
     selectTalent : "//label[text()='Select a talent to evaluate']",
+    searchTalentTextbox : "//input[@class='search']",
+    talentName : "//span[@class='photo-card-user-names']",
+    nextButton : "//button[@class='btn button btn-success']",
+    performanceEvaluationBanner : "//h3[contains(text(), 'Performance Evaluation Review')]",
+    employeeNameToReview : "//div[@class='font-semibold text-xl text-gray-200 employee--name']",
+    searchClientDropdown : "//div[@class='multiselect']",
+    topicHeader : "//span[@class='topic']",
+    managerFeedbackCollapseButton : "//button[@class='btn btn-secondary collapsed']",
+    managerFeedbackTextArea : "//textarea[@class='form-control']",
+    managerRatingDropdown : "//select[@class='mb-3 custom-select']",
 
     //Submit Feedback
     submitFeedback : "(//span[text()='Submit Feedback'])[1]",

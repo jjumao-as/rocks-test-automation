@@ -20,6 +20,16 @@ module.exports = {
     paginationNextPage : "//a[contains(@title,'Go to the next page')]",
     skillTaken : "//span[text()='The name has already been taken.']",
 
+    /** Employee Management */
+    employeeManagementTab : "(//span[text()='Employee Management'])[1]",
+    employeeManagementHeader : "//h4[contains(text(), 'Employee Management')]",
+    teamTab : "//a[@id='nav-team-tab']",
+    teamManagerList : "//*[@id='team-managers']/div/div/div[1]//*[contains(@class, 'fs-tags-input-badge fs-tags-input-badge-pill fs-tags-input-badge-selected-default')]",
+    addManagerPenIcon : "//*[@id='nav-team']/div/div/fieldset/a/i",
+    searchUsersTextbox : "//input[@class='fs-tags-input-field']",
+    saveButton : "//a[@class='btn fs-button-orange rounded-pill text-uppercase text-white']",
+    notificationBanner : "//html/body/div[3]/div",
+
     //Process Workflow
     workFlowName : "//td[contains(@class,'action-buttons')]/following-sibling::td[1]/span[2]",
     workFlowActionButton : "//button[contains(@id,'fsButtonDropdown-workflow')]",

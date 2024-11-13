@@ -9,6 +9,7 @@ module.exports = {
 
     //Search
     searchRocks : "//div[@id='input-group-icon-text']//input",
+    xIcon : "//*[@id='main-wrapper']/nav/div[2]/nav/div[2]/form/div/div/span/span",
     searchFirstRow : "(//li[@class='item valid'])[1]",
     clearSearch : "//span[@class='la la-times']",
     clientName : "//p[contains(@class,'client-name')]",
