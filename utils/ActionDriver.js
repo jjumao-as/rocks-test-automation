@@ -347,12 +347,13 @@ class ActionDriver {
 
     /**
      * This will randomly select an option from select option dropdown
+     * <select> is 0-based index (e.g, if dropdown option count is 5, index starts [0] to [4])
      * @param {*} element : locator of select option
      */
     async selectOptionRandom(element) {
         const dropdown = await this.page.locator(element)
         const optionCount = await dropdown.locator('option').count()
-        const randomIndex = Math.floor(Math.random() * (optionCount - 1 + 1)) + 1
+        const randomIndex = Math.floor(Math.random() * (optionCount - 1 + 1))
 
         await dropdown.selectOption({ index: randomIndex })
 

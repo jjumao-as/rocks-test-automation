@@ -1,4 +1,5 @@
 import { test } from '@playwright/test';
+import { managerPerformanceReview } from '../../pages/locators/quickTasksLoc';
 const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, QuickTasksPage, SettingsPage, HomePage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 const { savedContact } = require('../../utils/randomData.js');
@@ -14,6 +15,7 @@ let settingsPage
 let homePage
 let testDataPath;
 let testData;
+let newManager
 
 test.describe('Floor Manager performance review', async () => {
     test.beforeAll(async () => {
@@ -33,18 +35,26 @@ test.describe('Floor Manager performance review', async () => {
         settingsPage = await new SettingsPage(page)
         homePage = await new HomePage(page)
 
+        newManager = testData.managerPerformanceReview.newManager
+
+
     });
 
-  
-    test('Floor Manager Submits Performance Evaluation for employee', async () => {
 
-        /** Superadmin checks if test manager "Ronna Nahid" is added as Team Manager */
+
+    test('Check if "Ronna Nahid" is set as manager', async () => {
+
+        /** Superadmin checks if test manager "Ronna Nahid" is added as Team Manager  */
+         
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD)
-        const newManager = testData.managerPerformanceReview.newManager
         await settingsPage.navigateToEmployeeManagement()
         const isManager = await settingsPage.checkIfIsManager(newManager)
         await homePage.logout();
+        
+    })
 
+  
+    test('Floor Manager Submits Performance Evaluation to employee', async () => {
 
         /** Logs in as manager "Ronna Nahid" */
         await loginPage.login(process.env.SPROJECT, process.env.PASSWORD)
@@ -67,7 +77,23 @@ test.describe('Floor Manager performance review', async () => {
                 await quickTaskPage.navigateManagerPerfEval()
                 await quickTaskPage.checkManagerPerfEvalElementsVisibility()
                 await quickTaskPage.searchEmployeeToReview(emp)
-                await quickTaskPage.addPerformanceReview(emp, role, testData.managerPerformanceReview)
+
+                const po = await quickTaskPage.addPerformanceObjectives(emp, role, testData.managerPerformanceReview)
+                console.log(`Test : Performance Objective : `)
+                console.log(po)
+
+                const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.managerPerformanceReview)
+                console.log(`Test : Performance Competencies : `)
+                console.log(pc)
+
+                const ps = await quickTaskPage.addPerformanceSummary(emp, testData.managerPerformanceReview)
+                console.log(`Test : Performance Summary : `)
+                console.log(ps)
+
+                await quickTaskPage.isManagerReviewSubmitted()
+
+
+
                 
         
         } 
