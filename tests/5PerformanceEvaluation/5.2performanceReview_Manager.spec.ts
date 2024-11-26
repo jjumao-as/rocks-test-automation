@@ -79,26 +79,26 @@ test.describe('Floor Manager performance review', async () => {
                 await quickTaskPage.searchEmployeeToReview(emp)
 
                 const po = await quickTaskPage.addPerformanceObjectives(emp, role, testData.managerPerformanceReview)
-                console.log(`Test : Performance Objective : `)
-                console.log(po)
-
+               
                 const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.managerPerformanceReview)
-                console.log(`Test : Performance Competencies : `)
-                console.log(pc)
-
+                
                 const ps = await quickTaskPage.addPerformanceSummary(emp, testData.managerPerformanceReview)
-                console.log(`Test : Performance Summary : `)
-                console.log(ps)
+               
 
                 await quickTaskPage.isManagerReviewSubmitted()
 
-
-
-                
-        
+                /** Verify if employee review is added in the Performance Reviews table */
+                await employeePage.navigateToPerformanceReviews()
+                await employeePage.isInPerformanceReview()
+                await employeePage.isEmployeeAddedInPerformanceReview(emp, testData.managerPerformanceReview)
+                await employeePage.clearEmployeeSearch()
+   
         } 
             
     })
+
+
+
 
     test.afterEach(async () => {
         await context.close()

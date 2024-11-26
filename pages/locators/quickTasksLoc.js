@@ -125,9 +125,11 @@ module.exports = {
     overallRatingOptions : "//div[@class='custom-control custom-control-inline custom-radio']",
     additionalCommentTextarea : "//*[@id='1845']/div/div[1]/div[2]/div[1]",
     submitButton : "//button[contains(text(), 'Submit')]",
+
     // Submit Review
     savingInfoLoader : "//span[contains(text(), 'Wait, while we are saving your info...')]",
     thankYouEvaluationNotif : "//p[@class='thank-text text-secondary display-inline']",
+
 
 
 

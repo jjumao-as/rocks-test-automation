@@ -20,7 +20,10 @@ module.exports = {
     paginationNextPage : "//a[contains(@title,'Go to the next page')]",
     skillTaken : "//span[text()='The name has already been taken.']",
 
-    /** Employee Management */
+    /** 
+     * Superadmin
+     * Employee Management 
+    */
     employeeManagementTab : "(//span[text()='Employee Management'])[1]",
     employeeManagementHeader : "//h4[contains(text(), 'Employee Management')]",
     teamTab : "//a[@id='nav-team-tab']",

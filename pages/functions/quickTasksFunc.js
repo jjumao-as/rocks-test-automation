@@ -351,14 +351,17 @@ exports.QuickTasksPage = class QuickTasksPage {
 
         await this.actionDriver.waitElementUntilHidden(quickTasksLocators.savingInfoLoader)
         await this.actionDriver.waitElementUntilVisible(quickTasksLocators.thankYouEvaluationNotif)
-        await this.actionDriver.clickButton(dashboardLocators.xIcon);
 
         return true
     }
 
+    
+    
+
 
     
 
+    /** Feeback Listing */
 
     async navigateSubmitFeedback() {
         await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);

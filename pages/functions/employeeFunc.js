@@ -41,10 +41,72 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
+    /** 
+     * Superadmin
+     * Performance Reviews */
 
-    /*
-    * Employee Feeback functions
-    */
+    async navigateToPerformanceReviews() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLoc.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLoc.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLoc.collapseEmployees);
+        }
+        await this.actionDriver.clickButton(employeePageLoc.performanceReviewsTab);
+    }
+
+    async isInPerformanceReview(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.performanceReviewHeader)
+        return true
+    }
+
+    async isEmployeeAddedInPerformanceReview(employeeName, performanceReviewData){
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingRecordsLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingEmployeesLoader)
+        // Checks if the table loaded successfully by just checking the entire first row
+        const tableLoaded = await this.actionDriver.elementVisible(employeePageLoc.row1)
+
+        if (tableLoaded) {
+            // Gets the employee name and client name text for the first row
+            const firstRowEmpName = await this.actionDriver.getText(employeePageLoc.employeeName1)
+            const firstRowClientName = await this.actionDriver.getText(employeePageLoc.clientName1)
+
+            // Checks if it matches with the testData passes as parameters
+            await this.actionDriver.checkInclude(employeeName, firstRowEmpName )
+            await this.actionDriver.checkInclude(performanceReviewData.client, firstRowClientName)
+
+            // Gets the text of all links in the first row (name, client and status)
+            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1Td)
+            firstRowData = firstRowData.map(name => name.trim())
+
+            // Checks if the employeeName and clientName exist in the firstRowData[]
+            await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName )
+            await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
+
+        }
+        else{
+            console.log('Table not loaded')
+        }
+
+        
+
+
+
+        return true
+
+    }
+
+    async clearEmployeeSearch(){
+        await this.actionDriver.clickButton(dashboardLoc.xIcon);
+
+    }
+
+
+    
+
+
+    /** 
+     * Superadmin
+     * Employee Feeback functions */
 
     async isInFeedbackListing() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.feedbackResponsesHeader)
