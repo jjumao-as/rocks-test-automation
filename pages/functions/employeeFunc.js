@@ -204,7 +204,7 @@ exports.EmployeesPage = class EmployeesPage {
                 console.log("Error adding employee Manager")
             }
     
-            await this.actionDriver.clickButton(employeePageLoc.zeroStateClientReview)
+            await this.actionDriver.clickButton(employeePageLoc.navBar)
             await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingSpinner)
             await this.actionDriver.checkElementVisibility(employeePageLoc.successNotification)
             await this.actionDriver.waitElementUntilHidden(employeePageLoc.successNotification)

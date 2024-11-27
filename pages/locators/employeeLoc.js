@@ -257,7 +257,7 @@ module.exports = {
     deleteNotification : "//*[@id='swal2-title']",
 
     /** Add Employee Spotlight */
-    zeroStateClientReview : "//div[contains(text(), 'No client review selected')]",
+    navBar : "//nav[@class='nav navbar-nav']",
     selectNewButton :   "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a/span",           
     selectExistingButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[3]/span",
     selectSpotlightModal : "//h4[contains(text(), 'Select Client Spotlight')]",

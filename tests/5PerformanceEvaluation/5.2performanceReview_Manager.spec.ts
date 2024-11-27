@@ -1,8 +1,6 @@
 import { test } from '@playwright/test';
-import { managerPerformanceReview } from '../../pages/locators/quickTasksLoc';
 const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, QuickTasksPage, SettingsPage, HomePage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
-const { savedContact } = require('../../utils/randomData.js');
 
 let page;
 let context;
@@ -45,10 +43,9 @@ test.describe('Floor Manager performance review', async () => {
     test('Check if "Ronna Nahid" is set as manager', async () => {
 
         /** Superadmin checks if test manager "Ronna Nahid" is added as Team Manager  */
-         
         await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD)
         await settingsPage.navigateToEmployeeManagement()
-        const isManager = await settingsPage.checkIfIsManager(newManager)
+        await settingsPage.checkIfIsManager(newManager)
         await homePage.logout();
         
     })
@@ -64,47 +61,52 @@ test.describe('Floor Manager performance review', async () => {
          * Employee role for role
         */
         for(const[role, emp] of Object.entries(testData.managerPerformanceReview.rocksEmployee)){
-                 /** Search Employee */
-                await dashboardPage.search(emp);
-                await dashboardPage.checkValidSearchResult();
-                await dashboardPage.viewSearchResult();
-                await dashboardPage.verifyTalent();
+                 
+            /** Search Employee */
+            await dashboardPage.search(emp);
+            await dashboardPage.checkValidSearchResult();
+            await dashboardPage.viewSearchResult();
+            await dashboardPage.verifyTalent();
                 
-                /** update employee manager to "Ronna Nahid" */ 
-                await employeePage.updateEmployeeManager(newManager)
+            /** update employee manager to "Ronna Nahid" */ 
+            await employeePage.updateEmployeeManager(newManager)
 
-                /** Submit Performance Evalaution to employee */
-                await quickTaskPage.navigateManagerPerfEval()
-                await quickTaskPage.checkManagerPerfEvalElementsVisibility()
-                await quickTaskPage.searchEmployeeToReview(emp)
+            /** Submit Performance Evalaution to employee */
+            await quickTaskPage.navigateManagerPerfEval()
+            await quickTaskPage.checkManagerPerfEvalElementsVisibility()
+            await quickTaskPage.searchEmployeeToReview(emp)
 
-                const po = await quickTaskPage.addPerformanceObjectives(emp, role, testData.managerPerformanceReview)
+            // Call in separate testBlock when getting returned object of addPerformanceObjectives function
+            await quickTaskPage.addPerformanceObjectives(emp, role, testData.managerPerformanceReview)
                
-                const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.managerPerformanceReview)
+            // Call in separate testBlock when getting returned object of addPerformanceCompetencies function
+            await quickTaskPage.addPerformanceCompetencies(emp, testData.managerPerformanceReview)
                 
-                const ps = await quickTaskPage.addPerformanceSummary(emp, testData.managerPerformanceReview)
-               
+            // Call in separate testBlock when getting returned object of addPerformanceSummary function
+            await quickTaskPage.addPerformanceSummary(emp, testData.managerPerformanceReview)
+            
+            await quickTaskPage.isManagerReviewSubmitted()
 
-                await quickTaskPage.isManagerReviewSubmitted()
+            /** Verify if employee review is added in the Performance Reviews table */
+            await employeePage.navigateToPerformanceReviews()
+            await employeePage.isInPerformanceReview()
+            await employeePage.isEmployeeAddedInPerformanceReview(emp, testData.managerPerformanceReview)
+            await employeePage.clearEmployeeSearch()
 
-                /** Verify if employee review is added in the Performance Reviews table */
-                await employeePage.navigateToPerformanceReviews()
-                await employeePage.isInPerformanceReview()
-                await employeePage.isEmployeeAddedInPerformanceReview(emp, testData.managerPerformanceReview)
-                await employeePage.clearEmployeeSearch()
-   
         } 
             
     })
 
-
+    
+    test('Check if email is received by Employee and Manager', async () => {
+        await quickTaskPage.validateZohoEmail(testData.managerPerformanceReview.subject.performanceReviewManager, testData.managerPerformanceReview.emailFrom)
+ 
+    })
 
 
     test.afterEach(async () => {
         await context.close()
         await page.close()
-
-
     });
 
 });

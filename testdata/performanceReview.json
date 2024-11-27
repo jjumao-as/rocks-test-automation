@@ -37,8 +37,6 @@
       "rocksEmployee" : {
         "developer" : "Sutana, Ryan Elandag",
         "qa" : "Dilidili, Warren"
-      
-      
        },
 
       "newManager" : "Ronna Nahid",
@@ -104,6 +102,13 @@
          "While your communication skills are generally good, sometimes your messages could be more concise and direct. Clear communication is essential for effective teamwork.",
           "While you're a skilled developer, actively seeking opportunities to learn new technologies and best practices will keep you at the forefront of the industry."
 
-      ]
+      ],
+
+      "subject" : {
+        "performanceReviewManager" : "ACTION REQUIRED: Schedule A One-On-One Performance Review With Manager (Quarter)"
+        
+      },
+    
+      "emailFrom": "noreply@fullscale.io"
   }
 }

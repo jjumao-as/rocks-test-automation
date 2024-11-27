@@ -3,6 +3,8 @@ const ActionDriver = require('../../utils/ActionDriver');
 const dashboardLocators = require('../locators/dashboardLoc');
 const employeePageLoc = require('../locators/employeeLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
+const { getLatestEmail } = require('../../utils/zohoDriver');
+
 let emailSubject;
 
 exports.QuickTasksPage = class QuickTasksPage {
@@ -354,6 +356,33 @@ exports.QuickTasksPage = class QuickTasksPage {
 
         return true
     }
+
+    async validateZohoEmail(subject, from) {
+        let emailContent;
+        for (let i = 1; i <= 3; i++) {
+            emailContent = await getLatestEmail(subject, from);
+            if (emailContent !== null) {
+                break;
+            }
+        }
+        const empty = emailContent === null ? true : false;
+        if (!empty) {
+            await this.page.setContent(emailContent.content);
+            const emailSubject = emailContent.subject;
+            if (subject.includes('Welcome')) {
+                const hrefValue = await this.page.evaluate(() => {
+                    const links = Array.from(document.querySelectorAll('a'));
+                    const link = links.find(link => link.textContent.includes('Go To My Account'));
+                    return link ? link.href : null;
+                });
+                await this.page.goto(hrefValue);
+            } else {
+                await this.actionDriver.checkInclude(subject, emailSubject)
+            }
+        }
+        await this.actionDriver.expectFalse(empty);
+    }
+
 
     
     
