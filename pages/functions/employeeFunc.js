@@ -747,10 +747,12 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal);
         await this.actionDriver.clickButton(employeePageLoc.saveWorkExp);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletionProgress);
-        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
     }
 
     async validateWorkExperience(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.expectEquals(testData.jobPosition, employeePageLoc.addedJobTitle);
         await this.actionDriver.expectEquals(testData.projectName, employeePageLoc.projectName);
         await this.actionDriver.expectEquals(testData.description, employeePageLoc.projectDesc);
@@ -919,7 +921,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
-        
+
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInList);
 

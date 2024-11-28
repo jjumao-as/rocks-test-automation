@@ -92,7 +92,7 @@ module.exports = {
     enableLoginToggle : "//input[@name='form-checkbox-can_login']/following-sibling::label",
     clientContacts : "//a[contains(text(),'Contacts')]",
     emailColumn : "//td[@class='email-column']",
-    enableLogin : "//p[contains(text(),'Enable Login')]/following-sibling::div//span[@class='ks-off']",
+    enableLogin : "//div[contains(@class,'login-switch')]/input",
     loginEnabled : "//h2[contains(text(),'Contact login is enable')]",
     generateAgreement : "//a[contains(@class,'generate-doc')]",
     generateBtn : "//button[contains(@class,'generate-button')]",

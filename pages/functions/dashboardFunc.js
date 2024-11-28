@@ -107,7 +107,7 @@ exports.DashboardPage = class DashboardPage {
     async validateSideTabs(data) {
         const isVisible = await this.actionDriver.elementVisible(dashboardLocators.expandAll);
         if(isVisible) {
-            const elements = await this.page.locator(dashboardLocators.expandAll).all();
+            const elements = await this.page.locator(dashboardLocators.expandAll);
             const elementCount = await elements.count();
             for(let i=0 ; i < elementCount; i++) {
                 await elements.nth(i).click();

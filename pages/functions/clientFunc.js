@@ -161,8 +161,7 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
         let existing = await this.paginationCheck(testData, clientPageLoc.contactEmailColumnList);
         if (existing) {
-            await this.actionDriver.waitElementUntilClickable(clientPageLoc.contactActionColumnList);
-            await this.actionDriver.selectDataFromTextwithNode(testData, clientPageLoc.contactEmailColumnList, clientPageLoc.contactActionColumnList);
+            await this.actionDriver.waitElementUntilClickable(clientPageLoc.contactDeleteList);
             await this.actionDriver.selectDataFromTextwithNode(testData, clientPageLoc.contactEmailColumnList, clientPageLoc.contactDeleteList);
             await this.actionDriver.clickButton(clientPageLoc.confirmDeletion);
             await this.actionDriver.waitElementUntilHidden(clientPageLoc.deletionProgress);
@@ -179,8 +178,10 @@ exports.ClientsPage = class ClientsPage {
         let isLastPage = false;
         if (isVisible) {
             while (isVisible) {
-                await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
-                el = await this.actionDriver.removeChildElement(elements);
+                await this.page.waitForTimeout(5000);
+                // await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
+                await this.actionDriver.waitElementUntilVisible(elements);
+                el = await this.actionDriver.getTextArray(elements);
                 blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
                 isLastPage = await this.actionDriver.elementVisible(clientPageLoc.paginationNextPage);
                 if (blnResult) {
@@ -194,8 +195,11 @@ exports.ClientsPage = class ClientsPage {
                 await this.actionDriver.clickButton(clientPageLoc.paginationNextPage);
             }
         } else {
-            await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
-            el = await this.actionDriver.removeChildElement(elements);
+            // await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
+            await this.actionDriver.waitElementUntilVisible(elements);
+            await this.page.waitForTimeout(5000);
+            el = await this.actionDriver.getTextArray(elements);
+            console.log(el);
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;

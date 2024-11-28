@@ -768,7 +768,8 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async enableLogin(email) {
         await this.actionDriver.waitElementUntilVisible(manageClientsocators.enableLogin);
-        await this.actionDriver.selectDataFromTextwithNode(email, manageClientsocators.emailColumn, manageClientsocators.enableLogin);
+        await this.actionDriver.clickButton(manageClientsocators.enableLogin);
+        // await this.actionDriver.selectDataFromTextwithNode(email, manageClientsocators.emailColumn, manageClientsocators.enableLogin);
         await this.actionDriver.waitElementUntilVisible(manageClientsocators.loginEnabled);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loginEnabled);
     }
