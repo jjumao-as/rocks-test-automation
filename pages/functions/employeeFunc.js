@@ -583,16 +583,21 @@ exports.EmployeesPage = class EmployeesPage {
 
     async updatePosition(testData) {
         await this.actionDriver.clickButton(employeePageLoc.employmentTab);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editWorkDetail);
         await this.actionDriver.clickButton(employeePageLoc.editWorkDetail);
-        await this.actionDriver.waitElementUntilVisible(employeePageLoc.positionField);
-        await this.actionDriver.clickButton(employeePageLoc.positionField);
-        await this.actionDriver.typeText(testData);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.positionField);
+        await this.actionDriver.ElemetType(employeePageLoc.positionField, testData);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.selectDeveloperType);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.fullStackOption);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.currentPositionField);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.seniorOption);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.savePosition);
     }
 
@@ -1069,6 +1074,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.validateAddedEmployee(employees);
         await this.updatePosition(employeeDetails.role);
         await this.validatePostion(employeeDetails);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.editSkills);
         await this.actionDriver.clickButton(employeePageLoc.enterSkillField);

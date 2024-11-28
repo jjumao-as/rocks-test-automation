@@ -2,7 +2,6 @@ const settingsLocators = require('../locators/settingsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const dashboardLocators = require('../locators/dashboardLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
-const { googleAPI } = require('../../utils/googleDriver');
 const { getLatestEmail } = require('../../utils/zohoDriver');
 
 let newSkill;
@@ -179,31 +178,6 @@ exports.SettingsPage = class SettingsPage {
             included = await this.actionDriver.checkIfIncludesInArray(texts, testData);
         }
         await this.actionDriver.expectFalse(included);
-    }
-
-    async validateEmail(email) {
-        for(let i=0 ; i<email.subjects.length ; i++) {
-            const subject = email.subjects[i];
-            let emailContent;
-            for(let j=1 ; j<=3; j++) {
-                emailContent = await googleAPI(subject, email.from);
-                if(emailContent !== null) {
-                    break;
-                }
-                await this.page.waitForTimeout(2000);
-            }
-            const empty = emailContent === null ? true : false;
-            if(!empty) {
-                const emailSubject = emailContent[0].subject;
-                const match = emailSubject.match(/Expense ID: (\d+)/);
-                if(match) {
-                    const expenseId = match[1];
-                    expenseIds.push(expenseId);
-                }
-                await this.actionDriver.checkInclude(subject, emailSubject)
-            }
-            await this.actionDriver.expectFalse(empty);
-        }
     }
 
     async validateZohoEmail(email) {

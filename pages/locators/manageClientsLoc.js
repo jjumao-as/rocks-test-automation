@@ -174,12 +174,12 @@ module.exports = {
     viewSubmissionBtns: "//span[text()='VIEW SUBMISSION']",
 
     //MSA Tab
-    clientDefaultView : "//tbody[contains(@class,'weekly-report-table')]/tr/td",
+    clientDefaultView : "//h5[text()='Create weekly report to track of important info']",
     msaTab : "//a[contains(text(),'MSA')]",
-    uploadSignedDocu: "//button[contains(text(),'UPLOAD SIGNED DOCUMENT')]",
+    uploadSignedDocu: "//a[contains(text(),'Upload Signed Document')]",
     chooseFile : "//input[@id='filename']",
     dateSigned : "//input[@id='date_signed']",
-    dateSignedToday : "(//span[contains(@class,'today')])[7]",
+    dateSignedToday : "//span[contains(@class,'today')]",
     signedByName : "//input[@id='signed_by_name']",
     signedByTitle : "//input[@id='signed_by_title']",
     saveMSA : "//span[text()='Save']",

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-const { LoginPage, HomePage, ClientsPage } = require('../../pages/functions/index');
+const { LoginPage, HomePage, ClientsPage, FindTalentPage } = require('../../pages/functions/index');
 const { readJsonFile } = require('../../utils/jsonReader');
 
 let browser;
@@ -10,8 +10,11 @@ let homePage;
 let testDataPath;
 let testData;
 let clientPage;
+let findTalentPage;
 let testDataPathClient;
 let testDataClient;
+let testDataPathTalent;
+let testDataTalent;
 
 const rolesToTest = ["msa", "nomsa"];
 test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
@@ -24,11 +27,14 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         page = await context.newPage();
         testDataPath = 'ClientData'
         testDataPathClient = 'createClient'
+        testDataPathTalent = 'rocksTalent'
         loginPage = await new LoginPage(page);
         homePage = await new HomePage(page);
         clientPage = await new ClientsPage(page);
+        findTalentPage = await new FindTalentPage(page);
         testData = await readJsonFile(testDataPath);
         testDataClient = await readJsonFile(testDataPathClient);
+        testDataTalent = await readJsonFile(testDataPathTalent);
     });
 
     test.afterEach(async () => {
@@ -76,6 +82,7 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
             //Validate count is correct
             await clientPage.validateTalentCount();
             //View Profile
+            await findTalentPage.compareList(testDataTalent.talents);
             //Validate Save is display, add to team, book a call is displayed.
             await clientPage.validateAvailableTalentButtons();
             await clientPage.navigateToHome();

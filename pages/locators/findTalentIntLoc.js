@@ -16,4 +16,11 @@ module.exports = {
     talentSkills : "//span[contains(@class,'skill-name')]",
     talentAboutMe : "//h3[text()='About Me']/parent::header/following-sibling::article/p",
     workExperienceDesc : "//h3[text()='E-commerce Project']/following-sibling::p/p",
+
+    bookaCall: "//span[text()='Book a Call']/parent::a",
+    closeModalBtn : "//a[@class='embed-btn']",
+    firstName : "//span[@class='first-name']",
+    lastName : "//span[@class='last-name']",
+    bookACallCalendar : "//div[contains(@class,'calendar-container')]",
+    loadingSchedule : "//span[text()='Loading available schedules...']",
 }

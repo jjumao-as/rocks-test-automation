@@ -79,4 +79,39 @@ exports.FindTalentIntPage = class FindTalentIntPage {
         await this.actionDriver.waitElementUntilVisible(findTalentIntLocators.workExperienceDesc);
         await this.actionDriver.expectEquals(exp, findTalentIntLocators.workExperienceDesc);
     }
+
+    async validateAllBookACall(){
+        const talentNames = [];
+        const talentwithErrorBookACall = [];
+        const talentWithBook = [];
+        await this.actionDriver.waitElementUntilVisible(findTalentIntLocators.nameList);
+        await this.actionDriver.scrollToBottom(findTalentIntLocators.noMoreRecords);
+        const elements = await this.page.$$(findTalentIntLocators.viewProfileButtonList);
+        for(const element of elements) {
+            await element.click();
+            const visible = await this.actionDriver.elementVisible(findTalentIntLocators.bookaCall);
+            const firstName = await this.actionDriver.getText(findTalentIntLocators.firstName);
+            const lastName = await this.actionDriver.getText(findTalentIntLocators.lastName);
+            const fullName = firstName + " " + lastName;
+            if(!visible) {
+                talentNames.push(fullName);
+            } else {
+                await this.actionDriver.clickButton(findTalentIntLocators.bookaCall);
+                const loadingSchedule = await this.actionDriver.elementVisible(findTalentIntLocators.loadingSchedule);
+                if(loadingSchedule) {
+                    talentwithErrorBookACall.push(fullName);
+                } else {
+                    await this.actionDriver.waitElementUntilVisible(findTalentIntLocators.bookACallCalendar);
+                    await this.actionDriver.checkElementVisibility(findTalentIntLocators.bookACallCalendar);
+                    talentWithBook.push(fullName);
+                }
+                await this.actionDriver.keyboardPress('Escape');
+            }
+            await this.actionDriver.clickButton(findTalentIntLocators.closeModalBtn);
+            await this.page.waitForTimeout(500);
+        }
+        console.log('Without Book A Call', talentNames);
+        console.log('With Book a call with error', talentwithErrorBookACall);
+        console.log('With Book A Call', talentWithBook);
+    }
 }

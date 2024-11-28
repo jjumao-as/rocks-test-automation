@@ -50,13 +50,13 @@ test('Create Client with MSA', async() => {
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, testData.msa.email, process.env.CLIENTPASSWORD);
 });
 
 test('Create Client without MSA', async() => {
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testData.nomsa, testData.employeeDetails, testData.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testData.nomsa, testData.employeeDetails, testData.emailDetails, testData.nomsa.email, process.env.CLIENTPASSWORD);
 });
 
 test('Login as Client with MSA', async() => {

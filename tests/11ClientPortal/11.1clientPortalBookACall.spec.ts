@@ -53,7 +53,7 @@ test('Create MSA Client', async () => {
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, testDataClient.msa.email, process.env.CLIENTPASSWORD);
 })
 
 test('Assign Client', async() => {

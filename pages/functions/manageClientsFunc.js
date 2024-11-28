@@ -687,7 +687,7 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async createNewClient(testData, testDetails, emailDetails, email, password) {
-        await this.navigateClientListing();
+        // await this.navigateClientListing();
         await this.addClients(testData, email);
         await this.searchExistingClient(testData.name);
         if (testData.type === 'msa') {

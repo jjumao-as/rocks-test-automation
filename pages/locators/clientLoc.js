@@ -76,6 +76,7 @@ module.exports = {
     bookaCall: "//span[text()='Book a Call']/parent::a",
     addToTeam : "//span[text()='Add to team']/parent::a",
     heartBtn : "//div[@class='talent-favorite']/a",
+    saveTalent : "(//i[contains(@class,'heart')])[1]",
     closeModal : "//a[@title='Close']",
 
     //Reports
