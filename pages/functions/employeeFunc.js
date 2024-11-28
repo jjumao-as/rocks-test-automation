@@ -756,6 +756,9 @@ exports.EmployeesPage = class EmployeesPage {
 
         jsonData = await readJsonFile('employee')
 
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn)
         await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
 
