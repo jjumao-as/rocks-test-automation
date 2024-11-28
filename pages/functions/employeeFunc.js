@@ -825,22 +825,27 @@ exports.EmployeesPage = class EmployeesPage {
         projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
         await this.actionDriver.clickButton(employeePageLoc.modalprojectName);
         await this.actionDriver.typeText(projectName)
+        await this.page.waitForTimeout(2000);
 
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
         await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
         await this.actionDriver.typeText(projectDescription)
+        await this.page.waitForTimeout(2000);
 
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
@@ -864,28 +869,33 @@ exports.EmployeesPage = class EmployeesPage {
         projectName = await this.actionDriver.getText(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.clickButton(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
 
         // Add Fullscale Project Description
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
-        await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
-        await this.actionDriver.typeText(projectDescription)
+        await this.setProjectDescription(projectDescription);
+        // await this.actionDriver.ElemetType(employeePageLoc.projectDescriptionTextArea, projectDescription)
+        await this.page.waitForTimeout(2000);
 
 
         // Add Fullscale Project Duration
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         // Add Fullscale Project - Number of Team Members
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         // Add Fullscale Project - Tech Stack
         techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
@@ -968,6 +978,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         await this.actionDriver.typeText(startDate)
         await this.actionDriver.keyboardPress('Enter')
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Escape') // this is to dismiss the datePicker
 
     
@@ -993,24 +1004,28 @@ exports.EmployeesPage = class EmployeesPage {
         // Update Fullscale project-description
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
         await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
-        await this.actionDriver.typeText(projectDescription)
-        
+        // await this.actionDriver.typeText(projectDescription)
+        await this.setProjectDescription(projectDescription);
+        await this.page.waitForTimeout(2000);
         
         // Update Fullscale project duration
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         // Update Fullscale project number of team members
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         // Update Fullscale project tech stack
         techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.keyboardPress('Backspace')
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
@@ -1029,23 +1044,28 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clearInputElement(employeePageLoc.modalprojectName)
         projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
         await this.actionDriver.typeText(projectName)
+        await this.page.waitForTimeout(2000);
 
 
         // Update OTHER project-description
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
         await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
-        await this.actionDriver.typeText(projectDescription)
+        await this.setProjectDescription(projectDescription);
+        // await this.actionDriver.typeText(projectDescription)
+        await this.page.waitForTimeout(2000);
         
         
         // Update OTHER project duration
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         // Update OTHER project number of team members
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         
         // Update OTHER project number of team members
@@ -1053,6 +1073,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.keyboardPress('Backspace')
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
