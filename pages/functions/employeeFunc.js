@@ -716,6 +716,8 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async editAboutMe(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editAboutMe);
         await this.actionDriver.clickButton(employeePageLoc.editAboutMe);
         await this.actionDriver.ElemetType(employeePageLoc.aboutMeTxtArea, testData);
@@ -729,6 +731,8 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Work Experience */
 
     async addWorkExperience(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
@@ -913,6 +917,9 @@ exports.EmployeesPage = class EmployeesPage {
     
     async isWorkExperienceAdded() {
 
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInList);
 
@@ -946,6 +953,9 @@ exports.EmployeesPage = class EmployeesPage {
     /** Deleting Work Experience */
 
     async deleteWorkExperience(){
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+
         await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.deleteWorkExpBtn)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.deleteWorkExpDialog);
         
@@ -972,6 +982,9 @@ exports.EmployeesPage = class EmployeesPage {
     async updateWorkExperience(){
         
         jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
         await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.editWorkExpBtn)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
@@ -1114,6 +1127,9 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Client Spotlight */
 
     async addClientSpotlight(clientSpotlightData){
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
         /**
          * Checks if zero-state message is present under Client Spotlight section
