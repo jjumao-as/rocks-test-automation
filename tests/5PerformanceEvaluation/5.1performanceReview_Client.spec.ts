@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, HomePage, ClientsPage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 const { savedContact } = require('../../utils/randomData.js');
+const path = require('path');
 
 let browser;
 let context;
@@ -14,11 +15,14 @@ let manageClientPage;
 let employeePage;
 let testDataPath;
 let testData;
+let file;
 
 test.describe('Test Script for adding talent to the team', async () => {
     test.beforeAll(async ({ browser: b }) => {
         browser = b;  
         testDataPath = 'performanceReview';  
+        file = path.basename(__filename);
+        console.log('Execution started.. ', file);
     });
     
     test.beforeEach(async () => {
@@ -87,4 +91,10 @@ test.describe('Test Script for adding talent to the team', async () => {
     test.afterEach(async () => {
         await context.close();
     });
+
+    test.afterAll(async() => {
+        console.log();
+        console.log('Execution ended.. ', file);
+    })
+    
 });

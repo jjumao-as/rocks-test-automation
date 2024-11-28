@@ -3,8 +3,7 @@ import { LoginPage, HomePage, QuickTasksPage, EmployeesPage, DashboardPage } fro
 import { roles } from '../../testdata/rolesForParallel.ts';
 import { readJsonFile } from '../../utils/jsonReader.js'
 const ActionDriver = require('../../utils/ActionDriver.js');
-
-
+const path = require('path');
 
 let context;
 let page;
@@ -17,8 +16,14 @@ let dashboardPage;
 let actionDriver;
 let testData;
 let testDataPath;
+let file;
 
 const roleToTest = ['SUPERADMIN', 'ADMIN', 'HR', 'FLOOR']
+
+test.beforeAll(async () =>{
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
 
 roleToTest.forEach(role => {
 
@@ -203,5 +208,10 @@ roleToTest.forEach(role => {
     
     })
       
+})
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
 })
 

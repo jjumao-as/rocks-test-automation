@@ -1,8 +1,8 @@
 import { test } from '@playwright/test';
-import { read } from 'fs';
 const { LoginPage, HomePage, FindTalentPage, ManageClientsPage, ClientsPage, EmployeesPage, DashboardPage, SettingsPage } = require('../../pages/functions/index');
 const { readJsonFile, updateJsonData } = require('../../utils/jsonReader');
 const { firstAndLastName } = require('../../utils/randomData');
+const path = require('path');
 
 let browser;
 let context;
@@ -19,9 +19,12 @@ let noMsaEmpName;
 let dashboardPage;
 let settingsPage;
 let clientPage;
+let file;
 
 test.beforeAll(async ({browser : b}) => {
     browser = b;
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -41,6 +44,11 @@ test.beforeEach(async () => {
 test.afterEach(async () => {
     await context.close();
 });
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 test('Create Client with MSA', async() => {
     msaEmpName = await firstAndLastName();

@@ -1,6 +1,7 @@
 import { test} from '@playwright/test';
 const { LoginPage, DashboardPage} = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -9,9 +10,12 @@ let loginPage;
 let dashboardPage;
 let testDataPath;
 let testData;
+let file;
 
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -26,6 +30,11 @@ test.beforeEach(async () => {
 test.afterEach(async () => {
     await context.close();
 });
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 test('Home - Search Active Client', async() => {
     await dashboardPage.search(testData.search.client.active);

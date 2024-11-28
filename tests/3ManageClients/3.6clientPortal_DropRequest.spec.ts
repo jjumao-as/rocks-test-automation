@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 const { LoginPage, ClientPortalPage, DashboardPage, SettingsPage, ClientsPage, HomePage } = require('../../pages/functions/index.js');
 import { readJsonFile } from '../../utils/jsonReader';
+const path = require('path');
 
 let browser;
 let context;
@@ -14,10 +15,13 @@ let homePage;
 let name;
 let testDataPath;
 let testData;
+let file;
 
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
     testDataPath = 'settings'
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -36,6 +40,10 @@ test.afterEach(async () => {
     await context.close();
 });
 
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 test('Client Portal - Manage Team', async() => {    
     await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD)
