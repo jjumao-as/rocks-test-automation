@@ -199,7 +199,6 @@ exports.ClientsPage = class ClientsPage {
             await this.actionDriver.waitElementUntilVisible(elements);
             await this.page.waitForTimeout(5000);
             el = await this.actionDriver.getTextArray(elements);
-            console.log(el);
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;
