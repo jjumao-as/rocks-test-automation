@@ -1,14 +1,14 @@
 module.exports = {
     clientContactsTab : "//a[contains(text(),'Contacts')]",
-    addContactBtn : "//span[text()='Add Contact']",
+    addContactBtn : "//a[contains(text(),'Add Contact')]",
     contactName : "//input[@id='text-name']",
     contactEmail : "//div[@class='email-field']//input",
     enableLoginToggle : "//input[@name='form-checkbox-can_login']/following-sibling::label",
-    saveContact : "//button[contains(text(),'SAVE')]",
-    contactEmailColumnList : "//td[@class='email-column']",
+    saveContact : "//span[text()='Save Contact']",
+    contactEmailColumnList : "//td[@class='email-column'] | //td[@class='mobile-layout']//span[2]",
     trimmedContactEmailColumnList : "//td[@class='email-column']/text()[normalize-space()]",
     contactActionColumnList : "//button[contains(@id,'fsButtonDropdown-contact')]",
-    contactDeleteList : "//a[contains(text(),'Delete')]",
+    contactDeleteList : "//i[contains(@class,'la-trash')]",
     dashboard : "//h2[text()='Dashboard']",
     maleAvatar : "//img[contains(@src,'/male.png')]",
     eventsHoliday : "//div[contains(text(),'Events and Holidays (PH)')]",
@@ -76,6 +76,7 @@ module.exports = {
     bookaCall: "//span[text()='Book a Call']/parent::a",
     addToTeam : "//span[text()='Add to team']/parent::a",
     heartBtn : "//div[@class='talent-favorite']/a",
+    saveTalent : "(//i[contains(@class,'heart')])[1]",
     closeModal : "//a[@title='Close']",
 
     //Reports

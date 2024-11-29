@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 const { LoginPage, HomePage, FindTalentPage, SettingsPage, ManageClientsPage, EmployeesPage, DashboardPage } = require('../../pages/functions/index');
 const { readJsonFile, updateJsonData } = require('../../utils/jsonReader');
 const { firstAndLastName } = require('../../utils/randomData');
+const path = require('path');
 
 let browser;
 let context;
@@ -18,11 +19,14 @@ let manageClientsPage;
 let employeePage;
 let dashboardPage;
 let settingsPage;
+let file;
 
 test.beforeAll(async ({ browser: b }) => {
     browser = b;
     msaEmpName = await firstAndLastName();
     updateJsonData('createClient', 'msa>employee', msaEmpName);
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -44,6 +48,11 @@ test.afterEach(async () => {
     await context.close();
 });
 
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
+
 test('Create MSA Client', async () => {
     await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
     await dashboardPage.navigateProcessWorkFlow();
@@ -53,7 +62,7 @@ test('Create MSA Client', async () => {
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, testDataClient.msa.email, process.env.CLIENTPASSWORD);
 })
 
 test('Assign Client', async() => {

@@ -231,6 +231,8 @@ exports.ManageClientsPage = class ManageClientsPage {
         if (frame) {
             await frame.type(manageClientsocators.commentsBody, comment);
         }
+        
+        await this.page.waitForTimeout(2000);
     }
 
     async validatePerfEvalModal(data) {
@@ -687,7 +689,7 @@ exports.ManageClientsPage = class ManageClientsPage {
     }
 
     async createNewClient(testData, testDetails, emailDetails, email, password) {
-        await this.navigateClientListing();
+        // await this.navigateClientListing();
         await this.addClients(testData, email);
         await this.searchExistingClient(testData.name);
         if (testData.type === 'msa') {
@@ -768,7 +770,8 @@ exports.ManageClientsPage = class ManageClientsPage {
 
     async enableLogin(email) {
         await this.actionDriver.waitElementUntilVisible(manageClientsocators.enableLogin);
-        await this.actionDriver.selectDataFromTextwithNode(email, manageClientsocators.emailColumn, manageClientsocators.enableLogin);
+        await this.actionDriver.clickButton(manageClientsocators.enableLogin);
+        // await this.actionDriver.selectDataFromTextwithNode(email, manageClientsocators.emailColumn, manageClientsocators.enableLogin);
         await this.actionDriver.waitElementUntilVisible(manageClientsocators.loginEnabled);
         await this.actionDriver.waitElementUntilHidden(manageClientsocators.loginEnabled);
     }

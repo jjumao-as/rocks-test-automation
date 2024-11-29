@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import { roles } from '../../testdata/rolesForParallel';
 import { LoginPage, HomePage, QuickTasksPage, EmployeesPage, DashboardPage } from '../../pages/functions/index';
+const path = require('path');
 
 let context;
 let page;
@@ -9,8 +10,14 @@ let homePage;
 let quickTasksPage;
 let employeesPage;
 let dashboardPage;
+let file;
 
 const rolesToTest = ['SUPERADMIN', 'ADMIN', 'HR', 'FLOOR']
+
+test.beforeAll(async () =>{
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
 
 rolesToTest.forEach(role => {
     const {username, password} = roles[role];
@@ -30,7 +37,7 @@ rolesToTest.forEach(role => {
 
         test.afterEach(async () => {
             await context.close()
-        });
+        });     
 
         test(`${role} views Employee Profile from Employee Listing`, async() => {
             await loginPage.login(username, password)
@@ -42,5 +49,10 @@ rolesToTest.forEach(role => {
             await employeesPage.selectEmployee()
             await employeesPage.isInEmployeeProfile()
         });
-    })
+    }) 
 })
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})  

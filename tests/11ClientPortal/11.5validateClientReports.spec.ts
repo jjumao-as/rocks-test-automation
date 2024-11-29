@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 const { LoginPage, HomePage, ClientsPage } = require('../../pages/functions/index');
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -12,12 +13,15 @@ let testData;
 let clientPage;
 let testDataPathClient;
 let testDataClient;
+let file;
 
 const rolesToTest = ["msa", "nomsa"];
 test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test.beforeAll(async ({ browser: b }) => {
         browser = b;
+        file = path.basename(__filename);
+        console.log('Execution started.. ', file);
     })
     test.beforeEach(async () => {
         context = await browser.newContext();
@@ -35,6 +39,11 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
     test.afterEach(async () => {
         await context.close();
     });
+
+    test.afterAll(async() => {
+        console.log();
+        console.log('Execution ended.. ', file);
+    })    
 
     test('Validate Daily Status Report', async() => {
         await clientPage.navigateToPage(testData.activeClientPages[6]);

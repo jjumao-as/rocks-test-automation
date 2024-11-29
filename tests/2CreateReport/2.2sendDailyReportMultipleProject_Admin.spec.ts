@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 const { LoginPage, QuickTasksPage, DashboardPage, HomePage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -11,9 +12,12 @@ let testDataPath;
 let testData;
 let homePage;
 let dashboardPage;
+let file;
 
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -29,6 +33,11 @@ test.beforeEach(async () => {
 test.afterEach(async () => {
     await context.close();
 });
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 test('Create Daily Report - Send', async() => {
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);

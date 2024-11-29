@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 const { LoginPage, ClientPortalPage, DashboardPage, SettingsPage, ManageClientsPage } = require('../../pages/functions/index.js');
 import { readJsonFile } from '../../utils/jsonReader';
+const path = require('path');
 
 let browser;
 let context;
@@ -13,10 +14,13 @@ let settingsPage
 let name;
 let testDataPath;
 let testData;
+let file;
 
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
     testDataPath = 'createClient'
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 });
 
 test.beforeEach(async () => {
@@ -35,6 +39,10 @@ test.afterEach(async () => {
     await context.close();
 });
 
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 test('Add Prospect Client with MSA', async() => {
     await manageClientsPage.navigateClientListing();

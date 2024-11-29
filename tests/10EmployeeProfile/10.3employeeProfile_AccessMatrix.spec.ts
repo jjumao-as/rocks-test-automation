@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { LoginPage, MyProfileIntPage } from '../../pages/functions/index.js';
 import { roles } from '../../testdata/rolesForParallel';
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -10,17 +11,20 @@ let myProfileIntPage;
 let loginPage;
 let testDataPath;
 let testData;
+let file;
 
 const rolesToTest = ['SUPERADMIN', 'ADMIN', 'FLOOR', 'SALES', 'HR', 'FINANCE', 'EMPLOYEE', 'WRITER']
+
+test.beforeAll(async ({ browser: b }) => {
+    browser = b;
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
 
 rolesToTest.forEach(role => {
     const { username, password } = roles[role];
 
     test.describe.parallel('Checking the Employee Profile Access Control for all internal roles', () => {
-
-        test.beforeAll(async ({ browser: b }) => {
-            browser = b;
-        })
 
         test.beforeEach(async () => {
             context = await browser.newContext();
@@ -121,3 +125,8 @@ rolesToTest.forEach(role => {
         });
     });
 });
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})

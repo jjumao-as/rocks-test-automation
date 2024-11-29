@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 const { LoginPage, HomePage, QuickTasksPage, EmployeesPage } = require ('../../pages/functions/index.js');
 import { readJsonFile } from '../../utils/jsonReader.js'
+const path = require('path');
 
 let loginPage;
 let homePage;
@@ -8,7 +9,12 @@ let quickTasksPage;
 let employeesPage;
 let testDataPath;
 let testData;
+let file;
 
+test.beforeAll(async () =>{
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
 
 test.beforeEach(async ({page}) =>{
     loginPage = new LoginPage(page);
@@ -25,6 +31,10 @@ test.afterEach(async ({page}) => {
     
 });
 
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 
 test('Employee submits text feedback and viewed by SuperAdmin', async () => {

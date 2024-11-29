@@ -583,16 +583,21 @@ exports.EmployeesPage = class EmployeesPage {
 
     async updatePosition(testData) {
         await this.actionDriver.clickButton(employeePageLoc.employmentTab);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.editWorkDetail);
         await this.actionDriver.clickButton(employeePageLoc.editWorkDetail);
-        await this.actionDriver.waitElementUntilVisible(employeePageLoc.positionField);
-        await this.actionDriver.clickButton(employeePageLoc.positionField);
-        await this.actionDriver.typeText(testData);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.positionField);
+        await this.actionDriver.ElemetType(employeePageLoc.positionField, testData);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.selectDeveloperType);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.fullStackOption);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.currentPositionField);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.seniorOption);
+        await this.page.waitForTimeout(1000);
         await this.actionDriver.clickButton(employeePageLoc.savePosition);
     }
 
@@ -711,6 +716,8 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async editAboutMe(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editAboutMe);
         await this.actionDriver.clickButton(employeePageLoc.editAboutMe);
         await this.actionDriver.ElemetType(employeePageLoc.aboutMeTxtArea, testData);
@@ -724,6 +731,8 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Work Experience */
 
     async addWorkExperience(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
@@ -738,10 +747,12 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal);
         await this.actionDriver.clickButton(employeePageLoc.saveWorkExp);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.deletionProgress);
-        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
     }
 
     async validateWorkExperience(testData) {
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
         await this.actionDriver.expectEquals(testData.jobPosition, employeePageLoc.addedJobTitle);
         await this.actionDriver.expectEquals(testData.projectName, employeePageLoc.projectName);
         await this.actionDriver.expectEquals(testData.description, employeePageLoc.projectDesc);
@@ -750,6 +761,9 @@ exports.EmployeesPage = class EmployeesPage {
     async addNewWorkExperience(){
 
         jsonData = await readJsonFile('employee')
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn)
         await this.actionDriver.clickButton(employeePageLoc.addWorkExpBtn);
@@ -820,22 +834,27 @@ exports.EmployeesPage = class EmployeesPage {
         projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
         await this.actionDriver.clickButton(employeePageLoc.modalprojectName);
         await this.actionDriver.typeText(projectName)
+        await this.page.waitForTimeout(2000);
 
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
         await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
         await this.actionDriver.typeText(projectDescription)
+        await this.page.waitForTimeout(2000);
 
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
@@ -859,28 +878,33 @@ exports.EmployeesPage = class EmployeesPage {
         projectName = await this.actionDriver.getText(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.clickButton(`(${employeePageLoc.fullscaleProjectOptions})[${randomIndexFsProject}]`)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
 
         // Add Fullscale Project Description
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
-        await this.actionDriver.clickButton(employeePageLoc.projectDescriptionTextArea)
-        await this.actionDriver.typeText(projectDescription)
+        await this.setProjectDescription(projectDescription);
+        // await this.actionDriver.ElemetType(employeePageLoc.projectDescriptionTextArea, projectDescription)
+        await this.page.waitForTimeout(2000);
 
 
         // Add Fullscale Project Duration
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clickButton(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         // Add Fullscale Project - Number of Team Members
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         // Add Fullscale Project - Tech Stack
         techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
@@ -894,6 +918,9 @@ exports.EmployeesPage = class EmployeesPage {
 
     
     async isWorkExperienceAdded() {
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobPositionInList);
@@ -928,6 +955,9 @@ exports.EmployeesPage = class EmployeesPage {
     /** Deleting Work Experience */
 
     async deleteWorkExperience(){
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+
         await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.deleteWorkExpBtn)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.deleteWorkExpDialog);
         
@@ -955,6 +985,9 @@ exports.EmployeesPage = class EmployeesPage {
         
         jsonData = await readJsonFile('employee')
 
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+
         await this.actionDriver.selectDataFromTextwithNode(jobPosition, employeePageLoc.jobPositionInList, employeePageLoc.editWorkExpBtn)
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.jobTitle);
 
@@ -963,6 +996,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         await this.actionDriver.typeText(startDate)
         await this.actionDriver.keyboardPress('Enter')
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Escape') // this is to dismiss the datePicker
 
     
@@ -988,24 +1022,28 @@ exports.EmployeesPage = class EmployeesPage {
         // Update Fullscale project-description
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
         await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
-        await this.actionDriver.typeText(projectDescription)
-        
+        // await this.actionDriver.typeText(projectDescription)
+        await this.setProjectDescription(projectDescription);
+        await this.page.waitForTimeout(2000);
         
         // Update Fullscale project duration
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         // Update Fullscale project number of team members
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         // Update Fullscale project tech stack
         techStack = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'techStack')
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.keyboardPress('Backspace')
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
@@ -1024,23 +1062,28 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clearInputElement(employeePageLoc.modalprojectName)
         projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
         await this.actionDriver.typeText(projectName)
+        await this.page.waitForTimeout(2000);
 
 
         // Update OTHER project-description
         projectDescription = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectDescription')
         await this.actionDriver.clearInputElement(employeePageLoc.projectDescriptionTextArea)
-        await this.actionDriver.typeText(projectDescription)
+        await this.setProjectDescription(projectDescription);
+        // await this.actionDriver.typeText(projectDescription)
+        await this.page.waitForTimeout(2000);
         
         
         // Update OTHER project duration
         durationInMonths = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'durationInMonths')
         await this.actionDriver.clearInputElement(employeePageLoc.durationInMonthsSpinner);
         await this.actionDriver.typeText(durationInMonths)
+        await this.page.waitForTimeout(2000);
 
         // Update OTHER project number of team members
         numOfMembers = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'numberOfTeamMembers')
         await this.actionDriver.clearInputElement(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.typeText(numOfMembers)
+        await this.page.waitForTimeout(2000);
 
         
         // Update OTHER project number of team members
@@ -1048,6 +1091,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.clickButton(employeePageLoc.techStackDropdown);
         await this.actionDriver.keyboardPress('Backspace')
         await this.actionDriver.typeText(techStack)
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
 
         await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
@@ -1069,6 +1113,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.validateAddedEmployee(employees);
         await this.updatePosition(employeeDetails.role);
         await this.validatePostion(employeeDetails);
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.editSkills);
         await this.actionDriver.clickButton(employeePageLoc.enterSkillField);
@@ -1084,6 +1129,9 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Client Spotlight */
 
     async addClientSpotlight(clientSpotlightData){
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
         /**
          * Checks if zero-state message is present under Client Spotlight section
