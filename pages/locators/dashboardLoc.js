@@ -89,6 +89,7 @@ module.exports = {
     documentTemplates : "(//span[text()='Document Templates'])[1]",
 
     //Side Panel
+    expandAll : "//i[contains(@class,'submenu__arrow--down')]",
     quickTasksSide : "//span[text()='Quick Tasks']",
     collapseQuickTasks : "//span[text()='Quick Tasks']/parent::div/following-sibling::i[contains(@class,'arrow--down')]",
     clientsSide : "//span[text()='Clients']",

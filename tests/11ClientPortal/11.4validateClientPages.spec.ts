@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
-const { LoginPage, HomePage, ClientsPage } = require('../../pages/functions/index');
+const { LoginPage, HomePage, ClientsPage, FindTalentPage } = require('../../pages/functions/index');
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -10,30 +11,44 @@ let homePage;
 let testDataPath;
 let testData;
 let clientPage;
+let findTalentPage;
 let testDataPathClient;
 let testDataClient;
+let testDataPathTalent;
+let testDataTalent;
+let file;
 
 const rolesToTest = ["msa", "nomsa"];
 test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test.beforeAll(async ({ browser: b }) => {
         browser = b;
+        file = path.basename(__filename);
+        console.log('Execution started.. ', file);
     })
     test.beforeEach(async () => {
         context = await browser.newContext();
         page = await context.newPage();
         testDataPath = 'ClientData'
         testDataPathClient = 'createClient'
+        testDataPathTalent = 'rocksTalent'
         loginPage = await new LoginPage(page);
         homePage = await new HomePage(page);
         clientPage = await new ClientsPage(page);
+        findTalentPage = await new FindTalentPage(page);
         testData = await readJsonFile(testDataPath);
         testDataClient = await readJsonFile(testDataPathClient);
+        testDataTalent = await readJsonFile(testDataPathTalent);
     });
 
     test.afterEach(async () => {
         await context.close();
     });
+
+    test.afterAll(async() => {
+        console.log();
+        console.log('Execution ended.. ', file);
+    })
 
     test(`Validate available pages for active client`, async () => {
         for (const role of rolesToTest) {
@@ -76,6 +91,7 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
             //Validate count is correct
             await clientPage.validateTalentCount();
             //View Profile
+            await findTalentPage.compareList(testDataTalent.talents);
             //Validate Save is display, add to team, book a call is displayed.
             await clientPage.validateAvailableTalentButtons();
             await clientPage.navigateToHome();

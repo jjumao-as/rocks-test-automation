@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 const { LoginPage, HomePage, ClientsPage } = require('../../pages/functions/index');
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -10,9 +11,12 @@ let homePage;
 let testDataPath;
 let testData;
 let clientPage;
+let file;
 
 test.beforeAll(async ({browser : b}) => {
     browser = b;
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -28,6 +32,11 @@ test.afterEach(async () => {
     await context.close();
 });
 
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
+
 test('Validate Tooltip as Client with MSA', async() => {
     await loginPage.login(testData.msa.email , process.env.CLIENTPASSWORD);
     await clientPage.hoverMyProfile();
@@ -40,7 +49,7 @@ test('Validate Tooltip as Client with MSA', async() => {
     await clientPage.hoverNeedHelp();
 });
 
-test('Login as Client without MSA', async() => {
+test('Validate Tooltip as Client without MSA', async() => {
     await loginPage.login(testData.nomsa.email , process.env.CLIENTPASSWORD);
     await clientPage.hoverMyProfile();
     await clientPage.hoverMyContacts();

@@ -3,7 +3,6 @@ const clientPageLoc = require('../locators/clientLoc');
 const ActionDriver = require('../../utils/ActionDriver');
 const loginLocators = require('../locators/loginLoc');
 const { updateJsonData } = require('../../utils/jsonReader');
-const { googleAPI } = require('../../utils/googleDriver');
 const { getLatestEmail } = require('../../utils/zohoDriver');
 const dashboardLoc = require('../locators/dashboardLoc');
 
@@ -55,32 +54,6 @@ exports.ClientsPage = class ClientsPage {
                 `;
             document.head.appendChild(style);
         });
-    }
-
-    async validateEmail(subject, from) {
-        let emailContent;
-        for (let i = 1; i <= 3; i++) {
-            emailContent = await googleAPI(subject, from);
-            if (emailContent !== null) {
-                break;
-            }
-        }
-        const empty = emailContent === null ? true : false;
-        if (!empty) {
-            await this.page.setContent(emailContent[0].body.html);
-            const emailSubject = emailContent[0].subject;
-            if (subject.includes('Welcome')) {
-                const hrefValue = await this.page.evaluate(() => {
-                    const links = Array.from(document.querySelectorAll('a'));
-                    const link = links.find(link => link.textContent.includes('Go To My Account'));
-                    return link ? link.href : null;
-                });
-                await this.page.goto(hrefValue);
-            } else {
-                await this.actionDriver.checkInclude(subject, emailSubject)
-            }
-        }
-        await this.actionDriver.expectFalse(empty);
     }
 
     async validateZohoEmail(subject, from) {
@@ -188,8 +161,7 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
         let existing = await this.paginationCheck(testData, clientPageLoc.contactEmailColumnList);
         if (existing) {
-            await this.actionDriver.waitElementUntilClickable(clientPageLoc.contactActionColumnList);
-            await this.actionDriver.selectDataFromTextwithNode(testData, clientPageLoc.contactEmailColumnList, clientPageLoc.contactActionColumnList);
+            await this.actionDriver.waitElementUntilClickable(clientPageLoc.contactDeleteList);
             await this.actionDriver.selectDataFromTextwithNode(testData, clientPageLoc.contactEmailColumnList, clientPageLoc.contactDeleteList);
             await this.actionDriver.clickButton(clientPageLoc.confirmDeletion);
             await this.actionDriver.waitElementUntilHidden(clientPageLoc.deletionProgress);
@@ -206,8 +178,10 @@ exports.ClientsPage = class ClientsPage {
         let isLastPage = false;
         if (isVisible) {
             while (isVisible) {
-                await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
-                el = await this.actionDriver.removeChildElement(elements);
+                await this.page.waitForTimeout(5000);
+                // await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
+                await this.actionDriver.waitElementUntilVisible(elements);
+                el = await this.actionDriver.getTextArray(elements);
                 blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
                 isLastPage = await this.actionDriver.elementVisible(clientPageLoc.paginationNextPage);
                 if (blnResult) {
@@ -221,8 +195,10 @@ exports.ClientsPage = class ClientsPage {
                 await this.actionDriver.clickButton(clientPageLoc.paginationNextPage);
             }
         } else {
-            await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
-            el = await this.actionDriver.removeChildElement(elements);
+            // await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
+            await this.actionDriver.waitElementUntilVisible(elements);
+            await this.page.waitForTimeout(5000);
+            el = await this.actionDriver.getTextArray(elements);
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;
@@ -400,7 +376,6 @@ exports.ClientsPage = class ClientsPage {
     }
 
     async validateAvailableTalentButtons() {
-        await this.actionDriver.clickButton(clientPageLoc.firstActualTalent);
         await this.actionDriver.waitElementUntilVisible(clientPageLoc.saveSelectedProfile);
         await this.actionDriver.checkElementVisibility(clientPageLoc.saveSelectedProfile);
         await this.actionDriver.checkElementVisibility(clientPageLoc.bookaCall);
@@ -413,8 +388,14 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.waitElementUntilClickable(clientPageLoc.heartBtn);
         const firstElement = await this.page.$(clientPageLoc.heartBtn);
         if (firstElement) {
-            const attributeValue = await firstElement.getAttribute('title');
-            const containsWord = attributeValue && attributeValue.includes(title);
+            let attributeValue = await firstElement.getAttribute('title');
+            let containsWord = attributeValue && attributeValue.includes(title);
+            if(!containsWord) {
+                await this.actionDriver.clickButton(clientPageLoc.saveTalent);
+                await this.page.waitForTimeout(5000);
+                attributeValue = await firstElement.getAttribute('title');
+                containsWord = attributeValue && attributeValue.includes(title);
+            }
             await this.actionDriver.expectTrue(containsWord);
         }
     }

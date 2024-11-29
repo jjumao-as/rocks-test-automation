@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { HomePage, LoginPage, QuickTasksPage, SettingsPage } from '../../pages/functions/index.js';
 import { roles } from '../../testdata/rolesForParallel.js';
 const { readJsonFile } = require('../../utils/jsonReader');
-
+const path = require('path');
 
 let browser;
 let context;
@@ -13,18 +13,22 @@ let settingsPage;
 let homePage;
 let testDataPath;
 let testData;
+let file;
 
 const rolesToTest = ['ADMIN', 'FLOOR']
+
+test.beforeAll(async ({ browser: b }) => {
+    browser = b;
+    testDataPath = 'floorReport';
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
 
 rolesToTest.forEach(role => {
     const { username, password } = roles[role];
 
     test.describe('Submit Weekly Floor Report', () => {
 
-        test.beforeAll(async ({ browser: b }) => {
-            browser = b;
-            testDataPath = 'floorReport';
-        })
 
         test.beforeEach(async () => {
             context = await browser.newContext();
@@ -77,4 +81,9 @@ rolesToTest.forEach(role => {
             await context.close();
         })
     });
+})
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
 })

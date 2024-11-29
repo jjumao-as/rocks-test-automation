@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { LoginPage, HomePage, QuickTasksPage, EmployeesPage, DashboardPage } from '../../pages/functions/index';
 import { roles } from '../../testdata/rolesForParallel.ts';
 import { readJsonFile } from '../../utils/jsonReader.js'
+const path = require('path');
 
 let context;
 let page;
@@ -12,12 +13,17 @@ let employeesPage;
 let dashboardPage;
 let testData;
 let testDataPath;
-
+let file;
 let newSpotlightData;
 let updatedSpotlightData;
 
 
 const roleToTest = ['SUPERADMIN', 'ADMIN', 'HR', 'FLOOR']
+
+test.beforeAll(async () =>{
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
 
 roleToTest.forEach(role => {
 
@@ -65,7 +71,6 @@ roleToTest.forEach(role => {
             await page.close()
         });
 
-
         test.describe(`Update Client Spotlight / Review`, async() => {
             test(`${role} edits client spotlight`, async() => {
                 updatedSpotlightData = await employeesPage.editClientSpotlight(newSpotlightData, testData.clientSpotlight)
@@ -77,4 +82,9 @@ roleToTest.forEach(role => {
     
     })
       
+})
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
 })

@@ -1,8 +1,8 @@
 import { test } from '@playwright/test';
-import { read } from 'fs';
 const { LoginPage, HomePage, FindTalentPage, ManageClientsPage, ClientsPage, EmployeesPage, DashboardPage, SettingsPage } = require('../../pages/functions/index');
 const { readJsonFile, updateJsonData } = require('../../utils/jsonReader');
 const { firstAndLastName } = require('../../utils/randomData');
+const path = require('path');
 
 let browser;
 let context;
@@ -19,9 +19,12 @@ let noMsaEmpName;
 let dashboardPage;
 let settingsPage;
 let clientPage;
+let file;
 
 test.beforeAll(async ({browser : b}) => {
     browser = b;
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
 })
 test.beforeEach(async () => {
     context = await browser.newContext();
@@ -42,6 +45,11 @@ test.afterEach(async () => {
     await context.close();
 });
 
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
+
 test('Create Client with MSA', async() => {
     msaEmpName = await firstAndLastName();
     noMsaEmpName = await firstAndLastName();
@@ -50,13 +58,13 @@ test('Create Client with MSA', async() => {
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, testData.msa.email, process.env.CLIENTPASSWORD);
 });
 
 test('Create Client without MSA', async() => {
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testData.nomsa, testData.employeeDetails, testData.emailDetails, process.env.ZOHO_EMAIL, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testData.nomsa, testData.employeeDetails, testData.emailDetails, testData.nomsa.email, process.env.CLIENTPASSWORD);
 });
 
 test('Login as Client with MSA', async() => {

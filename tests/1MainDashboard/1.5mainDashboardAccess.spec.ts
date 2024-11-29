@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { LoginPage, DashboardPage } from '../../pages/functions/index.js';
 import { roles } from '../../testdata/rolesForParallel.js';
 const { readJsonFile } = require('../../utils/jsonReader');
+const path = require('path');
 
 let browser;
 let context;
@@ -10,18 +11,27 @@ let loginPage;
 let dashboardPage;
 let testDataPath;
 let testData;
+let file;
 
 const rolesToTest = ['SUPERADMIN','ADMIN','FLOOR','HR','FINANCE','EMPLOYEE','WRITER']
+
+test.beforeAll(async ({ browser : b}) =>{
+    browser = b;
+    testDataPath = 'sideTab';
+    file = path.basename(__filename);
+    console.log('Execution started.. ', file);
+})
+
+test.afterAll(async() => {
+    console.log();
+    console.log('Execution ended.. ', file);
+})
 
 rolesToTest.forEach(role => {
     const {username, password} = roles[role];
 
     test.describe.parallel('Main Dashboard Access Validation', () => {
-       
-        test.beforeAll(async ({ browser : b}) =>{
-            browser = b;
-            testDataPath = 'sideTab';
-        })
+    
 
         test.beforeEach(async () => {
             context = await browser.newContext();
