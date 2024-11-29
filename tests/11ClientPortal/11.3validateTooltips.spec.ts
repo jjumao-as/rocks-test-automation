@@ -49,7 +49,7 @@ test('Validate Tooltip as Client with MSA', async() => {
     await clientPage.hoverNeedHelp();
 });
 
-test('Login as Client without MSA', async() => {
+test('Validate Tooltip as Client without MSA', async() => {
     await loginPage.login(testData.nomsa.email , process.env.CLIENTPASSWORD);
     await clientPage.hoverMyProfile();
     await clientPage.hoverMyContacts();

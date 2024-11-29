@@ -88,6 +88,12 @@ test.describe('Test Script for adding talent to the team', async () => {
         await employeePage.deleteEmployee(testData.employeeName);
     });
 
+    test('Delete Employee', async () => {
+        await loginPage.login(process.env.SUPERADMIN, process.env.PASSWORD);
+        await employeePage.searchEmployee(testData.employeeName);
+        await employeePage.deleteEmployee(testData.employeeName);
+    });
+
     test.afterEach(async () => {
         await context.close();
     });
