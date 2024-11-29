@@ -231,6 +231,7 @@ exports.ManageClientsPage = class ManageClientsPage {
         if (frame) {
             await frame.type(manageClientsocators.commentsBody, comment);
         }
+        await this.page.waitForTimeout(2000);
     }
 
     async validatePerfEvalModal(data) {
