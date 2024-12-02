@@ -159,6 +159,10 @@ module.exports = {
     loadingRecords : "//span[contains(text(),'Loading records')]",
     interviewDeletionProgress : "//div[contains(text(),'Deleting interview')]",
 
+    performanceAnalysis : "//span[text()='Performance Analysis']",
+    generateAnalysisBtn : "//a[contains(text(),'Generate Analysis')]",
+    performanceReviewLoader : "//span[text()='Performance Reviews']/parent::h2/parent::header/following-sibling::div/div/div/div[@class='simple-loader']",
+
     editAboutMe : "//div[contains(text(),'About Me')]//span[text()='Edit']",
     aboutMeTxtArea : "//textarea[@placeholder='About Me']",
     saveAboutMeBtn : "//h4[text()='About Me']/following-sibling::div//span[text()='Save']",

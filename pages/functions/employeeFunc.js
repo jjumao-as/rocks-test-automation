@@ -716,6 +716,13 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async editAboutMe(testData) {
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+        await this.page.waitForTimeout(2000);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editAboutMe);
@@ -731,6 +738,15 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Work Experience */
 
     async addWorkExperience(testData) {
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
@@ -750,6 +766,15 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async validateWorkExperience(testData) {
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
@@ -761,6 +786,15 @@ exports.EmployeesPage = class EmployeesPage {
     async addNewWorkExperience(){
 
         jsonData = await readJsonFile('employee')
+
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
@@ -919,6 +953,15 @@ exports.EmployeesPage = class EmployeesPage {
     
     async isWorkExperienceAdded() {
 
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        } else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
@@ -955,6 +998,15 @@ exports.EmployeesPage = class EmployeesPage {
     /** Deleting Work Experience */
 
     async deleteWorkExperience(){
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
@@ -984,6 +1036,15 @@ exports.EmployeesPage = class EmployeesPage {
     async updateWorkExperience(){
         
         jsonData = await readJsonFile('employee')
+
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
@@ -1129,6 +1190,16 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Client Spotlight */
 
     async addClientSpotlight(clientSpotlightData){
+        //performanceReviewContent
+
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
