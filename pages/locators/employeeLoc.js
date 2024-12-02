@@ -262,6 +262,7 @@ module.exports = {
 
     /** Add Employee Spotlight */
     navBar : "//nav[@class='nav navbar-nav']",
+    zeroStateClientReview : "//div[contains(text(), 'No client review selected')]",
     selectNewButton :   "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a/span",           
     selectExistingButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[3]/span",
     selectSpotlightModal : "//h4[contains(text(), 'Select Client Spotlight')]",
