@@ -4,7 +4,7 @@ const axios = require('axios');
 
 // Load credentials
 function loadCredentials() {
-    const CREDENTIALS_PATH = path.resolve(__dirname, '../testdata/credentials.json');
+    const CREDENTIALS_PATH = path.resolve(__dirname, process.env.CREDENTIALS_JSON);
     const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH));
 
     const { client_id, client_secret, redirect_uris, refresh_token } = credentials;
