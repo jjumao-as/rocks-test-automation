@@ -933,9 +933,7 @@ exports.EmployeesPage = class EmployeesPage {
         // }  else {
         //     await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
         // }
-
         // await this.page.waitForTimeout(2000);
-
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.addWorkExpBtn);
