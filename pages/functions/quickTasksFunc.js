@@ -81,7 +81,7 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.checkElementVisibility(quickTasksLocators.justification);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.receiptMissing);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.uploadReceipt);
-        await this.actionDriver.checkElementVisibility(quickTasksLocators.submitButton);
+        await this.actionDriver.checkElementVisibility(quickTasksLocators.submitExpenseButton);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.closeButton);
     }
 
@@ -493,7 +493,7 @@ exports.QuickTasksPage = class QuickTasksPage {
     }
 
     async saveExpenseReport() {
-        await this.actionDriver.clickButton(quickTasksLocators.submitButton);
+        await this.actionDriver.clickButton(quickTasksLocators.submitExpenseButton);
         await this.actionDriver.waitElementUntilVisible(quickTasksLocators.confirmationMsg);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.confirmationMsg);
         await this.actionDriver.clickButton(quickTasksLocators.okBtn);

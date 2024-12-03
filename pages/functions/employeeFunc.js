@@ -279,6 +279,15 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Client Interview */
 
     async navigateToClientInterviews() {
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+
+        await this.page.waitForTimeout(2000);
+        
         await this.actionDriver.clickButton(employeePageLoc.clientInterviewLink)
         await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewButton)
 
@@ -704,6 +713,14 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async updatePosition(testData) {
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+        await this.page.waitForTimeout(2000);
+
         await this.actionDriver.clickButton(employeePageLoc.employmentTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editWorkDetail);
         await this.actionDriver.clickButton(employeePageLoc.editWorkDetail);
@@ -724,6 +741,16 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async validatePostion(testData) {
+        const el = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+        await this.page.waitForTimeout(2000);
+        
+        await this.actionDriver.clickButton(employeePageLoc.employmentTab);
+
         const position = testData.position + " " + testData.role;
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.modalTitle);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.currentPosition);
@@ -852,6 +879,18 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.ElemetType(employeePageLoc.aboutMeTxtArea, testData);
         await this.actionDriver.clickButton(employeePageLoc.saveAboutMeBtn);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.aboutMeTxtArea);
+
+        const el1 = await this.actionDriver.elementVisible(employeePageLoc.performanceAnalysis);
+        if(el1) {
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.generateAnalysisBtn);
+        }  else {
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        }
+        await this.page.waitForTimeout(2000);
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.editAboutMe);
         const text = await this.actionDriver.getText(employeePageLoc.aboutMeDetails);
         await this.actionDriver.checkInclude(text, testData);

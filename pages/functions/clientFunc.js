@@ -448,6 +448,12 @@ exports.ClientsPage = class ClientsPage {
     }
 
     async validateTimeClockReport() {
+        const el = await this.actionDriver.elementVisible(clientPageLoc.noReportsAvailable);
+        if(el) {
+            await this.actionDriver.clickButton(clientPageLoc.monthField);
+            await this.actionDriver.clickButton(clientPageLoc.monthSelection);
+        }
+
         await this.actionDriver.waitElementUntilVisible(clientPageLoc.latestWeeklyTimeDate);
         const textArray = await this.actionDriver.getTextArray(clientPageLoc.weeklyTimeDates);
         const sortedDateRanges = await this.sortDateRange(textArray);
