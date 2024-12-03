@@ -59,7 +59,7 @@ module.exports = {
     uploadReceipt : "//span[text()='Upload Receipt']",
     uploadedReceipt : "//a[@title='View Uploaded Receipt']",
     uploadReceiptBtn : "//input[@id='uploadReceipt']",
-    submitButton : "//a[text()='SUBMIT']",
+    submitExpenseButton : "//a[text()='SUBMIT']",
     closeButton : "//a[text()='close']",
     confirmationMsg : "//div[text()='We will review your report and send an email once status is updated.']",
     okBtn : "//button[contains(@class,'swal2-confirm')]",
