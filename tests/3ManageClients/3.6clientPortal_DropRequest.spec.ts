@@ -79,7 +79,7 @@ test('Revert Drop', async() => {
     await clientPortalPage.checkManageTeamMenuVisibility();
     await clientPortalPage.navigateManageTeam();
     await clientPortalPage.checkMyTeamTableVisibility();
-    await clientPortalPage.cancelDropTalentNameConfirmed(name);
+    await clientPortalPage.cancelDropTalentNameConfirmed(testData.dropTalentName);
 })
 
 

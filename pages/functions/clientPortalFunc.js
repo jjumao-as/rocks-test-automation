@@ -1,6 +1,7 @@
 const clientPortalLocators = require('../locators/clientPortalLoc');
 const manageClientLocators = require('../locators/manageClientsLoc');
 const ActionDriver = require('../../utils/ActionDriver');
+const { updateJsonData } = require('../../utils/jsonReader');
 
 exports.ClientPortalPage = class ClientPortalPage {
     constructor(page) {
@@ -28,7 +29,8 @@ exports.ClientPortalPage = class ClientPortalPage {
     async dropTalentName() {
         await this.actionDriver.waitElementUntilVisible(clientPortalLocators.talentNameSelectedRow);
         const name = await this.actionDriver.getText(clientPortalLocators.talentNameSelectedRow);  
-        return name;        
+        updateJsonData('settings', 'dropTalentName', name);
+        return name;
     }
 
     //drop to team request
