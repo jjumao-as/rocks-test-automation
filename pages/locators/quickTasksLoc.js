@@ -59,7 +59,7 @@ module.exports = {
     uploadReceipt : "//span[text()='Upload Receipt']",
     uploadedReceipt : "//a[@title='View Uploaded Receipt']",
     uploadReceiptBtn : "//input[@id='uploadReceipt']",
-    submitButton : "//a[text()='SUBMIT']",
+    submitExpenseButton : "//a[text()='SUBMIT']",
     closeButton : "//a[text()='close']",
     confirmationMsg : "//div[text()='We will review your report and send an email once status is updated.']",
     okBtn : "//button[contains(@class,'swal2-confirm')]",
@@ -98,12 +98,40 @@ module.exports = {
     startDate : "//label[text()='Start date']",
     endDate : "//label[text()='End date']",
 
-    //Manager Performance Review
+    /** Manager Performance Review */
+    // Choose Talent
     managerPerformanceReviewTab : "(//span[text()='Submit Manager Performance Review'])[1]",
     managerPerformanceReview : "//h4[text()='Performance Evaluation Review']",
     managerReviewstartDate : "//label[text()='Start date']",
     managerReviewendDate : "//label[text()='End date']",
     selectTalent : "//label[text()='Select a talent to evaluate']",
+    searchTalentTextbox : "//input[@class='search']",
+    talentName : "//span[@class='photo-card-user-names']",
+    nextButton : "//button[contains(text(), 'Next')]",
+    // Performance Objectives
+    performanceEvaluationBanner : "//h3[contains(text(), 'Performance Evaluation Review')]",
+    employeeNameToReview : "//div[@class='font-semibold text-xl text-gray-200 employee--name']",
+    searchClientPlaceholder : "//span[contains(text(), 'Search Client')]",
+    searchClientDropdown : "//div[@class='multiselect']",
+    topicHeader : "//span[@class='topic']",
+    managerFeedbackCollapseButton : "//div[@class='textarea-field']",
+    managerFeedbackTextArea : "//textarea[@class='form-control']",
+    managerRatingDropdown : "//select[@class='mb-3 custom-select']",
+    managerRatingDropdownOptions : "//option[@data-v-3ae57cd2]",
+    // Performance Competencies
+    ratingRadioGroup : "//div[@class='bv-no-focus-ring']",
+
+    // Performance Summary
+    overallRatingOptions : "//div[@class='custom-control custom-control-inline custom-radio']",
+    additionalCommentTextarea : "//*[@id='1845']/div/div[1]/div[2]/div[1]",
+    submitButton : "//button[contains(text(), 'Submit')]",
+
+    // Submit Review
+    savingInfoLoader : "//span[contains(text(), 'Wait, while we are saving your info...')]",
+    thankYouEvaluationNotif : "//p[@class='thank-text text-secondary display-inline']",
+
+
+
 
     //Submit Feedback
     submitFeedback : "(//span[text()='Submit Feedback'])[1]",

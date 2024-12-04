@@ -1,5 +1,26 @@
 module.exports = {
 
+    // Employee List locators
+    employeeTable : "//table[@class='table dataTable showHeaderOnly']",
+    employeeListHeader : "//h4[contains(text(), 'Employees')]",
+    employeeNameLink : "//a[contains(@class,'photo-card-user-names')]",
+
+    /**
+     * Superadmin
+     * Performance Reviews
+    */
+    performanceReviewsTab : "(//span[text()='Performance Reviews'])[1]",
+    pullingRecordsLoader : " //span[contains(text(), 'Pulling all records')]",
+    pullingEmployeesLoader : "//span[contains(text(), 'Pulling all employees')]",
+    performanceReviewHeader : "//h4[contains(text(), 'Performance Review Dashboard')]",
+    performanceEmployeeNames : "//a[@class='mb-0 text-success font-weight-bold text-font-1']",
+    performanceClientNames : "//a[@class='mb-0 text-success']",
+    row1 : "(//tr[@data-v-950350a8])[1]",
+    row1Td : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative']//a",
+    employeeName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][1]//a",
+    clientName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][2]//a",
+   
+    
     // Feedback Listing locators
     feedbackResponsesHeader : "//h4[text()='Feedback Responses']",
     topRow : '//*[@id="feedback-list"]/div/div/div/div[2]/div/table/tbody/tr[1]',
@@ -8,10 +29,7 @@ module.exports = {
     imageInModal : '//*[@id="feedback-detail-modal-container"]/div/table/tbody/tr[3]/td[2]/div/img',
     closeButton : '//*[@id="modalTitle"]/div/button',
 
-    // Employee List locators
-    employeeTable : "//table[@class='table dataTable showHeaderOnly']",
-    employeeListHeader : "//h4[contains(text(), 'Employees')]",
-    employeeNameLink : "//a[contains(@class,'photo-card-user-names')]",
+    
 
     // Employee Profile Locators > Add Interview
 
@@ -159,6 +177,10 @@ module.exports = {
     loadingRecords : "//span[contains(text(),'Loading records')]",
     interviewDeletionProgress : "//div[contains(text(),'Deleting interview')]",
 
+    performanceAnalysis : "//span[text()='Performance Analysis']",
+    generateAnalysisBtn : "//a[contains(text(),'Generate Analysis')]",
+    performanceReviewLoader : "//span[text()='Performance Reviews']/parent::h2/parent::header/following-sibling::div/div/div/div[@class='simple-loader']",
+
     editAboutMe : "//div[contains(text(),'About Me')]//span[text()='Edit']",
     aboutMeTxtArea : "//textarea[@placeholder='About Me']",
     saveAboutMeBtn : "//h4[text()='About Me']/following-sibling::div//span[text()='Save']",
@@ -211,6 +233,15 @@ module.exports = {
     companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
     copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
     copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
+    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[1]",
+    addTeamManagerButton : "//span[contains(text(), 'Add Team Manager')]",
+    managerEditButton : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[2]/a",
+    selectManagerInput : "//input[@class='multiselect__input']",
+    managerListItem : "//li[@class='multiselect__element']",
+    selectedManager : "//span[@class='multiselect__option multiselect__option--selected']",
+    loadingSpinner : "//i[@class='mt-1 fa fa-spinner fa-spin']",
+    successNotification : "//h2[contains(text(), 'Successfully saved changes')]",
+
 
     // employee public profile
     profileName : "//h2[contains(@class, 'profile-name')]",
@@ -230,6 +261,7 @@ module.exports = {
     deleteNotification : "//*[@id='swal2-title']",
 
     /** Add Employee Spotlight */
+    navBar : "//nav[@class='nav navbar-nav']",
     zeroStateClientReview : "//div[contains(text(), 'No client review selected')]",
     selectNewButton :   "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a/span",           
     selectExistingButton : "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a[3]/span",

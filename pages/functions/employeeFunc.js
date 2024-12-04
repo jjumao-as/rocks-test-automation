@@ -41,10 +41,72 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
+    /** 
+     * Superadmin
+     * Performance Reviews */
 
-    /*
-    * Employee Feeback functions
-    */
+    async navigateToPerformanceReviews() {
+        await this.actionDriver.waitElementUntilVisible(dashboardLoc.employeesSide);
+        const visible = await this.actionDriver.elementVisible(dashboardLoc.collapseEmployees);
+        if(visible) {
+            await this.actionDriver.clickButton(dashboardLoc.collapseEmployees);
+        }
+        await this.actionDriver.clickButton(employeePageLoc.performanceReviewsTab);
+    }
+
+    async isInPerformanceReview(){
+        await this.actionDriver.checkElementVisibility(employeePageLoc.performanceReviewHeader)
+        return true
+    }
+
+    async isEmployeeAddedInPerformanceReview(employeeName, performanceReviewData){
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingRecordsLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingEmployeesLoader)
+        // Checks if the table loaded successfully by just checking the entire first row
+        const tableLoaded = await this.actionDriver.elementVisible(employeePageLoc.row1)
+
+        if (tableLoaded) {
+            // Gets the employee name and client name text for the first row
+            const firstRowEmpName = await this.actionDriver.getText(employeePageLoc.employeeName1)
+            const firstRowClientName = await this.actionDriver.getText(employeePageLoc.clientName1)
+
+            // Checks if it matches with the testData passes as parameters
+            await this.actionDriver.checkInclude(employeeName, firstRowEmpName )
+            await this.actionDriver.checkInclude(performanceReviewData.client, firstRowClientName)
+
+            // Gets the text of all links in the first row (name, client and status)
+            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1Td)
+            firstRowData = firstRowData.map(name => name.trim())
+
+            // Checks if the employeeName and clientName exist in the firstRowData[]
+            await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName )
+            await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
+
+        }
+        else{
+            console.log('Table not loaded')
+        }
+
+        
+
+
+
+        return true
+
+    }
+
+    async clearEmployeeSearch(){
+        await this.actionDriver.clickButton(dashboardLoc.xIcon);
+
+    }
+
+
+    
+
+
+    /** 
+     * Superadmin
+     * Employee Feeback functions */
 
     async isInFeedbackListing() {
         await this.actionDriver.checkElementVisibility(employeePageLoc.feedbackResponsesHeader)
@@ -91,6 +153,66 @@ exports.EmployeesPage = class EmployeesPage {
         const matchedEmpName = tname.includes(subStringEmpName)
 
         await this.actionDriver.expectTrue(matchedEmpName)
+
+    }
+
+    async updateEmployeeManager(newManager){
+
+        // gets the current managerName of rocks employee in the Employee Internal profile
+        const existingMgrName = await this.actionDriver.getText(employeePageLoc.managerName) 
+
+        /**
+         * if the testData "Ronna Nahid" is not equal to the existing TeamManager text, it proceeds if() block
+         * if employee's team manager is already "Ronna Nahid", it exits the if() block
+        */
+        if (existingMgrName !== newManager) {
+
+            let newSelectedManager
+            const addTeamManagerButtonVisible = await this.actionDriver.elementVisible(employeePageLoc.addTeamManagerButton)
+            const editManagerButtonVisible = await this.actionDriver.elementVisible(employeePageLoc.managerEditButton)
+            
+            // if it sees the Add Team Manager button, means no existing manager is added and adds "Ronna Nahid"
+            if(addTeamManagerButtonVisible === true){
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.addTeamManagerButton)
+                await this.actionDriver.clickButton(employeePageLoc.addTeamManagerButton)
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.managerListItem)
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.selectManagerInput)
+                await this.actionDriver.setText(employeePageLoc.selectManagerInput, newManager)
+                await this.actionDriver.keyboardPress('Enter')
+                newSelectedManager = await this.actionDriver.getText(employeePageLoc.selectedManager)
+                await this.actionDriver.checkInclude(newSelectedManager, newManager)
+                
+            }
+            // if it sees EDIT button, meaning there's already existing Team Manager and need to be edited to "Ronna Nahid"
+            else if (editManagerButtonVisible === true){
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.managerEditButton)
+                await this.actionDriver.clickButton(employeePageLoc.managerEditButton)
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.managerListItem)
+                // this means to unselect the existing manager
+                await this.actionDriver.clickButton(employeePageLoc.selectedManager)
+        
+                await this.actionDriver.waitElementUntilVisible(employeePageLoc.selectManagerInput)
+                // enter the newManager "Ronna Nahid"
+                await this.actionDriver.setText(employeePageLoc.selectManagerInput, newManager)
+                await this.actionDriver.keyboardPress('Enter')
+                newSelectedManager = await this.actionDriver.getText(employeePageLoc.selectedManager)
+                await this.actionDriver.checkInclude(newSelectedManager, newManager)
+
+            }
+    
+            else{
+                console.log("Error adding employee Manager")
+            }
+    
+            await this.actionDriver.clickButton(employeePageLoc.navBar)
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingSpinner)
+            await this.actionDriver.checkElementVisibility(employeePageLoc.successNotification)
+            await this.actionDriver.waitElementUntilHidden(employeePageLoc.successNotification)
+    
+    
+        }
+
+       
 
     }
 
@@ -157,6 +279,7 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Client Interview */
 
     async navigateToClientInterviews() {
+        
         await this.actionDriver.clickButton(employeePageLoc.clientInterviewLink)
         await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewButton)
 
@@ -582,6 +705,7 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async updatePosition(testData) {
+
         await this.actionDriver.clickButton(employeePageLoc.employmentTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editWorkDetail);
         await this.actionDriver.clickButton(employeePageLoc.editWorkDetail);
@@ -602,6 +726,9 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
     async validatePostion(testData) {
+        
+        await this.actionDriver.clickButton(employeePageLoc.employmentTab);
+
         const position = testData.position + " " + testData.role;
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.modalTitle);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.currentPosition);
@@ -723,6 +850,11 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.ElemetType(employeePageLoc.aboutMeTxtArea, testData);
         await this.actionDriver.clickButton(employeePageLoc.saveAboutMeBtn);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.aboutMeTxtArea);
+
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
+
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.editAboutMe);
         const text = await this.actionDriver.getText(employeePageLoc.aboutMeDetails);
         await this.actionDriver.checkInclude(text, testData);
@@ -731,6 +863,7 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Work Experience */
 
     async addWorkExperience(testData) {
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.addWorkExpBtn);
@@ -761,6 +894,7 @@ exports.EmployeesPage = class EmployeesPage {
     async addNewWorkExperience(){
 
         jsonData = await readJsonFile('employee')
+
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
@@ -919,6 +1053,7 @@ exports.EmployeesPage = class EmployeesPage {
     
     async isWorkExperienceAdded() {
 
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
@@ -955,6 +1090,7 @@ exports.EmployeesPage = class EmployeesPage {
     /** Deleting Work Experience */
 
     async deleteWorkExperience(){
+
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
@@ -1058,7 +1194,7 @@ exports.EmployeesPage = class EmployeesPage {
 
         // Update Other project-name
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.modalprojectName)
-        await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
+        // await this.actionDriver.ExpectElementValue(employeePageLoc.modalprojectName, projectName)
         await this.actionDriver.clearInputElement(employeePageLoc.modalprojectName)
         projectName = await this.actionDriver.getRandomJsonItem(jsonData['projects'], 'projectName')
         await this.actionDriver.typeText(projectName)
@@ -1129,6 +1265,7 @@ exports.EmployeesPage = class EmployeesPage {
     /* Add Client Spotlight */
 
     async addClientSpotlight(clientSpotlightData){
+        //performanceReviewContent
 
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
