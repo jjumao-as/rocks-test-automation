@@ -32,7 +32,7 @@
   },
 
 
-  "managerPerformanceReview" : {
+  "performanceReview" : {
 
       "rocksEmployee" : {
         "developer" : "Sutana, Ryan Elandag",
@@ -80,7 +80,7 @@
       "perfCompOptions" : ["below", "meet", "exceed"],
 
       
-      "managerFeedback" : [
+      "objectivesFeedback" : [
           "You consistently meet deadlines and deliver high-quality work, even under tight time constraints. Your reliability has been a huge asset to the team",
           "I really appreciate how you actively engage with team members to solve problems. Your ability to collaborate and communicate across different departments has been fantastic",
           "You handled the issue with the payment gateway integration very effectively. Your troubleshooting process and quick resolution were exemplary.",
@@ -90,22 +90,42 @@
           "You demonstrated great attention to customer feedback when making improvements to the user interface. It’s great to see how you’re putting user experience first",
           "There have been several instances where you didn't communicate the status of your tasks or ask for help when you encountered blockers. This created delays and confusion. Please make sure to keep the team updated.",
           "You missed the deadline on the feature release last week, and we had to push back the entire project timeline. We need to ensure you are managing your time better and meeting deadlines.",
-          "The code you submitted was not up to our usual standards. There were multiple bugs, and the logic was difficult to follow. Please make sure to test thoroughly and write cleaner code"
+          "The code you submitted was not up to our usual standards. There were multiple bugs, and the logic was difficult to follow. Please make sure to test thoroughly and write cleaner code",
+          "I have consistently demonstrated strong proficiency in [programming languages, frameworks, or tools] through successful completion of [specific projects or tasks].",
+          "I excel at breaking down complex problems into smaller, manageable components and applying creative solutions to overcome technical challenges.",
+          "I am a highly collaborative team player who actively contributes to a positive and productive work environment, fostering strong relationships with colleagues.",
+          "I am quick to adapt to new technologies and methodologies, demonstrating a strong ability to learn and apply new skills effectively.",
+          "I am meticulous in my work, paying close attention to detail to ensure high-quality deliverables and minimize errors.",
+          "I effectively manage my time and prioritize tasks to meet deadlines consistently, even under pressure.",
+          "I possess strong written and verbal communication skills, enabling me to articulate complex technical concepts clearly and concisely to both technical and non-technical audiences.",
+          "I am committed to continuous learning and professional development, actively seeking opportunities to enhance my skills and knowledge.",
+          "I take ownership of my work, demonstrating a strong sense of responsibility and accountability for delivering high-quality results.",
+          "I maintain a positive and enthusiastic attitude, contributing to a positive team morale and fostering a collaborative work environment."
       ],
 
-      "overAllManagerFeedback" : [
+    
+      "overAllSummaryFeedback" : [
         "Your deep understanding of [specific technology] consistently leads to innovative solutions and efficient problem-solving.",
          "Your collaborative nature and positive attitude make you a valuable asset to the team. You always contribute to a positive and productive work environment.",
          "Your reliability and dedication to meeting deadlines are commendable. You consistently deliver high-quality work on time.",
          "Your ability to articulate complex technical concepts clearly and concisely is impressive. Your communication skills have significantly improved team collaboration.",
          "While your code is functional, focusing on writing cleaner and more maintainable code will enhance its long-term impact and reduce potential issues.",
          "While your communication skills are generally good, sometimes your messages could be more concise and direct. Clear communication is essential for effective teamwork.",
-          "While you're a skilled developer, actively seeking opportunities to learn new technologies and best practices will keep you at the forefront of the industry."
+          "While you're a skilled developer, actively seeking opportunities to learn new technologies and best practices will keep you at the forefront of the industry.",
+          "Highly motivated and dedicated: I am a highly motivated and dedicated software developer, always eager to take on new challenges and contribute to the team's success.",
+          "I possess strong problem-solving skills and can quickly identify and resolve technical issues, often coming up with innovative solutions.",
+          "I am an effective communicator, able to articulate complex technical concepts clearly and concisely to both technical and non-technical audiences.",
+          "I am a strong team player, collaborating effectively with colleagues to achieve shared goals and foster a positive work environment.",
+          "I am committed to continuous learning and professional development, staying up-to-date with the latest technologies and industry trends.",
+          "I am results-oriented and focused on delivering high-quality work that meets or exceeds expectations.",
+          "I am adaptable and flexible, able to work effectively in fast-paced environments and adjust to changing priorities."
 
       ],
 
+  
       "subject" : {
-        "performanceReviewManager" : "ACTION REQUIRED: Schedule A One-On-One Performance Review With Manager (Quarter)"
+        "performanceReviewManager" : "ACTION REQUIRED: Schedule A One-On-One Performance Review With Manager (Quarter)",
+        "performanceReviewSelf" : "Self Performance Evaluation (Quarter)"
         
       },
     

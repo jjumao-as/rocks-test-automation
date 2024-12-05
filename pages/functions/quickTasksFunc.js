@@ -102,6 +102,10 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.checkElementVisibility(quickTasksLocators.needMoreTalent);
     }
 
+    /** Navigate to Self Performance
+     *  Employee
+     */
+
     async navigateSelfPerfEval(){
         await this.actionDriver.waitElementUntilVisible(dashboardLocators.quickTasksSide);
         const visible = await this.actionDriver.elementVisible(dashboardLocators.collapseQuickTasks);
@@ -119,6 +123,8 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.checkElementVisibility(quickTasksLocators.startDate);
         await this.actionDriver.checkElementVisibility(quickTasksLocators.endDate);
     }
+
+    
 
     /** Submit Manager Performance Review */
 
@@ -220,7 +226,7 @@ exports.QuickTasksPage = class QuickTasksPage {
             const collapsedButton = `(${quickTasksLocators.managerFeedbackCollapseButton})[${i}]`
 
             /** This generates random JSON item from managerPerformanceReview['managerFeedback'] */
-            const randomFeedback = await this.actionDriver.getRandomJsonItem(performanceReviewData, 'managerFeedback')
+            const randomFeedback = await this.actionDriver.getRandomJsonItem(performanceReviewData, 'objectivesFeedback')
 
             await this.actionDriver.waitElementUntilVisible(collapsedButton)
             /** Clicks the collapse button and fills in randomFeedback testdata to the texarea afterwards */
@@ -335,11 +341,27 @@ exports.QuickTasksPage = class QuickTasksPage {
         selectedPerfSummary[`overAllRating`] = overAllRating
 
         // Overall Comment
-        await this.actionDriver.clickButton(quickTasksLocators.additionalCommentTextarea)
-        const overAllFeedback = await this.actionDriver.getRandomJsonItem(performanceReviewData, 'overAllManagerFeedback')
-        await this.actionDriver.ElemetType(quickTasksLocators.additionalCommentTextarea, overAllFeedback)
-        selectedPerfSummary[`overAllFeedback`] = overAllFeedback
+        const selfTextArea = await this.actionDriver.elementVisible(quickTasksLocators.selfAdditionalCommentTextArea)
+        const managerTextArea = await this.actionDriver.elementVisible(quickTasksLocators.additionalCommentTextarea)
+        let overAllFeedback;
 
+        if (managerTextArea) {
+            await this.actionDriver.clickButton(quickTasksLocators.additionalCommentTextarea)
+            overAllFeedback = await this.actionDriver.getRandomJsonItem(performanceReviewData, 'overAllSummaryFeedback')
+            await this.actionDriver.ElemetType(quickTasksLocators.additionalCommentTextarea, overAllFeedback)
+        }
+        else if(selfTextArea){
+            await this.actionDriver.clickButton(quickTasksLocators.selfAdditionalCommentTextArea)
+            overAllFeedback = await this.actionDriver.getRandomJsonItem(performanceReviewData, 'overAllSummaryFeedback')
+            await this.actionDriver.ElemetType(quickTasksLocators.selfAdditionalCommentTextArea, overAllFeedback)
+        }
+        else{
+            console.log("Error finding overall comment textarea")
+        }
+
+       
+        selectedPerfSummary[`overAllFeedback`] = overAllFeedback
+        
         const performanceSummary = {selectedPerfSummary}
 
         await this.actionDriver.waitElementUntilClickable(quickTasksLocators.submitButton)
@@ -383,13 +405,19 @@ exports.QuickTasksPage = class QuickTasksPage {
         await this.actionDriver.expectFalse(empty);
     }
 
+    /**
+     * Feature : Submit Self Performance Evalluation
+     * Role    : Employee
+     */
 
+
+    async goToPerformanceObjectives(){
+        await this.actionDriver.waitElementUntilClickable(quickTasksLocators.nextButton)
+        await this.actionDriver.clickButton(quickTasksLocators.nextButton)
+    }
+
+ 
     
-    
-
-
-    
-
     /** Feeback Listing */
 
     async navigateSubmitFeedback() {
