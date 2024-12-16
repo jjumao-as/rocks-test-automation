@@ -97,6 +97,10 @@ module.exports = {
     performanceSummary : "//ol[@class='step-indicator']//span[contains(text(),'Performance Summary')]",
     startDate : "//label[text()='Start date']",
     endDate : "//label[text()='End date']",
+    standardObjBanner : "//h4[text()='Standard Objectives']",
+    checkBox1 : "(//input[@class='custom-control-input'])[1]",
+    standardObjCheckbox : "//input[@class='custom-control-input']",
+    selfAdditionalCommentTextArea : "//*[@id='1396']/div/div[1]/div[2]/div[1]",
 
     /** Manager Performance Review */
     // Choose Talent
@@ -108,6 +112,7 @@ module.exports = {
     searchTalentTextbox : "//input[@class='search']",
     talentName : "//span[@class='photo-card-user-names']",
     nextButton : "//button[contains(text(), 'Next')]",
+    
     // Performance Objectives
     performanceEvaluationBanner : "//h3[contains(text(), 'Performance Evaluation Review')]",
     employeeNameToReview : "//div[@class='font-semibold text-xl text-gray-200 employee--name']",
