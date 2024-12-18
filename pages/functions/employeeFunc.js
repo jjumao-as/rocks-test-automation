@@ -87,17 +87,53 @@ exports.EmployeesPage = class EmployeesPage {
             console.log('Table not loaded')
         }
 
-        
-
-
-
+    
         return true
 
     }
 
+    async viewPerformanceReviewModal(){
+        await this.actionDriver.clickButton(employeePageLoc.viewButton1)
+        await this.actionDriver.checkElementVisibility(employeePageLoc.viewPerformanceReviewHeader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.performanceCompetenciesRow1)
+
+    }
+
+
+    async viewPerformanceObjectives(){
+
+    }
+
+    async viewPerformanceCompetencies(perfCompetenciesData){    
+        const rowCount = await this.actionDriver.elementCount(employeePageLoc.performanceCompetenciesRows)
+        const returnedPerfComp = perfCompetenciesData.selectedPerfCompRating
+
+        for (let i = 1; i <= rowCount; i++) {
+            const row = `(${employeePageLoc.performanceCompetenciesRows})[${i}]//div[3]`
+            const expectedRating = returnedPerfComp[`perfObjComp${i}`]
+            const viewSelectedRating = `${row}//i[@class='rating-icon-svg ${expectedRating}']`
+            const isRatingVisible = await this.actionDriver.elementVisible(viewSelectedRating)
+            await this.actionDriver.expectTrue(isRatingVisible)
+        }
+
+
+    
+       
+    }
+
+    async viewPerformanceSummary(){
+
+    }
+
+
     async clearEmployeeSearch(){
         await this.actionDriver.clickButton(dashboardLoc.xIcon);
 
+    }
+
+    async closeViewPerformanceReviewModal(){
+        await this.actionDriver.clickButton(employeePageLoc.closeViewPerformanceReviewModal)
     }
 
 

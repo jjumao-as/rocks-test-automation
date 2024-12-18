@@ -19,7 +19,16 @@ module.exports = {
     row1Td : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative']//a",
     employeeName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][1]//a",
     clientName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][2]//a",
-   
+
+    // View Performance Evaluation
+    viewButton1 : "(//button[contains(text(), 'VIEW')])[1]",
+    loadingRecords : "//span[contains(text(), 'Loading records...')]",
+    viewPerformanceReviewHeader : "//h4[contains(text(), 'View Performance Review')]",
+    performanceObjectiveCard : "(//*[@id='modalDescription']/div/div[3]/div/div[3]/div)",
+    performanceCompetenciesRows : "//div[@class='row no-gutters align-items-center']",
+    performanceCompetenciesRow1 : "(//div[@class='row no-gutters align-items-center'])[1]",
+    closeViewPerformanceReviewModal : "//button[@class='btn btn-close']",
+
     
     // Feedback Listing locators
     feedbackResponsesHeader : "//h4[text()='Feedback Responses']",
@@ -233,9 +242,9 @@ module.exports = {
     companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
     copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
     copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
-    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[1]",
+    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[3]/div[2]/ul/li[1]",
     addTeamManagerButton : "//span[contains(text(), 'Add Team Manager')]",
-    managerEditButton : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[2]/a",
+    managerEditButton : "(//span[contains(text(), 'Edit')])[1]",
     selectManagerInput : "//input[@class='multiselect__input']",
     managerListItem : "//li[@class='multiselect__element']",
     selectedManager : "//span[@class='multiselect__option multiselect__option--selected']",
