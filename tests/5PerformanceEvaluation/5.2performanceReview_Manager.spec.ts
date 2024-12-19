@@ -77,7 +77,7 @@ test.describe('Floor Manager performance review', async () => {
             await quickTaskPage.searchEmployeeToReview(emp)
 
             // Call in separate testBlock when getting returned object of addPerformanceObjectives function
-            await quickTaskPage.addPerformanceObjectives(emp, role, testData.performanceReview)
+            const po = await quickTaskPage.addPerformanceObjectives(emp, role, testData.performanceReview)
             // Call in separate testBlock when getting returned object of addPerformanceCompetencies function
             const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.performanceReview)
             // Call in separate testBlock when getting returned object of addPerformanceSummary function
@@ -93,7 +93,9 @@ test.describe('Floor Manager performance review', async () => {
             /** Verify if performanceObjectives, performanceCompetencies, and performanceSummary data matched in Performance Evaluation table */
 
             await employeePage.viewPerformanceReviewModal()
+
             await employeePage.viewPerformanceCompetencies(pc)
+            await employeePage.viewPerformanceObjectives(po)
 
             await employeePage.closeViewPerformanceReviewModal()
 

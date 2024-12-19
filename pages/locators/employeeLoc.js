@@ -24,10 +24,13 @@ module.exports = {
     viewButton1 : "(//button[contains(text(), 'VIEW')])[1]",
     loadingRecords : "//span[contains(text(), 'Loading records...')]",
     viewPerformanceReviewHeader : "//h4[contains(text(), 'View Performance Review')]",
-    performanceObjectiveCard : "(//*[@id='modalDescription']/div/div[3]/div/div[3]/div)",
     performanceCompetenciesRows : "//div[@class='row no-gutters align-items-center']",
     performanceCompetenciesRow1 : "(//div[@class='row no-gutters align-items-center'])[1]",
     closeViewPerformanceReviewModal : "//button[@class='btn btn-close']",
+    performanceObjectiveCard : "//*[@id='modalDescription']/div/div[3]/div/div[3]/div",
+    managerFeedback : "//div[contains(text(), 'Manager Feedback')]",
+    managerRating : "//div[contains(text(), 'Manager Rating')]",
+    
 
     
     // Feedback Listing locators

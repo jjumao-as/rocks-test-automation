@@ -101,7 +101,31 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
 
-    async viewPerformanceObjectives(){
+    async viewPerformanceObjectives(perfObjectivesData){
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.performanceObjectiveCard)
+
+        const perfObjFeedbackCount = await this.actionDriver.elementCount(employeePageLoc.managerFeedback)
+        const perfObjRatingCount = await this.actionDriver.elementCount(employeePageLoc.managerRating)
+
+        const perfObjFeedbackData = perfObjectivesData.selectedPerfObjFeedback
+        const perfObjRatingData = perfObjectivesData.selectedPerfObjRating
+
+
+        for (let i = 1; i <= perfObjFeedbackCount; i++) {
+            const feedbackSection = `(${employeePageLoc.managerFeedback})[${i}]`
+            const feedbackText = await this.actionDriver.getText(feedbackSection)
+            const feedbackData = perfObjFeedbackData[`feedback${i}`]
+            await this.actionDriver.checkInclude(feedbackData, feedbackText)
+            
+        }
+
+        for (let i = 1; i <= perfObjRatingCount; i++) {
+            const ratingSection = `(${employeePageLoc.managerRating})[${i}]`
+            const ratingData = perfObjRatingData[`rating${i}`]
+            const ratingText = await this.actionDriver.getText(ratingSection)
+            await this.actionDriver.checkInclude(ratingData, ratingText)
+
+        }
 
     }
 
@@ -126,16 +150,16 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
+    async closeViewPerformanceReviewModal(){
+        await this.actionDriver.clickButton(employeePageLoc.closeViewPerformanceReviewModal)
+    }
 
     async clearEmployeeSearch(){
         await this.actionDriver.clickButton(dashboardLoc.xIcon);
 
     }
 
-    async closeViewPerformanceReviewModal(){
-        await this.actionDriver.clickButton(employeePageLoc.closeViewPerformanceReviewModal)
-    }
-
+   
 
     
 
