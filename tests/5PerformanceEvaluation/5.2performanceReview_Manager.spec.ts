@@ -81,7 +81,7 @@ test.describe('Floor Manager performance review', async () => {
             // Call in separate testBlock when getting returned object of addPerformanceCompetencies function
             const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.performanceReview)
             // Call in separate testBlock when getting returned object of addPerformanceSummary function
-            await quickTaskPage.addPerformanceSummary(emp, testData.performanceReview)
+            const ps = await quickTaskPage.addPerformanceSummary(emp, testData.performanceReview)
 
             await quickTaskPage.isManagerReviewSubmitted()
 
@@ -96,6 +96,7 @@ test.describe('Floor Manager performance review', async () => {
 
             await employeePage.viewPerformanceCompetencies(pc)
             await employeePage.viewPerformanceObjectives(po)
+            await employeePage.viewPerformanceSummary(ps)
 
             await employeePage.closeViewPerformanceReviewModal()
 

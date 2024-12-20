@@ -30,6 +30,8 @@ module.exports = {
     performanceObjectiveCard : "//*[@id='modalDescription']/div/div[3]/div/div[3]/div",
     managerFeedback : "//div[contains(text(), 'Manager Feedback')]",
     managerRating : "//div[contains(text(), 'Manager Rating')]",
+    summaryManagerRating : "//*[@id='modalDescription']/div/div/div[2]/div[3]/div[2]/div/span",
+    summaryManagerComment : "//div[@class='card rounded comment-manager']//div//div",
     
 
     

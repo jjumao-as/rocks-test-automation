@@ -110,7 +110,7 @@ exports.EmployeesPage = class EmployeesPage {
         const perfObjFeedbackData = perfObjectivesData.selectedPerfObjFeedback
         const perfObjRatingData = perfObjectivesData.selectedPerfObjRating
 
-
+        /** Loops through the Manager Feeback: card and compare the data returned from TestData object against the text in the card element */
         for (let i = 1; i <= perfObjFeedbackCount; i++) {
             const feedbackSection = `(${employeePageLoc.managerFeedback})[${i}]`
             const feedbackText = await this.actionDriver.getText(feedbackSection)
@@ -118,7 +118,8 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.checkInclude(feedbackData, feedbackText)
             
         }
-
+        
+        /** Loops through the Manager Rating: card and compare the data returned from TestData object against the text in the card element */
         for (let i = 1; i <= perfObjRatingCount; i++) {
             const ratingSection = `(${employeePageLoc.managerRating})[${i}]`
             const ratingData = perfObjRatingData[`rating${i}`]
@@ -133,6 +134,7 @@ exports.EmployeesPage = class EmployeesPage {
         const rowCount = await this.actionDriver.elementCount(employeePageLoc.performanceCompetenciesRows)
         const returnedPerfComp = perfCompetenciesData.selectedPerfCompRating
 
+        /** Loops through the Manager rating column and compare the presence of element (emoji) against data returned from TestData object */
         for (let i = 1; i <= rowCount; i++) {
             const row = `(${employeePageLoc.performanceCompetenciesRows})[${i}]//div[3]`
             const expectedRating = returnedPerfComp[`perfObjComp${i}`]
@@ -141,13 +143,53 @@ exports.EmployeesPage = class EmployeesPage {
             await this.actionDriver.expectTrue(isRatingVisible)
         }
 
-
-    
-       
     }
 
-    async viewPerformanceSummary(){
+    async viewPerformanceSummary(perfSummaryData){
+        
+        const managerRatingText = await this.actionDriver.getText(employeePageLoc.summaryManagerRating)
+        const managerFeedbackText = await this.actionDriver.getText(employeePageLoc.summaryManagerComment)
 
+        const managerRatingData = perfSummaryData.selectedPerfSummary.overAllRating
+        const managerFeedbackData = perfSummaryData.selectedPerfSummary.overAllFeedback
+
+        /** 
+         * (left is from testData object, right is from web text element value)
+         * 
+         * exceed => "Exceeds Expectations"
+         * meet   => "Meets Expectations"
+         * below  => "Needs Improvement"
+         * 
+         * When managerRatingData falls to corresponding values below, it will check presence of exact element text following the mapping above.
+         */
+        switch (managerRatingData) {
+            case "exceed":
+                const exceedsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+                const exceedsRatingVisible = await this.actionDriver.elementVisible(exceedsRating)
+                await this.actionDriver.expectTrue(exceedsRatingVisible)
+                break;
+            
+            case "meet":
+                const meetsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+                const meetsRatingVisible = await this.actionDriver.elementVisible(meetsRating)
+                await this.actionDriver.expectTrue(meetsRatingVisible)
+                break;
+
+            case "below":
+                const belowRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+                const belowRatingVisible = await this.actionDriver.elementVisible(belowRating)
+                await this.actionDriver.expectTrue(belowRatingVisible)
+                break;
+                
+            default:
+                console.log('Overall manager summary rating not found')
+                break;
+        }
+
+        /** Simply just checks if Overall summary feedback from TestData is equal to the Manager Comment card in the Web page */
+        await this.actionDriver.checkInclude(managerFeedbackData, managerFeedbackText)
+
+     
     }
 
     async closeViewPerformanceReviewModal(){
@@ -160,9 +202,6 @@ exports.EmployeesPage = class EmployeesPage {
     }
 
    
-
-    
-
 
     /** 
      * Superadmin
