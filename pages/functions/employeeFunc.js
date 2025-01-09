@@ -63,34 +63,46 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingRecordsLoader)
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingEmployeesLoader)
         // Checks if the table loaded successfully by just checking the entire first row
-        const tableLoaded = await this.actionDriver.elementVisible(employeePageLoc.row1)
+        const firstRowReview = await this.actionDriver.elementVisible(employeePageLoc.row1)
 
-        if (tableLoaded) {
-            // Gets the employee name and client name text for the first row
-            const firstRowEmpName = await this.actionDriver.getText(employeePageLoc.employeeName1)
-            const firstRowClientName = await this.actionDriver.getText(employeePageLoc.clientName1)
-
-            // Checks if it matches with the testData passes as parameters
-            await this.actionDriver.checkInclude(employeeName, firstRowEmpName )
-            await this.actionDriver.checkInclude(performanceReviewData.client, firstRowClientName)
-
-            // Gets the text of all links in the first row (name, client and status)
-            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1Td)
+        if (firstRowReview) {
+            // Gets the first row array of <employee name> and <client name> 
+            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1TdLinks)
             firstRowData = firstRowData.map(name => name.trim())
+            // Checks if the parameter <employeeName> exist in the in the above array
+            let isEmpNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName)
+            // Checks if the parameter <clientName> exist in the in the above array
+            let isClientNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
 
-            // Checks if the employeeName and clientName exist in the firstRowData[]
-            await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName )
-            await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
+            // If <employeeName> and <clientName> not found on first check,
+            if(isEmpNameInRow === false && isClientNameInRow === false){
+                // It will select the previous year in the Year dropdown 
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2YearDropdown)
+                await this.actionDriver.clickButton(employeePageLoc.select2YearDropdown)
+                // Previous year is always at index=2 in the dropdown
+                const previousYear = `${employeePageLoc.select2YearOptions}[2]`
+                await this.actionDriver.waitElementUntilClickable(previousYear)
+                await this.actionDriver.hoverElement(previousYear)
+                await this.actionDriver.clickButton(previousYear)
+
+                // It will select the Q4 from the previous year
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2QuarterDropdown)
+                await this.actionDriver.clickButton(employeePageLoc.select2QuarterDropdown)
+                // Q4 is always at index=4 in the dropdown
+                const selectQ4 = `${employeePageLoc.select2YearOptions}[4]`
+                await this.actionDriver.waitElementUntilClickable(selectQ4)
+                await this.actionDriver.hoverElement(selectQ4)
+                await this.actionDriver.clickButton(selectQ4)
+
+            }
+
 
         }
-        else{
-            console.log('Table not loaded')
-        }
 
-    
         return true
 
     }
+
 
     async viewPerformanceReviewModal(){
         await this.actionDriver.clickButton(employeePageLoc.viewButton1)

@@ -15,10 +15,17 @@ module.exports = {
     performanceReviewHeader : "//h4[contains(text(), 'Performance Review Dashboard')]",
     performanceEmployeeNames : "//a[@class='mb-0 text-success font-weight-bold text-font-1']",
     performanceClientNames : "//a[@class='mb-0 text-success']",
-    row1 : "(//tr[@data-v-950350a8])[1]",
-    row1Td : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative']//a",
-    employeeName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][1]//a",
-    clientName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][2]//a",
+    row1 : "(//tbody/tr[1])",
+    row1TdLinks : "(//tbody/tr)[1]//a",
+    employeeName1 : "(//tbody/tr/td/a)[1]",
+    clientName1 : "(//tbody/tr/td/a)[2]",
+    select2QuarterDropdown : "(//span[@class='selection'])[1]",
+    select2QuarterOptions : "(//span[@class='select2-results']/ul/li)",
+    select2YearDropdown : "(//span[@class='selection'])[2]",
+    select2YearContainer : "//ul[@id='select2-2sdh-results']",
+    select2YearOptions : "(//span[@class='select2-results']/ul/li)",
+
+
 
     // View Performance Evaluation
     viewButton1 : "(//button[contains(text(), 'VIEW')])[1]",
