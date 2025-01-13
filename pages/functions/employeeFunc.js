@@ -818,9 +818,11 @@ exports.EmployeesPage = class EmployeesPage {
     async updatePosition(testData) {
 
         await this.actionDriver.clickButton(employeePageLoc.employmentTab);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fetchingEmployeeInfoLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.fetchingEmployeeInfoLoader)
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editWorkDetail);
         await this.actionDriver.clickButton(employeePageLoc.editWorkDetail);
-        await this.actionDriver.waitElementUntilClickable(employeePageLoc.positionField);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.positionField);
         await this.actionDriver.ElemetType(employeePageLoc.positionField, testData);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);

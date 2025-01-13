@@ -180,7 +180,9 @@ module.exports = {
     skillsListInProfile : "//div[contains(@class,'skills-and-proficiencies')]//div/div[1]/span",
 
     employmentTab : "//span[text()='Employment']",
+    fetchingEmployeeInfoLoader : "//span[contains(text(), 'Fetching employee info...')]",
     editWorkDetail : "//div[@data-original-title='Edit work detail']",
+    workDetailModalHeader : "//h4[contains(text(), 'Work Detail')]",
     currentPositionField : "//span[@id='select2-position-level-container']",
     seniorOption : "//li[text()='Senior']",
     positionField : "//input[@id='employee-position']",
