@@ -256,7 +256,7 @@ exports.QuickTasksPage = class QuickTasksPage {
             /**
              * Every randomFeedback is stored on selectedPerfObjRating{} for later use especially on View Feedback tests
             */
-            selectedPerfObjRating[`perfObjRating${i}`] = mgrRating
+            selectedPerfObjRating[`rating${i}`] = mgrRating
          
         }
 

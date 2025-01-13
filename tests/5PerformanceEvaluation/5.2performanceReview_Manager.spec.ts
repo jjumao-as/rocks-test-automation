@@ -77,11 +77,11 @@ test.describe('Floor Manager performance review', async () => {
             await quickTaskPage.searchEmployeeToReview(emp)
 
             // Call in separate testBlock when getting returned object of addPerformanceObjectives function
-            await quickTaskPage.addPerformanceObjectives(emp, role, testData.performanceReview)
+            const po = await quickTaskPage.addPerformanceObjectives(emp, role, testData.performanceReview)
             // Call in separate testBlock when getting returned object of addPerformanceCompetencies function
-            await quickTaskPage.addPerformanceCompetencies(emp, testData.performanceReview)
+            const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.performanceReview)
             // Call in separate testBlock when getting returned object of addPerformanceSummary function
-            await quickTaskPage.addPerformanceSummary(emp, testData.performanceReview)
+            const ps = await quickTaskPage.addPerformanceSummary(emp, testData.performanceReview)
 
             await quickTaskPage.isManagerReviewSubmitted()
 
@@ -89,6 +89,17 @@ test.describe('Floor Manager performance review', async () => {
             await employeePage.navigateToPerformanceReviews()
             await employeePage.isInPerformanceReview()
             await employeePage.isEmployeeAddedInPerformanceReview(emp, testData.performanceReview)
+
+            /** Verify if performanceObjectives, performanceCompetencies, and performanceSummary data matched in Performance Evaluation table */
+
+            await employeePage.viewPerformanceReviewModal()
+
+            await employeePage.viewPerformanceCompetencies(pc)
+            await employeePage.viewPerformanceObjectives(po)
+            await employeePage.viewPerformanceSummary(ps)
+
+            await employeePage.closeViewPerformanceReviewModal()
+
             await employeePage.clearEmployeeSearch()
 
         } 
