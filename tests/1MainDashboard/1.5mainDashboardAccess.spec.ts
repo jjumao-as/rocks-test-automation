@@ -13,7 +13,7 @@ let testDataPath;
 let testData;
 let file;
 
-const rolesToTest = ['SUPERADMIN','ADMIN','FLOOR','HR','FINANCE','EMPLOYEE','WRITER']
+const rolesToTest = ['SUPERADMIN','ADMIN','FLOOR','HR','FINANCE','EMPLOYEE_DEV','WRITER']
 
 test.beforeAll(async ({ browser : b}) =>{
     browser = b;
