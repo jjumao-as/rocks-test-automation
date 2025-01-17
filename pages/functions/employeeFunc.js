@@ -63,36 +63,149 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingRecordsLoader)
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingEmployeesLoader)
         // Checks if the table loaded successfully by just checking the entire first row
-        const tableLoaded = await this.actionDriver.elementVisible(employeePageLoc.row1)
+        const firstRowReview = await this.actionDriver.elementVisible(employeePageLoc.row1)
 
-        if (tableLoaded) {
-            // Gets the employee name and client name text for the first row
-            const firstRowEmpName = await this.actionDriver.getText(employeePageLoc.employeeName1)
-            const firstRowClientName = await this.actionDriver.getText(employeePageLoc.clientName1)
-
-            // Checks if it matches with the testData passes as parameters
-            await this.actionDriver.checkInclude(employeeName, firstRowEmpName )
-            await this.actionDriver.checkInclude(performanceReviewData.client, firstRowClientName)
-
-            // Gets the text of all links in the first row (name, client and status)
-            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1Td)
+        if (firstRowReview) {
+            // Gets the first row array of <employee name> and <client name> 
+            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1TdLinks)
             firstRowData = firstRowData.map(name => name.trim())
+            // Checks if the parameter <employeeName> exist in the in the above array
+            let isEmpNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName)
+            // Checks if the parameter <clientName> exist in the in the above array
+            let isClientNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
 
-            // Checks if the employeeName and clientName exist in the firstRowData[]
-            await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName )
-            await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
+            // If <employeeName> and <clientName> not found on first check,
+            if(isEmpNameInRow === false && isClientNameInRow === false){
+                // It will select the previous year in the Year dropdown 
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2YearDropdown)
+                await this.actionDriver.clickButton(employeePageLoc.select2YearDropdown)
+                // Previous year is always at index=2 in the dropdown
+                const previousYear = `${employeePageLoc.select2YearOptions}[2]`
+                await this.actionDriver.waitElementUntilClickable(previousYear)
+                await this.actionDriver.hoverElement(previousYear)
+                await this.actionDriver.clickButton(previousYear)
+
+                // It will select the Q4 from the previous year
+                await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2QuarterDropdown)
+                await this.actionDriver.clickButton(employeePageLoc.select2QuarterDropdown)
+                // Q4 is always at index=4 in the dropdown
+                const selectQ4 = `${employeePageLoc.select2YearOptions}[4]`
+                await this.actionDriver.waitElementUntilClickable(selectQ4)
+                await this.actionDriver.hoverElement(selectQ4)
+                await this.actionDriver.clickButton(selectQ4)
+
+            }
+
 
         }
-        else{
-            console.log('Table not loaded')
-        }
-
-        
-
-
 
         return true
 
+    }
+
+
+    async viewPerformanceReviewModal(){
+        await this.actionDriver.clickButton(employeePageLoc.viewButton1)
+        await this.actionDriver.checkElementVisibility(employeePageLoc.viewPerformanceReviewHeader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.performanceCompetenciesRow1)
+
+    }
+
+
+    async viewPerformanceObjectives(perfObjectivesData){
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.performanceObjectiveCard)
+
+        const perfObjFeedbackCount = await this.actionDriver.elementCount(employeePageLoc.managerFeedback)
+        const perfObjRatingCount = await this.actionDriver.elementCount(employeePageLoc.managerRating)
+
+        const perfObjFeedbackData = perfObjectivesData.selectedPerfObjFeedback
+        const perfObjRatingData = perfObjectivesData.selectedPerfObjRating
+
+        /** Loops through the Manager Feeback: card and compare the data returned from TestData object against the text in the card element */
+        for (let i = 1; i <= perfObjFeedbackCount; i++) {
+            const feedbackSection = `(${employeePageLoc.managerFeedback})[${i}]`
+            const feedbackText = await this.actionDriver.getText(feedbackSection)
+            const feedbackData = perfObjFeedbackData[`feedback${i}`]
+            await this.actionDriver.checkInclude(feedbackData, feedbackText)
+            
+        }
+        
+        /** Loops through the Manager Rating: card and compare the data returned from TestData object against the text in the card element */
+        for (let i = 1; i <= perfObjRatingCount; i++) {
+            const ratingSection = `(${employeePageLoc.managerRating})[${i}]`
+            const ratingData = perfObjRatingData[`rating${i}`]
+            const ratingText = await this.actionDriver.getText(ratingSection)
+            await this.actionDriver.checkInclude(ratingData, ratingText)
+
+        }
+
+    }
+
+    async viewPerformanceCompetencies(perfCompetenciesData){    
+        const rowCount = await this.actionDriver.elementCount(employeePageLoc.performanceCompetenciesRows)
+        const returnedPerfComp = perfCompetenciesData.selectedPerfCompRating
+
+        /** Loops through the Manager rating column and compare the presence of element (emoji) against data returned from TestData object */
+        for (let i = 1; i <= rowCount; i++) {
+            const row = `(${employeePageLoc.performanceCompetenciesRows})[${i}]//div[3]`
+            const expectedRating = returnedPerfComp[`perfObjComp${i}`]
+            const viewSelectedRating = `${row}//i[@class='rating-icon-svg ${expectedRating}']`
+            const isRatingVisible = await this.actionDriver.elementVisible(viewSelectedRating)
+            await this.actionDriver.expectTrue(isRatingVisible)
+        }
+
+    }
+
+    async viewPerformanceSummary(perfSummaryData){
+        
+        const managerRatingText = await this.actionDriver.getText(employeePageLoc.summaryManagerRating)
+        const managerFeedbackText = await this.actionDriver.getText(employeePageLoc.summaryManagerComment)
+
+        const managerRatingData = perfSummaryData.selectedPerfSummary.overAllRating
+        const managerFeedbackData = perfSummaryData.selectedPerfSummary.overAllFeedback
+
+        /** 
+         * (left is from testData object, right is from web text element value)
+         * 
+         * exceed => "Exceeds Expectations"
+         * meet   => "Meets Expectations"
+         * below  => "Needs Improvement"
+         * 
+         * When managerRatingData falls to corresponding values below, it will check presence of exact element text following the mapping above.
+         */
+        switch (managerRatingData) {
+            case "exceed":
+                const exceedsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+                const exceedsRatingVisible = await this.actionDriver.elementVisible(exceedsRating)
+                await this.actionDriver.expectTrue(exceedsRatingVisible)
+                break;
+            
+            case "meet":
+                const meetsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+                const meetsRatingVisible = await this.actionDriver.elementVisible(meetsRating)
+                await this.actionDriver.expectTrue(meetsRatingVisible)
+                break;
+
+            case "below":
+                const belowRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+                const belowRatingVisible = await this.actionDriver.elementVisible(belowRating)
+                await this.actionDriver.expectTrue(belowRatingVisible)
+                break;
+                
+            default:
+                console.log('Overall manager summary rating not found')
+                break;
+        }
+
+        /** Simply just checks if Overall summary feedback from TestData is equal to the Manager Comment card in the Web page */
+        await this.actionDriver.checkInclude(managerFeedbackData, managerFeedbackText)
+
+     
+    }
+
+    async closeViewPerformanceReviewModal(){
+        await this.actionDriver.clickButton(employeePageLoc.closeViewPerformanceReviewModal)
     }
 
     async clearEmployeeSearch(){
@@ -100,9 +213,7 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
-
-    
-
+   
 
     /** 
      * Superadmin
@@ -707,9 +818,11 @@ exports.EmployeesPage = class EmployeesPage {
     async updatePosition(testData) {
 
         await this.actionDriver.clickButton(employeePageLoc.employmentTab);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fetchingEmployeeInfoLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.fetchingEmployeeInfoLoader)
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.editWorkDetail);
         await this.actionDriver.clickButton(employeePageLoc.editWorkDetail);
-        await this.actionDriver.waitElementUntilClickable(employeePageLoc.positionField);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.positionField);
         await this.actionDriver.ElemetType(employeePageLoc.positionField, testData);
         await this.actionDriver.waitElementUntilVisible(employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);

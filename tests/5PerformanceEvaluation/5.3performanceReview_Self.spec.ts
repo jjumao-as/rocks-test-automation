@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
-const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, QuickTasksPage, SettingsPage, HomePage } = require('../../pages/functions/index.js');
+import { roles } from '../../testdata/rolesForParallel.ts';
+const { LoginPage, DashboardPage, ManageClientsPage, EmployeesPage, QuickTasksPage, SettingsPage, HomePage, ClientsPage } = require('../../pages/functions/index.js');
 const { readJsonFile } = require('../../utils/jsonReader');
 
 let page;
@@ -11,6 +12,7 @@ let employeePage;
 let quickTaskPage;
 let settingsPage
 let homePage
+let clientsPage
 let testDataPath;
 let testData;
 let newManager
@@ -32,6 +34,7 @@ test.describe('Floor Manager performance review', async () => {
         quickTaskPage = await new QuickTasksPage(page)
         settingsPage = await new SettingsPage(page)
         homePage = await new HomePage(page)
+        clientsPage = await new ClientsPage(page)
 
         newManager = testData.performanceReview.newManager
 
@@ -51,7 +54,7 @@ test.describe('Floor Manager performance review', async () => {
     })
 
   
-    test('Floor Manager Submits Performance Evaluation to employee', async () => {
+    test('Employee Manager is set to Ronna Nahid', async () => {
 
         /** Logs in as manager "Ronna Nahid" */
         await loginPage.login(process.env.SPROJECT, process.env.PASSWORD)
@@ -70,45 +73,63 @@ test.describe('Floor Manager performance review', async () => {
                 
             /** update employee manager to "Ronna Nahid" */ 
             await employeePage.updateEmployeeManager(newManager)
-
-            /** Submit Performance Evalaution to employee */
-            await quickTaskPage.navigateManagerPerfEval()
-            await quickTaskPage.checkManagerPerfEvalElementsVisibility()
-            await quickTaskPage.searchEmployeeToReview(emp)
-
-            // Call in separate testBlock when getting returned object of addPerformanceObjectives function
-            const po = await quickTaskPage.addPerformanceObjectives(emp, role, testData.performanceReview)
-            // Call in separate testBlock when getting returned object of addPerformanceCompetencies function
-            const pc = await quickTaskPage.addPerformanceCompetencies(emp, testData.performanceReview)
-            // Call in separate testBlock when getting returned object of addPerformanceSummary function
-            const ps = await quickTaskPage.addPerformanceSummary(emp, testData.performanceReview)
-
-            await quickTaskPage.isManagerReviewSubmitted()
-
-            /** Verify if employee review is added in the Performance Reviews table */
-            await employeePage.navigateToPerformanceReviews()
-            await employeePage.isInPerformanceReview()
-            await employeePage.isEmployeeAddedInPerformanceReview(emp, testData.performanceReview)
-
-            /** Verify if performanceObjectives, performanceCompetencies, and performanceSummary data matched in Performance Evaluation table */
-
-            await employeePage.viewPerformanceReviewModal()
-
-            await employeePage.viewPerformanceCompetencies(pc)
-            await employeePage.viewPerformanceObjectives(po)
-            await employeePage.viewPerformanceSummary(ps)
-
-            await employeePage.closeViewPerformanceReviewModal()
-
+            
+            await quickTaskPage.navigateSelfPerfEval()
+            await quickTaskPage.checkSelfPerfEvalElementsVisibility()
             await employeePage.clearEmployeeSearch()
 
+
+          
         } 
             
     })
 
+    test('Employee logs in and submit self evaluation', async () => {
+
+        const rolesToTest = ['EMPLOYEE_DEV', 'EMPLOYEE_QA']
+        const rocksEmployee = testData.performanceReview.rocksEmployee
+
+        for(let i=0; i<rolesToTest.length; i++){
+            const selectedRole = rolesToTest[i]
+            const {username, password} = roles[selectedRole]
+            const empRole = Object.keys(rocksEmployee)[i]
+            const emp = rocksEmployee[empRole]
+
+            await loginPage.login(username, password)
+            await homePage.isInHomePage()
+
+            await quickTaskPage.navigateSelfPerfEval()
+            await quickTaskPage.checkSelfPerfEvalElementsVisibility()
+            
+            await quickTaskPage.goToPerformanceObjectives()
+
+            // Call in separate testBlock when getting returned object of addPerformanceObjectives function
+            await quickTaskPage.addPerformanceObjectives(emp, empRole, testData.performanceReview)
+            // Call in separate testBlock when getting returned object of addPerformanceCompetencies function
+            await quickTaskPage.addPerformanceCompetencies(emp, testData.performanceReview)
+            // Call in separate testBlock when getting returned object of addPerformanceSummary function
+            await quickTaskPage.addPerformanceSummary(emp, testData.performanceReview)
+
+            await quickTaskPage.isManagerReviewSubmitted()
+
+            await homePage.logout()
+
+            // Admin / Manager logs in and check if employee self evalution is added on Performance Review table
+            await loginPage.login(process.env.SPROJECT, process.env.PASSWORD)
+            await employeePage.navigateToPerformanceReviews()
+            await employeePage.isInPerformanceReview()
+            await employeePage.isEmployeeAddedInPerformanceReview(emp, testData.performanceReview)
+            await homePage.logout()
+
+
+        }
+
+    
+    })
+
     
     test('Check if email is received by Employee and Manager', async () => {
-        await quickTaskPage.validateZohoEmail(testData.performanceReview.subject.performanceReviewManager, testData.performanceReview.emailFrom)
+        await quickTaskPage.validateZohoEmail(testData.performanceReview.subject.performanceReviewSelf, testData.performanceReview.emailFrom)
  
     })
 

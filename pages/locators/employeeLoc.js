@@ -15,11 +15,32 @@ module.exports = {
     performanceReviewHeader : "//h4[contains(text(), 'Performance Review Dashboard')]",
     performanceEmployeeNames : "//a[@class='mb-0 text-success font-weight-bold text-font-1']",
     performanceClientNames : "//a[@class='mb-0 text-success']",
-    row1 : "(//tr[@data-v-950350a8])[1]",
-    row1Td : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative']//a",
-    employeeName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][1]//a",
-    clientName1 : "(//tr[@data-v-950350a8])[1]//td[@class='position-relative'][2]//a",
-   
+    row1 : "(//tbody/tr[1])",
+    row1TdLinks : "(//tbody/tr)[1]//a",
+    employeeName1 : "(//tbody/tr/td/a)[1]",
+    clientName1 : "(//tbody/tr/td/a)[2]",
+    select2QuarterDropdown : "(//span[@class='selection'])[1]",
+    select2QuarterOptions : "(//span[@class='select2-results']/ul/li)",
+    select2YearDropdown : "(//span[@class='selection'])[2]",
+    select2YearContainer : "//ul[@id='select2-2sdh-results']",
+    select2YearOptions : "(//span[@class='select2-results']/ul/li)",
+
+
+
+    // View Performance Evaluation
+    viewButton1 : "(//button[contains(text(), 'VIEW')])[1]",
+    loadingRecords : "//span[contains(text(), 'Loading records...')]",
+    viewPerformanceReviewHeader : "//h4[contains(text(), 'View Performance Review')]",
+    performanceCompetenciesRows : "//div[@class='row no-gutters align-items-center']",
+    performanceCompetenciesRow1 : "(//div[@class='row no-gutters align-items-center'])[1]",
+    closeViewPerformanceReviewModal : "//button[@class='btn btn-close']",
+    performanceObjectiveCard : "//*[@id='modalDescription']/div/div[3]/div/div[3]/div",
+    managerFeedback : "//div[contains(text(), 'Manager Feedback')]",
+    managerRating : "//div[contains(text(), 'Manager Rating')]",
+    summaryManagerRating : "//*[@id='modalDescription']/div/div/div[2]/div[3]/div[2]/div/span",
+    summaryManagerComment : "//div[@class='card rounded comment-manager']//div//div",
+    
+
     
     // Feedback Listing locators
     feedbackResponsesHeader : "//h4[text()='Feedback Responses']",
@@ -159,7 +180,9 @@ module.exports = {
     skillsListInProfile : "//div[contains(@class,'skills-and-proficiencies')]//div/div[1]/span",
 
     employmentTab : "//span[text()='Employment']",
+    fetchingEmployeeInfoLoader : "//span[contains(text(), 'Fetching employee info...')]",
     editWorkDetail : "//div[@data-original-title='Edit work detail']",
+    workDetailModalHeader : "//h4[contains(text(), 'Work Detail')]",
     currentPositionField : "//span[@id='select2-position-level-container']",
     seniorOption : "//li[text()='Senior']",
     positionField : "//input[@id='employee-position']",
@@ -233,9 +256,9 @@ module.exports = {
     companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
     copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
     copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
-    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[1]",
+    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[3]/div[2]/ul/li[1]",
     addTeamManagerButton : "//span[contains(text(), 'Add Team Manager')]",
-    managerEditButton : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[4]/div[2]/ul/li[2]/a",
+    managerEditButton : "(//span[contains(text(), 'Edit')])[1]",
     selectManagerInput : "//input[@class='multiselect__input']",
     managerListItem : "//li[@class='multiselect__element']",
     selectedManager : "//span[@class='multiselect__option multiselect__option--selected']",
