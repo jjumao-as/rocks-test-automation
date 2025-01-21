@@ -12,5 +12,7 @@ module.exports = {
     SettingsPage: require('./settingsFunc').SettingsPage,
     ClientsPage: require('./clientFunc').ClientsPage,
     ClientPortalPage: require('./clientPortalFunc').ClientPortalPage,
-    MyProfileIntPage: require('./myProfileIntFunc').MyProfileIntPage
+    MyProfileIntPage: require('./myProfileIntFunc').MyProfileIntPage,
+    HomePageFunc: require('../functionts/homePageFunc').homePageFunc,
+    ClientListFunc: require('../functionts/clientListFunc').clientListFunc
 }
