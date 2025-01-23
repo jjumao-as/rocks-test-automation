@@ -34,6 +34,8 @@
 
   "performanceReview" : {
 
+      "reviewType" : ["manager", "self"],
+
       "rocksEmployee" : {
         "developer" : "Sutana, Ryan Elandag",
         "qa" : "Dilidili, Warren"

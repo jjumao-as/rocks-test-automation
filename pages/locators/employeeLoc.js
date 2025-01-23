@@ -34,11 +34,21 @@ module.exports = {
     performanceCompetenciesRows : "//div[@class='row no-gutters align-items-center']",
     performanceCompetenciesRow1 : "(//div[@class='row no-gutters align-items-center'])[1]",
     closeViewPerformanceReviewModal : "//button[@class='btn btn-close']",
-    performanceObjectiveCard : "//*[@id='modalDescription']/div/div[3]/div/div[3]/div",
+
+    managerPerformanceObjectiveCard : "//*[@id='modalDescription']/div/div[3]/div/div[3]/div",
+    selfPerformanceObjectiveCard : "//*[@id='modalDescription']/div/div[3]/div/div[2]/div",
+
     managerFeedback : "//div[contains(text(), 'Manager Feedback')]",
+    selfFeedback : "//div[contains(text(), 'Employee Comments')]",
+
     managerRating : "//div[contains(text(), 'Manager Rating')]",
+    selfRating : "//div[contains(text(), 'Employee Rating')]",
+
     summaryManagerRating : "//*[@id='modalDescription']/div/div/div[2]/div[3]/div[2]/div/span",
+    summarySelfRating : "//*[@id='modalDescription']/div/div/div[2]/div[3]/div[1]/div/span",
+
     summaryManagerComment : "//div[@class='card rounded comment-manager']//div//div",
+    summarySelfComment : "//div[@class='card rounded comment-self']//div//div",
     
 
     

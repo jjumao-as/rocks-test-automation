@@ -94,9 +94,9 @@ test.describe('Floor Manager performance review', async () => {
 
             await employeePage.viewPerformanceReviewModal()
 
-            await employeePage.viewPerformanceCompetencies(pc)
-            await employeePage.viewPerformanceObjectives(po)
-            await employeePage.viewPerformanceSummary(ps)
+            await employeePage.viewPerformanceCompetencies(pc, testData.performanceReview.reviewType[0])
+            await employeePage.viewPerformanceObjectives(po, testData.performanceReview.reviewType[0])
+            await employeePage.viewPerformanceSummary(ps, testData.performanceReview.reviewType[0])
 
             await employeePage.closeViewPerformanceReviewModal()
 
