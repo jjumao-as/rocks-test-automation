@@ -25,7 +25,7 @@ test.beforeAll(async () =>{
 rolesToTest.forEach(role => {
     const {username, password} = roles[role];
 
-    test.describe.parallel('views client profile page for active client', () => {
+    test.describe.parallel('Views client profile page for active client', () => {
 
         test.beforeEach(async ({browser}) =>{
             context = await browser.newContext()
@@ -44,7 +44,7 @@ rolesToTest.forEach(role => {
             await context.close()
         });     
 
-        test(`${role} views client profile page for active client`, async() => {
+        test(`${role} Views client profile page for active client`, async() => {
             await loginPage.login(username, password)
             await homePage.isInHomePage()
             await homePageFunc.navigateToClientList()
