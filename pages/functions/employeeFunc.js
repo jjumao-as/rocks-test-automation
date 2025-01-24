@@ -112,96 +112,191 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
-
-    async viewPerformanceObjectives(perfObjectivesData){
-        await this.actionDriver.waitElementUntilVisible(employeePageLoc.performanceObjectiveCard)
-
-        const perfObjFeedbackCount = await this.actionDriver.elementCount(employeePageLoc.managerFeedback)
-        const perfObjRatingCount = await this.actionDriver.elementCount(employeePageLoc.managerRating)
+    async viewPerformanceObjectives(perfObjectivesData, reviewType){
 
         const perfObjFeedbackData = perfObjectivesData.selectedPerfObjFeedback
         const perfObjRatingData = perfObjectivesData.selectedPerfObjRating
 
-        /** Loops through the Manager Feeback: card and compare the data returned from TestData object against the text in the card element */
-        for (let i = 1; i <= perfObjFeedbackCount; i++) {
-            const feedbackSection = `(${employeePageLoc.managerFeedback})[${i}]`
-            const feedbackText = await this.actionDriver.getText(feedbackSection)
-            const feedbackData = perfObjFeedbackData[`feedback${i}`]
-            await this.actionDriver.checkInclude(feedbackData, feedbackText)
+        const perfObjRatingCount = await this.actionDriver.elementCount(employeePageLoc.managerRating)
+
+        let feedbackSection
+        let feedbackText
+        let feedbackData
+
+        if(reviewType === "manager"){
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.managerPerformanceObjectiveCard)
+            const perfObjFeedbackCount = await this.actionDriver.elementCount(employeePageLoc.managerFeedback)
+            /** If reviewType is manager, the perfObjFeedbackCount will resolve to 13 locators */
+            for (let i = 1; i <= perfObjFeedbackCount; i++) {
+                feedbackSection = `(${employeePageLoc.managerFeedback})[${i}]`
+                feedbackText = await this.actionDriver.getText(feedbackSection)
+                feedbackData = perfObjFeedbackData[`feedback${i}`]
+                await this.actionDriver.checkInclude(feedbackData, feedbackText)
             
+            }
+             
         }
-        
-        /** Loops through the Manager Rating: card and compare the data returned from TestData object against the text in the card element */
+
+        else if (reviewType === "self"){
+            await this.actionDriver.waitElementUntilVisible(employeePageLoc.selfPerformanceObjectiveCard)
+            const perfObjFeedbackCount = await this.actionDriver.elementCount(employeePageLoc.selfFeedback)
+            /** If reviewType is self, the perfObjFeedbackCount will resolve to only 11 locators */
+            for (let i = 1; i <= perfObjFeedbackCount; i++) {
+                feedbackSection = `(${employeePageLoc.selfFeedback})[${i}]`
+                feedbackText = await this.actionDriver.getText(feedbackSection)
+                feedbackData = perfObjFeedbackData[`feedback${i}`]
+                await this.actionDriver.checkInclude(feedbackData, feedbackText)  
+            }
+               
+        }
+
+        else{
+            console.log("Failed to read Manager Feedback data")
+        }
+
+
+        /** Loops through the Manager/Self Rating: card and compare the data returned from TestData object against the text in the card element */
         for (let i = 1; i <= perfObjRatingCount; i++) {
-            const ratingSection = `(${employeePageLoc.managerRating})[${i}]`
+
+            let ratingSection
+
+            if(reviewType === "manager"){
+                ratingSection = `(${employeePageLoc.managerRating})[${i}]`
+                   
+            }
+
+            else if (reviewType === "self"){
+                ratingSection = `(${employeePageLoc.selfRating})[${i}]`
+                   
+            }
+
+            else{
+                console.log("Failed to read Performance Rating data")
+
+            }
+
             const ratingData = perfObjRatingData[`rating${i}`]
             const ratingText = await this.actionDriver.getText(ratingSection)
             await this.actionDriver.checkInclude(ratingData, ratingText)
-
+               
         }
-
+    
     }
 
-    async viewPerformanceCompetencies(perfCompetenciesData){    
+    async viewPerformanceCompetencies(perfCompetenciesData, reviewType){    
+
         const rowCount = await this.actionDriver.elementCount(employeePageLoc.performanceCompetenciesRows)
         const returnedPerfComp = perfCompetenciesData.selectedPerfCompRating
 
-        /** Loops through the Manager rating column and compare the presence of element (emoji) against data returned from TestData object */
-        for (let i = 1; i <= rowCount; i++) {
-            const row = `(${employeePageLoc.performanceCompetenciesRows})[${i}]//div[3]`
-            const expectedRating = returnedPerfComp[`perfObjComp${i}`]
-            const viewSelectedRating = `${row}//i[@class='rating-icon-svg ${expectedRating}']`
-            const isRatingVisible = await this.actionDriver.elementVisible(viewSelectedRating)
-            await this.actionDriver.expectTrue(isRatingVisible)
-        }
+            /** Loops through the Manager & Self rating columns and compare the presence of element (emoji) against data returned from TestData object */
+            for (let i = 1; i <= rowCount; i++) {
 
+                let row;
+
+                if(reviewType === "manager"){
+                    row = `(${employeePageLoc.performanceCompetenciesRows})[${i}]//div[3]`
+                }
+
+                else if(reviewType === "self"){
+                     row = `(${employeePageLoc.performanceCompetenciesRows})[${i}]//div[2]`  
+                }
+
+                const expectedRating = returnedPerfComp[`perfObjComp${i}`]
+                const viewSelectedRating = `${row}//i[@class='rating-icon-svg ${expectedRating}']`
+                const isRatingVisible = await this.actionDriver.elementVisible(viewSelectedRating)
+                await this.actionDriver.expectTrue(isRatingVisible)
+
+            }
+        
     }
 
-    async viewPerformanceSummary(perfSummaryData){
-        
+    async viewPerformanceSummary(perfSummaryData, reviewType){
+
+        const ratingData = perfSummaryData.selectedPerfSummary.overAllRating
+        const feedbackData = perfSummaryData.selectedPerfSummary.overAllFeedback
+
         const managerRatingText = await this.actionDriver.getText(employeePageLoc.summaryManagerRating)
         const managerFeedbackText = await this.actionDriver.getText(employeePageLoc.summaryManagerComment)
+        const selfRatingText = await this.actionDriver.getText(employeePageLoc.summarySelfRating)
+        const selfFeedbackText = await this.actionDriver.getText(employeePageLoc.summarySelfComment)
+    
+            /** 
+             * (left is from testData object, right is from web text element value)
+             * 
+             * exceed => "Exceeds Expectations"
+             * meet   => "Meets Expectations"
+             * below  => "Needs Improvement"
+             * 
+             * When managerRatingData falls to corresponding values below, it will check presence of exact element text following the mapping above.
+             */
+            switch (ratingData) {
 
-        const managerRatingData = perfSummaryData.selectedPerfSummary.overAllRating
-        const managerFeedbackData = perfSummaryData.selectedPerfSummary.overAllFeedback
+                case "exceed":
 
-        /** 
-         * (left is from testData object, right is from web text element value)
-         * 
-         * exceed => "Exceeds Expectations"
-         * meet   => "Meets Expectations"
-         * below  => "Needs Improvement"
-         * 
-         * When managerRatingData falls to corresponding values below, it will check presence of exact element text following the mapping above.
-         */
-        switch (managerRatingData) {
-            case "exceed":
-                const exceedsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
-                const exceedsRatingVisible = await this.actionDriver.elementVisible(exceedsRating)
-                await this.actionDriver.expectTrue(exceedsRatingVisible)
-                break;
-            
-            case "meet":
-                const meetsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
-                const meetsRatingVisible = await this.actionDriver.elementVisible(meetsRating)
-                await this.actionDriver.expectTrue(meetsRatingVisible)
-                break;
+                    let exceedsRating; 
 
-            case "below":
-                const belowRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
-                const belowRatingVisible = await this.actionDriver.elementVisible(belowRating)
-                await this.actionDriver.expectTrue(belowRatingVisible)
-                break;
+                    if(reviewType === "manager"){
+                         exceedsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+
+                    }
+
+                    else if (reviewType === "self"){
+                         exceedsRating = `${employeePageLoc.summarySelfRating}[contains(text(), '${selfRatingText}')]`
+                    }
+
+                    const exceedsRatingVisible = await this.actionDriver.elementVisible(exceedsRating)
+                    await this.actionDriver.expectTrue(exceedsRatingVisible)
+                    break;
                 
-            default:
-                console.log('Overall manager summary rating not found')
-                break;
-        }
+                case "meet":
+                    let meetsRating;
 
-        /** Simply just checks if Overall summary feedback from TestData is equal to the Manager Comment card in the Web page */
-        await this.actionDriver.checkInclude(managerFeedbackData, managerFeedbackText)
+                    if(reviewType === "manager"){
+                        meetsRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
 
-     
+                    }
+                    else if (reviewType === "self"){
+                        meetsRating = `${employeePageLoc.summarySelfRating}[contains(text(), '${selfRatingText}')]`
+
+                    }
+                    const meetsRatingVisible = await this.actionDriver.elementVisible(meetsRating)
+                    await this.actionDriver.expectTrue(meetsRatingVisible)
+                    break;
+    
+                case "below":
+                    let belowRating;
+
+                    if(reviewType === "manager"){
+                        belowRating = `${employeePageLoc.summaryManagerRating}[contains(text(), '${managerRatingText}')]`
+
+                    }
+                    else if (reviewType === "self"){
+                        belowRating = `${employeePageLoc.summarySelfRating}[contains(text(), '${selfRatingText}')]`
+
+                    }
+
+                    const belowRatingVisible = await this.actionDriver.elementVisible(belowRating)
+                    await this.actionDriver.expectTrue(belowRatingVisible)
+                    break;
+                    
+                default:
+                    console.log('Overall summary rating not found')
+                    break;
+            }
+    
+            /** Simply just checks if Overall summary feedback from TestData is equal to the Manager Comment card in the Web page */
+
+            if(reviewType === "manager"){
+                await this.actionDriver.checkInclude(feedbackData, managerFeedbackText)
+
+            }
+            else if (reviewType === "self"){
+                await this.actionDriver.checkInclude(feedbackData, selfFeedbackText)
+            }
+            else{
+                console.log("Overall summary feedback not found")
+            }
+        
     }
 
     async closeViewPerformanceReviewModal(){
@@ -213,7 +308,6 @@ exports.EmployeesPage = class EmployeesPage {
 
     }
 
-   
 
     /** 
      * Superadmin
