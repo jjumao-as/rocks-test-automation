@@ -1701,4 +1701,153 @@ exports.EmployeesPage = class EmployeesPage {
         return true
 
     }
+
+    /*
+    *  Performance Competencies
+    */
+
+    async navigateToTalentProfile(){
+        await this.actionDriver.clickButton(employeePageLoc.talentProfileTab)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fetchingEmployeeInfoLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.fetchingEmployeeInfoLoader)
+
+    }
+
+    async selectPerformanceCompetencies(perfCompData, isInEdit){
+        let performanceCompetencies = []
+        let ratingData
+        let ratingText
+
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.perfCompEditButton)
+        await this.page.waitForTimeout(5000)
+        await this.actionDriver.clickButton(employeePageLoc.perfCompEditButton)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.perfCompModalTitle)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.perfoCompModalBody)
+
+        const perfCompRows = await this.actionDriver.elementCount(employeePageLoc.perfCompRadioGroup)
+
+        /** Loops the entire Performance Competencies modal rows */
+        for (let i = 1; i <= perfCompRows; i++) {
+
+            let notSelected = []
+            let newRadio
+            let randomIndex
+
+            const row = `(${employeePageLoc.perfCompRadioGroup})[${i}]`
+            const ratingTextLocator = `(${employeePageLoc.perfCompRatingText})[${i}]/div[1]/div[2]`
+            const ratingLocatorText = await this.actionDriver.getText(ratingTextLocator)
+            ratingText = ratingLocatorText.slice(0, ratingLocatorText.lastIndexOf('*'))
+
+            /** Performs ADD operation, otherwise */
+            if (!isInEdit) {
+                const checkbox = `${employeePageLoc.perfCompCheckbox}[${i}]`
+                // Tick each checkbox in every row
+                await this.actionDriver.clickButton(checkbox)
+                
+                const rOptions = `${row}//div//label//span/i`
+                randomIndex = await this.actionDriver.selectRandomIndexFromList(rOptions)
+                const newRadio = `${row}//div[${randomIndex}]//label//span/i`
+                // Selects random radioButton each row
+                await this.actionDriver.clickButton(newRadio) 
+    
+            }
+            /** Performs EDIT operation */
+            else{
+                const rOptions = `${row}//div//label//span/i`
+                const rCount = await this.actionDriver.elementCount(rOptions)
+                /** Loop through the radioButton options */
+                for (let j = 1; j <= rCount; j++) {
+                    newRadio = `${row}//div[${j}]//label//span/i`
+                    /** Checks if radionButton is already checked */
+                    const isRadioSelected = await this.page.locator(newRadio).isChecked()
+                    /** If not checked, means every loop iteration, unselected RadioButton indices are pushed in to notSelected[] */
+                    if (!isRadioSelected) {
+                        notSelected.push(j)
+                    }
+                }
+                /** This will generate randomIndex for every indices pushed in notSelected[] */
+                if (notSelected.length > 0) {
+                    randomIndex = notSelected[Math.floor(Math.random() * notSelected.length)]
+                    const updatedRadio = `${row}//div[${randomIndex}]//label//span/i`
+                    /** Random radioButton option is then selected */
+                    await this.actionDriver.clickButton(updatedRadio)
+                        
+                }
+            
+            }
+            /* Every corresponding radioButton option thrown randomly, 
+            * performance value is associated to from the employee.json > peformanceComptencies testData
+            */
+            switch (randomIndex) {
+                case 1:
+                    ratingData = perfCompData.perfCompOptionValues[0]
+                    break;
+                case 2:
+                    ratingData = perfCompData.perfCompOptionValues[1]
+                    break;
+                case 3:
+                    ratingData = perfCompData.perfCompOptionValues[2]
+                    break;
+                default:
+                    console.log("Performance Competencies value not found")
+                    break;
+            }
+
+            performanceCompetencies.push({
+                ratingItem : ratingText,
+                ratingOption : ratingData
+            })
+
+        }
+        /** Modal is submitted and selected options are returned as array[] */
+        await this.actionDriver.clickButton(employeePageLoc.perfCompSaveButton)
+        await this.actionDriver.elementVisible(employeePageLoc.savingChangesLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader)
+
+        return performanceCompetencies
+    }
+
+    async verifyPerformanceCompetencies(perfCompData){
+
+        await this.page.waitForTimeout(3000) // Wait to load new option values
+        /** Loop through each row in the view state if it corresponds with the returned object data */
+        for (let i = 0; i < perfCompData.length; i++) {
+            const savedItemLoc = `${employeePageLoc.perfCompSavedItem}[${i+1}]/div[1]`
+            const savedItem = await this.actionDriver.getText(savedItemLoc)
+            const savedItemData = perfCompData[i].ratingItem
+            await this.actionDriver.checkInclude(savedItem, savedItemData)
+
+            const savedOptionLoc = `${employeePageLoc.perfCompSavedOption}[${i+1}]/div[2]/div/span`
+            const savedOption = await this.actionDriver.getText(savedOptionLoc)
+            const savedOptionData = perfCompData[i].ratingOption
+            await this.actionDriver.checkInclude(savedOption, savedOptionData)
+
+        }
+
+    }
+
+    async unselectPerformanceCompetencies(){
+        await this.actionDriver.waitElementUntilClickable(employeePageLoc.perfCompEditButton)
+        await this.page.waitForTimeout(5000)
+        await this.actionDriver.clickButton(employeePageLoc.perfCompEditButton)
+
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.perfCompModalTitle)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.perfoCompModalBody)
+
+        const perfCompRows = await this.actionDriver.elementCount(employeePageLoc.perfCompRadioGroup)
+        /** Unchecks the checkbox in every row */
+        for (let i = 1; i <= perfCompRows; i++) {
+            const checkbox = `${employeePageLoc.perfCompCheckbox}[${i}]`
+            await this.actionDriver.clickButton(checkbox) 
+        }
+        /** Submits the modal */
+        await this.actionDriver.clickButton(employeePageLoc.perfCompSaveButton)
+        await this.actionDriver.elementVisible(employeePageLoc.savingChangesLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.savingChangesLoader)
+        /** Verify if the zero state section appears in the View section after unchecking all checkbox options */
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.zeroStatePerfComp)
+    }
+
+
 }

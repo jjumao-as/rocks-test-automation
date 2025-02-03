@@ -62,13 +62,14 @@ module.exports = {
 
     
 
-    // Employee Profile Locators > Add Interview
+    /**
+     * Employee Profile
+        * Client Interviews 
+     */
 
     talentName : "//span[contains(@class, 'talent-name')]",
     publicProfileLink : "//a[contains(text(), 'Public Profile')]",
     
-
-
     clientInterviewLink : "//a[contains(@id, 'nav-client-interviews-link')]",
     addInterviewButton : "//span[contains(text(), 'Add Interview')]",
     addInterviewModalHeading : "//h4[contains(text(), 'Add Interview')]",
@@ -219,6 +220,11 @@ module.exports = {
     saveAboutMeBtn : "//h4[text()='About Me']/following-sibling::div//span[text()='Save']",
     aboutMeDetails : "//div[contains(@class,'about-me')]//blockquote",
 
+    /** Employee Profile
+        * Talent Profile
+            * Work Experience      
+    */
+
     // Add Work Experience 
     addWorkExpBtn : "//span[text()='Work Experience']/following-sibling::a//span[text()='Add']",
     addWorkExperienceHeading : "//h4[text()='Add Work Experience']",
@@ -293,7 +299,11 @@ module.exports = {
     deletingInProgress : "//*[@id='swal2-content']",
     deleteNotification : "//*[@id='swal2-title']",
 
-    /** Add Employee Spotlight */
+    /** Employee Profile
+        * Talent Profile
+            * Client Spotlight   
+    */
+
     navBar : "//nav[@class='nav navbar-nav']",
     zeroStateClientReview : "//div[contains(text(), 'No client review selected')]",
     selectNewButton :   "//*[@id='profile']/div/div/div[2]/div/div[1]/div/a/span",           
@@ -333,6 +343,36 @@ module.exports = {
     yesDeleteButton : "//button[contains(text(), 'Yes')]",
     deletingProgressSpotlightDialog : "//*[@id='swal2-content']",
     deletedSpotlightNotification : "//*[@id='swal2-title']",
+
+    /*
+    * Employee Profile
+        * Talent Profile
+            * Performance Competencies     
+    */
+
+    zeroStatePerfComp : "//span[contains(text(), 'Select performance competencies to add to the profile')]",
+    perfCompLabel : "//span[contains(text(), 'Select performance competencies to add to the profile')]",
+    competenciesBody : "//div[@class='fs-accordion is-closed is-dark']",
+    perfCompBody : "//div[@class='fs-accordion'][2]",
+    perfCompEditButton : "//*[@id='profile']/div/div/div[3]/div/div[2]/div/div/div/div/div[1]/div/a/span",
+    perfCompModalTitle : "//h4[contains(text(), 'Edit Performance Competencies')]",
+    perfoCompModalBody : "//section[@class='modal-body']",
+    perfCompRatingText : "//*[@id='modalDescription']/div/div",
+    perfCompCheckbox : "(//section//input[@type='checkbox'])",
+    perfCompRadioGroup : "//section//div[@role='radiogroup']",
+    perfCompRadioButton : "//input[@class='custom-control-input']",
+    perfCompSaveButton : "//button[contains(text(), 'Save Competencies')]",
+    perfCompSavedItem : "//*[@id='profile']/div/div/div[3]/div/div[2]/div/div/div/div/div[2]/div/div/div/div",
+    perfCompSavedOption : "//*[@id='profile']/div/div/div[3]/div/div[2]/div/div/div/div/div[2]/div/div/div/div"
+
+
+
+
+
+
+
+
+
 
 
 
