@@ -14,5 +14,6 @@ module.exports = {
     ClientPortalPage: require('./clientPortalFunc').ClientPortalPage,
     MyProfileIntPage: require('./myProfileIntFunc').MyProfileIntPage,
     HomePageFunc: require('../functionts/homePageFunc').homePageFunc,
-    ClientListFunc: require('../functionts/clientListFunc').clientListFunc
+    ClientListFunc: require('../functionts/clientListFunc').clientListFunc,
+    ClientProfileFunc: require('../functionts/clientProfileFunc').clientProfileFunc
 }

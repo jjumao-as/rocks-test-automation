@@ -1,15 +1,15 @@
 {
     "SUPERADMIN": {
-        "employee": "Delfino, Mario Niño Briones"
+        "employee": "Delfino, Mario Niño"
     },
     "ADMIN": {
         "employee": "Lagaras, Jerreyme"
     },
     "HR": {
-        "employee": "Dilidili, Warren"
+        "employee": "Sutana, Ryan"
     },
     "FLOOR": {
-        "employee": "Pastoriza, Juhnie Ann"
+        "employee": "Dilidili,Warren"
     },
 
     "workExperience": {
@@ -180,6 +180,10 @@
         ]
 
  
+    },
+
+    "performanceCompetencies" : {
+        "perfCompOptionValues" : ["Below expectations","Meets expectations", "Exceeds expectations" ]
     }
 
    
