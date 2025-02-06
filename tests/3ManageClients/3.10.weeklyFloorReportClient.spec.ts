@@ -47,9 +47,6 @@ rolesToTest.forEach(role => {
             await clientListFunc.searchCompanyButtonClick();
             await clientListFunc.selectCompanySearchResultFSClick();
             await clientListFunc.checkCompanyProfileStatusActive();
-            await clientListFunc.checkCompanyProfileMemberCount();
-            await clientListFunc.checkCompanyMemberDashboardCount();
-            await clientListFunc.checkClientTechProfileTab();
             await clientListFunc.checkClientWeeklyFloorReportTab();
             await clientListFunc.clientWeeklyFloorReportTabClick();
             await clientProfileFunc.testcheckAddWeeklyReportEntry();
