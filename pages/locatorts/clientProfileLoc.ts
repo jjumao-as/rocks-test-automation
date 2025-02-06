@@ -11,6 +11,7 @@ export class clientProfileLoc{
     readonly needWhatSpecificTalentOnTeamLabel : Locator;
     readonly needHowLongTalentNeededLabel : Locator;
     readonly needMoreInTeamSetNoButton : Locator;
+    readonly weeklyFloorReportTab : Locator;
     readonly weeklyReportSaveButton : Locator;
     readonly weeklyReportOnTrackGrid : Locator;
     readonly weeklyReportOnTrackRowEdit : Locator;
@@ -23,6 +24,23 @@ export class clientProfileLoc{
     readonly weeklyReportDeleteCancelButton : Locator;
     readonly weeklyReportDeleteYesButton : Locator;
     readonly weeklyReportDeletedPrompt : Locator;
+    readonly checkpointMeetingsTab : Locator;
+    readonly checkpointMeetingsAddNoteButton : Locator;
+    readonly checkpointMeetingsSaveDraftButton : Locator;
+    readonly checkpointMeetingsSaveSendButton : Locator;
+    readonly checkpointMeetingsNoteClientContactLabel : Locator;
+    readonly checkpointMeetingsNoteMonthYearLabel : Locator;
+    readonly checkpointMeetingsNoteTypeLabel : Locator;
+    readonly checkpointMeetingsNoteMethodLabel : Locator;
+    readonly checkpointMeetingsNoteCancelButton : Locator;
+    readonly checkpointMeetingsClientNamePlaceHolder : Locator;
+    readonly checkpointMeetingsClientNameDropdown : Locator;
+    readonly checkpointMeetingsClientNameFillField : Locator;
+    readonly checkpointMeetingsDeleteNoteButton : Locator;
+    readonly checkpointMeetingsDeleteYesButton : Locator;
+    readonly checkpointMeetingsDeleteCancelButton : Locator;
+    readonly checkpointMeetingsNoCheckpointAddedLabel : Locator;
+    readonly checkpointMeetingsLoadingRecordsPrompt : Locator;
 
 
     constructor(page: Page){
@@ -47,6 +65,23 @@ export class clientProfileLoc{
         this.weeklyReportDeleteCancelButton = page.getByRole('button', { name: 'Cancel' });
         this.weeklyReportDeleteYesButton = page.getByRole('button', { name: 'Yes' });
         this.weeklyReportDeletedPrompt = page.getByText('Successfully deleted report×');
-
+        this.weeklyFloorReportTab = page.getByRole('tab', { name: 'Weekly Floor Report' });
+        this.checkpointMeetingsTab = page.getByRole('tab', { name: 'Checkpoint Meetings' });
+        this.checkpointMeetingsAddNoteButton = page.getByRole('button', { name: ' Add Note' });
+        this.checkpointMeetingsSaveDraftButton = page.getByRole('button', { name: 'Save draft' }).first();
+        this.checkpointMeetingsSaveSendButton = page.getByRole('button', { name: 'Save & Send' }).first();
+        this.checkpointMeetingsNoteClientContactLabel = page.getByText('Client Contact');
+        this.checkpointMeetingsNoteMonthYearLabel = page.getByText('Month and Year *');
+        this.checkpointMeetingsNoteTypeLabel = page.getByText('Type *');
+        this.checkpointMeetingsNoteMethodLabel = page.getByText('Method *');
+        this.checkpointMeetingsNoteCancelButton = page.getByRole('button', { name: 'Cancel' }).first();
+        this.checkpointMeetingsClientNamePlaceHolder = page.getByText('Select from list or enter name');
+        this.checkpointMeetingsClientNameDropdown = page.locator('.multiselect__tags');
+        this.checkpointMeetingsClientNameFillField = page.getByRole('textbox', { name: 'Month and Year * Client' });
+        this.checkpointMeetingsDeleteNoteButton = page.getByRole('button', { name: '' });
+        this.checkpointMeetingsDeleteYesButton = page.getByRole('button', { name: 'Yes' });
+        this.checkpointMeetingsDeleteCancelButton = page.getByRole('button', { name: 'Cancel' });
+        this.checkpointMeetingsNoCheckpointAddedLabel = page.getByRole('heading', { name: 'No checkpoint meetings added' });
+        this.checkpointMeetingsLoadingRecordsPrompt = page.locator('#client-checkpoint-meeting-datatable div').filter({ hasText: 'Loading records...' });
     }
 }
