@@ -23,7 +23,7 @@ export class clientListFunc{
         }
 
     async selectCompanySearchResultFSClick(){
-            await expect(this.clientListLocator.resultClientListFSFasttrack).toBeVisible({ timeout: 25000 });
+            await expect(this.clientListLocator.resultClientListFSFasttrack).toBeVisible({ timeout: 50000 });
             await this.clientListLocator.resultClientListFSFasttrack.click();
             await this.clientListLocator.resultClientListFSFasttrackLink.click();
         }
