@@ -35,6 +35,8 @@ exports.ClientsPage = class ClientsPage {
         await this.actionDriver.clickButton(clientPageLoc.saveContact);
         await this.actionDriver.waitElementUntilHidden(clientPageLoc.contactName);
         await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
+        await this.actionDriver.waitElementUntilHidden(clientPageLoc.contactSavedNotification)
+
     }
 
     async verifyContactAdded() {
@@ -182,6 +184,7 @@ exports.ClientsPage = class ClientsPage {
                 // await this.actionDriver.waitElementUntilHidden(clientPageLoc.loadingRecords);
                 await this.actionDriver.waitElementUntilVisible(elements);
                 el = await this.actionDriver.getTextArray(elements);
+                el = el.map(e => e.trim())
                 blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
                 isLastPage = await this.actionDriver.elementVisible(clientPageLoc.paginationNextPage);
                 if (blnResult) {
@@ -199,6 +202,7 @@ exports.ClientsPage = class ClientsPage {
             await this.actionDriver.waitElementUntilVisible(elements);
             await this.page.waitForTimeout(5000);
             el = await this.actionDriver.getTextArray(elements);
+            el = el.map(e => e.trim())
             blnResult = await this.actionDriver.checkIfIncludesInArray(el, text);
         }
         return blnResult;

@@ -45,7 +45,8 @@ exports.ClientPortalPage = class ClientPortalPage {
         await this.actionDriver.clickButton(clientPortalLocators.submitButton);
         await this.actionDriver.checkElementVisibility(clientPortalLocators.OKthankYouButton);
         await this.actionDriver.clickButton(clientPortalLocators.OKthankYouButton);
-        await this.actionDriver.waitElementUntilVisible(clientPortalLocators.DropRequestReason)
+        /** Drop Request Reason is now removed */
+        // await this.actionDriver.waitElementUntilVisible(clientPortalLocators.DropRequestReason)
        
     }
 

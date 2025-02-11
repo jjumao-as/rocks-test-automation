@@ -71,11 +71,11 @@ rolesToTest.forEach(role => {
             };
             if (role === "SALES") {
                 // Checking available elements on header
-                await myProfileIntPage.checkAvailableHeader(testData.allHeaderElements);
+                await myProfileIntPage.checkAvailableHeader(testData.roleWithHiddenElements);
                 // Checking available tabs below header
-                await myProfileIntPage.checkAvailableTabs(testData.allSideTabs);
-                // Checking visible and enabled icon(s) on header
-                await myProfileIntPage.checkClientInterviewsIcon();
+                await myProfileIntPage.checkAvailableTabs(testData.salesTabs);
+                /** Client Interviews icon hidden in SALES role. Code is commented for possible future changes */
+                // await myProfileIntPage.checkClientInterviewsIcon();
                 // Checking hidden elements
                 await myProfileIntPage.checkClientsIconHidden();
                 await myProfileIntPage.checkSkillsAndProficienciesIconHidden();
@@ -97,7 +97,7 @@ rolesToTest.forEach(role => {
             };
             if (role === "WRITER") {
                 // Checking visible and enabled icon(s) on header
-                await myProfileIntPage.checkAvailableHeader(testData.roleWithHiddenElements);
+                await myProfileIntPage.checkAvailableHeader(testData.allHeaderElements);
                 // Checking available tabs below header
                 await myProfileIntPage.checkAvailableTabs(testData.contentWriterTabs);
                 // Checking visible and enabled icon(s) on header

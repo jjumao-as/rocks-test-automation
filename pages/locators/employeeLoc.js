@@ -187,7 +187,7 @@ module.exports = {
     skillsList : "//div[@id='skill']//div[contains(@class,'draggable-row')]/div[2]/span",
     showInProfileCheckbox : "//div[@id='skill']//div[contains(@class,'draggable-row')]/div[6]//input",
     searchbleCheckbox : "//div[@id='skill']//div[contains(@class,'draggable-row')]/div[7]//input",
-    saveSkills : "//section[@class='modal-footer-new']//span[text()='Save']",
+    saveSkills : "//section[contains(@class,'modal-footer-new')]//a[span[text()='Save']]",
     skillsListInProfile : "//div[contains(@class,'skills-and-proficiencies')]//div/div[1]/span",
 
     employmentTab : "//span[text()='Employment']",
@@ -246,8 +246,8 @@ module.exports = {
     numTeamMembersSpinner : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[2]/div/fieldset/div/input",
     techStackDropdown : "//html/body/div[1]/div/div[1]/div/div/section[1]/div/div[2]/div[3]/div/div/div/div/div[2]",
 
-    addProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Add Project']",
-    editProjectBtnModal : "//section[@class='modal-footer-new']//span[text()='Edit Project']",
+    addProjectBtnModal : "//section[contains(@class,'modal-footer-new')]//a[span[text()='Add Project']]",
+    editProjectBtnModal : "//section[contains(@class,'modal-footer-new')]//a[span[text()='Edit Project']]",
     
     // Add Fullscale Project
     addFullScaleProjectModal : "//h4[text()='Add Full Scale Project']",
@@ -280,6 +280,7 @@ module.exports = {
     selectedManager : "//span[@class='multiselect__option multiselect__option--selected']",
     loadingSpinner : "//i[@class='mt-1 fa fa-spinner fa-spin']",
     successNotification : "//h2[contains(text(), 'Successfully saved changes')]",
+    successfullySaved : "//div[contains(text(), 'Successfully saved!')]",
 
 
     // employee public profile
