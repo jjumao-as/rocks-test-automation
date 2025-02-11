@@ -41,6 +41,7 @@ export class clientProfileLoc{
     readonly checkpointMeetingsDeleteCancelButton : Locator;
     readonly checkpointMeetingsNoCheckpointAddedLabel : Locator;
     readonly checkpointMeetingsLoadingRecordsPrompt : Locator;
+    readonly meetingstAskDeleteHeading : Locator;
 
 
     constructor(page: Page){
@@ -83,5 +84,6 @@ export class clientProfileLoc{
         this.checkpointMeetingsDeleteCancelButton = page.getByRole('button', { name: 'Cancel' });
         this.checkpointMeetingsNoCheckpointAddedLabel = page.getByRole('heading', { name: 'No checkpoint meetings added' });
         this.checkpointMeetingsLoadingRecordsPrompt = page.locator('#client-checkpoint-meeting-datatable div').filter({ hasText: 'Loading records...' });
+        this.meetingstAskDeleteHeading = page.getByRole('heading', { name: 'Are you sure you want to' });
     }
 }

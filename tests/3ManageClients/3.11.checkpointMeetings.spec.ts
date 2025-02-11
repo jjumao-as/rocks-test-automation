@@ -57,6 +57,7 @@ rolesToTest.forEach(role => {
             await clientProfileFunc.testcheckCheckpointMeetingsAddNote();
             await clientProfileFunc.testcheckCheckpointMeetingsAddNoteSaveSend(ClienWithRandomNumber);
             await clientProfileFunc.testcheckCheckpointMeetingsDeleteNote();
+            await clientProfileFunc.testCheckpointMeetingsCancelDeleteNote();
         });
     }) 
 })
