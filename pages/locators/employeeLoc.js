@@ -15,7 +15,7 @@ module.exports = {
     performanceReviewHeader : "//h4[contains(text(), 'Performance Review Dashboard')]",
     performanceEmployeeNames : "//a[@class='mb-0 text-success font-weight-bold text-font-1']",
     performanceClientNames : "//a[@class='mb-0 text-success']",
-    row1 : "(//tbody/tr[1])",
+    row1 : "(//tbody/tr)[1]",
     row1TdLinks : "(//tbody/tr)[1]//a",
     employeeName1 : "(//tbody/tr/td/a)[1]",
     clientName1 : "(//tbody/tr/td/a)[2]",

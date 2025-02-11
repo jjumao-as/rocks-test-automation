@@ -62,44 +62,41 @@ exports.EmployeesPage = class EmployeesPage {
     async isEmployeeAddedInPerformanceReview(employeeName, performanceReviewData){
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingRecordsLoader)
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.pullingEmployeesLoader)
-        // Checks if the table loaded successfully by just checking the entire first row
-        const firstRowReview = await this.actionDriver.elementVisible(employeePageLoc.row1)
+        // Checks if the table loaded successfully by checking the entire first row
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.loadingRecords)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
 
-        if (firstRowReview) {
-            // Gets the first row array of <employee name> and <client name> 
-            let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1TdLinks)
-            firstRowData = firstRowData.map(name => name.trim())
-            // Checks if the parameter <employeeName> exist in the in the above array
-            let isEmpNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName)
-            // Checks if the parameter <clientName> exist in the in the above array
-            let isClientNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.row1)
 
-            // If <employeeName> and <clientName> not found on first check,
-            if(isEmpNameInRow === false && isClientNameInRow === false){
-                // It will select the previous year in the Year dropdown 
-                await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2YearDropdown)
-                await this.actionDriver.clickButton(employeePageLoc.select2YearDropdown)
-                // Previous year is always at index=2 in the dropdown
-                const previousYear = `${employeePageLoc.select2YearOptions}[2]`
-                await this.actionDriver.waitElementUntilClickable(previousYear)
-                await this.actionDriver.hoverElement(previousYear)
-                await this.actionDriver.clickButton(previousYear)
+        // Gets the first row array of <employee name> and <client name> 
+        let firstRowData = await this.actionDriver.getTextArray(employeePageLoc.row1TdLinks)
+        firstRowData = firstRowData.map(name => name.trim())
+        // Checks if the parameter <employeeName> exist in the in the above array
+        let isEmpNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, employeeName)
+        // Checks if the parameter <clientName> exist in the in the above array
+        let isClientNameInRow = await this.actionDriver.checkIfIncludesInArray(firstRowData, performanceReviewData.client)
 
-                // It will select the Q4 from the previous year
-                await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2QuarterDropdown)
-                await this.actionDriver.clickButton(employeePageLoc.select2QuarterDropdown)
-                // Q4 is always at index=4 in the dropdown
-                const selectQ4 = `${employeePageLoc.select2YearOptions}[4]`
-                await this.actionDriver.waitElementUntilClickable(selectQ4)
-                await this.actionDriver.hoverElement(selectQ4)
-                await this.actionDriver.clickButton(selectQ4)
+        // If <employeeName> and <clientName> not found on first row,
+        if(isEmpNameInRow === false && isClientNameInRow === false){
+            // It will select the previous year in the Year dropdown 
+            await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2YearDropdown)
+            await this.actionDriver.clickButton(employeePageLoc.select2YearDropdown)
+            // Previous year is always at index=2 in the dropdown
+            const previousYear = `${employeePageLoc.select2YearOptions}[2]`
+            await this.actionDriver.waitElementUntilClickable(previousYear)
+            await this.actionDriver.hoverElement(previousYear)
+            await this.actionDriver.clickButton(previousYear)
 
-            }
-
+            // It will select the Q4 from the previous year
+            await this.actionDriver.waitElementUntilClickable(employeePageLoc.select2QuarterDropdown)
+            await this.actionDriver.clickButton(employeePageLoc.select2QuarterDropdown)
+            // Q4 is always at index=4 in the dropdown
+            const selectQ4 = `${employeePageLoc.select2YearOptions}[4]`
+            await this.actionDriver.waitElementUntilClickable(selectQ4)
+            await this.actionDriver.hoverElement(selectQ4)
+            await this.actionDriver.clickButton(selectQ4)
 
         }
-
-        return true
 
     }
 
