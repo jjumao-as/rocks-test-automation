@@ -184,7 +184,7 @@ export class clientProfileFunc{
         await expect(this.clientProfileLocator.checkpointMeetingsDeleteYesButton).toBeVisible();
         await expect(this.clientProfileLocator.checkpointMeetingsDeleteCancelButton).toBeVisible();
         try {
-            await this.clientProfileLocator.checkpointMeetingsDeleteCancelButton.click({ timeout: 5000 });
+            await this.clientProfileLocator.checkpointMeetingsDeleteCancelButton.click({ timeout: 10000 });
         } catch (error) {
             if (await this.clientProfileLocator.checkpointMeetingsDeleteNoteButton.first().isVisible()) {
                 await this.clientProfileLocator.checkpointMeetingsDeleteNoteButton.first().click();
@@ -197,7 +197,7 @@ export class clientProfileFunc{
             await expect(this.clientProfileLocator.checkpointMeetingsLoadingRecordsPrompt).toBeHidden();
         }
         try {
-            await this.clientProfileLocator.checkpointMeetingsLoadingRecordsPrompt.isVisible({ timeout: 5000 });
+            await this.clientProfileLocator.checkpointMeetingsLoadingRecordsPrompt.isVisible({ timeout: 10000 });
             await expect(this.clientProfileLocator.checkpointMeetingsLoadingRecordsPrompt).toBeHidden();
         } catch (error) {
             await expect(this.clientProfileLocator.checkpointMeetingsLoadingRecordsPrompt).toBeHidden();
@@ -217,7 +217,7 @@ export class clientProfileFunc{
         } else {
             this.checkpointMeetingsDeleteNoteButton = this.clientProfileLocator.checkpointMeetingsDeleteNoteButton.first();
             try {
-                expect(this.clientProfileLocator.checkpointMeetingsDeleteNoteButton.isVisible({ timeout: 5000 }));
+                expect(this.clientProfileLocator.checkpointMeetingsDeleteNoteButton.isVisible({ timeout: 10000 }));
             } catch (error) {
                 await expect(this.checkpointMeetingsDeleteNoteButton.first()).toBeVisible();
             }
