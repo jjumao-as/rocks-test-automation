@@ -56,6 +56,7 @@ test('Client Portal - Manage Team', async() => {
     await dashboardPage.navigateProcessWorkFlow()
     await settingsPage.editWorkFlow(testData.cancelDropRequestSales)
     await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL)
+    await settingsPage.hoverShortcodeVariables()
     await homePage.logout();
 
     await loginPage.login(process.env.CLIENT, process.env.PASSWORD);
@@ -68,13 +69,15 @@ test('Client Portal - Manage Team', async() => {
     
 });
 
-test('Admin: Client Profile - Team Requests', async() => {    
+// Team Drop Request now moved to billing app. Test Skipped for now for possible future reuse
+test.skip('Admin: Client Profile - Team Requests', async() => {    
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await clientPortalPage.dropTalentNameConfirmedAdmin();
     await clientPortalPage.dropTalentStatusCheck();
 });
 
-test('Revert Drop', async() => {
+// CANCEL DROP feature is not available anymore. Test Skipped for now for possible future reuse
+test.skip('Revert Drop', async() => {
     await loginPage.login(process.env.CLIENT, process.env.PASSWORD);
     await clientPortalPage.checkManageTeamMenuVisibility();
     await clientPortalPage.navigateManageTeam();
@@ -82,8 +85,8 @@ test('Revert Drop', async() => {
     await clientPortalPage.cancelDropTalentNameConfirmed(testData.dropTalentName);
 })
 
-
-test('Confirm Revert Drop in Admin', async() => {
+// CANCEL DROP feature is not available anymore. Test Skipped for now for possible future reuse
+test.skip('Confirm Revert Drop in Admin', async() => {
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await clientPortalPage.dropTalentNameConfirmedAdmin();
     await clientPortalPage.cancelDropTalentStatusCheck()
@@ -92,7 +95,9 @@ test('Confirm Revert Drop in Admin', async() => {
 test('Validate Email for Drop and Cancel Drop', async() => {
     await clientPage.validateZohoEmail(testData.subject.dropRequestClient, testData.emailFrom)
     await clientPage.validateZohoEmail(testData.subject.dropRequestSales, testData.emailFrom)
-    await clientPage.validateZohoEmail(testData.subject.cancelDropRequestSales, testData.emailFrom)
+    /** CANCEL DROP feature is not available anymore. Commenting this code for possible future changes and reuse */
+    // await clientPage.validateZohoEmail(testData.subject.cancelDropRequestSales, testData.emailFrom)
+    
 
 })
 

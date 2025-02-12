@@ -7,6 +7,7 @@ module.exports = {
     saveContact : "//span[text()='Save Contact']",
     contactEmailColumnList : "//td[@class='email-column'] | //td[@class='mobile-layout']//span[2]",
     trimmedContactEmailColumnList : "//td[@class='email-column']/text()[normalize-space()]",
+    contactSavedNotification : "Contact has been saved successfully",
     contactActionColumnList : "//button[contains(@id,'fsButtonDropdown-contact')]",
     contactDeleteList : "//i[contains(@class,'la-trash')]",
     dashboard : "//h2[text()='Dashboard']",

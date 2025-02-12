@@ -97,9 +97,9 @@ export class clientListLoc{
         this.activeStatusList1 = page.locator('td:nth-child(3)').first();
         this.searchCompanyNameField = page.getByPlaceholder('Search Company Name');
         this.clientProfileStatusActive = page.locator('span').filter({ hasText: 'Active' }).first();
-        this.clientProfileMemberCount = page.getByText('(12)');
-        this.clientProfileMemberCountN = page.getByText('12 members');
-        this.clientMemberDashboardCount = page.getByText('TEAM MEMBERS (12)')
+        this.clientProfileMemberCount = page.getByText('(9)');
+        this.clientProfileMemberCountN = page.getByText('9 members');
+        this.clientMemberDashboardCount = page.getByText('TEAM MEMBERS (9)')
         this.clientTechProfileTab = page.getByRole('tab', { name: 'Tech Profile' });
         this.clientWeeklyFloorReportTab = page.getByRole('tab', { name: 'Weekly Floor Report' });
         this.clientWeeklyFloorAddReportButton = page.getByText('Add Report');

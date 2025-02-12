@@ -64,6 +64,7 @@ test.describe('Test Script for adding talent to the team', async () => {
         await dashboardPage.navigateProcessWorkFlow();
         await settingsPage.editWorkFlow(testData.addToTeamSales);
         await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
+        await settingsPage.hoverShortcodeVariables()
         await homePage.logout();
 
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
@@ -114,7 +115,8 @@ test.describe('Test Script for adding talent to the team', async () => {
         await findTalentPage.validateFinishingRequest();
     });
 
-    test('Validate Employee added to Team Request - Client', async () => {
+    // Team Request now moved to billing app. Test Skipped for now for possible future reuse
+    test.skip('Validate Employee added to Team Request - Client', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.client);
         await dashboardPage.checkValidSearchResult();
@@ -124,14 +126,16 @@ test.describe('Test Script for adding talent to the team', async () => {
         await clientPage.validateUser(testData.employeeName, testData.employeeDetails.status);
     });
 
-    test('Validate Employee added to Team Request - Listing', async () => {
+    // Team Request now moved to billing app. Test Skipped for now for possible future reuse
+    test.skip('Validate Employee added to Team Request - Listing', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
         await clientPage.searchTalent(testData.employeeName.firstName);
         await clientPage.validateUserFromTeamRequest(testData.employeeName, testData.employeeDetails.status);
     });
 
-    test('Validate Employee Client', async () => {
+    // Team Request now moved to billing app. Test Skipped for now for possible future reuse
+    test.skip('Validate Employee Client', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.employeeName.lastName + ', ' + testData.employeeName.firstName);
         await dashboardPage.checkValidSearchResult();
@@ -140,7 +144,8 @@ test.describe('Test Script for adding talent to the team', async () => {
         await employeePage.validateClientRemoved(testData.employeeDetails.client);
     });
 
-    test('Delete Employee', async () => {
+    // Team Request now moved to billing app. Test Skipped for now for possible future reuse
+    test.skip('Delete Employee', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await clientPage.navigateTeamRequestSideTab();
         await clientPage.searchTeamRequestTalent(testData.employeeName.firstName);
@@ -156,7 +161,8 @@ test.describe('Test Script for adding talent to the team', async () => {
         await settingsPage.deleteSkill(testData.skill);
     });
 
-    test('Delete Contacts', async () => {
+    // Team Request now moved to billing app. Test Skipped for now for possible future reuse
+    test.skip('Delete Contacts', async () => {
         await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
         await dashboardPage.search(testData.client);
         await dashboardPage.checkValidSearchResult();

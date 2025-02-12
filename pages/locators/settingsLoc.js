@@ -43,6 +43,7 @@ module.exports = {
     emailToField : "//input[@id='text-datalist-email_to']",
     saveWorkFlow : "//span[text()='Save']/parent::a",
     savingChanges : "//div[contains(text(),'Saving changes')]",
+    shortcodeVariables : "//i[@class='ks-icon hover-green la la-code']",
 
     //Expense Report Settings
     tableMask : "//div[@class='datatable-mask']",

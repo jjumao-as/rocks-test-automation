@@ -64,6 +64,11 @@ exports.SettingsPage = class SettingsPage {
         }
     }
 
+    async hoverShortcodeVariables(){
+        await this.actionDriver.hoverElement(settingsLocators.shortcodeVariables)
+        await this.page.mouse.move(0, 0)
+    }
+
     async revertEmailTo(testData) {
         await this.actionDriver.waitElementUntilVisible(settingsLocators.emailToField);
         let textVal = await this.actionDriver.getTextBoxValue(settingsLocators.emailToField);

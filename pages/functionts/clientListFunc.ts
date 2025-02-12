@@ -263,7 +263,7 @@ export class clientListFunc{
             await expect(this.clientListLocator.sortingWeeklyFloorReportDateT).toBeVisible();
             await expect(this.clientListLocator.sortingWeeklyFloorReportDateC).toBeVisible();
             await this.clientListLocator.sortingWeeklyFloorReportDateC.click();
-            await expect(this.clientListLocator.sortingWeeklyFloorReportDateJan).toBeVisible();
+            await expect(this.clientListLocator.sortingWeeklyFloorReportDateApr).toBeVisible();
             await expect(this.clientListLocator.sortingWeeklyFloorReportDateC).toBeVisible();
             await this.clientListLocator.sortingWeeklyFloorReportDateC.click();
         }

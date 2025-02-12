@@ -54,7 +54,7 @@ roleToTest.forEach(role => {
             await employeesPage.navigateToClientInterviews()
 
             // Navigate to Client Interviews
-            await employeesPage.addInterviewModalIsPresent()
+            await employeesPage.isInClientInterviews()
             await employeesPage.addInterview()
             await employeesPage.submitInterview()
             await employeesPage.isInterviewAdded()
@@ -63,7 +63,7 @@ roleToTest.forEach(role => {
             if (role !== 'HR') {
                 await employeesPage.clickClientNameLink()
                 await employeesPage.isInClientPage()
-                await employeesPage.navigateToClientInterviews()
+                await employeesPage.isInClientInterviews()
             }
         })
 

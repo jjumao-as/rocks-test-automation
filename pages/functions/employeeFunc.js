@@ -483,13 +483,14 @@ exports.EmployeesPage = class EmployeesPage {
     async navigateToClientInterviews() {
         
         await this.actionDriver.clickButton(employeePageLoc.clientInterviewLink)
-        await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewButton)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.fetchingEmployeeInfoLoader)
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.loadingRecords)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords)
 
     }
 
-    async addInterviewModalIsPresent() {
-        await this.actionDriver.clickButton(employeePageLoc.addInterviewButton)
-        await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewModalHeading)
+    async isInClientInterviews() {
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.addInterviewButton)
     }
 
     async addInterview() {
@@ -497,6 +498,11 @@ exports.EmployeesPage = class EmployeesPage {
         jsonData = await readJsonFile('clientInterview')
 
         let randomIndexInvitee;
+
+        // Click +Add Interview button
+        await this.actionDriver.clickButton(employeePageLoc.addInterviewButton)
+        await this.actionDriver.checkElementVisibility(employeePageLoc.addInterviewModalHeading)
+
 
         // selecting client
         await this.actionDriver.clickButton(employeePageLoc.selectClientDropdown)
@@ -1009,6 +1015,8 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.selectFromList(testData, employeePageLoc.itemSearchSuggestion);
         await this.actionDriver.clickButton(employeePageLoc.saveProject);
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.enterProjectField);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.successfullySaved);
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
     }
 
     async validateClient(testData) {
@@ -1194,7 +1202,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.typeText(techStack)
         await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
-
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner)
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
 
     }
@@ -1244,7 +1252,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.typeText(techStack)
         await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
-
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner);
         await this.actionDriver.clickButton(employeePageLoc.addProjectBtnModal)
 
     }
@@ -1256,8 +1264,7 @@ exports.EmployeesPage = class EmployeesPage {
 
     
     async isWorkExperienceAdded() {
-
-
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.fetchingEmployeeInfoLoader)
         await this.actionDriver.waitElementUntilClickable(employeePageLoc.talentProfileTab);
         await this.actionDriver.clickButton(employeePageLoc.talentProfileTab);
 
@@ -1385,7 +1392,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.typeText(techStack)
         await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
-
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner)
         await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
     }
 
@@ -1433,7 +1440,7 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.typeText(techStack)
         await this.page.waitForTimeout(2000);
         await this.actionDriver.keyboardPress('Enter')
-
+        await this.actionDriver.clickButton(employeePageLoc.numTeamMembersSpinner)
         await this.actionDriver.clickButton(employeePageLoc.editProjectBtnModal)
     }
 

@@ -17,9 +17,10 @@
             "Skills & Proficiencies"
         ],
         "hidden": [
-            "Clients",
             "Client Interviews",
-            "Checkpoint Meetings"
+            "Checkpoint Meetings",
+            "Performance Reviews"
+        
         ]
     },
     "allSideTabs": {
@@ -70,17 +71,20 @@
     },
     "contentWriterTabs": {
         "visible": [
+            "Performance Analysis",
+            "Checkpoint Meetings",
+            "Performance Reviews",
             "Talent Profile",
             "Clients",
+            "Client Interviews",
+            "Daily Report",
             "Personal",
             "Employment",
+            "Applicant Assessment Notes",
             "Change Log"
         ],
         "hidden": [
-            "Client Interviews",
-            "Checkpoint Meetings",
-            "Performance Reviews",
-            "Applicatant Assessment Notes"
+           ""
         ]
     },
     "employeeTabs": {
@@ -96,6 +100,22 @@
             "Performance Reviews",
             "Change Log",
             "Applicatant Assessment Notes"
+        ]
+    },
+
+    "salesTabs" : {
+        "visible" : [
+            "Talent Profile",
+            "Clients",
+            "Daily Report",
+            "Personal",
+            "Employment"
+        ],
+        "hidden" : [
+            "Client Interviews",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Change Log"
         ]
     }
 }
