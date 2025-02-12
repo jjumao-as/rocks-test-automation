@@ -83,6 +83,7 @@ export class clientListLoc{
     readonly sortingMSAUpdatedC: Locator;
     readonly sortingProjectNameC: Locator;
     readonly sortingDescriptionC: Locator;
+    readonly sortingWeeklyFloorReportDateApr: Locator;
 
 
     constructor(page: Page){
@@ -170,6 +171,7 @@ export class clientListLoc{
         this.sortingMSAUpdatedC = page.getByRole('cell', { name: 'Updated ↑ ↓' });
         this.sortingProjectNameC = page.getByRole('cell', { name: 'Project Name ↑ ↓' });
         this.sortingDescriptionC = page.getByRole('cell', { name: 'Description ↑ ↓' });
+        this.sortingWeeklyFloorReportDateApr = page.getByText('Mar 31,');
     }
 
 }
