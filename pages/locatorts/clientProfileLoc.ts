@@ -42,6 +42,24 @@ export class clientProfileLoc{
     readonly checkpointMeetingsNoCheckpointAddedLabel : Locator;
     readonly checkpointMeetingsLoadingRecordsPrompt : Locator;
     readonly meetingstAskDeleteHeading : Locator;
+    readonly performanceReviewsTab : Locator;
+    readonly performanceReviewsViewListFirst : Locator;
+    readonly performanceReviewsDownloadPdfButton : Locator;
+    readonly performanceReviewsCloseButton : Locator;
+    readonly performanceFilterLatestButton : Locator;
+    readonly performanceFilterLatestLink : Locator;
+    readonly performanceFilterEmployeeLink : Locator;
+    readonly performanceFilterEmployeeButton : Locator;
+    readonly performanceFilterStatusLink : Locator;
+    readonly performanceFilterStatusButton : Locator;
+    readonly performanceFilterAllButton : Locator;
+    readonly performanceFilterAllLink : Locator;
+    readonly filterMultiselectTagDropdownFirst : Locator;
+    readonly filterMultiselectDropdown : Locator;
+    readonly performanceFilterManagerReviewPendingLink : Locator;
+    readonly performanceFilterManagerDiscussionPendingLink : Locator;
+    readonly performanceFilterEmployeeAcknowledgementLink : Locator;
+    readonly performanceFilterReviewCompleteLink : Locator;
 
 
     constructor(page: Page){
@@ -85,5 +103,23 @@ export class clientProfileLoc{
         this.checkpointMeetingsNoCheckpointAddedLabel = page.getByRole('heading', { name: 'No checkpoint meetings added' });
         this.checkpointMeetingsLoadingRecordsPrompt = page.locator('#client-checkpoint-meeting-datatable div').filter({ hasText: 'Loading records...' });
         this.meetingstAskDeleteHeading = page.getByRole('heading', { name: 'Are you sure you want to' });
+        this.performanceReviewsTab = page.getByRole('tab', { name: 'Performance Reviews' });
+        this.performanceReviewsViewListFirst = page.getByRole('button', { name: 'View', exact: true }).first();
+        this.performanceReviewsDownloadPdfButton = page.locator('#modalDescription').getByRole('button', { name: ' Download as PDF' });
+        this.performanceReviewsCloseButton = page.getByRole('button', { name: 'Close', exact: true });
+        this.performanceFilterLatestButton = page.getByRole('button', { name: 'Latest ' });
+        this.performanceFilterLatestLink = page.getByRole('link', { name: 'Latest' });
+        this.performanceFilterEmployeeLink = page.getByRole('link', { name: 'Employee Name' });
+        this.performanceFilterEmployeeButton = page.getByRole('button', { name: 'Employee Name ' });
+        this.performanceFilterStatusLink = page.getByRole('link', { name: 'Status', exact: true });
+        this.performanceFilterStatusButton = page.getByRole('button', { name: 'Status ', exact: true });
+        this.performanceFilterAllButton = page.getByRole('button', { name: 'All ' });
+        this.performanceFilterAllLink = page.getByRole('link', { name: 'All' });
+        this.filterMultiselectTagDropdownFirst = page.locator('.multiselect__tags').first();
+        this.filterMultiselectDropdown = page.locator('.multiselect__select');
+        this.performanceFilterManagerReviewPendingLink = page.getByRole('link', { name: 'Manager Review Pending' });
+        this.performanceFilterManagerDiscussionPendingLink = page.getByRole('link', { name: 'Manager Discussion Pending' });
+        this.performanceFilterEmployeeAcknowledgementLink = page.getByRole('link', { name: 'Employee Acknowledgment' });
+        this.performanceFilterReviewCompleteLink = page.getByRole('link', { name: 'Review Complete' });
     }
 }

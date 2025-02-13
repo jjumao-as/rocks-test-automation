@@ -264,4 +264,47 @@ export class clientProfileFunc{
         await expect(this.clientProfileLocator.checkpointMeetingsLoadingRecordsPrompt).toBeHidden();
         await expect(this.checkpointMeetingsDeleteNoteButton).toBeVisible();
     }
+    async testPerformanceReviewViewDownloadClose(){
+        await expect(this.clientProfileLocator.performanceReviewsTab).toBeVisible();
+        await this.clientProfileLocator.performanceReviewsTab.click();
+        //view, download pdf and close
+        await expect(this.clientProfileLocator.performanceReviewsViewListFirst).toBeVisible();
+        await this.clientProfileLocator.performanceReviewsViewListFirst.click();
+        await expect(this.clientProfileLocator.performanceReviewsDownloadPdfButton).toBeVisible();
+        try {
+            const downloadPromise = this.page.waitForEvent('download');
+            await this.clientProfileLocator.performanceReviewsDownloadPdfButton.click();
+            const download = await downloadPromise;
+            const path = await download.path();
+            console.log('Downloaded to', path);
+        } catch (error) {
+            console.error('Error during download:', error);
+        }
+        await expect(this.clientProfileLocator.performanceReviewsCloseButton).toBeVisible();
+        await this.clientProfileLocator.performanceReviewsCloseButton.click();
+    }
+    async testPerformanceReviewSortingFiltering(){
+        await expect(this.clientProfileLocator.performanceFilterLatestButton).toBeVisible();
+        await this.clientProfileLocator.performanceFilterLatestButton.click();
+        await expect(this.clientProfileLocator.performanceFilterEmployeeLink).toBeVisible();
+        await this.clientProfileLocator.performanceFilterEmployeeLink.click();
+        await expect(this.clientProfileLocator.performanceFilterEmployeeButton).toBeVisible();
+        await this.clientProfileLocator.performanceFilterEmployeeButton.click();
+        await expect(this.clientProfileLocator.performanceFilterStatusLink).toBeVisible();
+        await this.clientProfileLocator.performanceFilterStatusLink.click();
+        await expect(this.clientProfileLocator.performanceFilterStatusButton).toBeVisible();
+        await this.clientProfileLocator.performanceFilterStatusButton.click();
+        await expect(this.clientProfileLocator.performanceFilterLatestLink).toBeVisible();
+        await this.clientProfileLocator.performanceFilterLatestLink.click();
+        await expect(this.clientProfileLocator.performanceFilterLatestButton).toBeVisible();
+        await expect(this.clientProfileLocator.filterMultiselectTagDropdownFirst).toBeVisible();
+        await this.clientProfileLocator.filterMultiselectDropdown.first().click();
+        await this.clientProfileLocator.filterMultiselectDropdown.first().click();
+        await expect(this.clientProfileLocator.performanceFilterAllButton).toBeVisible();
+        await this.clientProfileLocator.performanceFilterAllButton.click();
+        await expect(this.clientProfileLocator.performanceFilterManagerReviewPendingLink).toBeVisible();
+        await expect(this.clientProfileLocator.performanceFilterManagerDiscussionPendingLink).toBeVisible();
+        await expect(this.clientProfileLocator.performanceFilterEmployeeAcknowledgementLink).toBeVisible();
+        await expect(this.clientProfileLocator.performanceFilterReviewCompleteLink).toBeVisible();
+    }
 }
