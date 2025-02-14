@@ -76,8 +76,8 @@ rolesToTest.forEach(role => {
             await clientListFunc.checkClientTalentInterviewTab();
             await clientListFunc.clientTalentInterviewTabClick();
             await clientListFunc.checkAddInterviewButton();
-            //await clientListFunc.checkClientTeamRequestTab();
-            //await clientListFunc.clientTeamRequestTabClick();
+            await clientListFunc.checkClientTeamRequestTab();
+            await clientListFunc.clientTeamRequestTabClick();
             await clientListFunc.checkClientTeamMemberTab();
             await clientListFunc.clientTeamMemberTabClick();
             //await clientListFunc.checkAddTalentButton();

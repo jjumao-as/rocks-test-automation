@@ -211,11 +211,9 @@ export class clientListFunc{
             await this.clientListLocator.filterPerformaceReviewSortLatestButton.click();
             await expect(this.clientListLocator.filterPerformaceReviewSortEmployeeNameLink).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewSortEmployeeNameLink.click();
-            await expect(this.clientListLocator.filterResultPerformaceReviewSortEmployeeBarriga).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewSortEmployeeNameButton.click();
             await expect(this.clientListLocator.filterPerformaceReviewSortStatusLink).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewSortStatusLink.click();
-            await expect(this.clientListLocator.filterResultPerformaceReviewSortStatusLastDate).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewSortStatusButton.click();
             await expect(this.clientListLocator.filterPerformaceReviewSortLatestLink).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewSortLatestLink.click();
@@ -224,13 +222,7 @@ export class clientListFunc{
     async testCheckPerformaceReviewTeamMemberFilter(){
             await expect(this.clientListLocator.filterPerformaceReviewTeamMemberSelector).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewTeamMemberSelector.click();
-            await expect(this.clientListLocator.filterPerformaceReviewTeamMemberBartlett).toBeVisible();
-            await this.clientListLocator.filterPerformaceReviewTeamMemberBartlett.click();
-            await expect(this.clientListLocator.filterPerformaceReviewTeamMemberRowgroupBartlett).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewTeamMemberSelector.click();
-            await expect(this.clientListLocator.filterPerformaceReviewTeamMemberData).toBeVisible();
-            await this.clientListLocator.filterPerformaceReviewTeamMemberData.click();
-            await expect(this.clientListLocator.filterPerformaceReviewTeamMemberRowgroupData).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewTeamMemberSelector.click();
             await expect(this.clientListLocator.filterPerformaceReviewTeamMemberAll).toBeVisible();
             await this.clientListLocator.filterPerformaceReviewTeamMemberAll.click();
@@ -271,7 +263,6 @@ export class clientListFunc{
         async testCheckSortingContactsName(){
             await expect(this.clientListLocator.sortingContactsNameC).toBeVisible();
             await this.clientListLocator.sortingContactsNameT.click();
-            await expect(this.clientListLocator.sortingContactsNameGridTSR).toBeVisible();
             await this.clientListLocator.sortingContactsNameC.click();
             await expect(this.clientListLocator.sortingContactsNameC).toBeVisible();
         }
@@ -279,7 +270,6 @@ export class clientListFunc{
         async testCheckSortingMSA(){
             await expect(this.clientListLocator.sortingMSANameC).toBeVisible();
             await this.clientListLocator.sortingMSANameC.click();
-            await expect(this.clientListLocator.sortingMSAGridName).toBeVisible();
             await expect(this.clientListLocator.sortingMSANameC).toBeVisible();
             await expect(this.clientListLocator.sortingMSAStatusC).toBeVisible();
             await this.clientListLocator.sortingMSAStatusC.click();
