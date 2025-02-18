@@ -307,4 +307,15 @@ export class clientProfileFunc{
         await expect(this.clientProfileLocator.performanceFilterEmployeeAcknowledgementLink).toBeVisible();
         await expect(this.clientProfileLocator.performanceFilterReviewCompleteLink).toBeVisible();
     }
+    async testSettingPageValidation(){
+        await expect(this.clientProfileLocator.settingDailyFrequency).toBeVisible();
+        await expect(this.clientProfileLocator.settingFrequencyDigest).toBeVisible();
+        await this.clientProfileLocator.settingFrequencyDigest.click();
+        await expect(this.clientProfileLocator.settingDigestText).toBeVisible();
+        await expect(this.clientProfileLocator.settingFrequencyImmediate).toBeVisible();
+        await this.clientProfileLocator.settingFrequencyImmediate.click();
+        await expect(this.clientProfileLocator.settingImmediateText).toBeVisible();
+        await this.clientProfileLocator.settingFrequencyDigest.click();
+        await expect(this.clientProfileLocator.settingDigestText).toBeVisible();
+    }
 }

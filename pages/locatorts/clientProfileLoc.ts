@@ -60,6 +60,11 @@ export class clientProfileLoc{
     readonly performanceFilterManagerDiscussionPendingLink : Locator;
     readonly performanceFilterEmployeeAcknowledgementLink : Locator;
     readonly performanceFilterReviewCompleteLink : Locator;
+    readonly settingDailyFrequency : Locator;
+    readonly settingFrequencyDigest : Locator;
+    readonly settingDigestText : Locator;
+    readonly settingFrequencyImmediate : Locator;
+    readonly settingImmediateText : Locator;
 
 
     constructor(page: Page){
@@ -121,5 +126,10 @@ export class clientProfileLoc{
         this.performanceFilterManagerDiscussionPendingLink = page.getByRole('link', { name: 'Manager Discussion Pending' });
         this.performanceFilterEmployeeAcknowledgementLink = page.getByRole('link', { name: 'Employee Acknowledgment' });
         this.performanceFilterReviewCompleteLink = page.getByRole('link', { name: 'Review Complete' });
+        this.settingDailyFrequency = page.getByText('Daily Report Frequency:');
+        this.settingFrequencyDigest = page.locator('label').filter({ hasText: 'Digest' });
+        this.settingDigestText = page.getByText('A summary email containing');
+        this.settingFrequencyImmediate = page.getByText('Immediate');
+        this.settingImmediateText = page.getByText('Individual email is sent');
     }
 }
