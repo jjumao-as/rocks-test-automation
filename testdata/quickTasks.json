@@ -70,7 +70,7 @@
             },
             "name" : "Diva, Maria Gerlyn Borres"
         },
-        "EMPLOYEE": {
+        "EMPLOYEE_DEV": {
             "type": "Shipping and Delivery Expense",
             "amount": {
                 "recieptAmount": "5000",

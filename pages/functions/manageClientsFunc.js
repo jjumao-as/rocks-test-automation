@@ -350,7 +350,7 @@ exports.ManageClientsPage = class ManageClientsPage {
             if (sortColumn[i] === 'Start Date') {
                 const columnData = await this.actionDriver.removeChildElement(manageClientsocators.sortedStartDate);
                 if (columnData.length > 0) {
-                    const sorted = await this.isColumnSortedWithSpecialCharacters(columnData, sortType);
+                    const sorted = await this.isColumnSortedWithDate(columnData, sortType);
                     await this.actionDriver.expectTrue(sorted);
                 }
             }

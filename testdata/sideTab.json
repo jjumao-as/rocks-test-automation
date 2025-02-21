@@ -2,22 +2,21 @@
     "SUPERADMIN": {
         "visible": [
             "Home",
-            "Announcements & FAQs",
-            "Find Talent",
             "Create Daily Report",
             "Create Expense Report",
             "Create Weekly Floor Report",
             "Submit Self-Performance Review",
             "Submit Manager Performance Review",
             "Submit Feedback",
+            "Announcements & FAQs",
             "Become a Mentor",
             "Client List",
-            "Team Requests",
             "Documents",
             "Interviews",
             "Applicant List",
             "Employee List",
             "Mentors List",
+            "Find Talent",
             "Performance Reviews",
             "Feedback",
             "Daily Status",
@@ -38,7 +37,7 @@
             "Expense Report",
             "Process Workflow",
             "Document Templates",
-            "Holidays"
+            "Holidays"   
         ],
         "hidden": [
             ""
@@ -47,21 +46,21 @@
     "ADMIN": {
         "visible": [
             "Home",
-            "Announcements & FAQs",
-            "Find Talent",
             "Create Daily Report",
             "Create Expense Report",
             "Create Weekly Floor Report",
             "Submit Self-Performance Review",
             "Submit Manager Performance Review",
             "Submit Feedback",
+            "Announcements & FAQs",
             "Become a Mentor",
             "Client List",
-            "Team Requests",
             "Documents",
             "Interviews",
             "Applicant List",
             "Employee List",
+            "Mentors List",
+            "Find Talent",
             "Performance Reviews",
             "Daily Status",
             "Daily Time Clock",
@@ -72,14 +71,13 @@
             "Positions",
             "Categories",
             "Skills",
-            "Holidays"
+            "Holidays"   
         ],
         "hidden": [
             "Feedback",
             "Users",
             "Roles",
             "Client Management",
-            "Mentors List",
             "Employee Management",
             "Employee Status",
             "Recruitment",
@@ -134,18 +132,18 @@
     },
     "FLOOR": {
         "visible": [
-            "Announcements & FAQs",
-            "Find Talent",
+            "Home",
             "Create Daily Report",
             "Create Expense Report",
             "Create Weekly Floor Report",
             "Submit Self-Performance Review",
             "Submit Manager Performance Review",
             "Submit Feedback",
+            "Announcements & FAQs",
             "Client List",
-            "Team Requests",
             "Interviews",
             "Employee List",
+            "Find Talent",
             "Performance Reviews",
             "Daily Status",
             "Daily Time Clock",
@@ -153,12 +151,11 @@
             "Weekly Time Clock",
             "Weekly Floor Reports",
             "Expense Reports"
+
         ],
         "hidden": [
-            "Home",
             "Documents",
             "Become a Mentor",
-            "Applicant List",
             "Mentors List",
             "Feedback",
             "Users",
@@ -173,7 +170,10 @@
             "Expense Report",
             "Process Workflow",
             "Document Templates",
-            "Holidays"
+            "Holidays",
+            "Team Requests",
+            "Applicant List"
+
         ]
     },
     "FINANCE": {
@@ -220,7 +220,7 @@
             "Holidays"
         ]
     },
-    "EMPLOYEE": {
+    "EMPLOYEE_DEV": {
         "visible": [
             "Home",
             "Announcements & FAQs",
@@ -311,21 +311,14 @@
     "SALES": {
         "visible": [
             "Home",
-            "Announcements & FAQs",
-            "Find Talent",
             "Create Daily Report",
             "Create Expense Report",
-            "Create Weekly Floor Report",
             "Submit Self-Performance Review",
             "Submit Feedback",
-            "Client List",
-            "Team Requests",
-            "Interviews",
-            "Employee List",
+            "Announcements & FAQs",
             "Daily Status",
             "Daily Time Clock",
             "Time Clock Summary",
-            "Weekly Time Clock",
             "Expense Reports"
         ],
         "hidden": [
@@ -349,7 +342,14 @@
             "Expense Report",
             "Process Workflow",
             "Document Templates",
-            "Holidays"
+            "Holidays",
+            "Find Talent",
+            "Create Weekly Floor Report",
+            "Client List",
+            "Team Requests",
+            "Interviews",
+            "Employee List",
+            "Weekly Time Clock"
         ]
     }
 
