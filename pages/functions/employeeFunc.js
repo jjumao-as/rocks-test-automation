@@ -902,6 +902,10 @@ exports.EmployeesPage = class EmployeesPage {
         await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
         await this.actionDriver.findText(employeeName, employeePageLoc.employeeNameList);
         await this.actionDriver.selectDataFromText(employeeName, employeePageLoc.employeeNameList, employeePageLoc.employeeNameList);
+        await this.actionDriver.waitElementUntilVisible(employeePageLoc.fetchingEmployeeInfoLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.fetchingEmployeeInfoLoader)
+        await this.actionDriver.waitElementUntilHidden(employeePageLoc.loadingRecords);
+
     }
 
     async searchEmployee(testData) {

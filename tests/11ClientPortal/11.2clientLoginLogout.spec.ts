@@ -73,12 +73,8 @@ test('Login as Client with MSA', async() => {
     await clientPage.logout();
 });
 
-/**
- * Seeing ERROR 500 when loggin in to WITHOUT MSA user
- * User created the second test can be searched in User Settings
- * Marking TEST as fail for now and need further investigations from dev team
- */
-test.fixme('Login as Client without MSA', async() => {
+
+test('Login as Client without MSA', async() => {
     await loginPage.login(testData.nomsa.email , process.env.CLIENTPASSWORD);
     await clientPage.validateClientPage();
     await clientPage.logout();
