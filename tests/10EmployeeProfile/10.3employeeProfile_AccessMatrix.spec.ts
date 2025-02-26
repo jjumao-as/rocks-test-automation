@@ -97,7 +97,7 @@ rolesToTest.forEach(role => {
             };
             if (role === "WRITER") {
                 // Checking visible and enabled icon(s) on header
-                await myProfileIntPage.checkAvailableHeader(testData.allHeaderElements);
+                await myProfileIntPage.checkAvailableHeader(testData.roleWithHiddenElements);
                 // Checking available tabs below header
                 await myProfileIntPage.checkAvailableTabs(testData.contentWriterTabs);
                 // Checking visible and enabled icon(s) on header

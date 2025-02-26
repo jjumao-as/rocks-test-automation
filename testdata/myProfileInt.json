@@ -71,20 +71,20 @@
     },
     "contentWriterTabs": {
         "visible": [
-            "Performance Analysis",
-            "Checkpoint Meetings",
-            "Performance Reviews",
+           
             "Talent Profile",
             "Clients",
-            "Client Interviews",
             "Daily Report",
             "Personal",
             "Employment",
-            "Applicant Assessment Notes",
             "Change Log"
         ],
         "hidden": [
-           ""
+            "Performance Analysis",
+            "Checkpoint Meetings",
+            "Performance Reviews",
+            "Client Interviews",
+            "Applicant Assessment Notes"
         ]
     },
     "employeeTabs": {

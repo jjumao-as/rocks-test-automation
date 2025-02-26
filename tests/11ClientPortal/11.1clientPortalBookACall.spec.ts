@@ -58,6 +58,7 @@ test('Create MSA Client', async () => {
     await dashboardPage.navigateProcessWorkFlow();
     await settingsPage.editWorkFlow(testDataClient.emailDetails.clientEnabledAccess);
     await settingsPage.saveEmailTo(process.env.ZOHO_EMAIL);
+    await settingsPage.hoverShortcodeVariables()
     await homePage.logout();
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);

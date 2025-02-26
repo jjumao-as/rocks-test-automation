@@ -272,7 +272,7 @@ module.exports = {
     companyAndDateInList : "//span[@class='w-100 d-inline-block font-13']",
     copyProfileUrlBtn : "//a[contains(@title, 'Click to copy URL to clipboard')]",
     copiedToClipboardText : "//h2[contains(text(), 'Copied to clipboard')]",
-    managerName : "//*[@id='fs-page-holder-container']/div/div/aside/div/div[3]/div[2]/ul/li[1]",
+    managerName : "(//div[contains(@class, 'employee-managers')]//ul//li)[1]",
     addTeamManagerButton : "//span[contains(text(), 'Add Team Manager')]",
     managerEditButton : "(//span[contains(text(), 'Edit')])[1]",
     selectManagerInput : "//input[@class='multiselect__input']",
