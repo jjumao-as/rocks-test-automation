@@ -211,7 +211,8 @@ exports.ClientsPage = class ClientsPage {
     async validateClientPage() {
         await this.actionDriver.checkElementVisibility(clientPageLoc.dashboard);
         await this.actionDriver.checkElementVisibility(clientPageLoc.maleAvatar);
-        await this.actionDriver.checkElementVisibility(clientPageLoc.eventsHoliday);
+        /** Events Holiday is now hidden. Commenting code for possible reuse */
+        // await this.actionDriver.checkElementVisibility(clientPageLoc.eventsHoliday);
     }
 
     async logout() {

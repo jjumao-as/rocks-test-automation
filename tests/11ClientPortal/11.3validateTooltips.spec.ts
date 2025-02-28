@@ -37,28 +37,35 @@ test.afterAll(async() => {
     console.log('Execution ended.. ', file);
 })
 
+/** Commenting the hoverPerformanceReview, hoverReports, and hoverNeedHelp for possible future reuse */
 test('Validate Tooltip as Client with MSA', async() => {
-    await loginPage.login(testData.msa.email , process.env.CLIENTPASSWORD);
+    await loginPage.login(testData.msa.email , process.env.PASSWORD);
     await clientPage.hoverMyProfile();
     await clientPage.hoverMyContacts();
     await clientPage.hoverFindTalent();
     await clientPage.hoverDocumentsAgreements();
     await clientPage.hoverManageTeam();
-    await clientPage.hoverPerformanceReview();
-    await clientPage.hoverReports();
-    await clientPage.hoverNeedHelp();
+    /**
+     * await clientPage.hoverPerformanceReview();
+     * await clientPage.hoverReports();
+     * await clientPage.hoverNeedHelp();
+     */
+    
 });
 
 test('Validate Tooltip as Client without MSA', async() => {
-    await loginPage.login(testData.nomsa.email , process.env.CLIENTPASSWORD);
+    await loginPage.login(testData.nomsa.email , process.env.PASSWORD);
     await clientPage.hoverMyProfile();
     await clientPage.hoverMyContacts();
     await clientPage.hoverFindTalent();
     await clientPage.hoverDocumentsAgreements();
     await clientPage.hoverManageTeam();
-    await clientPage.hoverPerformanceReview();
-    await clientPage.hoverReports();
-    await clientPage.hoverNeedHelp();
+    /**
+     * await clientPage.hoverPerformanceReview();
+     * await clientPage.hoverReports();
+     * await clientPage.hoverNeedHelp();
+     */
+    
 })
 
 

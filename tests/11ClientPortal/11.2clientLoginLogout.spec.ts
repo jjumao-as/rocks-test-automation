@@ -58,24 +58,24 @@ test('Create Client with MSA', async() => {
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, testData.msa.email, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testData.msa, testData.employeeDetails, testData.emailDetails, testData.msa.email, process.env.PASSWORD);
 });
 
 test('Create Client without MSA', async() => {
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testData.nomsa, testData.employeeDetails, testData.emailDetails, testData.nomsa.email, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testData.nomsa, testData.employeeDetails, testData.emailDetails, testData.nomsa.email, process.env.PASSWORD);
 });
 
 test('Login as Client with MSA', async() => {
-    await loginPage.login(testData.msa.email , process.env.CLIENTPASSWORD);
+    await loginPage.login(testData.msa.email , process.env.PASSWORD);
     await clientPage.validateClientPage();
     await clientPage.logout();
 });
 
 
 test('Login as Client without MSA', async() => {
-    await loginPage.login(testData.nomsa.email , process.env.CLIENTPASSWORD);
+    await loginPage.login(testData.nomsa.email , process.env.PASSWORD);
     await clientPage.validateClientPage();
     await clientPage.logout();
 })
