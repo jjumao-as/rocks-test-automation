@@ -52,8 +52,8 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test(`Validate available pages for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.validateSideTabs(testData.activeClientPages);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.validateSideTabs(testData.withHiddenClientPages);
             //Validate Saved & Suggested if saved talent disaplyed first
             await clientPage.validateSavedSuggested(testData.saved);
             await clientPage.logout();
@@ -62,8 +62,8 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test(`Validate My Profile for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[0]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[0]);
             await clientPage.verifyURL(testData.urls.myProfile);
             await clientPage.validateMyProfilePage();
             await clientPage.navigateToHome();
@@ -73,8 +73,8 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test(`Validate My Contacts for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[1]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[1]);
             await clientPage.verifyURL(testData.urls.myContacts);
             await clientPage.validateMyContactPage();
             await clientPage.navigateToHome();
@@ -84,8 +84,8 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test(`Validate Find Talent for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[2]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[2]);
             await clientPage.verifyURL(testData.urls.findTalent);
             await clientPage.validateFindTalentPage();
             //Validate count is correct
@@ -101,8 +101,8 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test(`Validate Documents & Agreements for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[3]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[3]);
             await clientPage.verifyURL(testData.urls.documents);
             await clientPage.validateDocumentsPage();
             await clientPage.navigateToHome();
@@ -112,8 +112,8 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
 
     test(`Validate Manage Team for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[4]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[4]);
             await clientPage.verifyURL(testData.urls.manageTeam);
             await clientPage.validateManageTeamPage();
             //Validate Find and Add Talent is displayed
@@ -128,10 +128,11 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         }
     });
 
-    test(`Validate Performance Review for active client`, async () => {
+    // PERFORMANCE REVIEW hidden by dev team. Skipping test
+    test.skip(`Validate Performance Review for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[5]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[5]);
             await clientPage.verifyURL(testData.urls.performanceReview);
             await clientPage.validatePerformanceReviewPage();
             await clientPage.navigateToHome();
@@ -139,10 +140,11 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         }
     });
 
-    test(`Validate Daily Status Report for active client`, async () => {
+    // DAILY STATUS REPORT hidden by dev team. Skipping test
+    test.skip(`Validate Daily Status Report for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[6]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[6]);
             await clientPage.verifyURL(testData.urls.dailyStatusReport);
             await clientPage.validateDailyStatusPage();
             await clientPage.navigateToHome();
@@ -150,10 +152,11 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         }
     });
 
-    test(`Validate Daily Time Clock for active client`, async () => {
+    // DAILY TIME CLOCK hidden by dev team. Skipping test
+    test.skip(`Validate Daily Time Clock for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[7]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[7]);
             await clientPage.verifyURL(testData.urls.dailyTimeClock);
             await clientPage.validateDailyTimePage();
             await clientPage.navigateToHome();
@@ -161,10 +164,11 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         }
     });
 
-    test(`Validate Weekly Time Clock Reports for active client`, async () => {
+    // WEEKLY TIMECLOCK REPORTS hidden by dev team. Skipping test
+    test.skip(`Validate Weekly Time Clock Reports for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[8]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[8]);
             await clientPage.verifyURL(testData.urls.weeklyTimeClock);
             await clientPage.validateWeeklyTimePage();
             await clientPage.navigateToHome();
@@ -172,10 +176,11 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         }
     });
 
-    test(`Validate Time Clock Summary Report for active client`, async () => {
+    // TIME CLOCK SUMMARY REPORT hidden by dev team. Skipping test
+    test.skip(`Validate Time Clock Summary Report for active client`, async () => {
         for (const role of rolesToTest) {
-            await loginPage.login(testDataClient[role].email, process.env.CLIENTPASSWORD);
-            await clientPage.navigateToPage(testData.activeClientPages[9]);
+            await loginPage.login(testDataClient[role].email, process.env.PASSWORD);
+            await clientPage.navigateToPage(testData.withHiddenClientPages[9]);
             await clientPage.verifyURL(testData.urls.timeClockSummary);
             await clientPage.validateTimeClockSummaryPage();
             await clientPage.navigateToHome();

@@ -58,7 +58,10 @@ test.describe.parallel(`Validate Client Portal Pages for active client`, () => {
         await clientPage.validateLatestReport();
     });
 
-    test('Validate Weekly Time Clock Reports', async() => {
+    /** Upcoming : A validation will be added to check if Rnahid is added as Contact in Chipply
+     *  Weekly Time Clock and other reports for Chipply will be used for these tests moving forward
+     */
+    test.skip('Validate Weekly Time Clock Reports', async() => {
         await clientPage.navigateToPage(testData.activeClientPages[8]);
         //Validate user can expand weekly time clock report
         //Recent weekly report is displayed

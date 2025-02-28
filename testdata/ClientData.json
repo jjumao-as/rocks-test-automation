@@ -60,7 +60,17 @@
         "Daily Time Clock Reports",
         "Weekly Time Clock Reports",
         "Time Clock Summary Reports"
+       
     ],
+
+    "withHiddenClientPages": [
+        "My Profile",
+        "My Contacts",
+        "Find Talent",
+        "Documents & Agreements",
+        "Manage Team"       
+    ],
+
     "urls": {
         "myProfile" : "/my-profile",
         "myContacts" : "/my-contacts",

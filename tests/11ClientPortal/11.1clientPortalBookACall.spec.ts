@@ -63,7 +63,7 @@ test('Create MSA Client', async () => {
 
     await loginPage.login(process.env.ADMIN, process.env.PASSWORD);
     await manageClientsPage.navigateClientListing();
-    await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, testDataClient.msa.email, process.env.CLIENTPASSWORD);
+    await manageClientsPage.checkClientExists(testDataClient.msa, testDataClient.employeeDetails, testDataClient.emailDetails, testDataClient.msa.email, process.env.PASSWORD);
 })
 
 test('Assign Client', async() => {
@@ -76,7 +76,7 @@ test('Assign Client', async() => {
 })
 
 test('Find Talent - Book a call', async () => {
-    await loginPage.login(testDataClient.msa.email, process.env.CLIENTPASSWORD);
+    await loginPage.login(testDataClient.msa.email, process.env.PASSWORD);
     await homePage.navigateFindTalent();
     await findTalentPage.compareList(testData.talents);
     await findTalentPage.clickBookACall();
