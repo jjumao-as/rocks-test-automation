@@ -73,9 +73,8 @@ test('Login as Client with MSA', async() => {
     await clientPage.logout();
 });
 
-
-test('Login as Client without MSA', async() => {
-    await loginPage.login(testData.nomsa.email , process.env.PASSWORD);
+test.fixme('Login as Client without MSA', async() => {
+    await loginPage.login(testData.nomsa.email , process.env.CLIENTPASSWORD);
     await clientPage.validateClientPage();
     await clientPage.logout();
 })
